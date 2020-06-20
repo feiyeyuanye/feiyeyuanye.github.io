@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="资源布局," />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 动态创建布局">
+<meta property="og:url" content="http://yoursite.com/2019/03/29/Android-%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:image" content="https://imgsw.cn/static/images/akali.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/demo_dynamic.png">
+<meta property="article:published_time" content="2019-03-29T10:54:24.000Z">
+<meta property="article:modified_time" content="2020-06-18T07:44:53.846Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="资源布局">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/akali.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/29/Android-动态创建布局/"/>
+
+
+
+
+
+  <title>Android 动态创建布局 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+
+    <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非也缘也 Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/29/Android-%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/blog_portrait.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 动态创建布局</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-29T18:54:24+08:00">
+                2019-03-29
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-18T15:44:53+08:00">
+                2020-06-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">Android 知识点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/29/Android-%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/03/29/Android-%E5%8A%A8%E6%80%81%E5%88%9B%E5%BB%BA%E5%B8%83%E5%B1%80/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="https://imgsw.cn/static/images/akali.jpg" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a><p class="m_more_title_style">示例</p></h1><p>实现一个简单的布局。因为是练习，所以尽可能把方法都用到。</p>
+<img src="https://imgsw.cn/static/images/demo_dynamic.png">
+
+<p>代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> * 动态创建布局练习</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class MainActivity extends AppCompatActivity &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; 父布局</span><br><span class="line">    private  LinearLayout linearLayout;</span><br><span class="line">    private  int margin;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</span><br><span class="line">        super.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        linearLayout &#x3D; findViewById(R.id.ll_layout);</span><br><span class="line">        margin &#x3D; dp2px(this,10);</span><br><span class="line">        titleLayout();</span><br><span class="line">        topLayout();</span><br><span class="line">        commentLayout();</span><br><span class="line">        btmLayout();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 顶部的RelativeLayout布局</span><br><span class="line">     * title</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private void titleLayout() &#123;</span><br><span class="line">        &#x2F;&#x2F; title</span><br><span class="line">        RelativeLayout relativeLayout &#x3D; new RelativeLayout(this);</span><br><span class="line">        &#x2F;&#x2F; 相当余一个信息包，记录了宽，高，位置等信息。。主要用来告诉父布局，子元素应该位于什么位置。</span><br><span class="line">        &#x2F;&#x2F; 对于用哪个类，则根据父布局来决定。。是ViewGroup.LayoutParams,还是其子类RelativeLayout.LayoutParams等。</span><br><span class="line">        &#x2F;&#x2F; 这里的父布局是LinearLayout，所以使用LinearLayout.LayoutParams。</span><br><span class="line">        &#x2F;&#x2F; 两个参数，是自身的宽高。常用的三个值是；MATCH_PARENT，WRAP_CONTENT，或是固定值（px值）。</span><br><span class="line">        &#x2F;&#x2F; 这里的高度就是固定值，只是通过方法转换了一下，将dp值转换了px值。所以，只需直接传入dp值就好。</span><br><span class="line">        LinearLayout.LayoutParams rlParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dp2px(this,40));</span><br><span class="line">        relativeLayout.setLayoutParams(rlParams);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 左侧返回按钮,一般是ImageView,这里用TextView代替。</span><br><span class="line">        TextView tvReturn &#x3D; new TextView(this);</span><br><span class="line">        RelativeLayout.LayoutParams tvReturnParams &#x3D; new RelativeLayout.LayoutParams(dp2px(this,40), ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        tvReturn.setLayoutParams(tvReturnParams);</span><br><span class="line">        tvReturn.setText(&quot;返回&quot;);</span><br><span class="line">        tvReturn.setTextColor(getResources().getColor(R.color.black));</span><br><span class="line">        &#x2F;&#x2F; TextView 其内的内容居中显示。</span><br><span class="line">        tvReturn.setGravity(Gravity.CENTER);</span><br><span class="line">        relativeLayout.addView(tvReturn);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 中间的title</span><br><span class="line">        TextView tvTitle &#x3D; new TextView(this);</span><br><span class="line">        RelativeLayout.LayoutParams tvTitleParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        tvTitle.setLayoutParams(tvTitleParams);</span><br><span class="line">        tvTitle.setText(&quot;商品&quot;);</span><br><span class="line">        tvTitle.setTextColor(getResources().getColor(R.color.black));</span><br><span class="line">        tvTitle.setGravity(Gravity.CENTER);</span><br><span class="line">        relativeLayout.addView(tvTitle);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 分割线</span><br><span class="line">        View line &#x3D; new View(this);</span><br><span class="line">        &#x2F;&#x2F; 这里的父布局是RelativeLayout，所以使用RelativeLayout.LayoutParams。</span><br><span class="line">        RelativeLayout.LayoutParams lineParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dp2px(this,1));</span><br><span class="line">        &#x2F;&#x2F; 当父布局是RelativeLayout时，跟xml编码一样，可以添加相应的规则。</span><br><span class="line">        &#x2F;&#x2F; 这里是位于父布局的底部。xml中有的规则，这里也都有相应的方法，使用方式一样。</span><br><span class="line">        &#x2F;&#x2F; addRule两个参数，第一个参数是规则，第二个参数是相对元素的id值。</span><br><span class="line">        lineParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);</span><br><span class="line">        line.setLayoutParams(lineParams);</span><br><span class="line">        line.setBackgroundColor(getResources().getColor(R.color.red));</span><br><span class="line">        relativeLayout.addView(line);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 将顶部的title布局添加到父布局中</span><br><span class="line">        linearLayout.addView(relativeLayout);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 商品展示的布局，是个FrameLayout</span><br><span class="line">     * 底是张ImageView图片，右下角是个计数的TextView</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private void topLayout() &#123;</span><br><span class="line">        &#x2F;&#x2F; 商品展示</span><br><span class="line">        FrameLayout fl &#x3D; new FrameLayout(this);</span><br><span class="line">        LinearLayout.LayoutParams flParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dp2px(this,250));</span><br><span class="line">        fl.setLayoutParams(flParams);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 商品图片</span><br><span class="line">        ImageView iv &#x3D; new ImageView(this);</span><br><span class="line">        FrameLayout.LayoutParams ivParams &#x3D; new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        iv.setLayoutParams(ivParams);</span><br><span class="line">        iv.setImageResource(R.mipmap.libai);</span><br><span class="line">        fl.addView(iv);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 右下角计数的TextView</span><br><span class="line">        TextView tvIndex &#x3D; new TextView(this);</span><br><span class="line">        tvIndex.setText(&quot;1&#x2F;5&quot;);</span><br><span class="line">        tvIndex.setGravity(Gravity.CENTER);</span><br><span class="line">        FrameLayout.LayoutParams tvIndexParams &#x3D; new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        tvIndexParams.setMargins(0,0,dp2px(this,10),dp2px(this,10));</span><br><span class="line">        &#x2F;&#x2F; 帧布局的特性，会显示在图片之上。并且会位于右下角。</span><br><span class="line">        tvIndexParams.gravity&#x3D;Gravity.RIGHT|Gravity.BOTTOM;</span><br><span class="line">        tvIndex.setLayoutParams(tvIndexParams);</span><br><span class="line">        fl.addView(tvIndex);</span><br><span class="line"></span><br><span class="line">        linearLayout.addView(fl);</span><br><span class="line"></span><br><span class="line">        View lines &#x3D; new View(this);</span><br><span class="line">        lines.setBackgroundColor(getResources().getColor(R.color.red));</span><br><span class="line">        LinearLayout.LayoutParams linesParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dp2px(this,1));</span><br><span class="line">        lines.setLayoutParams(linesParams);</span><br><span class="line">        linearLayout.addView(lines);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 评论区域，是一个RelativeLayout</span><br><span class="line">     * 分点赞和评论。</span><br><span class="line">     * 点赞里，会动态创建点赞头像，并自动换行。</span><br><span class="line">     * 这里的实现方法并不好，是用垂直的LinearLayout嵌套多层横向的LinearLayout来做的；</span><br><span class="line">     * 1，垂直的LinearlLayout作为父布局</span><br><span class="line">     * 2，然后得到父布局的宽度，并根据头像的宽度，计算出一行可以放置几个头像</span><br><span class="line">     * 3，多余的头像会另起一行放置。并且每行都会新创建横向的LinearLayout来安置。</span><br><span class="line">     * 也可以使用TableLayout来实现。</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private void commentLayout() &#123;</span><br><span class="line">        &#x2F;&#x2F; 三角形</span><br><span class="line">        View triangle &#x3D; new View(this);</span><br><span class="line">        LinearLayout.LayoutParams triangleParams &#x3D; new LinearLayout.LayoutParams(dp2px(this,15),dp2px(this,15));</span><br><span class="line">        triangleParams.setMargins(dp2px(this,35),dp2px(this,5),0,0);</span><br><span class="line">        triangle.setLayoutParams(triangleParams);</span><br><span class="line">        triangle.setBackgroundResource(R.drawable.shape_triangle);</span><br><span class="line">        linearLayout.addView(triangle);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 评论区域</span><br><span class="line">        RelativeLayout commentLayout &#x3D; new RelativeLayout(this);</span><br><span class="line">        commentLayout.setBackgroundColor(getResources().getColor(R.color.bg_comment));</span><br><span class="line">        LinearLayout.LayoutParams commentLayoutParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        commentLayoutParams.setMargins(dp2px(this,20),0,dp2px(this,20),dp2px(this,20));</span><br><span class="line">        commentLayout.setLayoutParams(commentLayoutParams);</span><br><span class="line">        commentLayout.setPadding(0,margin,0,margin);</span><br><span class="line">        linearLayout.addView(commentLayout);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 点赞标识，一般是个ImageView</span><br><span class="line">        TextView tvLove&#x3D; new TextView(this);</span><br><span class="line">        RelativeLayout.LayoutParams loveParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        loveParams.setMargins(margin,0,margin,0);</span><br><span class="line">        tvLove.setLayoutParams(loveParams);</span><br><span class="line">        tvLove.setText(&quot;点赞&quot;);</span><br><span class="line">        tvLove.setTextColor(getResources().getColor(R.color.black));</span><br><span class="line">        tvLove.setId(R.id.tv_love);</span><br><span class="line">        commentLayout.addView(tvLove);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 点赞列表.</span><br><span class="line">        final LinearLayout llLike &#x3D; new LinearLayout(this);</span><br><span class="line">        RelativeLayout.LayoutParams likeParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        likeParams.addRule(RelativeLayout.RIGHT_OF,tvLove.getId());</span><br><span class="line">        likeParams.addRule(RelativeLayout.ALIGN_TOP,tvLove.getId());</span><br><span class="line">        llLike.setLayoutParams(likeParams);</span><br><span class="line">        llLike.setOrientation(LinearLayout.VERTICAL);</span><br><span class="line">        commentLayout.addView(llLike);</span><br><span class="line">        llLike.setId(R.id.like_layout);</span><br><span class="line">        &#x2F;&#x2F; 因为在onCreate()方法中，是无法直接拿到元素宽高的。</span><br><span class="line">        &#x2F;&#x2F; 实际上，都是通过调用接口之后，再来做评论区的显示，所以实际并不需要这个方法。</span><br><span class="line">        llLike.post(new Runnable() &#123;</span><br><span class="line">            @Override</span><br><span class="line">            public void run() &#123;</span><br><span class="line">                &#x2F;&#x2F; 注意每次清除子View。因为一般都会有刷新，避免每次刷新的重复添加。</span><br><span class="line">                if (llLike.getChildCount() &gt; 0)&#123;</span><br><span class="line">                    llLike.removeAllViews();</span><br><span class="line">                &#125;</span><br><span class="line">                &#x2F;&#x2F; 点赞头像的父布局宽度</span><br><span class="line">                int viewLength &#x3D; llLike.getMeasuredWidth();</span><br><span class="line">                &#x2F;&#x2F; 计算出一行能放下几个头像。。。32+5的意思，是头像宽度加上边距。</span><br><span class="line">                int index &#x3D; viewLength &#x2F; dp2px(MainActivity.this, 32 + 5);</span><br><span class="line">                int row;</span><br><span class="line">                &#x2F;&#x2F; 通过点赞集合长度，计算出有几行。</span><br><span class="line">                &#x2F;&#x2F; 正常会从服务器获取到有多少点赞，这里模拟一下，mList为点赞数据的列表。</span><br><span class="line">                List&lt;String&gt; mList &#x3D; new ArrayList&lt;&gt;();</span><br><span class="line">                for (int i&#x3D;0;i&lt;10;i++)&#123;</span><br><span class="line">                    mList.add(&quot;&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">                int listSize &#x3D; mList.size();</span><br><span class="line">                &#x2F;&#x2F; 根据余数来判断；</span><br><span class="line">                &#x2F;&#x2F; 如果余数为0，说明正好整行。如果不为0，说明有多余的，则再多添加一行。</span><br><span class="line">                &#x2F;&#x2F; 这个row就是最后有几行，而index则是每行有几个。</span><br><span class="line">                if (listSize % index &#x3D;&#x3D; 0) &#123;</span><br><span class="line">                    row &#x3D; listSize &#x2F; index;</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    row &#x3D; listSize &#x2F; index + 1;</span><br><span class="line">                &#125;</span><br><span class="line">                int count &#x3D; 0;</span><br><span class="line">                for (int i &#x3D; 0; i &lt; row; i++) &#123;</span><br><span class="line">                    &#x2F;&#x2F; 第一层循环为行，先创建横向的LinearLayout作为父布局，来安置头像。</span><br><span class="line">                    LinearLayout likeLayout &#x3D; new LinearLayout(MainActivity.this);</span><br><span class="line">                    LinearLayout.LayoutParams params &#x3D; new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);</span><br><span class="line">                    params.setMargins(0, 0, 0, dp2px(MainActivity.this, 10));</span><br><span class="line">                    likeLayout.setLayoutParams(params);</span><br><span class="line">                    likeLayout.setOrientation(LinearLayout.HORIZONTAL);</span><br><span class="line">                    for (int j &#x3D; 0; j &lt; index; j++) &#123;</span><br><span class="line">                        &#x2F;&#x2F; 第二层循环是列，每行有几列。</span><br><span class="line">                        ImageView circularImage &#x3D; new ImageView(MainActivity.this);</span><br><span class="line">                        LinearLayout.LayoutParams cirParams &#x3D; new LinearLayout.LayoutParams(dp2px(MainActivity.this, 32), dp2px(MainActivity.this, 32));</span><br><span class="line">                        cirParams.setMargins(0, 0, dp2px(MainActivity.this, 5), 0);</span><br><span class="line">                        circularImage.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">                            @Override</span><br><span class="line">                            public void onClick(View view) &#123;</span><br><span class="line"></span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                        circularImage.setLayoutParams(cirParams);</span><br><span class="line">                        circularImage.setImageResource(R.mipmap.ic_launcher_round);</span><br><span class="line">                        likeLayout.addView(circularImage);</span><br><span class="line">                        &#x2F;&#x2F; 这里的count用来计数，每次循环都加1。</span><br><span class="line">                        &#x2F;&#x2F; 当count的值等于listSize-1的值，说明已经显示了全部数据，则跳出循环。</span><br><span class="line">                        if (count &#x3D;&#x3D; listSize - 1) &#123;</span><br><span class="line">                            break;</span><br><span class="line">                        &#125; else &#123;</span><br><span class="line">                            count++;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                    llLike.addView(likeLayout);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 分割线，红色醒目</span><br><span class="line">        View spaceLines &#x3D; new View(this);</span><br><span class="line">        RelativeLayout.LayoutParams spaceLinesParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dp2px(this,1));</span><br><span class="line">        spaceLinesParams.addRule(RelativeLayout.BELOW,llLike.getId());</span><br><span class="line">        spaceLines.setLayoutParams(spaceLinesParams);</span><br><span class="line">        spaceLines.setBackgroundColor(getResources().getColor(R.color.red));</span><br><span class="line">        spaceLines.setId(R.id.space_lines);</span><br><span class="line">        commentLayout.addView(spaceLines);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 评论标识，，一般是个ImageView</span><br><span class="line">        TextView tvComment&#x3D; new TextView(this);</span><br><span class="line">        RelativeLayout.LayoutParams commentParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        commentParams.addRule(RelativeLayout.BELOW,spaceLines.getId());</span><br><span class="line">        commentParams.addRule(RelativeLayout.ALIGN_LEFT,tvLove.getId());</span><br><span class="line">        commentParams.setMargins(0,margin,margin,0);</span><br><span class="line">        tvComment.setLayoutParams(commentParams);</span><br><span class="line">        tvComment.setText(&quot;评论&quot;);</span><br><span class="line">        tvComment.setTextColor(getResources().getColor(R.color.black));</span><br><span class="line">        tvComment.setId(R.id.tv_comment);</span><br><span class="line">        commentLayout.addView(tvComment);</span><br><span class="line">        &#x2F;&#x2F; 评论内容</span><br><span class="line">        TextView textView &#x3D; new TextView(this);</span><br><span class="line">        RelativeLayout.LayoutParams textViewParams &#x3D; new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);</span><br><span class="line">        textViewParams.addRule(RelativeLayout.RIGHT_OF,tvComment.getId());</span><br><span class="line">        textViewParams.addRule(RelativeLayout.ALIGN_TOP,tvComment.getId());</span><br><span class="line">        textView.setLayoutParams(textViewParams);</span><br><span class="line">        textView.setTextColor(getResources().getColor(R.color.black));</span><br><span class="line">        textView.setText(&quot;一篇诗，一斗酒，\n一曲长歌，一剑天涯。&quot;);</span><br><span class="line">        commentLayout.addView(textView);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * 底部布局，是一个LinearLayout</span><br><span class="line">     * 左侧是价格，使用了SpannableStringBuilder</span><br><span class="line">     * 右侧是购买按钮，使用了GradientDrawable</span><br><span class="line">     *&#x2F;</span><br><span class="line">    private void btmLayout() &#123;</span><br><span class="line">        &#x2F;&#x2F; 这里使用了Space标签，目的是为了把底部的LinearLayout顶下去。</span><br><span class="line">        &#x2F;&#x2F; 因为在垂直的线性布局中，控制子元素的上下位置的属性是失效的。</span><br><span class="line">        &#x2F;&#x2F; 其实，在Linearlayout中使用weight属性，是会对它的绘制效率产生影响的。</span><br><span class="line">        Space space &#x3D; new Space(this);</span><br><span class="line">        LinearLayout.LayoutParams spaceParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 0);</span><br><span class="line">        spaceParams.weight &#x3D; 1;</span><br><span class="line">        space.setLayoutParams(spaceParams);</span><br><span class="line">        linearLayout.addView(space);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 底部布局</span><br><span class="line">        LinearLayout btmLayout &#x3D; new LinearLayout(this);</span><br><span class="line">        LinearLayout.LayoutParams btmParams &#x3D; new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,dp2px(this,40));</span><br><span class="line">        btmLayout.setLayoutParams(btmParams);</span><br><span class="line">        btmLayout.setBackgroundColor(getResources().getColor(R.color.btm_layout));</span><br><span class="line">        btmLayout.setOrientation(LinearLayout.HORIZONTAL);</span><br><span class="line">        linearLayout.addView(btmLayout);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 左侧价格显示</span><br><span class="line">        TextView price &#x3D; new TextView(this);</span><br><span class="line">        LinearLayout.LayoutParams priceParams &#x3D; new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        &#x2F;&#x2F; LinearLayout的特性，权重。</span><br><span class="line">        priceParams.weight &#x3D; 3;</span><br><span class="line">        price.setLayoutParams(priceParams);</span><br><span class="line">        price.setGravity(Gravity.CENTER_VERTICAL);</span><br><span class="line">        price.setPadding(margin,0,0,0);</span><br><span class="line">        &#x2F;&#x2F; SpannableStringBuilder,用来动态修改TextView的内容。</span><br><span class="line">        String str&#x3D;&quot;￥&quot;;</span><br><span class="line">        SpannableStringBuilder spannableStringBuilder &#x3D; new SpannableStringBuilder(str);</span><br><span class="line">        &#x2F;&#x2F; 字体颜色，SPAN_INCLUSIVE_INCLUSIVE 前面包括，后面包括。意思就是，￥和68都会应用这个颜色。</span><br><span class="line">        ForegroundColorSpan colorSpan &#x3D; new ForegroundColorSpan(Color.parseColor(&quot;#FF0000&quot;));</span><br><span class="line">        spannableStringBuilder.setSpan(colorSpan, 0, str.length(), Spannable. SPAN_INCLUSIVE_INCLUSIVE);</span><br><span class="line">        &#x2F;&#x2F; SpannableStringBuilder要追加的内容。也可不追加，使用一个SpannableString直接通过下角标来操作。</span><br><span class="line">        String strAppand &#x3D; &quot;68&quot;;</span><br><span class="line">        SpannableString spannableString &#x3D; new SpannableString(strAppand);</span><br><span class="line">        &#x2F;&#x2F; 字体大小，SPAN_EXCLUSIVE_INCLUSIVE 前面不包括，后面包括。意思就是，￥不会应用这个字体大小，68会应用。</span><br><span class="line">        AbsoluteSizeSpan absoluteSizeSpan &#x3D; new AbsoluteSizeSpan(20,true);</span><br><span class="line">        spannableString.setSpan(absoluteSizeSpan, 0, strAppand.length(), Spannable. SPAN_EXCLUSIVE_INCLUSIVE);</span><br><span class="line">        spannableStringBuilder.append(spannableString);</span><br><span class="line">        price.setText(spannableStringBuilder);</span><br><span class="line">        btmLayout.addView(price);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 右侧购买按钮</span><br><span class="line">        TextView buy &#x3D; new TextView(this);</span><br><span class="line">        LinearLayout.LayoutParams buyParams &#x3D; new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);</span><br><span class="line">        &#x2F;&#x2F; LinearLayout的特性，权重。</span><br><span class="line">        buyParams.weight &#x3D; 1 ;</span><br><span class="line">        buy.setLayoutParams(buyParams);</span><br><span class="line">        buy.setGravity(Gravity.CENTER);</span><br><span class="line">        buy.setText(&quot;购买&quot;);</span><br><span class="line">        buy.setTextColor(getResources().getColor(R.color.white));</span><br><span class="line">        btmLayout.addView(buy);</span><br><span class="line">        buy.setBackgroundResource(R.drawable.shape_use);</span><br><span class="line">        &#x2F;&#x2F; 动态设置shape的值。shape_use是一个共用的xml。</span><br><span class="line">        &#x2F;&#x2F; 注意，所有使用shape_use的位置，都要设置下面的属性来覆盖，否则会继承这些值。</span><br><span class="line">        &#x2F;&#x2F; 设置的三个属性，依次是边框，填充色，和圆角。</span><br><span class="line">        &#x2F;&#x2F; 边框为透明色，且值是0。填充色是红色。没有圆角。</span><br><span class="line">        GradientDrawable layoutDrawable &#x3D; (GradientDrawable) buy.getBackground();</span><br><span class="line">        layoutDrawable.setStroke(0,getResources().getColor(R.color.transparency));</span><br><span class="line">        layoutDrawable.setColor(getResources().getColor(R.color.red));</span><br><span class="line">        layoutDrawable.setCornerRadius(0);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;dp转px；</span><br><span class="line">    public static int dp2px(Context mContext,int dp)&#123;</span><br><span class="line">        return (int) (dp * mContext.getResources().getDisplayMetrics().density + 0.5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>xml布局文件：<br>一个空的布局。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;LinearLayout</span><br><span class="line">    xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    xmlns:tools&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;tools&quot;</span><br><span class="line">    android:layout_width&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:layout_height&#x3D;&quot;match_parent&quot;</span><br><span class="line">    android:id&#x3D;&quot;@+id&#x2F;ll_layout&quot;</span><br><span class="line">    android:orientation&#x3D;&quot;vertical&quot;</span><br><span class="line">    android:background&#x3D;&quot;@color&#x2F;white&quot;</span><br><span class="line">    tools:context&#x3D;&quot;com.example.xwxwaa.myapplication.MainActivity&quot;&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;&#x2F;LinearLayout&gt;</span><br></pre></td></tr></table></figure>
+
+<p>ids.xml文件：<br>当父布局为RelativeLayout的动态创建时，有时会需要设置id（同xml文件的android:id=”@+id/iv_back”）。则先在res-&gt;values目录下，创建ids.xml文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;tv_love&quot; type&#x3D;&quot;id&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;tv_comment&quot; type&#x3D;&quot;id&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;space_lines&quot; type&#x3D;&quot;id&quot; &#x2F;&gt;</span><br><span class="line">    &lt;item name&#x3D;&quot;like_layout&quot; type&#x3D;&quot;id&quot; &#x2F;&gt;</span><br><span class="line">&lt;&#x2F;resources&gt;</span><br></pre></td></tr></table></figure>
+
+<p>shape文件：<br>一个空的文件，在代码中会动态的去设置属性。这样可以避免大量创建简单且相似的drawable资源。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;shape xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;</span><br><span class="line">    android:shape&#x3D;&quot;rectangle&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;&#x2F;shape&gt;</span><br></pre></td></tr></table></figure>
+
+<p>shape_triangle.xml文件（三角形）；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;utf-8&quot;?&gt;</span><br><span class="line">&lt;layer-list xmlns:android&#x3D;&quot;http:&#x2F;&#x2F;schemas.android.com&#x2F;apk&#x2F;res&#x2F;android&quot;&gt;</span><br><span class="line">    &lt;item android:id&#x3D;&quot;@+id&#x2F;shape_id&quot;&gt;</span><br><span class="line">        &lt;!-- 正三角 --&gt;</span><br><span class="line">        &lt;rotate</span><br><span class="line">            android:fromDegrees&#x3D;&quot;45&quot;</span><br><span class="line">            android:toDegrees&#x3D;&quot;45&quot;</span><br><span class="line">            android:pivotX&#x3D;&quot;-40%&quot;</span><br><span class="line">            android:pivotY&#x3D;&quot;80%&quot;&gt;</span><br><span class="line">            &lt;shape android:shape&#x3D;&quot;rectangle&quot;&gt;</span><br><span class="line">                &lt;solid android:color&#x3D;&quot;#f5f5f5&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;shape&gt;</span><br><span class="line">        &lt;&#x2F;rotate&gt;</span><br><span class="line">    &lt;&#x2F;item&gt;</span><br><span class="line">&lt;&#x2F;layer-list&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注：实际上，xml中常用的方法，在动态创建时，也会有相应方法的。</p>
+<h1 id="布局特性"><a href="#布局特性" class="headerlink" title="布局特性"></a><p class="m_more_title_style">布局特性</p></h1><p>注；view代表元素（控件或布局），params代表信息包LayoutParams。</p>
+<h2 id="Fragment；"><a href="#Fragment；" class="headerlink" title="Fragment；"></a>Fragment；</h2><p>帧布局，子元素默认会显示在左上角。<br>可以通过params.gravity=Gravity.RIGHT|Gravity.BOTTOM;来控制子元素的位置。这里代表，位于右下方。</p>
+<h2 id="LinearLayout；"><a href="#LinearLayout；" class="headerlink" title="LinearLayout；"></a>LinearLayout；</h2><p>线性布局，注意使用view.setOrientation(LinearLayout.HORIZONTAL);设置布局方向。<br>还有一个特性，params.weight = 1 ;权重，所占空间比例的大小。</p>
+<h2 id="RelativeLayout；"><a href="#RelativeLayout；" class="headerlink" title="RelativeLayout；"></a>RelativeLayout；</h2><p>相对布局，可以通过addRule()方法添加规则，xml有的规则在这里都有相对应的，使用方式一样，第一个参数是规则，第二个参数是相对元素的id值。<br>params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);<br>params.addRule(RelativeLayout.RIGHT_OF,view.getId());</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li>params.setMargins(left,top,right,bottom);外边距<br>view.setPadding(left,top,right,bottom);内边距</li>
+<li>view.setBackgroundColor(getResources().getColor(R.color.white));元素设置背景颜色<br>view.setBackgroundResource(R.drawable.shape_use);元素设置资源，图片或者是xml文件</li>
+<li>关于LayoutParams，则根据父布局来选择类。如父布局是LinearLayout，则使用；<br>LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);或<br>LinearLayout.LayoutParams params = view.getLayoutParams();</li>
+<li>GradientDrawable；用来动态更改shape标签。</li>
+<li>SpannableStringBuilder；通俗来讲，可以使用一个文本，来展示不同的效果。还有SpannableString。SpannableStringBuilder与之的区别就是，它是可以追加的。</li>
+</ul>
+<p class="m_more_title_style">链接</p>
+# 传送门：[GitHub](https://github.com/feiyeyuanye/LayoutDemo "demo")
+      
+    </div>
+    
+    
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E8%B5%84%E6%BA%90%E5%B8%83%E5%B1%80/" rel="tag"><i class="fa fa-tag"></i> 资源布局</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/29/Android-%E4%BA%94%E5%A4%A7%E5%B8%83%E5%B1%80/" rel="next" title="Android 五大布局">
+                <i class="fa fa-chevron-left"></i> Android 五大布局
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/04/03/selector-shape-layer-list/" rel="prev" title="selector，shape，layer-list">
+                selector，shape，layer-list <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/blog_portrait.jpeg"
+                alt="houren" />
+            
+              <p class="site-author-name" itemprop="name">houren</p>
+              <p class="site-description motion-element" itemprop="description">不可描述</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/feiyeyuanye" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" target="_blank" title="LeetCode">
+                      
+                        <i class="fa fa-fw fa-code"></i>LeetCode</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.android.google.cn/" title="·官方平台" target="_blank">·官方平台</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jianghouren.com/2019/03/22/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5/#more" title="·资源链接" target="_blank">·资源链接</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blove7.cn/" title="·俺的相册" target="_blank">·俺的相册</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#布局特性"><span class="nav-text">布局特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Fragment；"><span class="nav-text">Fragment；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinearLayout；"><span class="nav-text">LinearLayout；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RelativeLayout；"><span class="nav-text">RelativeLayout；</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-text">其他</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+
+  
+</div>
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+        appKey: '93jN6kgGzhY5SFBSC4busiQO',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.8},"log":false,"tagMode":false});</script></body>
+</html>

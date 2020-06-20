@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+<script>
+    (function(){
+        if(''){
+            if (prompt('请输入文章密码') !== ''){
+                alert('密码错误！');
+                history.back();
+            }
+        }
+    })();
+</script>
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="性能优化," />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android 崩溃优化">
+<meta property="og:url" content="http://yoursite.com/2019/08/07/Android%20%E5%B4%A9%E6%BA%83%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:image" content="https://imgsw.cn/static/images/labixiaoxin.jpg?imageView2/2/h/350">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_bengkuiyouhua.jpg">
+<meta property="article:published_time" content="2019-08-07T01:35:10.000Z">
+<meta property="article:modified_time" content="2020-05-28T03:08:37.248Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/labixiaoxin.jpg?imageView2/2/h/350">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/07/Android 崩溃优化/"/>
+
+
+
+
+
+  <title>Android 崩溃优化 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+
+    <!-- 页面点击小红心 -->
+	<script type="text/javascript" src="/js/src/clicklove.js"></script>
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">非也缘也 Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Hello World</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/07/Android%20%E5%B4%A9%E6%BA%83%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/blog_portrait.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android 崩溃优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-07T09:35:10+08:00">
+                2019-08-07
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-05-28T11:08:37+08:00">
+                2020-05-28
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index">
+                    <span itemprop="name">Android 知识点</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/08/07/Android%20%E5%B4%A9%E6%BA%83%E4%BC%98%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/2019/08/07/Android%20%E5%B4%A9%E6%BA%83%E4%BC%98%E5%8C%96/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <img src="https://imgsw.cn/static/images/labixiaoxin.jpg?imageView2/2/h/350">
+<a id="more"></a>
+<h2 id="崩溃分类"><a href="#崩溃分类" class="headerlink" title="崩溃分类"></a><p class="m_more_title_style">崩溃分类</p></h2><p><strong>Android 的两种崩溃：</strong></p>
+<ul>
+<li>Java 崩溃：在 Java 代码中，出现了未捕获异常，导致程序异常退出。</li>
+<li>Native 崩溃：一般是因为在 Native 代码中访问非法地址，也可能是地址对齐出现了问题，或者发生了程序主动 abort（异常终止一个进程），这些都会产生相应的 signal 信号，导致程序异常退出。</li>
+</ul>
+<hr>
+<h2 id="Native-崩溃"><a href="#Native-崩溃" class="headerlink" title="Native 崩溃"></a><p class="m_more_title_style">Native 崩溃</p></h2><p><strong>建议先阅读<a href="https://mp.weixin.qq.com/s/g-WzYF3wWAljok1XjPoo7w?" target="_blank" rel="noopener">《Android 平台 Native 代码的崩溃捕获机制及实现》</a>来了解一些 Native 崩溃的基本知识。</strong><br><strong>Native 崩溃的捕获流程：</strong></p>
+<ul>
+<li>编译端：编译 C/C++ 代码时，需要将带符号信息的文件保留下来。</li>
+<li>客户端：捕获到崩溃时，将收集到尽可能多的有用信息写入日志文件，然后选择合适的时机上传到服务器。</li>
+<li>服务端：读取客户端上报的日志文件，寻找适合的符号文件，生成可读的 C/C++ 调用栈。<img src="https://imgsw.cn/static/images/android_bengkuiyouhua.jpg">
+
+</li>
+</ul>
+<p><strong>Native 崩溃捕获的难点：</strong><br>上述三个流程中，最核心的在于怎样保证客户端在各种极端情况下依然可以生成崩溃日志。（因为在崩溃时，程序会处于一个不安全的状态，如果处理不当，非常容易发生二次崩溃。）</p>
+<p>生成崩溃日志时的一些比较棘手的情况：</p>
+<ul>
+<li><strong>文件句柄泄露，导致创建日志文件失败：（一个句柄，就是一个名字, 以便记住正处理的名字, 并隐藏某些缓存等的复杂性。）</strong><br>应对方式：需要提前申请文件句柄 fd 预留，防止出现这种情况。（在内核中，每一个进程都有一个私有的”打开文件表”，这个表是一个指针数组，每一个元素都指向一个内核的打开文件对象。而fd，就是这个表的下标。）</li>
+<li><strong>因为栈溢出了，导致日志生成失败。</strong><br>应对方式：为防止栈溢出导致进程没有空间创建调用栈执行处理函数，通常会使用常见的 signalstack（使用单独的信号堆栈） 。在一些特殊情况下，可能还需要直接替换当前栈，所以这里也需要在堆中预留部分空间。</li>
+<li><strong>整个堆的内存都耗尽了，导致日志生成失败。</strong><br>应对方式：这个时候无法安全地分配内存，也不敢使用 stl 或者 libc 的函数，因为它们内部实现会分配堆内存。这个时候如果继续分配内存，会导致出现堆破坏或者二次崩溃的情况。（ libc 和 stl 是一个应用于 C 语言编程的函数库）</li>
+<li><strong>堆破坏或者二次崩溃导致日志生成失败。</strong><br>应对方式：Breakpad 会从原进程 fork 出子进程去收集崩溃现场，此外涉及 Java 相关的，一般也会用子进程去操作。这样即使出现二次崩溃，只是这部分的信息丢失，父进程后面还可以继续获取其它的信息。在一些特殊情况下，还可能需要从子进程 fork 出孙进程。<br>一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己。</li>
+</ul>
+<hr>
+<h2 id="崩溃率"><a href="#崩溃率" class="headerlink" title="崩溃率"></a><p class="m_more_title_style">崩溃率</p></h2><p>如何客观地衡量崩溃：<br>崩溃就是程序出现异常，而崩溃率是衡量一个应用质量高低的基本指标。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * UV 是指通过互联网访问、浏览这个网页的人。访问网站的一台电脑客户端为一个访客。00:00-24:00内相同的客户端只被计算一次。</span></span><br><span class="line"><span class="comment"> * PV 即页面浏览量或点击量，用户每一次对网站中的每个网页访问均被记录一个 PV。用户对同一页面的多次访问，访问量累计，用以衡量网站用户访问的网页数量。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">UV 崩溃率 = 发生崩溃的 UV / 登录 UV</span><br></pre></td></tr></table></figure>
+<p>还可以去看应用 PV 崩溃率、启动崩溃率、重复崩溃率这些指标，计算方法都大同小异。<br>关于启动崩溃率，还涉及到一种<a href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247488429&idx=1&sn=448b414a0424d06855359b3eb2ba8569&source=41#wechat_redirect" target="_blank" rel="noopener">《安全模式》</a>的技术来保障客户端的启动流程。</p>
+<hr>
+<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a><p class="m_more_title_style">稳定性</p></h2><p>如何客观地衡量稳定性：<br>处理了崩溃，有时还要处理 ANR 的问题：</p>
+<ul>
+<li><strong>使用 FileObserver 监听 /data/anr/traces.txt 的变化。</strong><br>但很多高版本的 ROM，已经没有读取这个文件的权限了。海外可以使用 Google Play服务。国内微信利用<a href="https://mp.weixin.qq.com/s/9Z8j3Dv_5jgf7LDQHKA0NQ?" target="_blank" rel="noopener">《Hardcoder》</a>框架向厂商获取了更大权限。</li>
+<li><strong>监控消息队列的运行时间。</strong><br>这个方案无法准确的判断是否真正出现了 ANR 异常，也无法得到完整的 ANR 日志。或许，更应该放到卡顿的性能范畴。</li>
+</ul>
+<p>有哪些应用退出的情形：</p>
+<ul>
+<li>主动自杀。Process.killProcess()、exit()等。</li>
+<li>崩溃。出现了 Java 或 Native 崩溃。</li>
+<li>系统重启。系统出现异常、断电、用户主动重启等，可通过比较应用开机运行时间是否比之前记录的值小。</li>
+<li>被系统杀死。被 low memory killer 杀掉、从系统的任务管理器中划掉等。</li>
+<li>ANR。</li>
+</ul>
+<p>可以在应用启动时设定一个标志，在主动自杀或崩溃后更新日志，这样下次启动时通过检测这个标志就能确认运行期间是否发生过异常退出。</p>
+<p>还有一个指标来衡量应用的稳定性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 异常率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">UV 异常率 = 发生异常退出或崩溃的 UV / 登录 UV</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="崩溃现场"><a href="#崩溃现场" class="headerlink" title="崩溃现场"></a><p class="m_more_title_style">崩溃现场</p></h2><p><strong>崩溃信息</strong></p>
+<ul>
+<li>进程名，线程名。崩溃的进程是前台进程还是后台进程，崩溃是不是发生在 UI 线程。</li>
+<li>崩溃堆栈和类型。崩溃是属于 Java 崩溃、 Native 崩溃，还是 ANR，对于不同类型的崩溃要关注的点也不太一样。特别需要看崩溃堆栈的栈顶，看具体崩溃在系统的代码，还是自己的代码里。</li>
+</ul>
+<p><strong>系统信息</strong></p>
+<ul>
+<li>Logcat。这里包括应用，系统的运行日志。由于系统权限问题，获取到的 Logcat 可能只包含与当前 App 相关的。其中系统的 event logcat 会记录 App 运行的一些基本情况，记录在文件 /system/etc/event-log-tags 中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">system logcat:</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> D dalvikvm: Trying to load lib ... </span><br><span class="line">event logcat:</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_on_resume_called: 生命周期</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_low_memory: 系统内存不足</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_destroy_activity: 销毁 Activty</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.888</span> <span class="number">21430</span> <span class="number">21430</span> I am_anr: ANR 以及原因</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.888</span> <span class="number">21430</span> <span class="number">21430</span> I am_kill: APP 被杀以及原因</span><br></pre></td></tr></table></figure></li>
+<li>机型、系统、厂商、CPU、ABI（应用程序二进制接口）、Linux 版本等。</li>
+<li>设备状态。是否 root 、是否是模拟器。一些问题是由 Xposed框架 或多开软件造成，对这部分问题要区别对待。</li>
+</ul>
+<p><strong>内存信息</strong></p>
+<ul>
+<li>系统剩余内存。关于系统内存状态，可以直接读取文件 /proc/meminfo。当系统可用内存很小（低于 MemTotal 的 10%，MemTotal 对应当前系统中可以使用的物理内存）时，OOM、大量 GC、系统频繁自杀拉起等问题都非常容易出现。</li>
+<li>应用使用内存。包括 Java 内存、RSS（实际使用物理内存，包含共享库占用的全部内存）、PSS（实际使用的物理内存，比例分配共享库占用的内存，按照进程数等比例划分），可以得出应用本身内存的占用大小和分布。PSS 和 RSS 通过 /proc/self/smap 计算，可以进一步得到例如 apk、dex、so 等更加详细的分类统计。</li>
+<li>虚拟内存。虚拟内存可以通过 /proc/self/status 得到，通过 /proc/self/maps 文件可以得到具体的分布情况。有时一般不太重视虚拟内存，但是很多类似 OOM、tgkill 等问题都是虚拟内存不足导致的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Name:     com.sample.name   <span class="comment">// 进程名</span></span><br><span class="line">FDSize:   <span class="number">800</span>               <span class="comment">// 当前进程申请的文件句柄个数</span></span><br><span class="line">VmPeak:   <span class="number">3004628</span> kB        <span class="comment">// 当前进程的虚拟内存峰值大小</span></span><br><span class="line">VmSize:   <span class="number">2997032</span> kB        <span class="comment">// 当前进程的虚拟内存大小</span></span><br><span class="line">Threads:  <span class="number">600</span>               <span class="comment">// 当前进程包含的线程个数</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>资源信息</strong><br>有时会发现应用堆内存和设备内存都非常充足，还是会出现内存分配失败的情况，这跟资源泄露可能有比较大的关系。</p>
+<ul>
+<li>文件句柄 fd。文件句柄的限制可以通过 /proc/self/limits 获得，一般单个进程允许打开的最大文件句柄个数为 1024 。但是在超过 800 个时就比较危险，需要将所有的 fd 以及对应的文件名输出到日志中，进一步排查是否出现了有文件或者线程泄露。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">opened files count <span class="number">812</span>:</span><br><span class="line"><span class="number">0</span> -&gt; /dev/<span class="keyword">null</span></span><br><span class="line"><span class="number">1</span> -&gt; /dev/log/main4 </span><br><span class="line"><span class="number">2</span> -&gt; /dev/binder</span><br><span class="line"><span class="number">3</span> -&gt; /data/data/com.crash.sample/files/test.config</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>线程数<br>当前线程数大小可以通过上面的 status 文件得到，一个线程可能就占 2MB 的虚拟内存，过多的线程会对虚拟内存和文件句柄带来压力。当线程数超过 400 个就比较危险。需要将所有的线程 id 以及对应的线程名输出到日志中，进一步排查是否出现了线程相关的问题。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">threads count <span class="number">412</span>:               </span><br><span class="line"><span class="number">1820</span> com.sample.crashsdk                         </span><br><span class="line"><span class="number">1844</span> ReferenceQueueD                                             </span><br><span class="line"><span class="number">1869</span> FinalizerDaemon   </span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>JNI。使用 JNI 时，如果不注意很容易出现引用失败、引用爆表等一些崩溃。可通过 DumpReferenceTables 统计 JNI 的引用表，进一步分析是否出现了 JNI 泄露等问题。</li>
+</ul>
+<p><strong>应用信息</strong></p>
+<ul>
+<li>崩溃场景：崩溃发生在哪个 Activity 或 Fragment，发生在哪个业务里。</li>
+<li>关键操作路径：不同于开发过程中详细的打点日志，可以记录关键的用户操作路径，这对复现崩溃会有比较大的帮助。</li>
+<li>其它自定义信息：不同的应用关心的重点可能不太一样。此外例如运行时间、是否加载了补丁、是否是全新安装或升级等信息也非常重要。</li>
+<li>除了上面这些通用信息外，针对特定的一些崩溃，可能还需要获取类似磁盘空间、电量、网络使用等特定信息。</li>
+</ul>
+<hr>
+<h2 id="崩溃分析"><a href="#崩溃分析" class="headerlink" title="崩溃分析"></a><p class="m_more_title_style">崩溃分析</p></h2><p><strong>确定重点</strong></p>
+<ul>
+<li>确定严重程度：优先解决 Top 崩溃或对业务有重大影响的。</li>
+<li>崩溃基本信息：确定崩溃的类型和异常描述，对崩溃有大致的判断。<ul>
+<li>Java 崩溃。Java 崩溃类型比较明显。</li>
+<li>Native 崩溃。需要观察 signal（<a href="https://www.mkssoftware.com/docs/man5/siginfo_t.5.asp" target="_blank" rel="noopener">《崩溃信号介绍》</a>，比较常见的有 SIGSEGV 和 SIGABRT，前者一般由于空指针、非法指针造成，后者主要因为 ANR 和调用 abort()退出所导致。）、code、fault addr等内容，以及崩溃时 Java 的堆栈。</li>
+<li>ANR。先看主线程堆栈，是否因为锁等待导致。接着看 ANR 日志中 iowait 、CPU、GC、system server 等信息，进一步确定是 I/O 问题，或是 CPU 竞争问题，还是由于大量 GC 导致卡死。</li>
+</ul>
+</li>
+<li>Logcat：当从一条崩溃日志中无法看出问题的原因，或者得不到有用信息时，建议查看相同崩溃点下的更多崩溃日志。</li>
+<li>各个资源情况：结合崩溃的基本信息，查看是否跟内存信息或是资源信息有关。比如物理内存不足、虚拟内存不足，还是文件句柄 fd 泄露。</li>
+<li>无论是资源文件还是 Logcat，内存与线程相关的信息都需要特别注意，很多崩溃都是由于它们使用不当造成的。</li>
+</ul>
+<p><strong>查找共性</strong><br>机型、系统、ROM、厂商、ABI，这些采集到的系统信息都可以作为维度聚合。共性问题例如是否只出现在某款机型，或是某个版本。应用信息也可以作为维度来聚合，比如正在打开的链接、正在播放的视频、国家、地区等。</p>
+<p><strong>尝试复现</strong><br>在稳定的复现路径上面，可以采用增加日志或使用 Debugger、GDB 等各种各样的手段或工具做进一步分析。</p>
+<p><strong>疑难问题：系统崩溃</strong></p>
+<ul>
+<li>查找可能原因：通过共性归类，查看是某个系统版本的问题，还是某个厂商特定 ROM 的问题。虽然崩溃日志可能没有自己的代码，但通过操作路径和日志，可以找到一些怀疑的点。</li>
+<li>尝试规避：查看可疑的代码调用，是否使用了不恰当的 API，是否可以更换其他的实现方式规避。</li>
+<li>Hook 解决：可分为 Java Hook 和 Native Hook。</li>
+</ul>
+<hr>
+<p><strong>获得 Logcat 和 Java 堆栈的方法</strong><br>获取 Logcat：<br>logcat 日志流程：应用层–&gt;liblog.so–&gt;logd，底层使用 ring buffer 来存储数据。</p>
+<ul>
+<li>通过 logcat 命令获取。<br>优点：非常简单，兼容性好。<br>缺点：整个链路比较长，可控性差，失败率高，特别是堆破坏或者堆内存不足时，基本会失败。</li>
+<li>hook liblog.so 实现。通过 hook liblog.so 中 __android_log_buf_write 方法，将内容重定向到自己的 buffer 中。<br>优点：简单，兼容性相对还好。<br>缺点：要一直打开。</li>
+<li>自定义获取代码。通过移植底层获取 logcat 的实现，通过 socket 直接跟 logd 交互。<br>优点：比较灵活，预先分配好资源，成功率也比较高。<br>缺点：实现非常复杂</li>
+</ul>
+<p>获取 Java 堆栈：<br>native 崩溃时，通过 unwind 只能拿到 Native 堆栈。我们希望可以拿到当时各个线程的 Java 堆栈</p>
+<ul>
+<li>Thread.getAllStackTraces()。<br>优点：简单，兼容性好。<br>缺点：<ul>
+<li>成功率不高，依靠系统接口在极端情况也会失败。</li>
+<li>7.0 之后这个接口是没有主线程堆栈。</li>
+<li>使用 Java 层的接口需要暂停线程</li>
+</ul>
+</li>
+<li>hook libart.so。通过 hook ThreadList 和 Thread 的函数，获得跟 ANR 一样的堆栈。为了稳定性，我们会在 fork 子进程执行。<br>优点：信息很全，基本跟 ANR 的日志一样，有 native 线程状态，锁信息等等。<br>缺点：黑科技的兼容性问题，失败时可以用 Thread.getAllStackTraces() 兜底</li>
+</ul>
+<p>获取 Java 堆栈的方法还可以用在卡顿时，因为使用 fork 进程，所以可以做到完全不卡主进程。</p>
+<hr>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><p class="m_more_title_style">链接</p></h2><p><strong>参考资料：</strong><br><a href="https://time.geekbang.org/column/intro/142?code=BoHaFtvdLwqi5oAhvaQpHa440OBxaicg-o5HhgsJGLw%3D" target="_blank" rel="noopener">极客时间-Android开发高手课</a></p>
+
+      
+    </div>
+    
+    
+    
+
+<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:16px;">-------------本文结束-------------</div>
+    
+</div>
+  
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 性能优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/28/Web-CSS%E5%9F%BA%E7%A1%80/" rel="next" title="Web-CSS基础">
+                <i class="fa fa-chevron-left"></i> Web-CSS基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/13/Android%20%E5%8D%A1%E9%A1%BF%E4%BC%98%E5%8C%96/" rel="prev" title="Android 卡顿优化">
+                Android 卡顿优化 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/blog_portrait.jpeg"
+                alt="houren" />
+            
+              <p class="site-author-name" itemprop="name">houren</p>
+              <p class="site-description motion-element" itemprop="description">不可描述</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">98</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/feiyeyuanye" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" target="_blank" title="LeetCode">
+                      
+                        <i class="fa fa-fw fa-code"></i>LeetCode</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.android.google.cn/" title="·官方平台" target="_blank">·官方平台</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://jianghouren.com/2019/03/22/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5/#more" title="·资源链接" target="_blank">·资源链接</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://blove7.cn/" title="·俺的相册" target="_blank">·俺的相册</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃分类"><span class="nav-text">崩溃分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Native-崩溃"><span class="nav-text">Native 崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃率"><span class="nav-text">崩溃率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#稳定性"><span class="nav-text">稳定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃现场"><span class="nav-text">崩溃现场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#崩溃分析"><span class="nav-text">崩溃分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-text">链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+
+  
+</div>
+
+
+ 
+
+
+
+ 
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+        appKey: '93jN6kgGzhY5SFBSC4busiQO',
+        placeholder: 'ヾﾉ≧∀≦)o来啊，快活啊!',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.8},"log":false,"tagMode":false});</script></body>
+</html>
