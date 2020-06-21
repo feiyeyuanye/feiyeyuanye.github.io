@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="软件开发工具配置">
+<meta property="og:url" content="https://jianghouren.com/archives/86b9f0ef.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/wufayiqixuexi.webp?imageView2/2/h/350">
+<meta property="article:published_time" content="2019-12-31T05:27:52.000Z">
+<meta property="article:modified_time" content="2020-06-21T02:19:23.456Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="资源配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/wufayiqixuexi.webp?imageView2/2/h/350">
+
+<link rel="canonical" href="https://jianghouren.com/archives/86b9f0ef.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>软件开发工具配置 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/86b9f0ef.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          软件开发工具配置
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-31 13:27:52" itemprop="dateCreated datePublished" datetime="2019-12-31T13:27:52+08:00">2019-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-21 10:19:23" itemprop="dateModified" datetime="2020-06-21T10:19:23+08:00">2020-06-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">资源配置</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/86b9f0ef.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/86b9f0ef.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://imgsw.cn/static/images/wufayiqixuexi.webp?imageView2/2/h/350">
+
+<a id="more"></a>
+
+<h2 id="MAC-配置"><a href="#MAC-配置" class="headerlink" title="MAC 配置"></a><Center style="color:rgb(195,176,145);">MAC 配置</Center></h2><p><strong>快捷键</strong>：</p>
+<p>切换相同软件：command + ·</p>
+<p>开启多个 QQ：打开 QQ，command + N</p>
+<p>浏览器快捷键：</p>
+<table>
+<thead>
+<tr>
+<th align="left">关闭浏览器</th>
+<th>command + Q</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">关闭浏览器当前页</td>
+<td>command + W</td>
+</tr>
+<tr>
+<td align="left">刷新浏览器当前页</td>
+<td>command + R</td>
+</tr>
+<tr>
+<td align="left">打开浏览器新窗口</td>
+<td>command + N</td>
+</tr>
+<tr>
+<td align="left">打开浏览器新页面</td>
+<td>command + T</td>
+</tr>
+<tr>
+<td align="left">打开浏览器历史记录</td>
+<td>command + Y</td>
+</tr>
+<tr>
+<td align="left">切换浏览器标签页</td>
+<td>command + shift + 左右括号（左右方向键）</td>
+</tr>
+<tr>
+<td align="left">切换浏览器标签页</td>
+<td>control + tab（前进）</td>
+</tr>
+<tr>
+<td align="left">切换浏览器标签页</td>
+<td>control + shift + tab（后退）</td>
+</tr>
+<tr>
+<td align="left">切换到指定标签页</td>
+<td>command + 数字键</td>
+</tr>
+<tr>
+<td align="left">全屏</td>
+<td>control + command +F</td>
+</tr>
+</tbody></table>
+<p><strong>文档快捷键：</strong></p>
+<table>
+<thead>
+<tr>
+<th>隐藏/显示隐藏文档</th>
+<th>command + shift + .</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>删除一行</td>
+<td>command + delete</td>
+</tr>
+<tr>
+<td>复制一行</td>
+<td>control + shift + A</td>
+</tr>
+<tr>
+<td>删除后一个字符</td>
+<td>fn + delete</td>
+</tr>
+<tr>
+<td>光标移到最前</td>
+<td>control + A</td>
+</tr>
+<tr>
+<td>光标移到最后</td>
+<td>control + E</td>
+</tr>
+<tr>
+<td>光标移到上一行</td>
+<td>control + P</td>
+</tr>
+<tr>
+<td>光标移到下一行</td>
+<td>control + N</td>
+</tr>
+<tr>
+<td>从光标处开始删除，直到行尾</td>
+<td>control + K</td>
+</tr>
+<tr>
+<td>选中一行或一段</td>
+<td>command + shift + 方向键</td>
+</tr>
+</tbody></table>
+<p><strong>软件下载</strong>：</p>
+<p><a href="https://mp.weixin.qq.com/s/zjHREYd73t3k4AuFQoLZzw" target="_blank" rel="noopener external nofollow noreferrer">一篇文章带你登顶 MacBook高效工作环境配置</a><br><a href="https://mp.weixin.qq.com/s/n1FIHy7D0kTKnUjGl_q8_A" target="_blank" rel="noopener external nofollow noreferrer">牛人的常用软件大公开！</a><br><a href="https://mp.weixin.qq.com/s/8Nfj8Bi8s1GmaOrnJsIIzA" target="_blank" rel="noopener external nofollow noreferrer">2020，搞个 Mac 玩玩！</a><br><a href="https://mp.weixin.qq.com/s?__biz=MzA4Nzg0MDM5Nw==&mid=2247484411&amp;idx=1&amp;sn=6509299712e85a18a335e4957e463706&source=41#wechat_redirect" target="_blank" rel="noopener external nofollow noreferrer">软件推荐</a></p>
+<p><a href="https://www.zhinin.com/" target="_blank" rel="noopener external nofollow noreferrer">知您网</a></p>
+<ul>
+<li><a href="https://www.macbartender.com/" target="_blank" rel="noopener external nofollow noreferrer">状态栏管理 Bartender</a></li>
+<li>白噪音 Noizio：商店有下</li>
+<li><a href="https://github.com/getlantern" target="_blank" rel="noopener external nofollow noreferrer">蓝灯</a></li>
+<li>Termius（SSH）：商店有下</li>
+<li>SecureCRT（SSH）:</li>
+<li>Transmit（SFTP）：</li>
+<li>Dash：</li>
+<li>Charles（抓包工具）：</li>
+<li>Sourcetree（版本控制）：</li>
+<li><a href="https://www.wireshark.org/download.html" target="_blank" rel="noopener external nofollow noreferrer">wireshark（抓包工具）</a></li>
+<li><a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener external nofollow noreferrer">Intellij IDEA</a></li>
+<li><a href="https://code.visualstudio.com/?wt.mc_id=DX_841432" target="_blank" rel="noopener external nofollow noreferrer">Visual Studio Code</a></li>
+<li><a href="https://www.navicat.com.cn/products" target="_blank" rel="noopener external nofollow noreferrer">Navicat（数据库管理）</a></li>
+<li>XMind（思维导图）</li>
+</ul>
+<h3 id="Alfred"><a href="#Alfred" class="headerlink" title="Alfred"></a><Center style="color:rgb(195,176,145);">Alfred</Center></h3><p><strong>配置</strong>：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/5b3f98b1f7b6" target="_blank" rel="noopener external nofollow noreferrer">https://www.jianshu.com/p/5b3f98b1f7b6</a></li>
+<li><a href="https://www.jianshu.com/p/e9f3352c785f" target="_blank" rel="noopener external nofollow noreferrer">https://www.jianshu.com/p/e9f3352c785f</a></li>
+<li><a href="https://www.jianshu.com/p/0e78168da7ab" target="_blank" rel="noopener external nofollow noreferrer">https://www.jianshu.com/p/0e78168da7ab</a></li>
+<li><a href="https://hufangyun.com/2018/alfred-workflow-recommend/" target="_blank" rel="noopener external nofollow noreferrer">https://hufangyun.com/2018/alfred-workflow-recommend/</a></li>
+</ul>
+<p><strong>快捷键</strong>：</p>
+<p>使用终端：&gt;</p>
+<p>查找文件：空格</p>
+<p>查看剪贴板：option + command + c</p>
+<hr>
+<h2 id="Windows-配置"><a href="#Windows-配置" class="headerlink" title="Windows 配置"></a><Center style="color:rgb(195,176,145);">Windows 配置</Center></h2><p><strong>软件下载</strong>：</p>
+<ul>
+<li>Android 工具下载<ul>
+<li><a href="https://developer.android.google.cn/studio/" target="_blank" rel="noopener external nofollow noreferrer">AS下载</a></li>
+<li><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="noopener external nofollow noreferrer">JDK下载</a></li>
+<li><a href="https://jingyan.baidu.com/article/6dad5075d1dc40a123e36ea3.html" target="_blank" rel="noopener external nofollow noreferrer">JDK环境配置</a></li>
+</ul>
+</li>
+<li><a href="https://www.androiddevtools.cn/" target="_blank" rel="noopener external nofollow noreferrer">androiddevtools</a></li>
+<li><a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener external nofollow noreferrer">jetbrains</a></li>
+<li>[Xftp,Xshll]</li>
+</ul>
+<hr>
+<h2 id="Android-Studio-配置"><a href="#Android-Studio-配置" class="headerlink" title="Android Studio 配置"></a><Center style="color:rgb(195,176,145);">Android Studio 配置</Center></h2><p>代码补全功能，不仅可以补全代码，还会自动导包。</p>
+<p><strong>配置</strong>：<br><a href="https://mp.weixin.qq.com/s/WwwMtYckUxKwBvB9d7TMlQ" target="_blank" rel="noopener external nofollow noreferrer">插件</a></p>
+<p><strong>快捷键</strong>：</p>
+<p>打开 Logcat：command + 6</p>
+<p><strong>模拟器</strong>：</p>
+<p>右上角：AVD Manager</p>
+<p><strong>日志</strong>：</p>
+<p>AS 中推荐使用 Log，而不是 Java 的 System.out.println();( 快捷输入 sout)，也不是 Kotlin 的 println()，因为它们的缺点，比如日志开关不可控制、不能添加日志标签、日志没有级别区分等。</p>
+<p>打开日志，右上角，系统提供的过滤器有 3 个：Show only selected application 表示只显示当前选中程序的日志，Firebase 是 Google 提供的一个开发者工具和基础架构平台(不用管它)，No Filters 相当于没有过滤器，会把所有日志都显示出来。Edit Filter Configuration 是自定义过滤器。</p>
+<p>关键字过滤：支持正则表达式。</p>
+<p>日志有 5 个级别，从低到高为：v 代表意义最小最琐碎的信息，d 代表调试信息，i 代表比较重要的数据，w 代表一些警告信息，E 代表错误信息。高级别可显示高级别及以下低级别的日志信息，低级别不可显示高于它级别的日志信息。</p>
+<p><strong>创建 Project</strong></p>
+<p>Add No Activity / Empty Activity</p>
+<p>勾选 Generate Layout File 表示会自动为 Activity 创建一个对应的布局文件<br>勾选 Launcher Activity 表示会自动将 Activity 设置为当前项目的主 Activity</p>
+<p><strong>AndroidX</strong></p>
+<p>按照官方文档说明 AndroidX 是对 android.support.xxx 包的整理后产物。由于之前的 support 包过于混乱，所以，Google 推出了AndroidX。（support 包在 28 之后便不再更新了）</p>
+<p>在 AS 3.5 之后，新建项目默认使用 Android X。这对应着<strong>gradle.properties文件里</strong>这两句话：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 表示当前项目启用 AndroidX</span><br><span class="line">android.useAndroidX=true</span><br><span class="line"># Automatically convert third-party libraries to use AndroidX</span><br><span class="line"># 表示将依赖包(support包)也迁移到AndroidX 。如果取值为 false ,表示不迁移依赖包到AndroidX，但在使用依赖包中的内容时可能会出现问题，如果项目中没有使用任何三方依赖，那么，此项可以设置为 false</span><br><span class="line">android.enableJetifier=true</span><br></pre></td></tr></table></figure>
+
+<p>AppCompatActivity 是 AndroidX 中提供的一种向下兼容的 Activity，可以使 Activity 在不同系统版本中的功能保持一致。AppCompatActivity 是 Activity 的子类。</p>
+<p><a href="https://developer.android.com/guide/topics/ui/layout/recyclerview?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">RecyclerView(谷歌)</a></p>
+<p><a href="https://github.com/googlearchive/android-viewpager2" target="_blank" rel="noopener external nofollow noreferrer">ViewPager2</a></p>
+<p><strong>MAC 下 SDK 访问：</strong></p>
+<p>查看 SDK 所在目录：</p>
+<p>1、Android Studio -&gt; Preferences… -&gt; System Settings -&gt; Adnroid SDK 可以看到 SDK 的目录所在</p>
+<p>2、Tools -&gt; SDK Manager 可以看到 SDK 的目录所在</p>
+<p>Library 文件夹默认隐藏的：</p>
+<p>Mac系统一共有3个资源库文件夹</p>
+<ul>
+<li>分别位于 <code>/Library</code>、<code>/System/Library</code> 和 <code>/Users/你自己的用户名/Library</code> 下，中文名都是资源库。</li>
+<li><code>/Library</code> 指的是 <code>Macintosh</code> 下的资源库文件夹，也即根目录下的，这里的资源库是整个系统所有用户共享的资源库，需要权限才可写入</li>
+<li><code>/System/Library</code> 指的是 <code>Macintosh-系统-资源库</code>，这里的资源库是系统使用的资源，一般与用户关系不大</li>
+<li><code>/Users/你自己的用户名/Library</code> 指的是 <code>Macintosh-用户-用户名-资源库</code>，这里的资源库是当前用户使用的资源库，其它用户无法访问</li>
+</ul>
+<p>这里是第三种情况：访达 -&gt; ‘“访达偏好设置” -&gt; 通用 -&gt;  勾选硬盘选项 -&gt; 点击桌面硬盘图标 -&gt; 用户 -&gt; 用户名 -&gt; 显示隐藏文件夹 -&gt; 资源库 -&gt; Android -&gt; sdk。</p>
+<p>shift + command + 。显示隐藏的文件夹</p>
+<p><strong>配置 adb 环境的方法</strong>（但每次重启终端失效，可谷歌查永久方法。）</p>
+<p>一、首先需要安装 android-sdk，查看 sdk 目录下是否有 tools 和 platform-tools；</p>
+<p>二、回到主目录，检查是否有bash_profile文件，如果没有需要新建，具体命令和步骤如下：</p>
+<ol>
+<li><p>回到主目录 cd ￥HOME</p>
+</li>
+<li><p>检查是否有bash_profile，open -e .bash_profile; 如果没有，需要新建一个 touch .bash_profile</p>
+</li>
+<li><p>进入此文件的编译界面 open -e .bash_profile，输入如下命令</p>
+<ul>
+<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/platform-tools;</li>
+<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/tools;</li>
+</ul>
+</li>
+</ol>
+<p>三、保存文件并关闭</p>
+<p>四、刷新文件bash_profile，输入命令source .bash_profile</p>
+<p>五、输入adb devices 检查是否配置成功</p>
+<p><strong>指定 DNS 来启动模拟器</strong>：（我是用来解决模拟器无网络问题，模拟器默认的 DNS 和电脑的值不一致。）</p>
+<p>cd 到指定目录：cd /Users/jianghouren/Library/Android/sdk/emulator</p>
+<p>输入命令：./emulator -avd Pixel_API_29 -dns-server 192.168.1.1（可通过网络偏好设置的高级设置里查看 DNS 值，可通过用户名/.android/avd 查看模拟器名称）</p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/86b9f0ef.html" title="软件开发工具配置">https://jianghouren.com/archives/86b9f0ef.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B5%84%E6%BA%90%E9%85%8D%E7%BD%AE/" rel="tag"><i class="fa fa-tag"></i> 资源配置</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/d0dc449b.html" rel="prev" title="OkHttp 使用">
+      <i class="fa fa-chevron-left"></i> OkHttp 使用
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/2efded73.html" rel="next" title="OkHttp 源码">
+      OkHttp 源码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MAC-配置"><span class="nav-number">1.</span> <span class="nav-text">MAC 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Alfred"><span class="nav-number">1.1.</span> <span class="nav-text">Alfred</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Windows-配置"><span class="nav-number">2.</span> <span class="nav-text">Windows 配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Studio-配置"><span class="nav-number">3.</span> <span class="nav-text">Android Studio 配置</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>LeetCode</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">·官方平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://jianghouren.com/2019/03/22/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5/#more" title="https:&#x2F;&#x2F;jianghouren.com&#x2F;2019&#x2F;03&#x2F;22&#x2F;%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5&#x2F;#more">·资源链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blove7.cn/" title="https:&#x2F;&#x2F;blove7.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">·俺的相册</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false,"tagMode":false});</script></body>
+</html>

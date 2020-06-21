@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="selector，shape，layer-list">
+<meta property="og:url" content="https://jianghouren.com/archives/d491122b.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/conglingkaishi.jpg?imageView2/2/h/350">
+<meta property="og:image" content="https://imgsw.cn/static/images/demo_shape.jpg">
+<meta property="article:published_time" content="2019-04-03T02:33:57.000Z">
+<meta property="article:modified_time" content="2020-06-21T02:19:23.441Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="资源布局">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/conglingkaishi.jpg?imageView2/2/h/350">
+
+<link rel="canonical" href="https://jianghouren.com/archives/d491122b.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>selector，shape，layer-list | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/d491122b.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          selector，shape，layer-list
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-04-03 10:33:57" itemprop="dateCreated datePublished" datetime="2019-04-03T10:33:57+08:00">2019-04-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-21 10:19:23" itemprop="dateModified" datetime="2020-06-21T10:19:23+08:00">2020-06-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/d491122b.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/d491122b.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://imgsw.cn/static/images/conglingkaishi.jpg?imageView2/2/h/350">
+<a id="more"></a>
+<h2 id="selector"><a href="#selector" class="headerlink" title="selector"></a><p class="m_more_title_style">selector</p></h2><p><strong>选择器；可使控件在不同操作下（点击，选中等），显示不同的样式。</strong></p>
+<table>
+<thead>
+<tr>
+<th>xml属性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>android:drawable</td>
+<td>放一个drawable资源，一般为图片，颜色或者是shape图形。</td>
+</tr>
+<tr>
+<td>android:state_selected</td>
+<td>选中状态（最常用的属性）</td>
+</tr>
+<tr>
+<td>android:state_checked</td>
+<td>勾选状态（常用与RadioButton或CheckBox）</td>
+</tr>
+<tr>
+<td>android:state_pressed</td>
+<td>按下状态（如按钮按下，但还没松手）</td>
+</tr>
+<tr>
+<td>android:state_enabled</td>
+<td>是否可用（如按钮是否可以点击）</td>
+</tr>
+<tr>
+<td>android:state_focused</td>
+<td>取得焦点状态，比如用户选择了一个文本框。</td>
+</tr>
+<tr>
+<td>android:state_hovered</td>
+<td>光标悬停状态，它是4.0的新特性。</td>
+</tr>
+</tbody></table>
+<p>示例：<br>selector_use.xml文件（res-&gt;drawable目录下）：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--常用的选择器--&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--选中--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--drawable资源为颜色。true为自定义的颜色，false为系统的颜色--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_selected</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@color/red"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_selected</span>=<span class="string">"false"</span> <span class="attr">android:drawable</span>=<span class="string">"@android:color/holo_blue_light"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--是否可用--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--drawable资源为图片。true显示方形的机器人图标，false显示圆形的机器人图标--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_enabled</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/ic_launcher"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_enabled</span>=<span class="string">"false"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/ic_launcher_round"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--点击状态--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--drawable资源为shape图形。true显示方形，false为圆形。--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/shape_rectangle"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_pressed</span>=<span class="string">"false"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/shape_circle"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!--勾选状态--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--drawable资源为图片。true显示方形的机器人图标，false显示圆形的机器人图标。--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--一般用于同意协议，将图片换成UI给的图就可以。--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">"true"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/ic_launcher"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">"false"</span> <span class="attr">android:drawable</span>=<span class="string">"@drawable/ic_launcher_round"</span> /&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>activity_main.xml：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--按钮我习惯使用TextView--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--选中状态--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/tv_selector"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@drawable/selector_use"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"selector"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:textColor</span>=<span class="string">"@android:color/white"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--按钮是否可用--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/btn_enabled"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@drawable/selector_use"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"enabled"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:textColor</span>=<span class="string">"@android:color/white"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--点击状态--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">"@+id/tv_pressed"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:clickable</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"@drawable/selector_use"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">"pressed"</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--勾选状态--&gt;</span></span><br><span class="line"><span class="comment">&lt;!--效果一般用于同意协议--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:id</span>=<span class="string">"@+id/ll_checked"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">   <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">CheckBox</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:id</span>=<span class="string">"@+id/cb_checked"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:button</span>=<span class="string">"@null"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:background</span>=<span class="string">"@drawable/selector_use"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_width</span>=<span class="string">"20dp"</span></span></span><br><span class="line"><span class="tag">       <span class="attr">android:layout_height</span>=<span class="string">"20dp"</span></span></span><br><span class="line"><span class="tag">       /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_marginLeft</span>=<span class="string">"5dp"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"checked"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>MainActivity.java：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 选中状态</span></span><br><span class="line"><span class="keyword">final</span> TextView tvSelector = findViewById(R.id.tv_selector);</span><br><span class="line">tvSelector.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (tvSelector.isSelected())&#123;</span><br><span class="line">            tvSelector.setSelected(<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            tvSelector.setSelected(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 可用状态</span></span><br><span class="line"><span class="keyword">final</span> Button btnEnabled = findViewById(R.id.btn_enabled);</span><br><span class="line">btnEnabled.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (btnEnabled.isEnabled())&#123;</span><br><span class="line">            btnEnabled.setEnabled(<span class="keyword">false</span>);</span><br><span class="line">            btnEnabled.postDelayed(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">                <span class="meta">@Override</span></span><br><span class="line">                <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                    btnEnabled.setEnabled(<span class="keyword">true</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;,<span class="number">3000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//  点击状态</span></span><br><span class="line"><span class="keyword">final</span> TextView tvPressed = findViewById(R.id.tv_pressed);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 勾选状态</span></span><br><span class="line">LinearLayout llChecked = findViewById(R.id.ll_checked);</span><br><span class="line"><span class="keyword">final</span> CheckBox checkBox = findViewById(R.id.cb_checked);</span><br><span class="line">llChecked.setOnClickListener(<span class="keyword">new</span> View.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (checkBox.isChecked())&#123;</span><br><span class="line">            checkBox.setChecked(<span class="keyword">false</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            checkBox.setChecked(<span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="shape"><a href="#shape" class="headerlink" title="shape"></a><p class="m_more_title_style">shape</p></h2><p>主要设置布局的形状，填充色，边框等属性。可以用来当控件背景，或者选择器的drawable资源等。<br>相较于图片，体积更小，适配性也更好。<br>示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shape</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">android:shape</span>=<span class="string">[</span>"<span class="attr">rectangle</span>" | "<span class="attr">oval</span>" | "<span class="attr">line</span>" | "<span class="attr">ring</span>"] &gt;</span></span><br><span class="line">	<span class="comment">&lt;!--shape可以指定的四种图形--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--分别是；矩形（rectangle）、椭圆（oval）、线（line）、圆环（ring）。--&gt;</span></span><br><span class="line">   </span><br><span class="line">	<span class="comment">&lt;!--当类型是圆环时(android:shape="ring")；还会多出几个属性。--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--android:innerRadius="dimension" 内环半径--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--android:innerRadiusRatio="float" 内环半径相对于环的宽度的比例，比如环的宽度为50,比例为2.5,那么内环半径为20--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--android:thickness="dimension" 环的厚度--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--android:thicknessRatio="float" 环的厚度相对于环的宽度的比例--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--android:useLevel="boolean" 如果当做是LevelListDrawable使用时值为true，否则为false.--&gt;</span></span><br><span class="line">   </span><br><span class="line">	<span class="comment">&lt;!--定义圆角--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">corners</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:radius</span>=<span class="string">"integer"</span>	// 四个角的圆角大小。</span></span><br><span class="line"><span class="tag">        <span class="attr">android:topLeftRadius</span>=<span class="string">"integer"</span>	// 单独设置一个角，左上角的圆角大小。</span></span><br><span class="line"><span class="tag">        <span class="attr">android:topRightRadius</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:bottomLeftRadius</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:bottomRightRadius</span>=<span class="string">"integer"</span> /&gt;</span></span><br><span class="line">		</span><br><span class="line">	<span class="comment">&lt;!--定义渐变效果--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--type；渐变类型；--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--linear 线性渐变，默认的渐变类型--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--radial 放射渐变，设置该项时，android:gradientRadius也必须设置--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--sweep 扫描性渐变--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gradient</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:angle</span>=<span class="string">"integer"</span>		// 渐变角度（必须是<span class="attr">45</span>的倍数）：<span class="attr">0:</span>左到右;<span class="attr">90:</span>下到上;<span class="attr">180:</span>右到左;<span class="attr">270:</span>上到下</span></span><br><span class="line"><span class="tag">        <span class="attr">android:centerX</span>=<span class="string">"integer"</span>	// 表示渐变的<span class="attr">X</span>轴起始位置，范围<span class="attr">0-1</span>，<span class="attr">0.5</span>表示圆心。</span></span><br><span class="line"><span class="tag">        <span class="attr">android:centerY</span>=<span class="string">"integer"</span>	// 表示渐变的<span class="attr">Y</span>轴起始位置，范围<span class="attr">0-1</span>，<span class="attr">0.5</span>表示圆心。</span></span><br><span class="line"><span class="tag">        <span class="attr">android:centerColor</span>=<span class="string">"integer"</span>	// 渐变中间点的颜色，在开始与结束点之间</span></span><br><span class="line"><span class="tag">        <span class="attr">android:endColor</span>=<span class="string">"color"</span>		// 渐变的结束颜色</span></span><br><span class="line"><span class="tag">        <span class="attr">android:gradientRadius</span>=<span class="string">"integer"</span>	// 渐变的半径，只有当渐变类型为<span class="attr">radial</span>时才能使用</span></span><br><span class="line"><span class="tag">        <span class="attr">android:startColor</span>=<span class="string">"color"</span>		// 渐变的起始颜色</span></span><br><span class="line"><span class="tag">        <span class="attr">android:type</span>=<span class="string">[</span>"<span class="attr">linear</span>" | "<span class="attr">radial</span>" | "<span class="attr">sweep</span>"]</span></span><br><span class="line"><span class="tag">        <span class="attr">android:useLevel</span>=<span class="string">[</span>"<span class="attr">true</span>" | "<span class="attr">false</span>"] /&gt;</span>	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!--内边距--&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">padding</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:left</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:top</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:right</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:bottom</span>=<span class="string">"integer"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!--自定义的图形大小--&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">size</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:width</span>=<span class="string">"integer"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:height</span>=<span class="string">"integer"</span> /&gt;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!--内部填充色--&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">solid</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:color</span>=<span class="string">"color"</span> /&gt;</span> </span><br><span class="line">	</span><br><span class="line">	<span class="comment">&lt;!--边框（描边）--&gt;</span>	</span><br><span class="line">	<span class="comment">&lt;!--dashWidth 虚线宽度，值为0时是实线。--&gt;</span>	</span><br><span class="line">	<span class="comment">&lt;!--dashGap 虚线间距宽度，虚线的间隔。--&gt;</span>	</span><br><span class="line">    <span class="tag">&lt;<span class="name">stroke</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:width</span>=<span class="string">"integer"</span>  // 边框线宽度</span></span><br><span class="line"><span class="tag">        <span class="attr">android:color</span>=<span class="string">"color"</span>	 // 边框颜色</span></span><br><span class="line"><span class="tag">        <span class="attr">android:dashWidth</span>=<span class="string">"integer"</span> </span></span><br><span class="line"><span class="tag">        <span class="attr">android:dashGap</span>=<span class="string">"integer"</span> /&gt;</span>	</span><br><span class="line">		</span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<img data-src="https://imgsw.cn/static/images/demo_shape.jpg">
+
+<p>图例：</p>
+<figure class="highlight xml"><figcaption><span>线性圆角矩形</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">size</span> <span class="attr">android:width</span>=<span class="string">"40dp"</span> <span class="attr">android:height</span>=<span class="string">"40dp"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"20dp"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">gradient</span> <span class="attr">android:startColor</span>=<span class="string">"@color/colorAccent"</span> <span class="attr">android:endColor</span>=<span class="string">"@color/colorPrimary"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:type</span>=<span class="string">"linear"</span> <span class="attr">android:angle</span>=<span class="string">"90"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：对于一些简单的效果，比如是否有边框，填充的颜色等，可以使用GradientDrawable来实现。</strong><br><strong>但要注意，属性会继承下去。也就是说，在使用了shape_use.xml资源的地方，没有设置GradientDrawable，会默认显示上一次设置的效果。</strong></p>
+<figure class="highlight xml"><figcaption><span>activity_main.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:id</span>=<span class="string">"@+id/tv_shape_use"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:layout_width</span>=<span class="string">"40dp"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:layout_height</span>=<span class="string">"40dp"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:textColor</span>=<span class="string">"@android:color/white"</span></span></span><br><span class="line"><span class="tag">         <span class="attr">android:text</span>=<span class="string">"shape"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><figcaption><span>shape_use.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">shape</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><figcaption><span>动态改变shape</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 动态改变shape</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        TextView tv = findViewById(R.id.tv_shape_use);</span><br><span class="line">        <span class="comment">// 先设置背景</span></span><br><span class="line">        tv.setBackgroundResource(R.drawable.shape_use);</span><br><span class="line">        GradientDrawable gradientDrawable = (GradientDrawable) tv.getBackground();</span><br><span class="line">        <span class="comment">// 设置shape类型，这里是矩形</span></span><br><span class="line">        gradientDrawable.setShape(GradientDrawable.RECTANGLE);</span><br><span class="line">        <span class="comment">// 圆角角度</span></span><br><span class="line">        gradientDrawable.setCornerRadius(dp2px(<span class="keyword">this</span>,<span class="number">20</span>));</span><br><span class="line">        <span class="comment">// 填充色</span></span><br><span class="line">        gradientDrawable.setColor(getResources().getColor(R.color.colorAccent));</span><br><span class="line">        <span class="comment">// 边框</span></span><br><span class="line">        gradientDrawable.setStroke(dp2px(<span class="keyword">this</span>,<span class="number">1</span>),getResources().getColor(R.color.colorPrimary));</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//dp转px；</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">dp2px</span><span class="params">(Context mContext, <span class="keyword">int</span> dp)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">int</span>) (dp * mContext.getResources().getDisplayMetrics().density + <span class="number">0.5</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="layer-list"><a href="#layer-list" class="headerlink" title="layer-list"></a><p class="m_more_title_style">layer-list</p></h2><p>可以通过item把图层按顺序叠起来，实现一些特殊的效果。<br>layer-list中的item标签可以通过下面四个属性设置偏移量：</p>
+<ul>
+<li>android:top 顶部的偏移量</li>
+<li>android:bottom 底部的偏移量</li>
+<li>android:left 左边的偏移量</li>
+<li>android:right 右边的偏移量</li>
+<li>这四个偏移量和控件的margin设置差不多，都是外间距的效果。</li>
+</ul>
+<p>图例：</p>
+<figure class="highlight xml"><figcaption><span>Table选项卡</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:state_checked</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">layer-list</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 红色背景 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">android:color</span>=<span class="string">"#E4007F"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 白色背景 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:bottom</span>=<span class="string">"4dp"</span> <span class="attr">android:drawable</span>=<span class="string">"@android:color/white"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">layer-list</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 红色背景 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">item</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">color</span> <span class="attr">android:color</span>=<span class="string">"#E4007F"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">            <span class="comment">&lt;!-- 白色背景 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">"@android:color/white"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">selector</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><figcaption><span>渐变边框</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">layer-list</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--边框阴影--&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--当没有UI图时，将颜色换成渐变的，可以实现类似的边框渐变阴影的效果来凑合用。--&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最外层--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>  <span class="attr">android:bottom</span>=<span class="string">"1dp"</span> <span class="attr">android:left</span>=<span class="string">"1dp"</span> <span class="attr">android:right</span>=<span class="string">"1dp"</span> <span class="attr">android:top</span>=<span class="string">"1dp"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@color/colorAccent"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"4dp"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>  <span class="attr">android:bottom</span>=<span class="string">"2dp"</span> <span class="attr">android:left</span>=<span class="string">"2dp"</span> <span class="attr">android:right</span>=<span class="string">"2dp"</span> <span class="attr">android:top</span>=<span class="string">"2dp"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@color/colorPrimary"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"4dp"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最内层--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>  <span class="attr">android:bottom</span>=<span class="string">"3dp"</span> <span class="attr">android:left</span>=<span class="string">"3dp"</span> <span class="attr">android:right</span>=<span class="string">"3dp"</span> <span class="attr">android:top</span>=<span class="string">"3dp"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@color/colorPrimaryDark"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"4dp"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--内容区--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span>  <span class="attr">android:bottom</span>=<span class="string">"4dp"</span> <span class="attr">android:left</span>=<span class="string">"4dp"</span> <span class="attr">android:right</span>=<span class="string">"4dp"</span> <span class="attr">android:top</span>=<span class="string">"4dp"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">shape</span> <span class="attr">android:shape</span>=<span class="string">"rectangle"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">solid</span> <span class="attr">android:color</span>=<span class="string">"@android:color/white"</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">corners</span> <span class="attr">android:radius</span>=<span class="string">"4dp"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">layer-list</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><p class="m_more_title_style">链接</p></h2><p><strong>传送门</strong>：<a href="https://github.com/feiyeyuanye/ShapeDemo" target="_blank" rel="noopener external nofollow noreferrer" title="demo">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/d491122b.html" title="selector，shape，layer-list">https://jianghouren.com/archives/d491122b.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%B5%84%E6%BA%90%E5%B8%83%E5%B1%80/" rel="tag"><i class="fa fa-tag"></i> 资源布局</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/2a059a45.html" rel="prev" title="Android 动态创建布局">
+      <i class="fa fa-chevron-left"></i> Android 动态创建布局
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/4e1a4955.html" rel="next" title="Android 自定义 View 基础">
+      Android 自定义 View 基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#selector"><span class="nav-number">1.</span> <span class="nav-text">selector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shape"><span class="nav-number">2.</span> <span class="nav-text">shape</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layer-list"><span class="nav-number">3.</span> <span class="nav-text">layer-list</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">4.</span> <span class="nav-text">链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">98</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fa fa-envelope fa-fw"></i>LeetCode</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">·官方平台</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://jianghouren.com/2019/03/22/%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5/#more" title="https:&#x2F;&#x2F;jianghouren.com&#x2F;2019&#x2F;03&#x2F;22&#x2F;%E8%B5%84%E6%BA%90%E9%93%BE%E6%8E%A5&#x2F;#more">·资源链接</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://blove7.cn/" title="https:&#x2F;&#x2F;blove7.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">·俺的相册</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false,"tagMode":false});</script></body>
+</html>
