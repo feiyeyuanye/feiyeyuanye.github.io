@@ -1217,7 +1217,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e9ff0f;
+  background: #78637d;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2561,7 +2561,7 @@ hr {
 }
 body {
   background: url("/static/images/bg_body_default_pc.jpg");
-  background-size: cover;
+  background-size: 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -2569,7 +2569,7 @@ body {
 @media screen and (max-width: 1080px) {
   body {
     background: url("/static/images/bg_body_default_mobile.jpg");
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -2589,22 +2589,12 @@ body {
   color: #f00;
 }
 .m_more_content_bg_img {
-  width: 100%;
-  height: 23rem;
+  max-width: 100%;
+  height: auto;
   background-image: url("/static/images/article_err_default.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
   border-radius: 20px;
-}
-@media screen and (max-width: 1080px) {
-  .m_more_content_bg_img {
-    width: 100%;
-    height: 10rem;
-    background-image: url("/static/images/article_err_default.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-    border-radius: 20px;
-  }
 }
 .post-body p a {
   color: #0593d3;
