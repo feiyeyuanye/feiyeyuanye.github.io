@@ -1217,7 +1217,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #78637d;
+  background: #ff2dc9;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2561,7 +2561,7 @@ hr {
 }
 body {
   background: url("/static/images/bg_body_default_pc.jpg");
-  background-size: 100%;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
@@ -2569,7 +2569,7 @@ body {
 @media screen and (max-width: 1080px) {
   body {
     background: url("/static/images/bg_body_default_mobile.jpg");
-    background-size: 100%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -2613,7 +2613,7 @@ body {
   float: left;
 }
 #about_span {
-  font-size: 18px;
+  font-size: 1.125em;
 }
 @-moz-keyframes CDturn {
   from {
