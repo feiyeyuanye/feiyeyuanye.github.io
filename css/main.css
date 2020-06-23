@@ -1217,7 +1217,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #09d0ff;
+  background: #f93d69;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2568,7 +2568,7 @@ body {
 @media (min-width: 768px) {
   body {
     background: url("/images/bg_body_default_pid_v.jpg");
-    background-size: 50% 50%;
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
   }
