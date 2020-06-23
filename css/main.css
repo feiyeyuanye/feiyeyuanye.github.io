@@ -1217,7 +1217,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f93d69;
+  background: #c4faff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2559,18 +2559,28 @@ hr {
   -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
   -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
 }
-body {
-  background: url("/images/bg_body_default_mobile.jpg");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+body body:before {
+  content: ' ';
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url("/images/bg_body_default_mobile.jpg") center 0 no-repeat;
+  background-size: cover;
 }
 @media (min-width: 768px) {
-  body {
-    background: url("/images/bg_body_default_pid_v.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  body:before {
+    content: ' ';
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("/images/bg_body_default_pid_v.jpg") center 0 no-repeat;
+    background-size: cover;
   }
 }
 @media (min-width: 992px) {
@@ -2582,11 +2592,16 @@ body {
   }
 }
 @media (min-width: 1200px) {
-  body {
-    background: url("/images/bg_body_default_pc.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  body:before {
+    content: ' ';
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: url("/images/bg_body_default_pc.jpg") center 0 no-repeat;
+    background-size: cover;
   }
 }
 .header {
