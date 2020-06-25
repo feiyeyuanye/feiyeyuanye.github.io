@@ -1,6 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Web 常用小功能</title>
+    <url>/archives/c94fd93e.html</url>
+    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/dazhentanpikaque.jpg" class="m_more_content_bg_img"></img></p>
+<a id="more"></a>
+
+<h2 id="获取页面高度"><a href="#获取页面高度" class="headerlink" title="获取页面高度"></a><p class="m_more_title_style">获取页面高度</p></h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*  1、</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="comment">// 获取内容高度</span></span><br><span class="line">    <span class="keyword">var</span> length = <span class="built_in">document</span>.getElementById(<span class="string">'index_main'</span>);</span><br><span class="line">    <span class="keyword">var</span> wW = <span class="built_in">window</span>.innerWidth &gt; <span class="number">0</span> ? <span class="built_in">window</span>.innerWidth : <span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">    <span class="keyword">var</span> wH = <span class="built_in">window</span>.innerHeight &gt; <span class="number">0</span> ? <span class="built_in">window</span>.innerHeight : <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">    length.style.width = <span class="string">"100%"</span>;</span><br><span class="line">    length.style.height = wH + <span class="string">'px'</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*  2、</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"> <span class="comment">// 屏幕方向改变，重新获取高度（主要是平板上）</span></span><br><span class="line">        <span class="keyword">var</span> mql = <span class="built_in">window</span>.matchMedia(<span class="string">'(orientation: portrait)'</span>);</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handleOrientationChange</span>(<span class="params">mql</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (mql.matches) &#123;</span><br><span class="line">                <span class="comment">//  竖屏 portrait</span></span><br><span class="line">                getLength();</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 横屏 landscape</span></span><br><span class="line">                getLength();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 输出当前屏幕模式</span></span><br><span class="line">        handleOrientationChange(mql);</span><br><span class="line">        <span class="comment">// 监听屏幕模式变化</span></span><br><span class="line">        mql.addListener(handleOrientationChange);</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">getLength</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> length = <span class="built_in">document</span>.getElementById(<span class="string">'main'</span>);</span><br><span class="line">            <span class="keyword">var</span> wH = <span class="built_in">window</span>.innerHeight &gt; <span class="number">0</span> ? <span class="built_in">window</span>.innerHeight : <span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">            length.style.width = <span class="string">"100%"</span>;</span><br><span class="line">            length.style.height = wH + <span class="string">'px'</span>;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="iframe-标签与父页面的传值"><a href="#iframe-标签与父页面的传值" class="headerlink" title="iframe 标签与父页面的传值"></a><p class="m_more_title_style">iframe 标签与父页面的传值</p></h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 父页面</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="comment">// 给子类传值</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toChildDefaultMd</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">var</span> md = <span class="string">"../md/test.md"</span>;</span><br><span class="line">		<span class="keyword">return</span> md;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用子类方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toChildSelectMd</span>(<span class="params">str</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(str == <span class="literal">null</span>)&#123;</span><br><span class="line">			str = <span class="string">"../md/test.md"</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">var</span> ifra = <span class="built_in">document</span>.getElementById(<span class="string">"iframe"</span>);</span><br><span class="line">  <span class="comment">// 获取到 iframe 标签，然后调用子类方法。</span></span><br><span class="line">	ifra.contentWindow.showMarkdown(str);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 子页面</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="comment">// 获取父页面的传值</span></span><br><span class="line"><span class="keyword">var</span> md = <span class="built_in">window</span>.parent.toChildDefaultMd();</span><br><span class="line">showMarkdown(md)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 提供父页面调用的方法</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">showMarkdown</span>(<span class="params">str</span>) </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 示例：iframe 页面从父页面获取页面高度，并且赋值给自身。</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="comment">// 父页面，给子类传值。</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">toChildValue</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> txt = wH;</span><br><span class="line">		<span class="keyword">return</span> txt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 子页面，获取父页面传来的数据。</span></span><br><span class="line"><span class="keyword">var</span> getParentVule = <span class="built_in">window</span>.parent.toChildValue();</span><br><span class="line"><span class="comment">// alert(getParentVule)</span></span><br><span class="line"><span class="keyword">var</span> main = <span class="built_in">document</span>.getElementById(<span class="string">'main'</span>);</span><br><span class="line">main.style.height = getParentVule + <span class="string">'px'</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="页面跳转，获取参数"><a href="#页面跳转，获取参数" class="headerlink" title="页面跳转，获取参数"></a><p class="m_more_title_style">页面跳转，获取参数</p></h2><figure class="highlight js"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 这只是最简单的，还可以传递多个参数与变量（类似字符串的使用方式）。</span></span><br><span class="line">&lt;a href=<span class="string">"index.html?arr=哼"</span>&gt;测试&lt;<span class="regexp">/a&gt;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ 获取url中"?"符后的字串</span></span><br><span class="line"><span class="regexp">var url = location.search; </span></span><br><span class="line"><span class="regexp">		var theRequest = new Object();</span></span><br><span class="line"><span class="regexp">		var arr;</span></span><br><span class="line"><span class="regexp">		var sp = "";</span></span><br><span class="line"><span class="regexp">		if (url.indexOf("?") != -1) &#123;</span></span><br><span class="line"><span class="regexp">			var str = url.substr(1);</span></span><br><span class="line"><span class="regexp">			strs = str.split("&amp;");</span></span><br><span class="line"><span class="regexp">			for (var i = 0; i &lt; strs.length; i++) &#123;</span></span><br><span class="line"><span class="regexp">				theRequest[strs[i].split("=")[0]] = (strs[i].split("=")[1]);</span></span><br><span class="line"><span class="regexp">			&#125;</span></span><br><span class="line"><span class="regexp">			var Request = new Object();</span></span><br><span class="line"><span class="regexp">			Request = theRequest;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">			arr = Request['arr'];</span></span><br><span class="line"><span class="regexp">			/</span><span class="regexp">/ alert(arr);</span></span><br><span class="line"><span class="regexp">      /</span><span class="regexp">/ 当存在多个参数时</span></span><br><span class="line"><span class="regexp">			/</span><span class="regexp">/ sp = arr.split(",");</span></span><br><span class="line"><span class="regexp">			/</span><span class="regexp">/ alert(sp);</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="监听页面滑轮滚动"><a href="#监听页面滑轮滚动" class="headerlink" title="监听页面滑轮滚动"></a><p class="m_more_title_style">监听页面滑轮滚动</p></h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">       <span class="function"><span class="keyword">function</span> <span class="title">scroll</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">           <span class="comment">//console.log("打印log日志");实时看下效果</span></span><br><span class="line">           <span class="built_in">console</span>.log(<span class="string">"开始滚动！"</span>);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">var</span> scrollFunc = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">           e = e || <span class="built_in">window</span>.event;</span><br><span class="line">           <span class="keyword">if</span> (e.wheelDelta) &#123; <span class="comment">//第一步：先判断浏览器IE，谷歌滑轮事件    </span></span><br><span class="line">               <span class="keyword">if</span> (e.wheelDelta &gt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向上滚动时 </span></span><br><span class="line">                   <span class="comment">// console.log("滑轮向上滚动"); </span></span><br><span class="line">                   <span class="comment">// contentBlog.style.marginTop= document.documentElement.scrollTop+"px";</span></span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (e.wheelDelta &lt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向下滚动时 </span></span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"滑轮向下滚动"</span>);</span><br><span class="line">                   <span class="comment">// 滑动距离</span></span><br><span class="line">                   <span class="comment">// var dis = document.body.scrollTop;</span></span><br><span class="line">                   <span class="keyword">var</span> dis = <span class="built_in">document</span>.documentElement.scrollTop;</span><br><span class="line">                   <span class="built_in">console</span>.log(dis);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; <span class="keyword">else</span> <span class="keyword">if</span> (e.detail) &#123; <span class="comment">//Firefox滑轮事件 </span></span><br><span class="line">               <span class="keyword">if</span> (e.detail &gt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向上滚动时 </span></span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"滑轮向上滚动"</span>);</span><br><span class="line"></span><br><span class="line">               &#125;</span><br><span class="line">               <span class="keyword">if</span> (e.detail &lt; <span class="number">0</span>) &#123; <span class="comment">//当滑轮向下滚动时 </span></span><br><span class="line">                   <span class="built_in">console</span>.log(<span class="string">"滑轮向下滚动"</span>);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//给页面绑定滑轮滚动事件 </span></span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">document</span>.addEventListener) &#123;<span class="comment">//firefox </span></span><br><span class="line">           <span class="built_in">document</span>.addEventListener(<span class="string">'DOMMouseScroll'</span>, scrollFunc, <span class="literal">false</span>);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">//滚动滑轮触发scrollFunc方法 //ie 谷歌 </span></span><br><span class="line">       <span class="built_in">window</span>.onmousewheel = <span class="built_in">document</span>.onmousewheel = scrollFunc;</span><br><span class="line">   &lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="position-absolute-元素居中"><a href="#position-absolute-元素居中" class="headerlink" title="position: absolute 元素居中"></a><p class="m_more_title_style">position: absolute 元素居中</p></h2><figure class="highlight css"><table><tr><td class="code"><pre><span class="line">// 水平居中</span><br><span class="line"><span class="selector-tag">left</span>: 50%;</span><br><span class="line">margin-left: -15px; // 宽度的一半，并且为负数</span><br><span class="line"><span class="selector-tag">position</span>: <span class="selector-tag">absolute</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+]]></content>
+      <categories>
+        <category>Web 知识点</category>
+      </categories>
+      <tags>
+        <tag>Web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Apache 防域名恶意解析</title>
+    <url>/archives/6e110137.html</url>
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/chuqiaozhuan.jpg" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<p>通过大量的文章和许多的时间，依然未能解决。鉴于行业的特性，文章内容基本雷同，想在其中找到自己需要的细节，太难太难太难了。</p>
+<h2 id="配置流程"><a href="#配置流程" class="headerlink" title="配置流程"></a><p class="m_more_title_style">配置流程</p></h2><p><strong>禁用IP访问,防止恶意解析</strong></p>
+<p><strong>1、给指定网站程序设置域名</strong></p>
+<p><strong>2、将以下内容加入 <code>/etc/httpd/conf/httpd.conf</code>的末尾或者在<code>/etc/httpd/conf.d/</code>目录下新建一个<code>deny-ip.conf</code>的文件将内容写入</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;VirtualHost *:80&gt;</span><br><span class="line">  ServerName 服务器IP地址</span><br><span class="line">  &lt;Location &#x2F;&gt;</span><br><span class="line">       Order Allow,Deny</span><br><span class="line">       Deny from all</span><br><span class="line">  &lt;&#x2F;Location&gt;</span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br><span class="line"></span><br><span class="line">&lt;VirtualHost *:443&gt;</span><br><span class="line">   ServerName 服务器IP地址</span><br><span class="line">   SSLEngine on</span><br><span class="line">   SSLCertificateFile &#x2F;etc&#x2F;pki&#x2F;tls&#x2F;certs&#x2F;localhost.crt</span><br><span class="line">   SSLCertificateKeyFile &#x2F;etc&#x2F;pki&#x2F;tls&#x2F;private&#x2F;localhost.key</span><br><span class="line">   &lt;Location &#x2F;&gt;</span><br><span class="line">     Order Allow,Deny</span><br><span class="line">     Deny from all</span><br><span class="line">   &lt;&#x2F;Location&gt;</span><br><span class="line">&lt;&#x2F;VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3、重启 apache</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl restart httpd</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a href="https://support.websoft9.com/docs/linux/zh/webs-apache.html#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E" target="_blank" rel="noopener external nofollow noreferrer">Linux 实践指南</a></p>
+]]></content>
+      <categories>
+        <category>服务端</category>
+      </categories>
+      <tags>
+        <tag>服务端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Android Studio 配置</title>
+    <url>/archives/6ff5e3db.html</url>
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/chenyuqi.jpg" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<h2 id="Android-Studio-配置"><a href="#Android-Studio-配置" class="headerlink" title="Android Studio 配置"></a><p class="m_more_title_style">Android Studio 配置</p></h2><p>代码补全功能，不仅可以补全代码，还会自动导包。</p>
+<p><strong>配置</strong>：<br><a href="https://mp.weixin.qq.com/s/WwwMtYckUxKwBvB9d7TMlQ" target="_blank" rel="noopener external nofollow noreferrer">插件</a></p>
+<p><strong>快捷键</strong>：</p>
+<p>打开 Logcat：command + 6</p>
+<p><strong>模拟器</strong>：</p>
+<p>右上角：AVD Manager</p>
+<p><strong>日志</strong>：</p>
+<p>AS 中推荐使用 Log，而不是 Java 的 System.out.println();( 快捷输入 sout)，也不是 Kotlin 的 println()，因为它们的缺点，比如日志开关不可控制、不能添加日志标签、日志没有级别区分等。</p>
+<p>打开日志，右上角，系统提供的过滤器有 3 个：Show only selected application 表示只显示当前选中程序的日志，Firebase 是 Google 提供的一个开发者工具和基础架构平台(不用管它)，No Filters 相当于没有过滤器，会把所有日志都显示出来。Edit Filter Configuration 是自定义过滤器。</p>
+<p>关键字过滤：支持正则表达式。</p>
+<p>日志有 5 个级别，从低到高为：v 代表意义最小最琐碎的信息，d 代表调试信息，i 代表比较重要的数据，w 代表一些警告信息，E 代表错误信息。高级别可显示高级别及以下低级别的日志信息，低级别不可显示高于它级别的日志信息。</p>
+<p><strong>创建 Project</strong></p>
+<p>Add No Activity / Empty Activity</p>
+<p>勾选 Generate Layout File 表示会自动为 Activity 创建一个对应的布局文件<br>勾选 Launcher Activity 表示会自动将 Activity 设置为当前项目的主 Activity</p>
+<p><strong>AndroidX</strong></p>
+<p>按照官方文档说明 AndroidX 是对 android.support.xxx 包的整理后产物。由于之前的 support 包过于混乱，所以，Google 推出了AndroidX。（support 包在 28 之后便不再更新了）</p>
+<p>在 AS 3.5 之后，新建项目默认使用 Android X。这对应着<strong>gradle.properties文件里</strong>这两句话：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"># 表示当前项目启用 AndroidX</span><br><span class="line">android.useAndroidX=true</span><br><span class="line"># Automatically convert third-party libraries to use AndroidX</span><br><span class="line"># 表示将依赖包(support包)也迁移到AndroidX 。如果取值为 false ,表示不迁移依赖包到AndroidX，但在使用依赖包中的内容时可能会出现问题，如果项目中没有使用任何三方依赖，那么，此项可以设置为 false</span><br><span class="line">android.enableJetifier=true</span><br></pre></td></tr></table></figure>
+
+<p>AppCompatActivity 是 AndroidX 中提供的一种向下兼容的 Activity，可以使 Activity 在不同系统版本中的功能保持一致。AppCompatActivity 是 Activity 的子类。</p>
+<p><a href="https://developer.android.com/guide/topics/ui/layout/recyclerview?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">RecyclerView(谷歌)</a></p>
+<p><a href="https://github.com/googlearchive/android-viewpager2" target="_blank" rel="noopener external nofollow noreferrer">ViewPager2</a></p>
+<p><strong>MAC 下 SDK 访问：</strong></p>
+<p>查看 SDK 所在目录：</p>
+<p>1、Android Studio -&gt; Preferences… -&gt; System Settings -&gt; Adnroid SDK 可以看到 SDK 的目录所在</p>
+<p>2、Tools -&gt; SDK Manager 可以看到 SDK 的目录所在</p>
+<p>Library 文件夹默认隐藏的：</p>
+<p>Mac系统一共有3个资源库文件夹</p>
+<ul>
+<li>分别位于 <code>/Library</code>、<code>/System/Library</code> 和 <code>/Users/你自己的用户名/Library</code> 下，中文名都是资源库。</li>
+<li><code>/Library</code> 指的是 <code>Macintosh</code> 下的资源库文件夹，也即根目录下的，这里的资源库是整个系统所有用户共享的资源库，需要权限才可写入</li>
+<li><code>/System/Library</code> 指的是 <code>Macintosh-系统-资源库</code>，这里的资源库是系统使用的资源，一般与用户关系不大</li>
+<li><code>/Users/你自己的用户名/Library</code> 指的是 <code>Macintosh-用户-用户名-资源库</code>，这里的资源库是当前用户使用的资源库，其它用户无法访问</li>
+</ul>
+<p>这里是第三种情况：访达 -&gt; ‘“访达偏好设置” -&gt; 通用 -&gt;  勾选硬盘选项 -&gt; 点击桌面硬盘图标 -&gt; 用户 -&gt; 用户名 -&gt; 显示隐藏文件夹 -&gt; 资源库 -&gt; Android -&gt; sdk。</p>
+<p>shift + command + 。显示隐藏的文件夹</p>
+<p><strong>配置 adb 环境的方法</strong>（但每次重启终端失效，可谷歌查永久方法。）</p>
+<p>一、首先需要安装 android-sdk，查看 sdk 目录下是否有 tools 和 platform-tools；</p>
+<p>二、回到主目录，检查是否有bash_profile文件，如果没有需要新建，具体命令和步骤如下：</p>
+<ol>
+<li><p>回到主目录 cd ￥HOME</p>
+</li>
+<li><p>检查是否有bash_profile，open -e .bash_profile; 如果没有，需要新建一个 touch .bash_profile</p>
+</li>
+<li><p>进入此文件的编译界面 open -e .bash_profile，输入如下命令</p>
+<ul>
+<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/platform-tools;</li>
+<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/tools;</li>
+</ul>
+</li>
+</ol>
+<p>三、保存文件并关闭</p>
+<p>四、刷新文件bash_profile，输入命令source .bash_profile</p>
+<p>五、输入adb devices 检查是否配置成功</p>
+<p><strong>指定 DNS 来启动模拟器</strong>：（我是用来解决模拟器无网络问题，模拟器默认的 DNS 和电脑的值不一致。）</p>
+<p>cd 到指定目录：cd /Users/jianghouren/Library/Android/sdk/emulator</p>
+<p>输入命令：./emulator -avd Pixel_API_29 -dns-server 192.168.1.1（可通过网络偏好设置的高级设置里查看 DNS 值，可通过用户名/.android/avd 查看模拟器名称）</p>
+]]></content>
+      <categories>
+        <category>工具配置</category>
+      </categories>
+      <tags>
+        <tag>工具配置</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Mac 本地服务器</title>
     <url>/archives/3d8b5231.html</url>
     <content><![CDATA[<img data-src="https://imgsw.cn/static/images/baisheyuanqi.jpg" class="m_more_content_bg_img" />
@@ -23,7 +151,7 @@
 <p><strong>3、修改文件内容</strong></p>
 <p>修改 <code>httpd.conf</code> 里面的内容：</p>
 <p>这里我是直接用软件打开了文件来修改（确认修改内容时，需要电脑用户名的密码。）</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找 php，干掉一个注释。</span></span><br><span class="line">LoadModule php7_module libexec/apache2/libphp7.so</span><br><span class="line"></span><br><span class="line"><span class="comment">#查找`#ServerName www.example.com:80`这行，去掉前面的#号，修改如下</span></span><br><span class="line"><span class="comment">#ServerName localhost:80 或者 ServerName 127.0.0.1:80</span></span><br><span class="line">ServerName localhost:80 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找DocumentRoot，并修改路径为上面Sites的路径。</span></span><br><span class="line"><span class="comment"># 这里遇到了个麻烦，根据网上大多文章，接下的修改是 "/User/你的用户名/Sites"，</span></span><br><span class="line"><span class="comment"># 而实际上我是该成了 Users 才成功，这不禁让我想起前段时间想改阿里云服务器的默认目录也一直不成功，会不是也是这个 Users 的问题，这里先记录下。</span></span><br><span class="line">DocumentRoot <span class="string">"/Users/jianghouren/Sites"</span></span><br><span class="line">&lt;Directory <span class="string">"/Users/jianghouren/Sites"</span>&gt;</span><br><span class="line">  </span><br><span class="line"> 		<span class="comment"># 查找 Options，在其后面加一个 Indexes</span></span><br><span class="line">    Options Indexes FollowSymLinks Multiviews</span><br><span class="line">    MultiviewsMatch Any</span><br><span class="line"></span><br><span class="line">    AllowOverride None</span><br><span class="line"></span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 查找 php，干掉一个注释。</span></span><br><span class="line">LoadModule php7_module libexec/apache2/libphp7.so</span><br><span class="line"></span><br><span class="line"><span class="comment">#查找`#ServerName www.example.com:80`这行，去掉前面的#号，修改如下</span></span><br><span class="line"><span class="comment">#ServerName localhost:80 或者 ServerName 127.0.0.1:80</span></span><br><span class="line">ServerName localhost:80 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找DocumentRoot，并修改路径为上面Sites的路径。</span></span><br><span class="line"><span class="comment"># 这里遇到了个麻烦，根据网上大多文章，接下的修改是 "/User/你的用户名/Sites"，</span></span><br><span class="line"><span class="comment"># 而实际上我是该成了 Users 才成功，这不禁让我想起前段时间想改阿里云服务器的默认目录也一直不成功，会不是也是这个 Users 的问题，这里先记录下。</span></span><br><span class="line">DocumentRoot <span class="string">"/Users/jianghouren/Sites"</span></span><br><span class="line">&lt;Directory <span class="string">"/Users/jianghouren/Sites"</span>&gt;</span><br><span class="line">  </span><br><span class="line"> 		<span class="comment"># 查找 Options，在其后面加一个 Indexes</span></span><br><span class="line"> 		<span class="comment"># 这个 Indexes 的作用是，如果此目录下没有 index.html 文件，则将目录内文件列出来，这用于本地测试很好用，但在正式服务器上一定要删除掉，否则可以通过域名加上目录名的方式，直接把服务器上的目录下文件都列出来。</span></span><br><span class="line">    Options Indexes FollowSymLinks Multiviews</span><br><span class="line">    MultiviewsMatch Any</span><br><span class="line"></span><br><span class="line">    AllowOverride None</span><br><span class="line"></span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
 
 <p><strong>4、切换目录</strong></p>
 <p>切换目录到 <code>/etc</code>，并拷贝 php.ini文件：</p>
@@ -44,6 +172,11 @@
 
 <p><strong>8、更详细的图文操作，可查看参考资料链接。</strong></p>
 <p><strong>注意：如果某一目录层级中有 index.html，会默认打开此文件。</strong></p>
+<p><strong>9、连接同一网络的手机，可以通过访问 Mac 的 ip 地址来测试。（Mac 可以通过到网络里查看 ip 地址）</strong></p>
+<hr>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><p class="m_more_title_style">其它</p></h2><p>以前用 Windows 系统的指令，还没试过 Mac 下的效果，先记录：</p>
+<p><strong>查看本机 IP 地址：</strong><br>cmd-ipconfig-IPv4</p>
+<p><strong>更改 XAMPP 的端口号：</strong><br>软件右侧：Explorer–第二个文件夹：apache–第二个文件夹：conf–httpd.conf<br>修改两处：Listen（54行左右）和 ServerName localhost（222行左右）</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://www.jianshu.com/p/713adb751223" target="_blank" rel="noopener external nofollow noreferrer">iOS Mac本地搭建Apache服务器</a></p>
@@ -60,6 +193,8 @@
     <url>/archives/cfba8f6e.html</url>
     <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/aiqingzhangwei.jpg" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
+
+<div class="pdfobject-container" data-target="11233.ppt" data-height="500px"></div>
 
 <p class="m_more_content_p_red">1、在 AS 中运行 java 类报错</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Error:Gradle: failed to create directory &#39;E:\jhrFile\SortApplication\app\build\generated\source\r\debug\com\example\sortapplication&#39;.</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: Execution failed for task &#39;:app:processDebugResources&#39;.</span><br><span class="line">&gt;Failed to execute aapt</span><br></pre></td></tr></table></figure>
@@ -142,7 +277,6 @@
 </details>
 
 <script src="/js/my_js.js"></script>
-
 ]]></content>
       <categories>
         <category>Android 知识点</category>
@@ -189,25 +323,6 @@
       </categories>
       <tags>
         <tag>反思总结</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>书单</title>
-    <url>/archives/e8a1470d.html</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="e9a39c14d8faec4f5b11eb13d036f3d5dc3bb44261e6c1c483f97815a5f85749">3a651dee4b8d8ff31a59a01547da6101e3905520d382f7c4d6ecbcbec6d5a6a194da45e244e28ed1e0d7d58a6fc51626ee0a926263a1356e6332113a0fde80314f372db15a94cd2f3a7e5accb0e543a0c617b57edbf34bc0f31c0f5ef642f8fba1359756bd7892b0ae68350cd1272a551aadad52119d221e5764f8ce0012dcdad509561f62dd84041ea05325a87da8b60353e439ec41d9e0f3592a897bdd2abd83398ad32ce9742480d8bfa800f839d88f1e789f2d5d55afad9dddbbaec770bb7271683192b4c2554048582d00a8bda05a2a5093ec4882ec84d93e87ef3d9a0bde526df68b0b0f933ad852a726f7c08a3196bb429ef11cdbf3b6c5240a137e9c351d96d4a548184e6f0910e188a7315132f1d6737f4363785b32aa2cc24e9a9efb42ba292a0591143a06900ac40fa815ed5a0b8f1485218ceceebd292938aec90f6cee36d14f36c604ff89bc24159e51b6bdb7da19a9ac440868edd7cb71e31c02ed4eee2f47d155bc8e9a552e72c429c8f7b2e44bf7792c05dad7225558c3a6102fc6d0d5b106edbada9020df8fff52aa33ff3b8e7e697f45f7ae804607b1edee0a347ab6125d8b1fea51839142df14a83bb567adf1219480ac956e389c815b4031ec1349dc3e49356039a1e8dfdbc1a1d9b075b5fc267f46ba063961ed79e6110c90f7643395b39a5954ce7d563e959d2d14b64912bc2984a2bb3521acd4605c6963e80a56297e8d1148fc1d2955e135b13fd799109363e459c0e9b4ec62bf36f21294588251970e631817dcfc4d9607d619fd4460272e3748fd62565704dfb35980845c5c8c241b3437a4d149466c6d02a62a6f7f967f9c6280d9e0b8b28f790e6f5dabee0697bd81771cc8c81d50c881076c6a8dcc64cab3cdd585b32344df52d6dcd9e8d09935990c5c76c150a25bc895a9c2ccfbe6db9f865e29239088d7ed2d95504f81d6095d8ae3500d307a83a98b636fa7f5f77bfa56521befbe6ff151b9e41222d305089168d9490e3c6199e41edd3fb7d7f41f00f184b50e69bcf9e2138466de9073b673c91ae3d1ec35d02b5ca521ec4f758c0a532862ed6675fd384bb13d0a84f27a0cf5b29948688cae1e2c09b808982561a4a74143664d2921e5539878658e9491ea73e635fb4c88c80003454ffeb24106fdba2a0197fa9f20dce81e752728d08473f63568608105ae0ea30d76b720e0f3a2117dc8ca42d4edb943d9e7a4f95baac9757d76790868b1f828ca26fb792ff188cfb26eab51dc5b5a775b9407829581d675d3fa6502d4ebd6b7abc6c632a62861a5e903801f26</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>其它</category>
-      </categories>
-      <tags>
-        <tag>其它</tag>
       </tags>
   </entry>
   <entry>
@@ -925,63 +1040,6 @@
       </tags>
   </entry>
   <entry>
-    <title>食物饮品</title>
-    <url>/archives/7d0458eb.html</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="b6b3967ec8b23171256b45134f252130d94e48f4c1e6d92725df382cf6371ad4">c84400388edc06f581a781b23939b51eb28978cafa9e35b76f473dcc0a9a23d14bb67e33fc205c83284ee7cbeb9af0c9fbfa98c25c4a77aa71ffd204ad94d6e5f8bf19603fc5db2d7544a5f28e19f7e4b6a822e75a8c851b36e2c9ab9fa5ffa33de3e6252e96b7b889dbfe3173d90677fe9698da68380785a4ddadb75699c82ab237e87a3a089514425433dd54ee4930290b00e0ba30b2d7ca92dd39c4463e8d1d02f6d2ccd0bdcc8f4ff2c0d3526ad4da4c445275218c3a992ef60abe6539e163658f99f7e6bf71c73765bd5376a45768aae5f8e089e10814370467c31a19c6f5774c06d579709acaadaf56d48810df63dbcd73ab61006cb8b290d990200f4051126d6a828de58dedea86f4fe011bf6d484bfa8a0f688b9359ec9c30c18c27379799fd4b4a73cebad083074f81bca268c7b4f3bc5da6c0c361e04833460459d3615582d27a6459ad6a7163e92050032f9d4690c88a8b52d6eea61c3563470a6a078b209a2cc3d974bb5428b1a7f2e3816fe1972f7ea4dcd9b8ede6eac63d351a41e4ed0e6d9c91b50908191b931bfdc0f78f85d663fbd1c9901877736ba2e2a14b55bdc3fd3e1859e6432412c2a9d7ffc999910ed37359075ec1dc89beee9b4039c2d73c7a7285dbcb13e4d11bdb622a26b28d5f2059147e8cfc392c6f3078c70426eaf1ad5282a2da92f349e6fdbce7f18cf7c243fa7228a7c760d189a40c3c3f2b00fd5f23175a4b015dd2bde82ba0d144bbc33f874fc2973a96c25b1bb9055fbeb503f3f458dc261e12ba218b8661cc59fd4fc1b04d7650cf9302c36c5cdd1e19cfaf9e4f97d5bd0ba7445e2d18de16d5dd04b4ca39394b84fe1841a3d9b810be532085274595630736f1334b578b5b4679096a3d8cf60c82b2e1f530ceeace25160239ed2fba92a5293bbcfef92e48e7b099cdf1df8be25ebf6e29a6e6de31119fd57386fcb2f881b08f32ebc375bbccfda99f4814ac14c9e4a6db8f690</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>其它</category>
-      </categories>
-      <tags>
-        <tag>其它</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>服饰护肤</title>
-    <url>/archives/ce7bd263.html</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="c958f783b0fccc1f08dcc4cded945c29df7ed1253f3cb97e468ef152044f09f4">3a651dee4b8d8ff31a59a01547da6101e3905520d382f7c4d6ecbcbec6d5a6a10556c7c029d503ab3451ddbdafb4e2a456e4bc78cdc4e4f337dd68dff4da53061584159570bf164ec6a2061654d64438c10ba0f74eb54fda1b5496a71d30f574f33f306ed10489e9a90ae3b87ee1f2caa63c0aa71481d05a896cc3f2be568a00a4a3d1f9ce490ec2ebf1064a8c4e831a90fbbcdebd1a8e134fc153210e348657edf3c2ce1628370e540cf944243a6d1adc6b5ac08337458f613d1a6e22640350faae247ca8d694fed06f58261e79812147a81de3f9e5c772440a2d9c0a58de0cbb52c376ff1995f2a7e378e9d6b6ddbae311d030fdf914926f3009a3c67e1f4b8c0eea7ace6c99c914ff001f5bb8b47fdd5d72be6bb16055f806de1bbf0d9a7375d0ddae2680db8a469643235d1dd42857ee6f3ae6d2d915b004678fbdacec296971a4aac057e39e99672bafffb6f28aec061e79f27bf8cc5885ab3001a6fbea6f8516ea10605256ff5cca29c8b63810dd726d0e1869517e70433e3154db2daaa3c0ca7974f0daeb8da7c31719d638b0f7be13ff1a43b7d4da28586dd08b06a9e34a3d112630d8a95fba000e4b85c2a0cee00ecf9e2fd7d6df089b2a2642e5d0c122f9e3cdc373877108ceebe2655b94910c25371795d8ce9f1168848257841913c44ae4c76be9e9707b60c475954826093bfddcdae7bd2e160ddfb463c3b1d427520f693f70d82dba3d4c8465ce47efecbb88b8c9d028b9d3412acaa89e4eaa223f87db6fd9419627081cfd27c9d6365aabbeeda79b72853155cf07df37144fb4195b8e32e6b33d239c0ff08cd68df0c72e1661ac7b94b79d62680d8d7c1e249f7ab5163adcc8a54e89070f32434e3dbebad1407e26ee2d27834bea4ffea0c041d0a9eaf243222e0a3f3207525d337c75c522ea02968bcd2819a62978dfe9e4e23b23417015af22ff9109ca00baff7f62d1931a230f03147c23746f737422c8da6dd28d7249d26731ded714cbca718941885e88e4457a2e93c521cf78e78f09ef8b5c9fa4cae60f324938cee2f023b7ee3806f213e16e28b20c59316d62ebbd34a2416a79ddb6f87228890d7583286be30fa94229c81115c33cd89fdbc7c07bd36aa07c8c8e89efb3bac736cf24b9791b3d10f7d68c4d8ecd6ed9bc5db55b9cc840290dd1ad421f588136dbac3a103407bf794049cafb277004c0b94e13b3063e0e2c814e73e2285fcc01ef2ca44e3fcbb00230813669a6d0db2d0a1ece73815b01b32f32dec0876589d8147ee88f71be54fcae8ed73aa2c03bd6460f7a0a8044def8d1a0c47b687bb64a8c8f988457bd957043574468ff4466cde6d9e32b91afb7f59f79cfcb7ec45d5217f6a56fd31af2524c9c22ae0be48760cc83948e3efdc8aeba1d3392005eef13ae860502fee86ba7ccb1b551f114340784ec55a980fa83c20277425289827c00ccf86321b90568f3b0e1f6efd3142a204753331783be3b60c763b1e87676a32be7b671b81589f9d63166225cf8e081488a3fb0e963d019c412df9bc7376fec7faeca9dc84f0a07fc22d68b5ca882b2fec86d1d0ca20f3bf34db384681664302c5d60fd0b28948993e67d9917c287188a18f909c2c8419b95062beaee7a4c573c71d1609989244c6b13d2478d96a76e55e31ba43f223aa67b3c93f5c5fbbb88b747fe9bba0633a41af113153a05807394746c692324ddcf305fc3faab5022b1cce0bc773db2380e32eb01dd2202cba3fc42f750b2916d204ace66eb22bb043fcca99c784898b4602a17466dd7305caba27c5a62c067321d972fa8b6cff584806b20e38387dce33345ad95d4ff214db22218024e7b19</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>其它</category>
-      </categories>
-      <tags>
-        <tag>其它</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>医疗健康</title>
-    <url>/archives/6965f495.html</url>
-    <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
-  <div class="hbe-input-container">
-  <input type="password" id="hbePass" placeholder="" />
-    <label for="hbePass">Hey, password is required here.</label>
-    <div class="bottom-line"></div>
-  </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="d131cc0c836522a743a159fec02b958c05bb12f2d4f1e84f4d2fbcdcc85a8cfa">c84400388edc06f581a781b23939b51eb28978cafa9e35b76f473dcc0a9a23d14bb67e33fc205c83284ee7cbeb9af0c9095cdbc167765094d66a2655d74d9636873de28444f7d5a156391ce73054a5678a8a1dc9eac545c6a5d4eac64b622f9df887025c59cab8eb916d132d52222012b7b038b02cd16667a48b1463417b8db9925b15970d455c4834acfb67a9394df36d866ddae630d265ea40c1c66e065b3c946719a492d697cd6c71461d29593c1ec38ed61e1de28bfe46224cf82899c12c6a144c7f58b6590ab918c0467d8a1684985527cf84cfb41b984fc82adcd7e5535b9fa8d00d0226d8e461a82ad5b2a2db49caf3ff4661187821ee9304bb8eebdae7d7cce72247fdce1208dfb8ded3bbb853fb735de75df7639c5b2428e91968c927f5a1b881a94c73f4c84bebb1b5796b7ea6eebdb956f9daa22471f0acf52e73e72e5e8df06c4e825244ae555a6b58f7f09762517d7eef1d1304dceb45b64dad1e5f06e47dcaba13c986e4b395188314d0e687a7e5350fb7336ed474864df96c8718d73d980885f6eafab5f31abe1dc2b1fb100a49117307efcb94bac9bdd9bad27404f643baf1d40e6efd17c74d60d43df08d003aa42708e66f25a5a636156ea4d8ad66b3dcc1ad82ec26b9003c19375a7f62fefde26434a0d1d47150b64db794d8e641a7df16a32e0456aa2ddf2edca9e8d448dcc6c4a4461ca465993cb2a809b54e6f408e050ea84f610d7beb06ac74a53b6c18d94d48e1901193f1a16c189b16364ed34b5a0d80e78b9991b800f688c489b8abb37b7504ffc1057e58a8dc82e77c5cace76edd18c75a3d927a413644aa6266f5bb85a0cb2e592154b60970e11d9322a1baec813394de17964787c54fa05adc4bbdb15ce00b1595c3825770256872870349fd3e87f224be018f9cd57037774c541ece54d2fb8c2b1bbd636e5769945e6b1d43cf79aef1145e3d7b74322507daf4b021880df156b5f90995df7f19f19c26d278567b3df196331970191e967a86055469f498ce7f36e681498d736a1243eab37e068f894f45abce657a9dba5cbdaa26d090aba1affc5760d09041fe961f0d388fbf6bac8395b163996529b11b532e4007354fe141f0f50cb713489f473cf725daa55305b53a9e6f2d89c536143e493e4d588a6eee9ec2de853c4c88a6334bf97a14aecca779bf7b75496bc91ba06756577d49e6ee7159bec6faf71227b793e297471c2aafe54ac59adbb4dc41319a5fa4e4f24f35e3ae46e63514e22deb1e2bd7326717edb5e6a46a52d6b780aff7f0b79761544736c87a4a60db50a4c7ae86836aae2f3430c9d9e23729bafed960b5a05ab69b40b0e3cabea84bbbdcc81544033649b7ca73c5e97069445ecaa53a654212624ca35b8b449e302c8a6a035261a479e870dcbb8be073edb0e5916d44c55adf809332c53bfa9ab69b64cdb34d0cef96de354c598fd758020ed058ad47c15697eaadb21c8dfa05d0aa2f00a3ec70ca6c18fbe91b9e49e25f0ddd26fc96ed7d7f23fd6beb0b25eda8a3bdf3e14821f140718630a7de3ac2743e92b60632ba22688ef33ff04dfbe189bb222a14b3036ef20b6df04aa6e2ba60</script>
-</div>
-<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
-      <categories>
-        <category>其它</category>
-      </categories>
-      <tags>
-        <tag>其它</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ssl 证书配置</title>
     <url>/archives/2c778873.html</url>
     <content><![CDATA[<img data-src="https://imgsw.cn/static/images/zuorizhige.jpeg?imageView2/2/h/350">
@@ -1177,61 +1235,6 @@
       </tags>
   </entry>
   <entry>
-    <title>王者荣耀 露娜</title>
-    <url>/archives/981037da.html</url>
-    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/wangzheluna.jpg" class="m_more_content_bg_img"></img></p>
-<a id="more"></a>
-
-<h2 id="露娜连招"><a href="#露娜连招" class="headerlink" title="露娜连招"></a><Center style="color:rgb(195,176,145);">露娜连招</Center></h2><p><strong>月下无限连</strong></p>
-<p>基础：13a2a3a3</p>
-<p>按压式：a1a3a3a2a3a3（单输出，适合打坦克）</p>
-<p>滑动式：13(滑)a2a3(滑)a3(滑)a1a3(滑)a3(滑)a2a3(滑)a3(滑)（从肉突进到脆皮，过程中可切换按压式）</p>
-<p><strong>月光剑</strong></p>
-<p>练习：鸟a5下3红13a3猪a2a3红13a3鸟a5下3红…</p>
-<p>二刀流：aa13a3a2a3a3（蹲人，两下 a 后，也可以接 2 技能）</p>
-<p>二刀流进阶版①：aa13a3a2a313a3</p>
-<p>二刀流进阶版②：aa13a3a2a3a3a1a3a3</p>
-<p>四刀流：aaaa32a313a3（上路抓人，打鸟，越塔）</p>
-<p>五刀流：aaaaa313a3a2a3a3</p>
-<p><strong>螺旋飘</strong></p>
-<p>a1a333a323，a1a3a3a3，13a3a33a313</p>
-<p>重点在于标记最大化利用，要活用，可接月光剑。</p>
-<p>1技能起手，选其一标记大招。</p>
-<p>2技能起手，走一下，错开位置，大招。</p>
-<p><strong>消耗流</strong></p>
-<p>基础版：1323</p>
-<p>进阶版①：aa13a3</p>
-<p>进阶版②：aa1323a3 或 13a23aa3</p>
-<p><strong>常规流</strong></p>
-<p>基础版①：13a2a3a3</p>
-<p>基础版②：a2a313a3（越塔，第一下a在塔上）</p>
-<p><strong>按键问题</strong></p>
-<p>平a，1 和 2技能与3技能的同步（极限效果：技能动画时，按下一个技能）</p>
-<p>取消后摇：平 a 后移动一下，不要一直按着方向轮盘</p>
-<p><strong>设置</strong></p>
-<p>镜头移动关掉，自动攻击关掉，优先最近单位。需要会三指操作，快速换装。</p>
-<p><strong>铭文</strong></p>
-<p>32攻速：狩猎，心眼，红月</p>
-<p>29攻速：3个贪婪（蓝宝石就可以，不需要进化水晶）</p>
-<p>22攻速：10个贪婪（纯输出装，吸血高，但攻速慢）</p>
-<p><strong>装备</strong></p>
-<p>出装①：蓝色打野刀，时之预言，抵抗鞋，噬神之书，虚无法杖，辉月</p>
-<p>出装②：蓝色打野刀，抵抗鞋，噬神之书，虚无法杖，极寒风暴，辉月</p>
-<p>如果对方护甲低：虚无法杖 –&gt; 痛苦面具</p>
-<p>后期换装：辉月，复活甲，名刀司命，炽热支配者，血魔之怒。</p>
-<p>大后期：可选择博学者之怒，贤者之书。</p>
-<p>出装顺序：小打野刀，进化水晶，一级鞋，升级打野刀，升级鞋，噬神之书，小面具，升级三级打野刀，升级进化水晶，辉月（32攻速）</p>
-<p><strong>月下流丽</strong></p>
-<p>（蓝区3怪开）a1a3 2(狼拉出来) 3(蓝) a1a3(狼) 螺旋飘(鸟) 飘(蓝) 挂印记 a2a3 13 挂印记 惩戒</p>
-]]></content>
-      <categories>
-        <category>其它</category>
-      </categories>
-      <tags>
-        <tag>其它</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>设计模式</title>
     <url>/archives/364ea8cc.html</url>
     <content><![CDATA[<img data-src="https://imgsw.cn/static/images/学院偶像祭.png" class="m_more_content_bg_img" />
@@ -1336,7 +1339,7 @@
       </tags>
   </entry>
   <entry>
-    <title>备忘记录</title>
+    <title>远大目标</title>
     <url>/archives/1b9b0226.html</url>
     <content><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
   <div class="hbe-input-container">
@@ -1344,7 +1347,7 @@
     <label for="hbePass">Hey, password is required here.</label>
     <div class="bottom-line"></div>
   </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="19279dec747e4b905c6b9030cf7ae8ea9724a15fe9598ea94f3baae009b386de">c84400388edc06f581a781b23939b51eb28978cafa9e35b76f473dcc0a9a23d14bb67e33fc205c83284ee7cbeb9af0c9a66bfef0f647e60f880b0748ed04848f0222b8dd40adfe31ca6cbee4c8ef119fe210f850a518bde3012f730524fd208323164705c93bf0f0af2f9ccb6c1c7d16ebc6bccf64e28ad9bdf0d41c2d163e9d16ddf6c76581c2efe94d867abf96f9492d408e6e90de386342699534bb3efc6b7ce25842ac6d062c37ddbd1c1cffc8f0edc0841c2cf8d253ca8e787bd15c1b39cd0792a48fd9f7309f7babf83f11810a509572e7c634b1827c3f8c5c4b9405e23c3786d99a3695e3c320f73f7e93d866a4cea2a98728cbc5a035bf154e9af439761c279d6c52e19155407ab7e069f93d62583fb021afb75e385a078db2cb24b01155344c4ade831fa1963906592ee696b2072ce1672734041cbd2633a84b56c74519712b07ebf7277fe05dffa54b56b92d986a1775437eec2288b325d90e924e1b49070270ed9792d665e6a4fc9e67c971cc68504d84294124fa393915e68cf9beb4af68e0b4d0c1b0f5a6a3916a4d7eae3f489597e23d967ed13ea4e11ddbbda7bde76bd24c19655afe38d7453f0bf73f94ffa1a20ae2270c4d1842d52b45621fd28bc8ed2b5047aed90b21294bfc29f6f7eb6458027d23e2fb4db21c8b51b80c1de6f9454713974f30700db42e21df6e703045af8bd5b57c9f4c2d562c3d4675570c89b32f42d1d52fb288e7060a8394671f9779fcf2a447cc6a98ec755930b60a8340af5617d9d578cb33ae67cb04d73e65d222d89da248310a1a073d142618d0a326d9c63cc6220d558d1e0e2e543f993017aa9a4896e3552942f20b4a472f1058d5bc0a2c652fc4803d4afe8957b6c57f0ea671f1e3a74ef2d65c348e2ea668bed57769ceab0200b383b25704baf03d2ea2720ccbbe558a59cce33adacea0f60eddb00a1ea969c0d713787b473b3d401899b7c7b199c415727996da99d9178262d7c8281ceeb326ef242e63ca68348b72abe5ff75d03412dedf2aa4d0d82f536cc87bb0f4fa82dfdca2cb0b8aa75cebbae6329d589c7b706ed9671d390ff0d9184c03fae76c6378781bfce094d3a1491d557242f3d000c43d7af1b707c5b244be4d0a88280d454aac0f4e430961c044f85d863b41c093bba997ddd4bc96409baf40d40707300bf3665adab2342a23afb1a13576bf14a8ec5869564859ae405a7c315c3e16be799c87306c2788be337422b45bef4bc1cad55bb4e9357eafac44cd4503513b8074c38ba4ee946a657644d55db262ebe7abe7b46c5148210cea3b65448f80a3c300c8b6fe758effe020635d100be8184436b14b1168eef16c61278fb3707d1d96eb217c6471613a7551416606356509f0e2136d495fe57093d60d30041873e902701e59741d2e9a388b8374039a71ae34bafa39b5eb3e598fd23d4c29a363b52011033872f77b4ebbb8cd7c922dae8618954ab07207d59826ec583e068d248f9e6b3be9755c82358ec88b128e2368f92ab58f4d2a8548c7d330b0c9ad02dcd3e36dea8029f27895a085da8d783a79756331efb00349ff7851429ff8378196808576c45b32c8a3ec5fa630526413434b6160d4291bbd26239083127c20124c659741d3ba226719ce9c81c9e521f2721f81579170a90c65c64863f93c676871f2e135232fa45c606118ffd35cb90bce69bdb8359f73fe18f847bc422a4ac7a789e158a88ebe98c78ed3c2c30a3cad1b24fe8376c30636128af13a2f6c571027f93d2ffb1e78d8636a95bb2b978ed5d2d379f89ebc4c73dec43f5815890699ac36fc150157dd64392dfbe109fbf2b26557588386480586ecfa3dac2c3862a6723c36329d4dd5520b773d3895528225c27ed19c9423666220281c45a2015d3407390a405dc313ef636fbda295a8b19ab38184fa39d9b2a85649e5ce0720871621154a366eb7bcb5dfc0e2b1c625cf355bb9d139e07f77f84b1caddc3c3887463f0a85e5dc6919a7152bf0b7272f9033abf547bf446652247be7d522a4f9bd6c033d3271f362424099b9f4ccdfc87c1ecb8d1f56962e8fbfaf05de1e74e83a7d1d48ba2602681b1f5c99f13b45e2eff24fdffbea37e56198162e207ca7dcfc8377e4b2ba0c66c8c09beba04e42b392948d814f69e5a9d9f2659e3e22d227a2f1332e6f824defe970aa4521cc3b6ef8170c9cfeb9f655c0ff0237430a0c285ae5176d7ca2824cfc5685c31631795bec18d55a8ea0f6e642ef65f3eb10fcee3d6101878611cd5aaa62ed853a3b9cc3ad931455da7d2e47da953e307cda19ae96321cf611e6ce3b67884a045139b0d997b7015a034d7f0d99ba56f9a15df42f1db5a961e0d77442552fbf93db1fe276a3d4f604bf8a98f9cc5ca0ff033d040878b2951d096bba28d1a938db1696f565c1abac8ff41ec63120debb6318115b23709bd6c59a9f2d4bb1bd876b1e9898a9eaf27b45d1d9219346e8a9cfc5e79470aac8a6c52596c6f5092657a895c540f9f2df4968359d703eae2416aec040e0d317fc9601a60c31a6c6f3db9a9ed1f06e4cfac43f27d97b5511a8a17257c78c44bbc85ef6f2b61a157aa191ab5660cc7b7223511a406e84f5e94c7d2914e4e927b1c3ecab7b54ea3ff377b72f99aa2b3b6576e744c4afb2a3825a166f76a228b0ddac94b18a756d69cb8953f3ebe13278a2bc61090e2cfe092f6a368eaf8065d16e3f07b90000eb7cd8038c1e0a212866f4427480980b9a0cfca59bdfbb928b7b73c0261e6532ef747e920193b6626e2a1874786a5ff7e11fd4020687ace171cf19f8c3f9aec42854a57b0c357852c7272a414195442a8e4c6e63c8b1b78f1471fe478fbf4a2ba4d49303e5a8ed7bfccbec2da53595673e898c71005717ca1d7029deaf95348dc2ee8741d76eccfa21252d4a75d9720d0198f91ef006b57fe1b5e3225914ecb93b70743ae4863b0c848ac4e2516e518fb307433a281f0466b86636face96a100f17b85b0204aa46da7dc910ce19938655d2cdae0bff376ea8b2f4d8e796d9127a67975c1a93ecef1c533642fa4263b684af9f762ce46881ae77fb73f812f8c6b2c36a0b1e6005b55b3965f9756149d673e2b855254586269f0067d6396216c1b82857468361948fa2391f39b1bf4b1a2b97d668ba9bb3a33fe94aaf9b65123b1eefad062398e0509bbf96177853ce5521208a7c9017ac862b01fe518bfe9b4729f2cc60d216359204138e10f4a213ab6d99da4448bcea00db62fa741fc59c6c8ae715d8b8512d56f01e18ce4a337360eb0f02d4323d4f944beb4550f51cff999917bbf822dad4c1939846cecf70e602c17a89ff8659eb8a28349da65a0b407cd8ff8372692e6b82f2044201a0ee40ea95c923ce10d172405e794c3c8ed6b7204d819cdb3832e4831f4856e96dd5b5dcca92f785e3597b693d36d82c1dbc3a81f69f8892e0acdc1cb249f793a03acc2b03d9abcf6b38357d93a9bcf0082a51b855ec4665005eb4f8b45e2bca2dc589eed86e7f3ad90afc2c5c10686ef3fc81f4f0705020c5c45a5aa47817478e60e8fa78140e08e37bc4335abc9db4e8f9de4d8116bd5f789a6b91c7067e3713e52a5b8c17f4d8ce2d99ca8fa45422ca110c82d59e37865884c3fe014c33ad6d26c83ad93c94f72efea0c72fdee60178d9ef5a459ace319686580672d4b08e2d963c0c6cf1d62eaed2118f1ac37af0905284a3291495b1e6be3f7ee4a428bd89ecda67c684a685f6b8a310cc46d570a6b7da7a08482a58637feae2940456cb4c49b0bf3e22e2e36b6acf7024ee644e02b6b6cd61e9cf5afe72e05744f4b0cd0af5ea50b8c12b3307d3df379ed4338622f18797730f94d07dceb8da953fcf320641cb1b211b7a5d11ab1598aa6f2c92f8a9bbbac980902843c1c8f9ffdb53523f3a948119c89aa84996d0a94a85c3228de2a331e585f0e53d807af1bfa3540e20b022a4e2b041b79c478f4d1663975891f20a9a950e00091b7148238d5ef04b345894a0abe33c34056ca3bc8593d7e07a7d86cbc8aa1581f96504a67be98eb6450f2c7079f3a91aea8da29258329b0232ac82a4bb13184fc044dbbed996d41d50bac70fcdd545eb46fd0446882a31f4bd340f63f66975ca22c5a0d7d62eb987f28c23bb201373b239c6bccb63c305da3fce568818775061b22619cc2c554f1cc792091a655e05b19c815ea3244c5ef4f65e8adc9e862bbd45c194b3471481fe043b654b8c207601d01ac56f3bbeb7184e9b1c2d77b720f2c719571ec1db3e0d25cfa56dfecf36ad24b67d13c902b4f1b4ec75749e80e1e7cf1c7f39dfdf7e722cca05d86c023731f8ff87aaa77448728e91f40707c223c3579089854f78edc714c4ff89b89c5103c75046842d3c74aad9831844abfc5bc6bf5982b36d49d097c9d02aab09b490d8fde8e2b4a98ed39c71e4f5180792ce535016067ba26bd6a3026db4bea8a83d3a195840fa9abbf3e392a2a13bb79672589f1e7803740f017ca8a1e48c3eb080586fda9cdfda15366170f5022b05c1a4f4f2933eb19cf7546327c1e157f1deabdeb0785d97a70400fea97f656b3e7386f2b5fd51c2d6fb35b60429f816b14745fddfde4004aaa2b56b33f2b348d25d2bca5aebd4a9eeced9955275d7664d0a8f043c932acde5874a5c9b71b3e0fab96ec2cf46faf82ba73958d0852212ff150099dd78c6c8c952782504fa81179edc25e67c209a4ccd7bee4cb19708bc0af31547c83d1941451d3682b1b7be5b9e5ed2c53d5f10a7d87aac49aa1cccb48b280f406fab9dcb7ba145984fd57f8c0a80e04ee5ebf81d370933cd2c9ecd0e1f9a890d28af1e81a5cafb6fe5666afee97ec1c47deeb8d227a92ba92eb67f4bf36a0cf25602ca6df6f928a4cb11752f253cbeccc4c720a30800df651ce5504cc9520bde6bcfc8466b3fa42f586539a5527ec4c93877839539a15b02bdcee31584e82c6d84a258fdcf9838a6b478ac5c8d3c266abcd76e0fe572d5ba3e34bb02c6de3a25bfdcb9e7c6fb9b3b05f4b01aa43983a5e661e5a6816fb453f51b60a316abdd500a58ff2e9c44dba354972a45eb3171d78487088974e351887ccac8381cafdde1bf6c9b9ee195421c1c861a7efd931b71229b4cb5aef9c26f40744a4f881fed0b036c430fd15ef5041bd0bd9e936bff6f92cea2eb600b60cbe6322d7e72f67198833a137e0fe881269a7a50215efdf1384c93b086ad96265911a10adb75936691418f6052c01338dfada8f04747da7a00e1e0f9ed4e86919517398395694db9f85bd105963b23a80c7e2ad4f7fdee8c31dac2e2e</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="f95954558d0ad4f054b688fe01fc2ce76d110c20e49fc746d2ad074260a7f29f">c84400388edc06f581a781b23939b51eb28978cafa9e35b76f473dcc0a9a23d14bb67e33fc205c83284ee7cbeb9af0c9a66bfef0f647e60f880b0748ed04848f0222b8dd40adfe31ca6cbee4c8ef119fe210f850a518bde3012f730524fd208323164705c93bf0f0af2f9ccb6c1c7d164d9f768f131b4a006cbb6a4e1ad64c49a3a3f86763d8c0e007fda7558fe376af13d57900c03e9e6437ab724a4f1ba70f5f80a2dd1935d7dfbb5378a7e70da86a2c4579b3d19449c26d4ada92ed1bb17608716ac090a1e2487b36728d5963b5ec02f333f773301f8004f07bb070fc376d26e2c4ab7df83967a5885ff7022c9bea95455d9c857f31a840487ea01940b94e4dd424eeecac33f026c42b62b41279770737c7c3cacc6c7a83db8386cc4d837201062cc92a49ce70dc42ea09cf20dea054df6282fea644895278182473a078d27f60b7b6f4c1fdd71e5ce8a4af47c4d3fe8b1ed6171850d07a66901d02c895bb06cfc77a2b8271e2b0ad9074eb7f9dc89ba2b66569d077267d24bcbd0c81910b85d4abda02a991937bcd6975763555ada4364243ee3312cd2da0afab3abdccb974c6bcc9177cbffde2eb68a9f2488639d82f31cae8c30e3a9255656e4c33bff6c171ef1caff6ff06a5d9931943954e8008599c2472fb67a5a55bac119561bccec8bd0d1ead86bca2fab5bd883a28e05a7a306ad505a125cc4edd74afda868001259b8b27622dd82cb85d016230165e13488273b944474e8229e16ba2c7ee5a06e17915e2caba96724cc839df9739c5884eee9574f316726d3ca0b7386cc58e63157a75e49e5d082c20c5359f85c80d6e313dd71798e1a1096310bfcda790b4610b482c7efe08d9d193ab1de670a9f26489cb6a88dc9e492370b9ed0570cb9c7eefb3e3624cf2d5d1fdba76c278974cdd45976ade3e3a639bc72173260a4480c9429bd326f0a6bf9e7605a843f5fe9b3346de8cbdeac5314c2b15af8bf22be3421c0fe0db0adf7a03279a39ddcaeb22428d545291f68186d2911918bf299af6e99ab69dfcf2e61bddb64ed035454a2d14d2cfcd1c621606dd5bfcbf39c2a897d5019dbf69ccae1a590d04787ea4177359d3eecab5050314d7f6b65626ac26a8e366f6f32fc5f31d94e3561bdab510e69b48a4e27afa81daf2c8bf1c6cbd49a27128a1fef4fd86ac3a5a0bc88f78643373c085b9890eda6cda1e2907ad5d583e83539dfe4776844643c4ea6e19d48fa1ed16988450792e909d53f0d60b2cd19ff341705aee30c1b3b038d17f00f3ace52a55ac3d56771d27114c61774cea4549d8804c5d1bab917e8a65b2d9aa06ad0cd10b405dde32c2d81f8de8c09749202fc1432138bbd94d0c72f047439ad9b7e1a1af53c79f7c7e640710a82a9e46008a1b4ca9af31ce1a259c00668d67c5975725</script>
 </div>
 <script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
@@ -1814,13 +1817,13 @@
       </tags>
   </entry>
   <entry>
-    <title>软件开发工具配置</title>
+    <title>系统软件配置</title>
     <url>/archives/86b9f0ef.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/wufayiqixuexi.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/wufayiqixuexi.webp" class="m_more_content_bg_img" />
 
 <a id="more"></a>
 
-<h2 id="MAC-配置"><a href="#MAC-配置" class="headerlink" title="MAC 配置"></a><Center style="color:rgb(195,176,145);">MAC 配置</Center></h2><p><strong>快捷键</strong>：</p>
+<h2 id="MAC-配置"><a href="#MAC-配置" class="headerlink" title="MAC 配置"></a><p class="m_more_title_style">MAC 配置</p></h2><p><strong>快捷键</strong>：</p>
 <p>切换相同软件：command + ·</p>
 <p>开启多个 QQ：打开 QQ，command + N</p>
 <p>浏览器快捷键：</p>
@@ -1960,70 +1963,12 @@
 <li><a href="https://plugins.jetbrains.com/" target="_blank" rel="noopener external nofollow noreferrer">jetbrains</a></li>
 <li>[Xftp,Xshll]</li>
 </ul>
-<hr>
-<h2 id="Android-Studio-配置"><a href="#Android-Studio-配置" class="headerlink" title="Android Studio 配置"></a><Center style="color:rgb(195,176,145);">Android Studio 配置</Center></h2><p>代码补全功能，不仅可以补全代码，还会自动导包。</p>
-<p><strong>配置</strong>：<br><a href="https://mp.weixin.qq.com/s/WwwMtYckUxKwBvB9d7TMlQ" target="_blank" rel="noopener external nofollow noreferrer">插件</a></p>
-<p><strong>快捷键</strong>：</p>
-<p>打开 Logcat：command + 6</p>
-<p><strong>模拟器</strong>：</p>
-<p>右上角：AVD Manager</p>
-<p><strong>日志</strong>：</p>
-<p>AS 中推荐使用 Log，而不是 Java 的 System.out.println();( 快捷输入 sout)，也不是 Kotlin 的 println()，因为它们的缺点，比如日志开关不可控制、不能添加日志标签、日志没有级别区分等。</p>
-<p>打开日志，右上角，系统提供的过滤器有 3 个：Show only selected application 表示只显示当前选中程序的日志，Firebase 是 Google 提供的一个开发者工具和基础架构平台(不用管它)，No Filters 相当于没有过滤器，会把所有日志都显示出来。Edit Filter Configuration 是自定义过滤器。</p>
-<p>关键字过滤：支持正则表达式。</p>
-<p>日志有 5 个级别，从低到高为：v 代表意义最小最琐碎的信息，d 代表调试信息，i 代表比较重要的数据，w 代表一些警告信息，E 代表错误信息。高级别可显示高级别及以下低级别的日志信息，低级别不可显示高于它级别的日志信息。</p>
-<p><strong>创建 Project</strong></p>
-<p>Add No Activity / Empty Activity</p>
-<p>勾选 Generate Layout File 表示会自动为 Activity 创建一个对应的布局文件<br>勾选 Launcher Activity 表示会自动将 Activity 设置为当前项目的主 Activity</p>
-<p><strong>AndroidX</strong></p>
-<p>按照官方文档说明 AndroidX 是对 android.support.xxx 包的整理后产物。由于之前的 support 包过于混乱，所以，Google 推出了AndroidX。（support 包在 28 之后便不再更新了）</p>
-<p>在 AS 3.5 之后，新建项目默认使用 Android X。这对应着<strong>gradle.properties文件里</strong>这两句话：</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"># 表示当前项目启用 AndroidX</span><br><span class="line">android.useAndroidX=true</span><br><span class="line"># Automatically convert third-party libraries to use AndroidX</span><br><span class="line"># 表示将依赖包(support包)也迁移到AndroidX 。如果取值为 false ,表示不迁移依赖包到AndroidX，但在使用依赖包中的内容时可能会出现问题，如果项目中没有使用任何三方依赖，那么，此项可以设置为 false</span><br><span class="line">android.enableJetifier=true</span><br></pre></td></tr></table></figure>
-
-<p>AppCompatActivity 是 AndroidX 中提供的一种向下兼容的 Activity，可以使 Activity 在不同系统版本中的功能保持一致。AppCompatActivity 是 Activity 的子类。</p>
-<p><a href="https://developer.android.com/guide/topics/ui/layout/recyclerview?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">RecyclerView(谷歌)</a></p>
-<p><a href="https://github.com/googlearchive/android-viewpager2" target="_blank" rel="noopener external nofollow noreferrer">ViewPager2</a></p>
-<p><strong>MAC 下 SDK 访问：</strong></p>
-<p>查看 SDK 所在目录：</p>
-<p>1、Android Studio -&gt; Preferences… -&gt; System Settings -&gt; Adnroid SDK 可以看到 SDK 的目录所在</p>
-<p>2、Tools -&gt; SDK Manager 可以看到 SDK 的目录所在</p>
-<p>Library 文件夹默认隐藏的：</p>
-<p>Mac系统一共有3个资源库文件夹</p>
-<ul>
-<li>分别位于 <code>/Library</code>、<code>/System/Library</code> 和 <code>/Users/你自己的用户名/Library</code> 下，中文名都是资源库。</li>
-<li><code>/Library</code> 指的是 <code>Macintosh</code> 下的资源库文件夹，也即根目录下的，这里的资源库是整个系统所有用户共享的资源库，需要权限才可写入</li>
-<li><code>/System/Library</code> 指的是 <code>Macintosh-系统-资源库</code>，这里的资源库是系统使用的资源，一般与用户关系不大</li>
-<li><code>/Users/你自己的用户名/Library</code> 指的是 <code>Macintosh-用户-用户名-资源库</code>，这里的资源库是当前用户使用的资源库，其它用户无法访问</li>
-</ul>
-<p>这里是第三种情况：访达 -&gt; ‘“访达偏好设置” -&gt; 通用 -&gt;  勾选硬盘选项 -&gt; 点击桌面硬盘图标 -&gt; 用户 -&gt; 用户名 -&gt; 显示隐藏文件夹 -&gt; 资源库 -&gt; Android -&gt; sdk。</p>
-<p>shift + command + 。显示隐藏的文件夹</p>
-<p><strong>配置 adb 环境的方法</strong>（但每次重启终端失效，可谷歌查永久方法。）</p>
-<p>一、首先需要安装 android-sdk，查看 sdk 目录下是否有 tools 和 platform-tools；</p>
-<p>二、回到主目录，检查是否有bash_profile文件，如果没有需要新建，具体命令和步骤如下：</p>
-<ol>
-<li><p>回到主目录 cd ￥HOME</p>
-</li>
-<li><p>检查是否有bash_profile，open -e .bash_profile; 如果没有，需要新建一个 touch .bash_profile</p>
-</li>
-<li><p>进入此文件的编译界面 open -e .bash_profile，输入如下命令</p>
-<ul>
-<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/platform-tools;</li>
-<li>export PATH=${PATH}:/Users/jianghouren/Library/Android/sdk/tools;</li>
-</ul>
-</li>
-</ol>
-<p>三、保存文件并关闭</p>
-<p>四、刷新文件bash_profile，输入命令source .bash_profile</p>
-<p>五、输入adb devices 检查是否配置成功</p>
-<p><strong>指定 DNS 来启动模拟器</strong>：（我是用来解决模拟器无网络问题，模拟器默认的 DNS 和电脑的值不一致。）</p>
-<p>cd 到指定目录：cd /Users/jianghouren/Library/Android/sdk/emulator</p>
-<p>输入命令：./emulator -avd Pixel_API_29 -dns-server 192.168.1.1（可通过网络偏好设置的高级设置里查看 DNS 值，可通过用户名/.android/avd 查看模拟器名称）</p>
 ]]></content>
       <categories>
-        <category>资源配置</category>
+        <category>工具配置</category>
       </categories>
       <tags>
-        <tag>资源配置</tag>
+        <tag>工具配置</tag>
       </tags>
   </entry>
   <entry>
@@ -2432,7 +2377,8 @@
 
 <a id="more"></a>
 
-<p>hexo next 主题 5.0 版本配置：</p>
+<h2 id="hexo-next-5-版本"><a href="#hexo-next-5-版本" class="headerlink" title="hexo next 5.+ 版本"></a><p class="m_more_title_style">hexo next 5.+ 版本</p></h2><p><strong>hexo next 主题 5.0 + 版本配置</strong></p>
+<p>主要记录配置了哪些，以防后续修改找不到：</p>
 <p>文章内链接文本样式：<br>Blog\blog\themes\next\source\css_common\components\post\post.styl</p>
 <p>文章背景，阴影等效果：<br>Blog\blog\themes\next\source\css_custom\custom.styl</p>
 <p>更改进度加载条样式：<br>Blog\blog\themes\next\source\lib\pace</p>
@@ -2450,7 +2396,28 @@
 <p>文章的个人 CSS 全局配置文件：</p>
 <p>主题下的 next/source/css/_schemes/Mist/m_global_conf.styl</p>
 <p><code>&lt;p class=&quot;m_more_title_style&quot;&gt;标题&lt;/p&gt;</code></p>
-<p>解决端口被占用的问题：Port 4000 has been used. Try other port instead.</p>
+<hr>
+<h2 id="hexo-next-7-版本"><a href="#hexo-next-7-版本" class="headerlink" title="hexo next 7.+ 版本"></a><p class="m_more_title_style"><strong>hexo next 7.+ 版本</strong></p></h2><p><strong>hexo 升级</strong></p>
+<p>1、npm-check   检查更新</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g npm-check</span><br><span class="line">npm-check</span><br></pre></td></tr></table></figure>
+
+<p>2、npm-upgrade  更新</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g npm-upgrade</span><br><span class="line">npm-upgrade</span><br></pre></td></tr></table></figure>
+
+<p>3、更新全局包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm update -g</span><br></pre></td></tr></table></figure>
+
+<p>4、更新生产环境依赖包</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm update --save</span><br></pre></td></tr></table></figure>
+<p>5、再次<code>hexo version</code>查看版本，发现已经更新为4.2.2了。</p>
+<p><strong>查看插件列表</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm list</span><br></pre></td></tr></table></figure>
+
+<p><strong>卸载hexo插件</strong>（已安装的插件可在博客项目根目下的 package.json 中查看）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall &lt;你的插件名&gt;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><p class="m_more_title_style">其它</p></h2><p>解决端口被占用的问题：Port 4000 has been used. Try other port instead.</p>
 <p>方法一：hexo s -p 5000</p>
 <p>查询 SSH 的连接状态：<code>ssh -T git@github.com</code></p>
 <p>更改全局用户名和邮箱：</p>
@@ -2465,43 +2432,23 @@
 <p>Github 只支持公开仓库用来做静态博客，私有仓库不可以（开会员好像可以）。</p>
 <p>将 Github 的公开仓库切换为私有仓库后，页面无法打开，再切回公开的也不行，可能是需要重新配置下 SSH。</p>
 <p>关于证书，比如我的博客域名为 jianghouren.com，那证书的常用名称好像应该也需要是 jianghouren.com。</p>
-<p><a href="https://juejin.im/post/5ea8f9045188256d7f12f163" target="_blank" rel="noopener external nofollow noreferrer">代码部署到 Coding</a></p>
-<p><a href="https://www.ihewro.com/archives/489/" target="_blank" rel="noopener external nofollow noreferrer">https://www.ihewro.com/archives/489/</a></p>
-<p><strong>hexo next 新版本</strong>：</p>
-<p><a href="https://xian6ge.cn/posts/6d7ed114/" target="_blank" rel="noopener external nofollow noreferrer">https://xian6ge.cn/posts/6d7ed114/</a></p>
-<p><a href="https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md" target="_blank" rel="noopener external nofollow noreferrer">https://github.com/theme-next/hexo-theme-next/blob/master/docs/UPDATE-FROM-5.1.X.md</a></p>
-<p><a href="https://blog.csdn.net/qq_43414603/article/details/103739631?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase" target="_blank" rel="noopener external nofollow noreferrer">https://blog.csdn.net/qq_43414603/article/details/103739631?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase&amp;depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.nonecase</a></p>
-<p>hexo 升级：</p>
-<p>1、npm-check   检查更新</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g npm-check</span><br><span class="line">npm-check</span><br></pre></td></tr></table></figure>
-
-<p>2、npm-upgrade  更新</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g npm-upgrade</span><br><span class="line">npm-upgrade</span><br></pre></td></tr></table></figure>
-
-<p>3、更新全局包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm update -g</span><br></pre></td></tr></table></figure>
-
-<p>4、更新生产环境依赖包</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm update --save</span><br></pre></td></tr></table></figure>
-<p>5、再次<code>hexo version</code>查看版本，发现已经更新为4.2.2了。</p>
-<p>插件列表</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm list</span><br></pre></td></tr></table></figure>
-
-<p>卸载hexo插件</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm uninstall &lt;你的插件名&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><a href="https://tding.top/archives/2bd6d82.html" target="_blank" rel="noopener external nofollow noreferrer">https://tding.top/archives/2bd6d82.html</a><br><a href="https://siriusq.top/Next%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96" target="_blank" rel="noopener external nofollow noreferrer">https://siriusq.top/Next%E4%B8%BB%E9%A2%98%E7%BE%8E%E5%8C%96</a></p>
-<p>中英：<a href="https://siriusq.top/Hexo-Next-7-7-双语切换.html" target="_blank" rel="noopener external nofollow noreferrer">https://siriusq.top/Hexo-Next-7-7-%E5%8F%8C%E8%AF%AD%E5%88%87%E6%8D%A2.html</a></p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<ul>
+<li><a href="https://juejin.im/post/5ea8f9045188256d7f12f163" target="_blank" rel="noopener external nofollow noreferrer">代码部署到 Coding</a></li>
+<li><a href="https://tding.top/archives/2bd6d82.html" target="_blank" rel="noopener external nofollow noreferrer">更新到 7.+ 版本</a></li>
+</ul>
+<p><strong>一些好看的博客</strong>：</p>
+<ul>
+<li><a href="https://hexo.fluid-dev.com/posts/hexo-nodeppt/" target="_blank" rel="noopener external nofollow noreferrer">Fluid</a></li>
+<li><a href="https://www.ihewro.com/archives/489/" target="_blank" rel="noopener external nofollow noreferrer">handsome</a></li>
+</ul>
 ]]></content>
       <categories>
-        <category>资源配置</category>
+        <category>工具配置</category>
       </categories>
       <tags>
-        <tag>资源配置</tag>
+        <tag>工具配置</tag>
       </tags>
   </entry>
   <entry>
@@ -4271,10 +4218,9 @@
   <entry>
     <title>Web-HTML基础</title>
     <url>/archives/b39822c.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/guaidaojide.jpg?imageView2/2/h/350">
+    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/guaidaojide.jpg " class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
-<p><strong>查看本机 IP 地址：</strong><br>cmd-ipconfig-IPv4</p>
-<p><strong>更改 XAMPP 的端口号：</strong><br>软件右侧：Explorer–第二个文件夹：apache–第二个文件夹：conf–httpd.conf<br>修改两处：Listen（54行左右）和 ServerName localhost（222行左右）</p>
+
 <hr>
 <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a><Center style="color:orange">声明</Center></h1><p><strong>指定确切的HTML版本</strong></p>
 <ul>
@@ -4876,7 +4822,7 @@
     <label for="hbePass">Hey, password is required here.</label>
     <div class="bottom-line"></div>
   </div>
-  <script id="hbeData" type="hbeData" data-hmacdigest="255d6e841f54cbffe2ad54be21482ef6ee973441dc2a084d3474c14b92646156">88bd597255f262cac12101b01401a5c46e9015ee8a711da111e0e0dcceea24fef8abad893efa0b0c057665ebcb6ae02bbc286ced6d19a46d32aadb83997841631b61bf54a407769c2c9b9d3fef8778989712d8296308df5a12409544fa95e31f2e75bd17ea3ce965b3deb7ad6b51178f07a01f45fec64682f4e3ee50586bc05984816b6c4148957ea9f453078440cd18d883e7ca4d0710959746aaf5612deefcee0407d1c42ffcef3c50e17c6c88c122399977c490f053c2c25534346b571481310b0eff34c5424792897964ee14d43f3139fc52f805398a4b7e795269cfebe0c02c86d53267de93115425d391d9b456a723c164074082607d0f33550d60993ac3035dc6cda26f6e2ef2934ad1ebaf5a9199e6391b2aaa89fa6683fddd79646435e513f21548340a38b106ae4570a1d2b1cfa07032335115a455136dba4747ad8bf3592cf443274e6854dd870d349539d575c313ecfe9acad52ded3dc7a51c0e29fe5318a520c80062a7ab526719410af5ac310c25f0dc3281ac5c90a88c81d60fb4b7f0559188e5f21dafa30b9f5652f1785322a50a0838539cc4ba0c85084d807fcb96b725ab39499c64640b58299043ed85ed3503a45158e37733c6d4854dd0ed502fceebce025c88583a3e7cec3f7915931547fc446d2dd102e93ddf71bc866ed84838e029ab69748d19a2ec80ee642b6d24f40b421c381dd18593fa1258911388a2369e19bc7bc810f7d2d509f4c36b3b3170c422d3d0d389c2474a38ecaf59a055c8607b6ce69aff86dc7f8d37dc101c19f4c9a916236711031f1e5ed9217c07df20686ec8a0e1940a18ebe8670abceb6d3e5a938c9d6c9c6ef75225aea076fc7bf0dba4e6d406c76a7c5d29871ebcc979ee74667dba81f1a22b7e923713dafba471c1a933ee62564bb791d39f6638623adfa01bf1e4a23acc5b6f961761478c55f2d6ae79ea5c4ccdce5f83b3372692bd1858dabadd3b13ca49b70c86b90738f227a7f31ecefb9c98cd3da4a63fe7bb4dbca217e81d6c21b8e6a00a63f0ce6b55b193de7473b2b3b5183ada045c5e57aca47f02f66d3eca5fb6d09952290ca6cbf6e9537c7babf9ad93fac1088520cb8281c1ccea9e679a632777aed927079b0a0343fc865aaeaa1c7d56889ae42afe4e843f66dd1bf4d52490d313df0eb5ed7499f71ec3c33ad89bc6e3ae39f2a9a61e6642a16a1403b47cde46a6c3b5c5732523787a077f619094ec9ca7c8239f6024dac569bc34e8484b00a6b10fee3f146830110617c299d741a3b6d849df0281da59cfe99212afb2a645eb663352b178e63929a8a4c15c3fab40badc47dd3f05527a082047fd34dc656cd55dd7ee81f78776c693f5b37a01931866ccfd67c377a3b66057f8eb43b29b1f6aeba8368d176aaf9329a08bb0f2351596dce1110d2cbc7c21a9952aac344ba78eb60c051dc3e0fcb78f131ee065662a09cc4dc09f23bd1ed3547fcdda34d3846d4c89ae4d3ee1a403b7706d5c59f1a010d18745fdb4c67b669b49ba750791f12d33043382e53d663a727ce195d7bcd3aed8b3f3298e9a68a2430a748cea0a37b1348869ed9c3666c691cb2f84f5f3d7c8ab2968e8e0b39017fa1ba473656f7d267d544cebe274cde53524769c6c01886e022ad35180cb127ad6ed6369267340924c77ac4bd54e7d4f93ee05a9d753321b5c9a0f5deb55914aa3eb99bffcab516bf27f738cb376e6bbdb5b2d537b19f7eae1f6fdbc42b563e93bc2f14cb501ab8a55de809c2ac077a24837ff1e13b31449b697899c612dd50c513a5dda455c24c0a141c3e87beb3c680598b9f3d0c35b5ba801a346bef7b4937f9ab3d31fcd522f81ac86d8d1208e11ef0ae9391fc3743cdfff195381d2c87358eecedcdc1fa2228fbf4c4bda6377d516e77813d6c81e94385d2dd11171116971f43302728215c3261e0a628666ae2735203b8c948e459fd38ff27750378cc808d3c8e841cca131b06c50648fc22ff509a8b90adc4d61b2eeeeb90b9224682a6fb80bf006d8889736bdd9c2790293669811cf6d62296c4a48f4fc8c3b52220f963ea01a8c8c8e791f083a2068c6e1572f4bf5f3e2029b4a72c958a13c873f01f725667da5516dc3a139a8ebc08f226c0db60c75628e835da9f51e7c6f26cb95a9b708118260a78c8e4bbf13e4267a20da156142fb338b9cc73aea83ef3d96cd71995776aa856c49ee15973b840a7d69e593e92cfcd7c0783c9e9222c3b3d449d5914b818fca9e532d4b89530ef4507494f82f19b44178eaa1f46fcabf7bb37e6a330aea45e56ad8d3b80bb82c4b067c16bc36878c72781a2da496649f9d51f6d1ea3935dc032d25a09aaea7dd107de1265b4a0222a6c0b70790a45c567eff706db0e29df4ed1088230347cb889b17980f595feb36f4c59e7a71c581e6c44f37efe633249199d4b63f9096fccb4e4aec315a26e3e1c78d8c7a4b5efb60dea81ec24979df106263e7974a4c0b9dd0af84d4169e6d065ada00e0b8a4eede17e09bb1bb5d52543df0e90755443a0e5f5a88165b00995cc262780380ee962bc77733b1d73de2025d18b5694cdff1daada039276ddcb421b74c964ed1b09183b21a5370ef05f96bf18918e5da409d159a3beb33901f64a4580d851fb150f05cefd7160df9ff45505812ad8c8f21f86004e78d8477818a9efa5d54c2603cd43acf18f644845b9f67e7bc4ffe9b6bd9c4ca25edfa160c4cd5a0e38f30c6cd5bab670679be82bd30ff276a5e9a4b35e06b6cc8c3daadca5163b6d4135caf11786c672e087a029d99ceb0aa6d1839f300e3b8bf0b4d3a5e8af4f6c55c03fd6f6ec8320ca8d220dbfd2fa908d2c02947c99a494a281645643e0c96e99b39e41db9cb13050163105877325367aa6899bf686ce7bb07c6e11851848142c925400af7a2cbddb825dd92ea9fcf21867f86c99218518a4de604e43e4a414c9b0a6d9270436d7f280743f46bfa22fb9e0b3e966d63eda020a5a17f6be7ec98bcddaba4e80b3bef00e49bf3063b5ebf15ea1e7cf365a6bfb8b73738f82db5e56e8adccf710c7d59d75a1149c3d8a9c1b147c9e1c9ad189eb9427dea3a143d79b448c9d7871c0d85fa105afb5eb456e054065cbc9108104fdbf7fe1eab41c2da3cac28e0219137bb4999622896cdf6a5b22df30a4768b0908f973bf421429f31857f6e75de0f88820a0f96b80f8d0ff48d9d688c4908759e5f4cb7a1439582b796f8d9d192ff71ef25f9a66844dfb6ff201b07b48454cd03e927d500a8d7328a4cb8a3b33b8bc6d595928caab5d5f513fcf4fb93d441152293c2d6e919f4fc87d3cacb5d82081455d10fb3f097ac5dcb8f9bd6e6a825c275e2a0fb75b22ccdfb71d0f851732d99f5df41b2148930f9ceff1b8b297f4f335f74c38ae6358e026317e99c742e452de280e1e85c615c6a4a7b60c93548ca699ec5b7ea3291a2daef08ecad2de8da10bd083b30a35fa656a312ae84ee0a6de3b3787e496e854272a64db36ba3cf774ade718fd2724be67c1cc5f568cc4ffc810c96e24d61de147d216de3da0141210e15b5142c9c9993ba185fb341d023a76d3f77049abfa9c8d7e09e67368d8803336a1ec76d53cbc7e090c0f5a9ebc390e612e48b2326e386745b778cabe5fa969d537984ea8db0542726ed5f8e1c3dc171ecefa85732357c305f1d153071d7cf1cf9eb04f42d4450b36afa0a799804f1cd71ccb6286faddaecb49933dca1e1048bc6a3cecab2d67bee9ff1ec8034e8f4175afd285d8b0e170167434f5bbbe239c3c05df8ecb2d87155be4ab1a75b52d17e27bacf85659b949be05685602c3a6c3eac479035b03838a6e165d77625c532f4078f6ddc8f558dc6cdb1ff6ca3ba8e9b285c69bf8c2c669117bd4a88e15cc0d0aec5da8db500850854f402b216434994e955f64198212372e5fb68e28a10060051372b2d2f98d5cc87c24d6b3c209801f3b447a251bd6490514e2aaf463335241be930ebb0855c4527fe5e9726f857e37fd21f1ac0283fdf234684840254ff2135ba69ccc25e9bb76f2a56864b487730adf690909309cb19d6da3a6a46fef21602ebe9529f9ba3a93e581b908d04a300656db0fef9e6ef832e1317dbae2a4d6ed8efd9e91bbc0936f516b13f8566de3217fc166f5a7d5e68a22fa01619385beef75b8d67825b2c38299a80b46a5f8cbd78b3ad917b3ab2dc5f20e71c8d18ceaf2d2125f6a7b468addbef219e2f8dd9def5758e0cf0b267066ae4aef0914882dd202748154e7ccd1b4fa6658aa6227ff7322d7a6b121755f1becd5b4ea5ddc3b04d832c0545dcf702d2d3774fe481da705a86717b08b071b95721f6337aad19fd6cc1da435ee420c59ad980c8ca938bc47dd8371a12a046a0b38e9a31953e9e3192189ca5d37181910e2dcbcbc46e1493d3c6c3c89ad5faed70352b9f82857082d6993197e97f68036302ff4cec6c2b31244f9a3809308047838d7a56e994a7f6873866d3fbc86e4f089b18f5a17d0d44d929c850c76c47bf702bea25bc5f9481d86e41cfd53e78504d3d18f3234b8255f8945813b58969d89a2e62f4f8aaa8d132582ae88f5635bd7bc8275efd5da322f04401548bd3d8109eb4d88c4fb7d59a98a7a956aa12ee486dc8fc31db4acee4878c18b1be6eba659b4c0251f981610b035150e4880c963e3c458203ce425ec2faf87b116b4b1fc0e35c41fd0e71ea03a332ea8731879e0b72d92cd46c1d5caeafcef10f3cf3c910d8f651ac96398571a7e825f0111964213ccdbd2a011fca97a4704efe3cbca223e30f71a0d329232f4cbcccd6e18339c9ac67e4690308634c3c93c0318cbbc82b8907eba292a37b88ea5f0f3466a3227f0308b60d25a426a437c4813a31899186f225e36cd249580787e80517c6bdfd67885b9d542edcf252edb45fcfc54782345f1ef161a34fe85865823bd4324ffbcc8fb0db73b60aa0e0848ac745ff70e66a49b5836f5aaf337595680ef63a6fafb6179cbb05090fe7b0904bbe3c74e9d6c146ce69111a8f1a0fe97a0868b2066ce464f2d79fe00d322a28ae33e857dddb3c299127a910eb3730dfcc620cfabea166334fbace51a0f662681438296d935220f46c77d5d636e8024b18d6a53e7d44294bdabe6e41b226ebefd3f365741791f0d04c058657440cc24f10bde9b147bb1d9643a273426d51008e3d54e87d73bd505c672988b6902ca699bc89f24db6953d9fb5e660ac3ffd52e2d55d753c1dfe8f29fd64c2ec1cd415bf23d98e233a4d170e9683f4291ae6928e0ecf611cf6d225b47073da3589aaa22f5ff3b05860a71975e079b1f8892fc97b39384a20ae1a7a6991025979788abedb064c0820240beaa9b68966d57d3dbc5f71efd91b668ca2b308002e144a4e6a4abe0de9218406a732be12ae01b3d9c3c4e10aa520b69f5a1e2b359963b815f1c293bce1888a240a9fc65433ecced339fb69da7c982e553152873e444793e15d591adedd774142e5698d4fa6bea32fd1114c3dfe26c66637bf3a758958115a3f7453ada2d0535ae9d53c736c765dad9de55c52d171ff94fbda313b33201d7c9dc7223cff374adb227f165bd4d71c4f2882b617f47ad6949026f367546fd0f4470da3bfab026ffa17eed9ba808155d414de431a6dbd587d0f2f6cda13545a26ae6a7554bdea55061e04659e27edbf4c3d36c38642ab035cc2f39b620238dc533ff82f31c09efd8adebbaaffbafa96827742e6851571c17687fa8309bdb9f031858cda6ffe19b8a16de5a5a2ce520a988e9c5f63943733f056ad76004ad4e3690a9befe4644201d7fdda3aabcb3e08f4498292dea3fe949fe79c2f32d7a25c849ca6279020482a19ee9cdd953c5a612366fe42de4bd4e05b6339004b8799453ca9f8f71a0e5968f4909288f2a403f3dd39191794fe15d61b7659f56b4a8b2ce29907c4cda151adfe71fc5a69a06487c3baf818706600eb5daab9833aac37925ce88b8bf6c84c2f3d669e61d29fc7fc8badbbc78a9f90fa3a167b8b89e0d4263e26a63225e5868695941c52f5fbaa2c0f1b87a1b8efa505aaed94584cb91572479c8ec6c2a5ee1b7fe70970671d2007fde23143b67813443379a746ffc07d86b1d62b1dde3e3cf9c913de412db797c21d04ef00f4c5d5e67701e98e73ec6e5aad475d5c34e049e9ced7d58374f7f0570690097ae73d9ffacf48e27787d6971f9ba51a6c8ee44b0b2a0157e77bec86ffcca717e35edd0708ad5a566a6a533315b80d50ac98c3d76707b3ea15fd8d37da3f5371e920881d9b22ff4c47afd52900d7ed480090061f5c14d8f799a792aeee0f747356d194a8b2fe95993aef16407d7b29ac896e042313049708c6af66e094123a5c1a5b33d465f63ce6ac793dba4fa4878cd1382cd81dbc9fa74e765d7c8dd089809cce997e75308e60721a870e3cd90a158a216b2539681bf2d4b0db3b2196f04f8ce3918803d249ac5397bc41a5e23904623fd294267c2d0eea8f57d3f6c81c6d7e63a916a690b6c0704e25e45e1b4eef3714b34b0045f94ed5e99080f09e6ae50669b278eb2c18d5338b35e941398afd2bbc4230d73b5f2a0132fe6325526d3f30e71740d8126fffaececf0b6334d802439ae93bbb45e49242ae0a0264f2c60e35f87a55b6da5f0eaec3396109e25ba0948053b99b9b9204cab3138c3e3fdd0a076d295369c194f04c0a3585543c9d952d8948414bad7dc12beac42718ac1651ba7fd7ba8ea5feb16c19ab982d4893cd2e15d8b32f3b6f21b8b7c8328914ba516c418bcb29c08bf019a8edb3edb0958f67f1df7e21e6e7bce42fa43f3d1c43a4eb75bc1c1544040097f354d77b4d8468c40cae5e9435013cbe7f8fbf4b35d0186b2e720331e65dd90c6c61266a059f77cacd0b4e585a640b18902d58a2249182a55ad9505f48e0aac7e16ce4e8a2afff6cb79b8f76f5a1197dda956c6ccdfadb0e1bcfbc6156d8fb6252111b1aa5a76c61c55da4424dc4e0c37f637c90fb39574c469718c68ff361099f5f2bdcfb85acfce2a93ac2c901107ca43257be4b0b52f4e40b09e42117f123346fc1015c21ad20dc8a18e39e242118767bfb4a2e50e8fdc9a5efe68f7eefbf9401048c4d89dbd497d30c2e7f0a1483318b0681abfdc101a3a2fc442f12edb40c0b801fd11f8eed6e5bef86b725a3d9694af46b5b0bbaae6d3258a291dffc439ef0277cd107174d9e5f0309848697bc98af8ab388da71f74c7db91dadcf75cbe9c55c6b6bcc4e63ccc56af29e7784d632600f0640c36355a25856d8f7135285042169361659960bc45ecb8bb48665c15de84a81ac1bf24b7c1319198b681baadae4b7ff37c24a29936f7c87fad0abe584bda2f4d8dea5f7db6846800e2c12224957</script>
+  <script id="hbeData" type="hbeData" data-hmacdigest="0640e20fc46ca260fca87e3d4c02133d07515838727c677c2c5f24c523410b2d">88bd597255f262cac12101b01401a5c46e9015ee8a711da111e0e0dcceea24fef8abad893efa0b0c057665ebcb6ae02bbc286ced6d19a46d32aadb83997841631b61bf54a407769c2c9b9d3fef8778989712d8296308df5a12409544fa95e31f2e75bd17ea3ce965b3deb7ad6b51178f07a01f45fec64682f4e3ee50586bc05984816b6c4148957ea9f453078440cd18d883e7ca4d0710959746aaf5612deefcee0407d1c42ffcef3c50e17c6c88c122399977c490f053c2c25534346b571481310b0eff34c5424792897964ee14d43f3139fc52f805398a4b7e795269cfebe0c02c86d53267de93115425d391d9b456a723c164074082607d0f33550d60993ac3035dc6cda26f6e2ef2934ad1ebaf5a9199e6391b2aaa89fa6683fddd79646435e513f21548340a38b106ae4570a1d2b1cfa07032335115a455136dba4747ad8bf3592cf443274e6854dd870d349539d575c313ecfe9acad52ded3dc7a51c0e29fe5318a520c80062a7ab526719410af5ac310c25f0dc3281ac5c90a88c81d60fb4b7f0559188e5f21dafa30b9f5652f1785322a50a0838539cc4ba0c85084d807fcb96b725ab39499c64640b58299043ed85ed3503a45158e37733c6d4854dd0ed502fceebce025c88583a3e7cec3f7915931547fc446d2dd102e93ddf71bc866ed84838e029ab69748d19a2ec80ee642b6d24f40b421c381dd18593fa1258911388a2369e19bc7bc810f7d2d509f4c36b3b3170c422d3d0d389c2474a38ecaf59a055c8607b6ce69aff86dc7f8d37dc101c19f4c9a916236711031f1e5ed9217c07df20686ec8a0e1940a18ebe8670abceb6d3e5a938c9d6c9c6ef75225aea076fc7bf0dba4e6d406c76a7c5d29871ebcc979ee74667dba81f1a22b7e923713dafba471c1a933ee62564bb791d39f6638623adfa01bf1e4a23acc5b6f961761478c55f2d6ae79ea5c4ccdce5f83b3372692bd1858dabadd3b13ca49b70c86b90738f227a7f31ecefb9c98cd3da4a63fe7bb4dbca217e81d6c21b8e6a00a63f0ce6b55b193de7473b2b3b5183ada045c5e57aca47f02f66d3eca5fb6d09952290ca6cbf6e9537c7babf9ad93fac1088520cb8281c1ccea9e679a632777aed927079b0a0343fc865aaeaa1c7d56889ae42afe4e843f66dd1bf4d52490d313df0eb5ed7499f71ec3c33ad89bc6e3ae39f2a9a61e6642a16a1403b47cde46a6c3b5c5732523787a077f619094ec9ca7c8239f6024dac569bc34e8484b00a6b10fee3f146830110617c299d741a3b6d849df0281da59cfe99212afb2a645eb663352b178e63929a8a4c15c3fab40badc47dd3f05527a082047fd34dc656cd55dd7ee81f78776c693f5b37a01931866ccfd67c377a3b66057f8eb43b29b1f6aeba8368d176aaf9329a08bb0f2351596dce1110d2cbc7c21a9952aac344ba78eb60c051dc3e0fcb78f131ee065662a09cc4dc09f23bd1ed3547fcdda34d3846d4c89ae4d3ee1a403b7706d5c59f1a010d18745fdb4c67b669b49ba750791f12d33043382e53d663a727ce195d7bcd3aed8b3f3298e9a68a2430a748cea0a37b1348869ed9c3666c691cb2f84f5f3d7c8ab2968e8e0b39017fa1ba473656f7d267d544cebe274cde53524769c6c01886e022ad35180cb127ad6ed6369267340924c77ac4bd54e7d4f93ee05a9d753321b5c9a0f5deb55914aa3eb99bffcab516bf27f738cb376e6bbdb5b2d537b19f7eae1f6fdbc42b563e93bc2f14cb501ab8a55de809c2ac077a24837ff1e13b31449b697899c612dd50c513a5dda455c24c0a141c3e87beb3c680598b9f3d0c35b5ba801a346bef7b4937f9ab3d31fcd522f81ac86d8d1208e11ef0ae9391fc3743cdfff195381d2c87358eecedcdc1fa2228fbf4c4bda6377d516e77813d6c81e94385d2dd11171116971f43302728215c3261e0a628666ae2735203b8c948e459fd38ff27750378cc808d3c8e841cca131b06c50648fc22ff509a8b90adc4d61b2eeeeb90b9224682a6fb80bf006d8889736bdd9c2790293669811cf6d62296c4a48f4fc8c3b52220f963ea01a8c8c8e791f083a2068c6e1572f4bf5f3e2029b4a72c958a13c873f01f725667da5516dc3a139a8ebc08f226c0db60c75628e835da9f51e7c6f26cb95a9b708118260a78c8e4bbf13e4267a20da156142fb338b9cc73aea83ef3d96cd71995776aa856c49ee15973b840a7d69e593e92cfcd7c0783c9e9222c3b3d449d5914b818fca9e532d4b89530ef4507494f82f19b44178eaa1f46fcabf7bb37e6a330aea45e56ad8d3b80bb82c4b067c16bc36878c72781a2da496649f9d51f6d1ea3935dc032d25a09aaea7dd107de1265b4a0222a6c0b70790a45c567eff706db0e29df4ed1088230347cb889b17980f595feb36f4c59e7a71c581e6c44f37efe633249199d4b63f9096fccb4e4aec315a26e3e1c78d8c7a4b5efb60dea81ec24979df106263e7974a4c0b9dd0af84d4169e6d065ada00e0b8a4eede17e09bb1bb5d52543df0e90755443a0e5f5a88165b00995cc262780380ee962bc77733b1d73de2025d18b5694cdff1daada039276ddcb421b74c964ed1b09183b21a5370ef05f96bf18918e5da409d159a3beb33901f64a4580d851fb150f05cefd7160df9ff45505812ad8c8f21f86004e78d8477818a9efa5d54c2603cd43acf18f644845b9f67e7bc4ffe9b6bd9c4ca25edfa160c4cd5a0e38f30c6cd5bab670679be82bd30ff276a5e9a4b35e06b6cc8c3daadca5163b6d4135caf11786c672e087a029d99ceb0aa6d1839f300e3b8bf0b4d3a5e8af4f6c55c03fd6f6ec8320ca8d220dbfd2fa908d2c02947c99a494a281645643e0c96e99b39e41db9cb13050163105877325367aa6899bf686ce7bb07c6e11851848142c925400af7a2cbddb825dd92ea9fcf21867f86c99218518a4de604e43e4a414c9b0a6d9270436d7f280743f46bfa22fb9e0b3e966d63eda020a5a17f6be7ec98bcddaba4e80b3bef00e49bf3063b5ebf15ea1e7cf365a6bfb8b73738f82db5e56e8adccf710c7d59d75a1149c3d8a9c1b147c9e1c9ad189eb9427dea3a143d79b448c9d7871c0d85fa105afb5eb456e054065cbc9108104fdbf7fe1eab41c2da3cac28e0219137bb4999622896cdf6a5b22df30a4768b0908f973bf421429f31857f6e75de0f88820a0f96b80f8d0ff48d9d688c4908759e5f4cb7a1439582b796f8d9d192ff71ef25f9a66844dfb6ff201b07b48454cd03e927d500a8d7328a4cb8a3b33b8bc6d595928caab5d5f513fcf4fb93d441152293c2d6e919f4fc87d3cacb5d82081455d10fb3f097ac5dcb8f9bd6e6a825c275e2a0fb75b22ccdfb71d0f851732d99f5df41b2148930f9ceff1b8b297f4f335f74c38ae6358e026317e99c742e452de280e1e85c615c6a4a7b60c93548ca699ec5b7ea3291a2daef08ecad2de8da10bd083b30a35fa656a312ae84ee0a6de3b3787e496e854272a64db36ba3cf774ade718fd2724be67c1cc5f568cc4ffc810c96e24d61de147d216de3da0141210e15b5142c9c9993ba185fb341d023a76d3f77049abfa9c8d7e09e67368d8803336a1ec76d53cbc7e090c0f5a9ebc390e612e48b2326e386745b778cabe5fa969d537984ea8db0542726ed5f8e1c3dc171ecefa85732357c305f1d153071d7cf1cf9eb04f42d4450b36afa0a799804f1cd71ccb6286faddaecb49933dca1e1048bc6a3cecab2d67bee9ff1ec8034e8f4175afd285d8b0e170167434f5bbbe239c3c05df8ecb2d87155be4ab1a75b52d17e27bacf85659b949be05685602c3a6c3eac479035b03838a6e165d77625c532f4078f6ddc8f558dc6cdb1ff6ca3ba8e9b285c69bf8c2c669117bd4a88e15cc0d0aec5da8db500850854f402b216434994e955f64198212372e5fb68e28a10060051372b2d2f98d5cc87c24d6b3c209801f3b447a251bd6490514e2aaf463335241be930ebb0855c4527fe5e9726f857e37fd21f1ac0283fdf234684840254ff2135ba69ccc25e9bb76f2a56864b487730adf690909309cb19d6da3a6a46fef21602ebe9529f9ba3a93e581b908d04a300656db0fef9e6ef832e1317dbae2a4d6ed8efd9e91bbc0936f516b13f8566de3217fc166f5a7d5e68a22fa01619385beef75b8d67825b2c38299a80b46a5f8cbd78b3ad917b3ab2dc5f20e71c8d18ceaf2d2125f6a7b468addbef219e2f8dd9def5758e0cf0b267066ae4aef0914882dd202748154e7ccd1b4fa6658aa6227ff7322d7a6b121755f1becd5b4ea5ddc3b04d832c0545dcf702d2d3774fe481da705a86717b08b071b95721f6337aad19fd6cc1da435ee420c59ad980c8ca938bc47dd8371a12a046a0b38e9a31953e9e3192189ca5d37181910e2dcbcbc46e1493d3c6c3c89ad5faed70352b9f82857082d6993197e97f68036302ff4cec6c2b31244f9a3809308047838d7a56e994a7f6873866d3fbc86e4f089b18f5a17d0d44d929c850c76c47bf702bea25bc5f9481d86e41cfd53e78504d3d18f3234b8255f8945813b58969d89a2e62f4f8aaa8d132582ae88f5635bd7bc8275efd5da322f04401548bd3d8109eb4d88c4fb7d59a98a7a956aa12ee486dc8fc31db4acee4878c18b1be6eba659b4c0251f981610b035150e4880c963e3c458203ce425ec2faf87b116b4b1fc0e35c41fd0e71ea03a332ea8731879e0b72d92cd46c1d5caeafcef10f3cf3c910d8f651ac96398571a7e825f0111964213ccdbd2a011fca97a4704efe3cbca223e30f71a0d329232f4cbcccd6e18339c9ac67e4690308634c3c93c0318cbbc82b8907eba292a37b88ea5f0f3466a3227f0308b60d25a426a437c4813a31899186f225e36cd249580787e80517c6bdfd67885b9d542edcf252edb45fcfc54782345f1ef161a34fe85865823bd4324ffbcc8fb0db73b60aa0e0848ac745ff70e66a49b5836f5aaf337595680ef63a6fafb6179cbb05090fe7b0904bbe3c74e9d6c146ce69111a8f1a0fe97a0868b2066ce464f2d79fe00d322a28ae33e857dddb3c299127a910eb3730dfcc620cfabea166334fbace51a0f662681438296d935220f46c77d5d636e8024b18d6a53e7d44294bdabe6e41b226ebefd3f365741791f0d04c058657440cc24f10bde9b147bb1d9643a273426d51008e3d54e87d73bd505c672988b6902ca699bc89f24db6953d9fb5e660ac3ffd52e2d55d753c1dfe8f29fd64c2ec1cd415bf23d98e233a4d170e9683f4291ae6928e0ecf611cf6d225b47073da3589aaa22f5ff3b05860a71975e079b1f8892fc97b39384a20ae1a7a6991025979788abedb064c0820240beaa9b68966d57d3dbc5f71efd91b668ca2b308002e144a4e6a4abe0de9218406a732be12ae01b3d9c3c4e10aa520b69f5a1e2b359963b815f1c293bce1888a240a9fc65433ecced339fb69da7c982e553152873e444793e15d591adedd774142e5698d4fa6bea32fd1114c3dfe26c66637bf3a758958115a3f7453ada2d0535ae9d53c736c765dad9de55c52d171ff94fbda313b33201d7c9dc7223cff374adb227f165bd4d71c4f2882b617f47ad6949026f367546fd0f4470da3bfab026ffa17eed9ba808155d414de431a6dbd587d0f2f6cda13545a26ae6a7554bdea55061e04659e27edbf4c3d36c38642ab035cc2f39b620238dc533ff82f31c09efd8adebbaaffbafa96827742e6851571c17687fa8309bdb9f031858cda6ffe19b8a16de5a5a2ce520a988e9c5f63943733f056ad76004ad4e3690a9befe4644201d7fdda3aabcb3e08f4498292dea3fe949fe79c2f32d7a25c849ca6279020482a19ee9cdd953c5a612366fe42de4bd4e05b6339004b8799453ca9f8f71a0e5968f4909288f2a403f3dd39191794fe15d61b7659f56b4a8b2ce29907c4cda151adfe71fc5a69a06487c3baf818706600eb5daab9833aac37925ce88b8bf6c84c2f3d669e61d29fc7fc8badbbc78a9f90fa3a167b8b89e0d4263e26a63225e5868695941c52f5fbaa2c0f1b87a1b8efa505aaed94584cb91572479c8ec6c2a5ee1b7fe70970671d2007fde23143b67813443379a746ffc07d86b1d62b1dde3e3cf9c913de412db797c21d04ef00f4c5d5e67701e98e73ec6e5aad475d5c34e049e9ced7d58374f7f0570690097ae73d9ffacf48e27787d6971f9ba51a6c8ee44b0b2a0157e77bec86ffcca717e35edd0708ad5a566a6a533315b80d50ac98c3d76707b3ea15fd8d37da3f5371e920881d9b22ff4c47afd52900d7ed480090061f5c14d8f799a792aeee0f747356d194a8b2fe95993aef16407d7b29ac896e042313049708c6af66e094123a5c1a5b33d465f63ce6ac793dba4fa4878cd1382cd81dbc9fa74e765d7c8dd089809cce997e75308e60721a870e3cd90a158a216b2539681bf2d4b0db3b2196f04f8ce3918803d249ac5397bc41a5e23904623fd294267c2d0eea8f57d3f6c81c6d7e63a916a690b6c0704e25e45e1b4eef3714b34b0045f94ed5e99080f09e6ae50669b278eb2c18d5338b35e941398afd2bbc4230d73b5f2a0132fe6325526d3f30e71740d8126fffaececf0b6334d802439ae93bbb45e49242ae0a0264f2c60e35f87a55b6da5f0eaec3396109e25ba0948053b99b9b9204cab3138c3e3fdd0a076d295369c194f04c0a3585543c9d952d8948414bad7dc12beac42718ac1651ba7fd7ba8ea5feb16c19ab982d4893cd2e15d8b32f3b6f21b8b7c8328914ba516c418bcb29c08bf019a8edb3edb0958f67f1df7e21e6e7bce42fa43f3d1c43a4eb75bc1c1544040097f354d77b4d8468c40cae5e9435013cbe7f8fbf4b35d0186b2e720331e65dd90c6c61266a059f77cacd0b4e585a640b18902d58a2249182a55ad9505f48e0aac7e16c474de3ad10772e424c2d6284c033786787cd412c8de13b0d49a3164eea29d8aa659abfd8040ece16fc0892c8080808c6c5e89feeda4bb9ee8621575a921edee65ca51558087c161a1771f85e4cba76c551277ab005745c69f4dcc9a25e8ebd15216b780c4da5301328d333faf763c137770818bc081416be238ef94d9bcbd2bb904bdf47d52dc47497eeefd79ee2bb9683a4aa1ad176cec09567f35833bf7e4f1d76f6b795592285805dd1c6e07835de15c3266642c444410958909fd4598b3988b42e2f4ce9645dd496a002763f0c6203f7eb3acf2e1614c8be10d818e9b2faee94f0e4ff64be0f73cb1ca9873a1cef982956eb9d26d307105149aa9e885568</script>
 </div>
 <script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       <categories>
@@ -6459,14 +6405,16 @@
   <entry>
     <title>Markdown语法</title>
     <url>/archives/3c50d03d.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/qimunanxiong.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/qimunanxiong.jpg" class="m_more_content_bg_img" />
+
 <a id="more"></a>
-<h1 id="标题"><a href="#标题" class="headerlink" title="标题"></a><center>标题</center></h1><p>文字前加#来表示。共六级。#越多，字体越小。<br>注：标准语法一般在#后跟个空格再写文字。<br>示例：</p>
+<h2 id="标题"><a href="#标题" class="headerlink" title="标题"></a><center>标题</center></h2><p>文字前加#来表示。共六级。#越多，字体越小。<br>注：标准语法一般在#后跟个空格再写文字。<br>示例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+
 <hr>
-<h1 id="字体"><a href="#字体" class="headerlink" title="字体"></a><center>字体</center></h1><p><strong>加粗</strong>        （示例：<code>**加粗**</code>）<br><em>斜体</em>            （示例：<code>*斜体*</code>）<br><strong><em>斜体加粗</em></strong>    （示例：<code>***斜体加粗***</code>）<br><del>删除线</del>        （示例：<code>~~删除线~~</code>）</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a><center>字体</center></h2><p><strong>加粗</strong>        （示例：<code>**加粗**</code>）<br><em>斜体</em>            （示例：<code>*斜体*</code>）<br><strong><em>斜体加粗</em></strong>    （示例：<code>***斜体加粗***</code>）<br><del>删除线</del>        （示例：<code>~~删除线~~</code>）</p>
 <hr>
-<h1 id="引用"><a href="#引用" class="headerlink" title="引用"></a><center>引用</center></h1><p>示例：</p>
+<h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a><center>引用</center></h2><p>示例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&gt;引用的内容</span><br><span class="line">&gt;&gt;引用的内容</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;引用的内容</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>引用的内容</p>
@@ -6498,10 +6446,11 @@
 </blockquote>
 <p>非引用内容</p>
 <hr>
-<h1 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a><center>分割线</center></h1><p>三个或者三个以上的 - 或者 * 都可以。效果一样。<br><strong>注：如果不显示分割线，而上段内容为文字，则留一行空白</strong><br>示例：</p>
+<h2 id="分割线"><a href="#分割线" class="headerlink" title="分割线"></a><center>分割线</center></h2><p>三个或者三个以上的 - 或者 * 都可以。效果一样。<br><strong>注：如果不显示分割线，而上段内容为文字，则留一行空白</strong><br>示例：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">---------------------</span><br><span class="line">***</span><br><span class="line">*********************</span><br></pre></td></tr></table></figure>
+
 <hr>
-<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a><center>列表</center></h1><h2 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h2><p>无序列表用 - + * 任意一种都可以，并注意符号与文字之间的空格。</p>
+<h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a><center>列表</center></h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><p>无序列表用 - + * 任意一种都可以，并注意符号与文字之间的空格。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">- 列表内容</span><br><span class="line">+ 列表内容</span><br><span class="line">* 列表内容</span><br></pre></td></tr></table></figure>
 <ul>
 <li>列表内容</li>
@@ -6512,7 +6461,7 @@
 <ul>
 <li>列表内容</li>
 </ul>
-<h2 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h2><p>数字加点</p>
+<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><p>数字加点</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1.列表内容</span><br><span class="line">2.列表内容</span><br><span class="line">3.列表内容</span><br></pre></td></tr></table></figure>
 <p>1.列表内容<br>2.列表内容<br>3.列表内容</p>
 <p><strong>注，数字加点，并注意空格。实际效果，后续写入的数字不影响排序的显示</strong></p>
@@ -6522,7 +6471,7 @@
 <li>列表内容</li>
 <li>列表内容</li>
 </ol>
-<h2 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h2><p>示例：嵌套列表，注意留个空格。</p>
+<h3 id="列表嵌套"><a href="#列表嵌套" class="headerlink" title="列表嵌套"></a>列表嵌套</h3><p>示例：嵌套列表，注意留个空格。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1. 列表内容</span><br><span class="line"> 1. 列表内容</span><br><span class="line"> 2. 列表内容</span><br><span class="line"> 3. 列表内容</span><br><span class="line">2. 列表内容</span><br><span class="line"> 1. 列表内容</span><br><span class="line"> 2. 列表内容</span><br><span class="line"> 3. 列表内容</span><br></pre></td></tr></table></figure>
 <ol>
 <li>列表内容<ol>
@@ -6539,10 +6488,10 @@
 </li>
 </ol>
 <hr>
-<h1 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a><center>代码块</center></h1><p>单行代码块：代码之间分别用一个 ` 包起来</p>
+<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a><center>代码块</center></h2><p>单行代码块：代码之间分别用一个 ` 包起来</p>
 <p>多行代码块：代码之间分别用三个 ` 包起来，且两边（即首行和尾行）的反引号单独占一行<br><strong>注：代码块中间的格式会不变。并且，语法会失效。即，写什么则显示什么。</strong></p>
 <hr>
-<h1 id="表格"><a href="#表格" class="headerlink" title="表格"></a><center>表格</center></h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure>
+<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a><center>表格</center></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">表头|表头|表头</span><br><span class="line">---|:--:|---:</span><br><span class="line">内容|内容|内容</span><br><span class="line">内容|内容|内容</span><br><span class="line"></span><br><span class="line">第二行分割表头和内容。</span><br><span class="line">- 有一个就行，为了对齐，多加了几个</span><br><span class="line">文字默认居左</span><br><span class="line">-两边加：表示文字居中</span><br><span class="line">-右边加：表示文字居右</span><br><span class="line">注：原生的语法两边都要用 | 包起来。此处省略</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">技术|工具|难否</span><br><span class="line">-|:-:|-:</span><br><span class="line">Android|未知|未知</span><br><span class="line">ios|未知|未知</span><br><span class="line">Web|未知|未知</span><br></pre></td></tr></table></figure>
 <table>
 <thead>
@@ -6567,39 +6516,12 @@
 <td align="center">未知</td>
 <td align="right">未知</td>
 </tr>
-<tr>
-<td>—————————————</td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td># <center>超链接</center></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加，当鼠标移到上时显示的内容</span><br><span class="line"></span><br><span class="line">[百度](http:&#x2F;&#x2F;baidu.com)</span><br><span class="line">[百度](http:&#x2F;&#x2F;baidu.com &quot;这是百度页面&quot;)</span><br></pre></td></tr></table></figure></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td><a href="http://baidu.com" target="_blank" rel="noopener external nofollow noreferrer">百度</a></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td><a href="http://baidu.com" target="_blank" rel="noopener external nofollow noreferrer" title="这是百度页面">百度</a></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
-<tr>
-<td><strong>注：可用html的a标签代替，功能更强大。</strong></td>
-<td align="center"></td>
-<td align="right"></td>
-</tr>
 </tbody></table>
 <hr>
-<h1 id="图片"><a href="#图片" class="headerlink" title="图片"></a><center>图片</center></h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br><span class="line"></span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure>
+<h2 id="超链接"><a href="#超链接" class="headerlink" title="超链接"></a><center>超链接</center></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[超链接名](超链接地址 &quot;超链接title&quot;)</span><br><span class="line">title可加可不加，当鼠标移到上时显示的内容</span><br><span class="line"></span><br><span class="line">[百度](http:&#x2F;&#x2F;baidu.com)</span><br><span class="line">[百度](http:&#x2F;&#x2F;baidu.com &quot;这是百度页面&quot;)</span><br></pre></td></tr></table></figure>
+<p><a href="http://baidu.com" target="_blank" rel="noopener external nofollow noreferrer">百度</a><br><a href="http://baidu.com" target="_blank" rel="noopener external nofollow noreferrer" title="这是百度页面">百度</a><br><strong>注：可用html的a标签代替，功能更强大。</strong></p>
+<hr>
+<h2 id="图片"><a href="#图片" class="headerlink" title="图片"></a><center>图片</center></h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">![图片alt](图片地址 &#39;&#39;图片title&#39;&#39;)</span><br><span class="line"></span><br><span class="line">图片alt就是显示在图片下面的文字，相当于对图片内容的解释。</span><br><span class="line">图片title是图片的标题，当鼠标移到图片上时显示的内容。title可加可不加</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -6999,7 +6921,7 @@
     <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/xuerenqiyuan.jpg" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
-<h2 id="学习网址"><a href="#学习网址" class="headerlink" title="学习网址"></a><Center style="color:rgb(195,176,145);">学习网址</Center></h2><ul>
+<h2 id="学习网址"><a href="#学习网址" class="headerlink" title="学习网址"></a><p class="m_more_title_style">学习网址</p></h2><ul>
 <li><a href="https://wanandroid.com/" target="_blank" rel="noopener external nofollow noreferrer">wanandroid</a></li>
 <li><a href="https://hencoder.com/" target="_blank" rel="noopener external nofollow noreferrer">扔物线</a></li>
 <li>知识体系<ul>
@@ -7042,43 +6964,7 @@
 <li><a href="https://github.com/Moosphan/Android-Daily-Interview" target="_blank" rel="noopener external nofollow noreferrer">每日一题</a></li>
 </ul>
 <hr>
-<h2 id="娱乐网址"><a href="#娱乐网址" class="headerlink" title="娱乐网址"></a><Center style="color:rgb(195,176,145);">娱乐网址</Center></h2><details class="m_more_content_details">
-
-<ul>
-<li>游戏<ul>
-<li><a href="https://www.yikm.net/" target="_blank" rel="noopener external nofollow noreferrer">小霸王</a></li>
-<li><a href="http://www.4399.com/" target="_blank" rel="noopener external nofollow noreferrer">4399</a></li>
-</ul>
-</li>
-<li>动漫<ul>
-<li><a href="https://www.bilibili.com/" target="_blank" rel="noopener external nofollow noreferrer">哔哩哔哩</a></li>
-<li><a href="http://www.zzzfun.com" target="_blank" rel="noopener external nofollow noreferrer">zzzfun</a></li>
-</ul>
-</li>
-<li>直播<ul>
-<li><a href="https://www.huya.com/g" target="_blank" rel="noopener external nofollow noreferrer">虎牙</a></li>
-<li><a href="https://www.douyu.com/" target="_blank" rel="noopener external nofollow noreferrer">斗鱼</a></li>
-</ul>
-</li>
-<li>视频<ul>
-<li><a href="https://v.qq.com/" target="_blank" rel="noopener external nofollow noreferrer">腾讯视频</a></li>
-<li><a href="https://www.iqiyi.com/" target="_blank" rel="noopener external nofollow noreferrer">爱奇艺</a></li>
-<li><a href="https://www.youku.com/" target="_blank" rel="noopener external nofollow noreferrer">优酷</a></li>
-<li><a href="https://www.tudou.com/" target="_blank" rel="noopener external nofollow noreferrer">土豆</a></li>
-<li><a href="https://www.mgtv.com/" target="_blank" rel="noopener external nofollow noreferrer">芒果TV</a></li>
-</ul>
-</li>
-<li>短视频 <ul>
-<li><a href="https://www.youtube.com/" target="_blank" rel="noopener external nofollow noreferrer">YouTube</a></li>
-<li><a href="https://www.vmovier.com/" target="_blank" rel="noopener external nofollow noreferrer">场库</a></li>
-</ul>
-</li>
-<li><a href="https://weibo.com/u/5887805355/home?leftnav=1" target="_blank" rel="noopener external nofollow noreferrer">微博</a> </li>
-</ul>
-</details>
----
-
-<h2 id="服务平台"><a href="#服务平台" class="headerlink" title="服务平台"></a><Center style="color:rgb(195,176,145);">服务平台</Center></h2><details class="m_more_content_details">
+<h2 id="服务平台"><a href="#服务平台" class="headerlink" title="服务平台"></a><p class="m_more_title_style">服务平台</p></h2><details class="m_more_content_details">
 
 <ul>
 <li><a href="http://www.mob.com/#/" target="_blank" rel="noopener external nofollow noreferrer">mob</a></li>
@@ -7093,19 +6979,46 @@
 <li><a href="http://iconfont.cn/" target="_blank" rel="noopener external nofollow noreferrer">iconfont</a></li>
 </ul>
 </li>
-<li><a href="http://androidxref.com/" target="_blank" rel="noopener external nofollow noreferrer">源码阅读</a></li>
+<li>源码阅读<ul>
+<li><a href="http://androidxref.com/" target="_blank" rel="noopener external nofollow noreferrer">Android 源码阅读</a></li>
+</ul>
+</li>
+<li>图片素材<ul>
+<li><a href="https://wallhaven.cc/" target="_blank" rel="noopener external nofollow noreferrer">图片素材</a></li>
+<li><a href="https://unsplash.com/" target="_blank" rel="noopener external nofollow noreferrer">unsplash</a></li>
+<li><a href="https://wallpaperhub.app/" target="_blank" rel="noopener external nofollow noreferrer">wallpaperhub</a></li>
+<li><a href="http://pic.netbian.com/" target="_blank" rel="noopener external nofollow noreferrer">彼岸图网</a></li>
+</ul>
+</li>
+<li>图片压缩<ul>
+<li><a href="https://docsmall.com/image-compress" target="_blank" rel="noopener external nofollow noreferrer">Docsmall</a></li>
+</ul>
+</li>
+<li>电子书<ul>
+<li><a href="https://www.jiumodiary.com/" target="_blank" rel="noopener external nofollow noreferrer">鸠摩搜书</a></li>
+</ul>
+</li>
+<li>格式化<ul>
+<li><a href="https://www.json.cn/" target="_blank" rel="noopener external nofollow noreferrer">JSON格式化工具</a></li>
+</ul>
+</li>
+</ul>
+</details>
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<ul>
 <li><a href="https://mp.weixin.qq.com/s/ZW2YnjYJRoiU_f9aPuzx5Q" target="_blank" rel="noopener external nofollow noreferrer">你要的都给你吧！</a></li>
 <li><a href="https://mp.weixin.qq.com/s/dUb0THKUhVH1pOJpSITNBw" target="_blank" rel="noopener external nofollow noreferrer">130 个相见恨晚的超实用网站，一次性分享出来</a></li>
 <li><a href="https://mp.weixin.qq.com/s/xN25bWznewCFjf6sXu-r3w" target="_blank" rel="noopener external nofollow noreferrer">因为知道了30+款在线工具，我的工作效率提升500%!</a></li>
 <li><a href="https://mp.weixin.qq.com/s/TBLCoLgh9M4-I_aRgnMAgg" target="_blank" rel="noopener external nofollow noreferrer">10分钟白嫖我常用的20个在线工具类网站清单</a></li>
 </ul>
-</details>
 ]]></content>
       <categories>
-        <category>资源配置</category>
+        <category>资源链接</category>
       </categories>
       <tags>
-        <tag>资源配置</tag>
+        <tag>资源链接</tag>
       </tags>
   </entry>
   <entry>
