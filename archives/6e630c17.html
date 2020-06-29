@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imgsw.cn/static/images/huantaipingyang2.jpg">
 <meta property="article:published_time" content="2020-06-17T00:10:00.000Z">
-<meta property="article:modified_time" content="2020-06-21T02:19:23.000Z">
+<meta property="article:modified_time" content="2020-06-28T01:22:54.610Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-21 10:19:23" itemprop="dateModified" datetime="2020-06-21T10:19:23+08:00">2020-06-21</time>
+                <time title="修改时间：2020-06-28 09:22:54" itemprop="dateModified" datetime="2020-06-28T09:22:54+08:00">2020-06-28</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,6 +282,11 @@
 <a id="more"></a>
 
 <h2 id="高阶函数详解"><a href="#高阶函数详解" class="headerlink" title="高阶函数详解"></a><p class="m_more_title_style">高阶函数详解</p></h2><p><strong>定义高阶函数</strong></p>
+<p>高阶函数和 Lamdba 的关系是密不可分的。像接收 Lambda 参数的函数就可以称为具有函数式编程风格的 API，而如果想定义自己的函数式 API，那就得借助高阶函数来实现了。</p>
+<p>高阶函数的定义：如果一个函数接收另一个函数作为参数，或者返回值的类型是另一个函数，那么该函数就称为高阶函数。（这里的另一个函数指的是函数类型，就像整型等。）</p>
+<p>函数类型的基本语法规则：(String, Int) -&gt; Unit</p>
+<p>-&gt; 左边部分用来声明该函数接收什么参数，多个参数之间用逗号隔开，如果不接收任何参数，用空括号表示。而 -&gt; 右边部分用于声明该函数的返回值类型，如果没有返回值就使用 Unit，它大致相当于 Java 中的 void。</p>
+<p>高阶函数的用途：高阶函数允许让函数类型的参数来决定函数的执行逻辑。</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
@@ -433,7 +438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-count">99</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -446,7 +451,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">32</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

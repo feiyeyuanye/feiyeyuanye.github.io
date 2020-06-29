@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #f73957;
+  background: #ffc339;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2608,7 +2608,7 @@ body:before {
 }
 .m_more_content_bg_img {
   max-width: 100%;
-  height: auto;
+  max-height: auto;
   border-radius: 20px;
 }
 .m_more_content_summary {
