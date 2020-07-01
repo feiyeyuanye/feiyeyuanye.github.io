@@ -488,7 +488,8 @@
   <entry>
     <title>Android 反思总结</title>
     <url>/archives/9376910a.html</url>
-    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/bananbienaole.jpeg" class="m_more_content_bg_img"></img></p>
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/bananbienaole.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <ol>
@@ -2149,7 +2150,8 @@
   <entry>
     <title>OkHttp 使用</title>
     <url>/archives/d0dc449b.html</url>
-    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/mingyunzhiye.webp" class="m_more_content_bg_img"></img></p>
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/命运之夜.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <h2 id="OkHttp"><a href="#OkHttp" class="headerlink" title="OkHttp"></a><p class="m_more_title_style">OkHttp</p></h2><h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><p>这里使用的 OkHttp 的版本为 3.14.x 的最后一个版本，OkHttp 的 4.0.x 版本已经全部由 Java 替换到了 Kotlin。</p>
@@ -2213,7 +2215,8 @@
   <entry>
     <title>Java 代码块与函数</title>
     <url>/archives/54430254.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/yidongchengbao.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/哈尔的移动城堡.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <p><strong>代码块与函数的执行顺序</strong>：</p>
@@ -2237,8 +2240,10 @@
   <entry>
     <title>Java 虚拟机</title>
     <url>/archives/c69e2769.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/siyuehuangyan.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/四月是你的谎言.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><p class="m_more_title_style">概述</p></h2><p>JDK 包含了 Java 语言、Java 虚拟机和 Java API 类库三部分，是 Java 程序开发的最小环境。<br>JRE 包含了 Java API 中的 Java SE API 子集和 Java 虚拟机两部分，是 Java 程序运行的标准环境。</p>
 <h3 id="Java-虚拟机家族"><a href="#Java-虚拟机家族" class="headerlink" title="Java 虚拟机家族"></a>Java 虚拟机家族</h3><p>包括 HotSpot VM、J9 VM 和 Zing VM 等。</p>
 <h3 id="Java-虚拟机执行流程"><a href="#Java-虚拟机执行流程" class="headerlink" title="Java 虚拟机执行流程"></a>Java 虚拟机执行流程</h3><p>分为两大部分，编译时环境和运行时环境，当一个 Java 文件经过 Java 编译器编译后生成 Class 文件，这个文件由 Java 虚拟机处理。<br>Java 虚拟机与 Java 语言没有什么必然的联系，它只与特定的二进制文件：Class 文件有关。</p>
@@ -2440,8 +2445,10 @@
   <entry>
     <title>Android 综合技术</title>
     <url>/archives/89eda35e.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/mingmingqiang.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/这个勇者明明超强却过分慎重.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="第十三章-综合技术"><a href="#第十三章-综合技术" class="headerlink" title="第十三章 综合技术"></a><p class="m_more_title_style">第十三章 综合技术</p></h2><p>可通过 CrashHandler 来监视应用的 crash 信息，当程序 crash 时会调用其 uncaughtException()。</p>
 <p>Android 中，限制整个应用的方法数不能超过 65536，解决的方法有两种：</p>
 <ul>
@@ -2629,7 +2636,7 @@
   <entry>
     <title>Bitmap 的加载和 Cache</title>
     <url>/archives/9ae0256a.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/huapaiqingyuan.webp" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/花牌情缘.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <a id="more"></a>
 
@@ -2655,7 +2662,8 @@
   <entry>
     <title>Android 线程和线程池</title>
     <url>/archives/989fc61c.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/dongwukuangxiangqu.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/动物狂想曲.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <p>在操作系统中，线程是操作系统调度的最小单元，同时它又是一种受限的系统资源（不可能无限制地产生），并且线程的创建和销毁都会有相应的开销。</p>
@@ -2784,7 +2792,8 @@
   <entry>
     <title>Android 的消息机制</title>
     <url>/archives/ab7d7f79.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/cikeshouze.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/刺客守则.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <p>Handler 是 Android 消息机制的上层接口，这使得在开发过程中只需要和 Handler 交互即可。<br>从本质上来说，Handler 并不是专门用于更新 UI 的，它只是常被开发者用来更新 UI。因为主线程不能做耗时操作，而子线程不能访问 UI（因为 Android 的 UI 控件不是线程安全的）。</p>
@@ -2865,7 +2874,8 @@
   <entry>
     <title>四大组件的工作过程</title>
     <url>/archives/11e65276.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/bilanhangxian.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/碧蓝航线.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <h2 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a><p class="m_more_title_style">四大组件的运行状态</p></h2><ul>
@@ -3056,8 +3066,10 @@
   <entry>
     <title>JVM 基本原理(3)</title>
     <url>/archives/4304a474.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/youlinggongzhu.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/幽灵公主.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="Java-对象的内存布局"><a href="#Java-对象的内存布局" class="headerlink" title="Java 对象的内存布局"></a><p class="m_more_title_style">Java 对象的内存布局</p></h2><p>常见的 new 语句会被编译为 new 指令，以及对构造器的调用。每个类的构造器皆会直接或者间接调用父类的构造器，并且在同一个实例中初始化相应的字段。</p>
 <h3 id="压缩指针"><a href="#压缩指针" class="headerlink" title="压缩指针"></a>压缩指针</h3><p>每个对象都有一个对象头，对象头包括两部分，标记信息和类型指针。标记信息包括哈希值，锁信息，GC信息。类型指针指向这个对象的class。两个信息分别占用8个字节，所以每个对象的额外内存为16个字节。很消耗内存。</p>
 <p>Java 虚拟机引入了压缩指针的概念，为了减少类型指针的内存占用，将64位指针压缩至32位，进而节约内存。之前64位寻址，寻的是字节。现在32位寻址，寻的是变量。再加上内存对齐(补齐为8的倍数)，可以每次寻变量都以一定的规则寻找，并且一定可以找得到。</p>
@@ -3095,8 +3107,10 @@
   <entry>
     <title>JVM 基本原理(2)</title>
     <url>/archives/5a1f9535.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/wudengfen.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/五等分的新娘.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="JVM-是如何处理异常的"><a href="#JVM-是如何处理异常的" class="headerlink" title="JVM 是如何处理异常的"></a><p class="m_more_title_style">JVM 是如何处理异常的</p></h2><p><strong>异常处理的两大组成要素是抛出异常和捕获异常。这两大要素共同实现程序控制流的非正常转移。</strong></p>
 <p><strong>抛出异常可分为显式和隐式两种；</strong></p>
 <ul>
@@ -3151,8 +3165,10 @@
   <entry>
     <title>JVM 基本原理(1)</title>
     <url>/archives/7132c6f6.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/tiankongzhicheng.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/天空之城.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="Java-代码是怎么运行的"><a href="#Java-代码是怎么运行的" class="headerlink" title="Java 代码是怎么运行的"></a><p class="m_more_title_style">Java 代码是怎么运行的</p></h2><p>Java 代码的多种运行方式：<br>可在开发工具中运行，可双击执行 jar 文件运行，可在命令行中运行，可在网页中运行。</p>
 <p>相较于 C++ 的直接将代码编译成 CPU 所能理解的的机器码（无需额外的运行时），Java 代码的执行则离不开 JRE（Java 运行时环境，仅包含运行 Java 程序的必须组件，如 Java 虚拟机以及 Java 核心类库等）。</p>
 <h3 id="为什么-Java-要在虚拟机里运行"><a href="#为什么-Java-要在虚拟机里运行" class="headerlink" title="为什么 Java 要在虚拟机里运行"></a>为什么 Java 要在虚拟机里运行</h3><p>因为 Java 的语法非常复杂，抽象程度也很高，所以直接在硬件上运行这种复杂的程序并不现实。<br>在运行 Java 程序之前，要对其进行一番转换，转换的思路如下：<br>设计一个面向 Java 语言特性的虚拟机，并通过编译器将 Java 程序转换成该虚拟机所能识别的指令序列，也称 Java 字节码（因为 Java 字节码指令的操作码(opcode)被固定为一个字节）。</p>
@@ -3258,8 +3274,10 @@
   <entry>
     <title>理解 Window 和 WindowManager</title>
     <url>/archives/e9ed765f.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/qianyuqianxun.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/千与千寻.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="Window-和-WindowManager"><a href="#Window-和-WindowManager" class="headerlink" title="Window 和 WindowManager"></a><p class="m_more_title_style">Window 和 WindowManager</p></h2><p>Window 表示一个窗口的概念，是一个抽象类，具体实现是 PhoneWindow，位于 WindowManagerService 中。<br>可通过 WindowManager 来创建 Window，WindowManager 和 WindowManagerService 的交互是一个 IPC 过程。<br>Android 中所有的视图都是通过 Window 来呈现的。<br>Window 分三类，并且是分层的。</p>
 <hr>
 <h2 id="Window-的内部机制"><a href="#Window-的内部机制" class="headerlink" title="Window 的内部机制"></a><p class="m_more_title_style">Window 的内部机制</p></h2><p>Window 是一个抽象的概念，每个 Window 都对应着一个 View 和 一个 ViewRootImpl，Window 和 View 是通过 ViewRootImpl 来建立联系的，因此 Window 并不是实际存在的，而是以 View 的形式存在。</p>
@@ -3322,8 +3340,10 @@
   <entry>
     <title>Android Drawable</title>
     <url>/archives/5131856d.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/longmao.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/龙猫.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="Drawable-简介"><a href="#Drawable-简介" class="headerlink" title="Drawable 简介"></a><p class="m_more_title_style">Drawable 简介</p></h2><p>Drawable 表示一种可以在 Canvas 上进行绘制的抽象的概念，种类很多，常见的比如颜色或图片。</p>
 <h2 id="Drawable-的分类"><a href="#Drawable-的分类" class="headerlink" title="Drawable 的分类"></a><p class="m_more_title_style">Drawable 的分类</p></h2><h3 id="BitmapDrawable"><a href="#BitmapDrawable" class="headerlink" title="BitmapDrawable"></a>BitmapDrawable</h3><p>表示的一张图片，可以直接引用原始的图片或通过 XML 的方式来描述它。<br>NinePatchDrawable 表示一张 .9 格式的图片，使用也是一样的。<br>BitmapDrawable 也可以代表一个 .9 格式图片。</p>
 <h3 id="ShapeDrawable"><a href="#ShapeDrawable" class="headerlink" title="ShapeDrawable"></a>ShapeDrawable</h3><p>可理解为通过颜色来构造的图形，可以是纯色的图形，也可以是具有渐变效果的图形。<br><code>&lt;shape&gt;</code>标签创建的 Drawable，其实体类是 GradientDrawable。</p>
@@ -3350,8 +3370,10 @@
   <entry>
     <title>理解 RemoteViews</title>
     <url>/archives/d6d7f1f6.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/huiyedaxiaojie.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/辉夜大小姐.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="RemoteViews-的应用"><a href="#RemoteViews-的应用" class="headerlink" title="RemoteViews 的应用"></a><p class="m_more_title_style">RemoteViews 的应用</p></h2><p>主要用在通知栏和桌面小部件的开发过程中。</p>
 <p>PendingIntent：表示一种处于 pending 状态的意图，它与 Intent 的区别在于是未来某个不确定的时刻发生。</p>
 <hr>
@@ -3454,8 +3476,10 @@
   <entry>
     <title>View 的事件体系</title>
     <url>/archives/c9829065.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/gongzuoxibao.webp?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/工作细胞.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="View-基础知识"><a href="#View-基础知识" class="headerlink" title="View 基础知识"></a><p class="m_more_title_style">View 基础知识</p></h2><h3 id="什么是-View"><a href="#什么是-View" class="headerlink" title="什么是 View"></a>什么是 View</h3><p>View 是 Android 中所有控件的基类，是一种界面层的控件的一种抽象，它代表了一个控件。<br>ViewGroup 可被翻译为控件组，它也继承了 View。</p>
 <h3 id="View-的位置参数"><a href="#View-的位置参数" class="headerlink" title="View 的位置参数"></a>View 的位置参数</h3><p>View 的位置主要由它的四个顶点来决定，分别对应 View 的四个属性：<br>它们是相对坐标，相对父容器来说，在 Android 中，x 轴和 y 轴的正方向分别为右和下。</p>
 <ul>
@@ -3594,8 +3618,10 @@
   <entry>
     <title>IPC 机制</title>
     <url>/archives/438d7339.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/duoluoluo.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/多罗罗.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="IPC-简介"><a href="#IPC-简介" class="headerlink" title="IPC 简介"></a><p class="m_more_title_style">IPC 简介</p></h2><p>IPC（Inter-Process Communication）的含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。</p>
 <p>按操作系统中的描述：</p>
 <ul>
@@ -3834,8 +3860,10 @@
   <entry>
     <title>Android-Xfermode 与 Matrix</title>
     <url>/archives/cecad596.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/kenan.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/柯南.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="画笔风格-Xfermode"><a href="#画笔风格-Xfermode" class="headerlink" title="画笔风格(Xfermode)"></a><Center style="color:orange">画笔风格(Xfermode)</Center></h2><img data-src="https://imgsw.cn/static/images/xfermode_demo.png">
 <hr>
 <h2 id="矩阵变换-Matrix"><a href="#矩阵变换-Matrix" class="headerlink" title="矩阵变换(Matrix)"></a><Center style="color:orange">矩阵变换(Matrix)</Center></h2><p><strong>在 Android 中，对图片的处理需要使用到 Matrix 类，Matrix 是一个 3 x 3 的矩阵，他对图片的处理分为四个基本类型：</strong></p>
@@ -4091,8 +4119,10 @@
   <entry>
     <title>Android 卡顿优化</title>
     <url>/archives/544b3ab0.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/quanyecha.jpeg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/犬夜叉.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a><p class="m_more_title_style">基础知识</p></h2><p>造成卡顿的原因可能有千百种，不过最终都会反应到 CPU 时间上。<br>CPU 时间可分为两种：</p>
 <ul>
 <li><strong>用户时间</strong><br>执行用户态应用程序代码所消耗的时间。</li>
@@ -4161,8 +4191,10 @@
   <entry>
     <title>Android 崩溃优化</title>
     <url>/archives/85102257.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/labixiaoxin.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/蜡笔小新.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="崩溃分类"><a href="#崩溃分类" class="headerlink" title="崩溃分类"></a><p class="m_more_title_style">崩溃分类</p></h2><p><strong>Android 的两种崩溃：</strong></p>
 <ul>
 <li>Java 崩溃：在 Java 代码中，出现了未捕获异常，导致程序异常退出。</li>
@@ -4292,8 +4324,10 @@
   <entry>
     <title>Web-CSS基础</title>
     <url>/archives/c6f5af44.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/gangzhilianjinshushi.jpeg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/钢之炼金术师.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a><Center style="color:orange">基础语法</Center></h1><p><strong>层叠样式表，极大提高工作效率。</strong></p>
 <figure class="highlight css"><table><tr><td class="code"><pre><span class="line">selector&#123;   // 选择器</span><br><span class="line">	property:value   // 属性:值</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">示例：</span><br><span class="line"><span class="selector-tag">h1</span>&#123;<span class="attribute">color</span>:red;<span class="attribute">font-size</span>:<span class="number">14px</span>;&#125;</span><br></pre></td></tr></table></figure>
 
@@ -5522,7 +5556,8 @@
   <entry>
     <title>Android HttpURLConnection</title>
     <url>/archives/e3a936c0.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/yingxiongxueyuan.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/我的英雄学院.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 <p>因为在 Android 6.0 后不再支持 HttpClient，因为它的 API 数量过多，很难在不破坏兼容性的情况下对它进行升级和扩展，要使用的话需要添加 Apache 的 jar 才行。所以，还是主要关注 HttpURLConnection。</p>
 <p>网络请求常用的参数：</p>
@@ -5634,8 +5669,7 @@
   <entry>
     <title>Android 动画</title>
     <url>/archives/ef010ae3.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/lingnengbaifenbai.png?imageView2/2/h/350">
-<a id="more"></a>
+    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/灵能百分百.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img><a id="more"></a></p>
 <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a><p class="m_more_title_style">概述</p></h1><p>动画的本质，其实就是把内容的两个状态平滑的过度，而不是直接切换。<br>示例：</p>
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过不断平移</span></span><br><span class="line"><span class="comment"> * 来实现动画效果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">float</span> newTranslationX = <span class="number">0</span>;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">translationX</span><span class="params">(View view)</span></span>&#123;</span><br><span class="line">    Runnable runnable = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="comment">// 每次向右移动5像素，100次就是500像素。</span></span><br><span class="line">            newTranslationX += <span class="number">5</span> ;</span><br><span class="line">            img.setTranslationX(newTranslationX);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">        <span class="comment">// 每10毫秒改变一次位置，f反复100次。</span></span><br><span class="line">        img.postDelayed(runnable,i*<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>Android 系统也提供了；</strong></p>
@@ -5956,8 +5990,10 @@
   <entry>
     <title>Android-移动支付</title>
     <url>/archives/ec4acfa5.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/ganwumei.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/干物妹小埋.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h1 id="支付宝"><a href="#支付宝" class="headerlink" title="支付宝"></a><Center>支付宝</Center></h1><ul>
 <li>蚂蚁金服-开放平台；<br><a href="https://open.alipay.com/platform/home.htm" target="_blank" rel="noopener external nofollow noreferrer">https://open.alipay.com/platform/home.htm</a></li>
 <li>创建应用；<br><a href="https://openhome.alipay.com/platform/appManage.htm#/apps" target="_blank" rel="noopener external nofollow noreferrer">https://openhome.alipay.com/platform/appManage.htm#/apps</a></li>
@@ -6273,8 +6309,10 @@
   <entry>
     <title>selector，shape，layer-list</title>
     <url>/archives/d491122b.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/conglingkaishi.jpg?imageView2/2/h/350">
+    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/从零开始的异世界生活.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
+
 <h2 id="selector"><a href="#selector" class="headerlink" title="selector"></a><p class="m_more_title_style">selector</p></h2><p><strong>选择器；可使控件在不同操作下（点击，选中等），显示不同的样式。</strong></p>
 <table>
 <thead>
@@ -6711,8 +6749,9 @@
   <entry>
     <title>Android 四大组件</title>
     <url>/archives/13eca542.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/nidemingzi.jpeg?imageView2/2/h/350">
+    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/你的名字.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
+
 <h1 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a><p class="m_more_title_style">Activity</p></h1><p><strong>基本概念：</strong>Activity(活动)是Android四大组件之一，用于显示用户界面，和用户进行交互。<br><strong>生命周期：</strong></p>
 <img data-src="https://imgsw.cn/static/images/activity_period.png">
 <h2 id="正常情况下的生命周期"><a href="#正常情况下的生命周期" class="headerlink" title="正常情况下的生命周期"></a>正常情况下的生命周期</h2><p><strong>指在有用户参与的情况下，Activity 所经过的生命周期的改变。</strong></p>
@@ -7072,7 +7111,7 @@
   <entry>
     <title>Android 屏幕适配</title>
     <url>/archives/b05e1533.html</url>
-    <content><![CDATA[<img data-src="https://imgsw.cn/static/images/qumoshaonian.jpg?imageView2/2/h/350">
+    <content><![CDATA[<p><img data-src="https://imgsw.cn/static/images/驱魔少年.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
 <p>像素-px；一个小黑点就是一个像素<br>屏幕尺寸；对角线的长度<br>屏幕分辨率；宽高两者的像素值之积<br>像素密度-dpi；每英寸中的像素数，分辨率长或宽/屏幕长或宽（单位;英寸），对应于DisplayMetrics类中属性densityDpi的值<br>密度-density；每平方英寸中的像素数，dpi/160，对应于DisplayMetrics类中属性density的值，可用于转换；dp=px/density<br>设备独立像素-dip-dp；不同设备有不同的显示效果，不依赖像素。<br>dp=px/density<br>dp=px/（dpi/160）<br>dpi（像素密度）为160的设备上，1dp=1px<br>放大像素-sp；用于字体显示，会跟随设备字体字号而改变大小。</p>
@@ -7151,28 +7190,8 @@
 <li><a href="https://www.juhe.cn/" target="_blank" rel="noopener external nofollow noreferrer">聚合数据</a> </li>
 </ul>
 </li>
-<li>图标<ul>
-<li><a href="http://www.easyicon.net/" target="_blank" rel="noopener external nofollow noreferrer">easyicon</a></li>
-<li><a href="http://iconfont.cn/" target="_blank" rel="noopener external nofollow noreferrer">iconfont</a></li>
-</ul>
-</li>
 <li>源码阅读<ul>
 <li><a href="http://androidxref.com/" target="_blank" rel="noopener external nofollow noreferrer">Android 源码阅读</a></li>
-</ul>
-</li>
-<li>图片素材<ul>
-<li><a href="https://wallhaven.cc/" target="_blank" rel="noopener external nofollow noreferrer">图片素材</a></li>
-<li><a href="https://unsplash.com/" target="_blank" rel="noopener external nofollow noreferrer">unsplash</a></li>
-<li><a href="https://wallpaperhub.app/" target="_blank" rel="noopener external nofollow noreferrer">wallpaperhub</a></li>
-<li><a href="http://pic.netbian.com/" target="_blank" rel="noopener external nofollow noreferrer">彼岸图网</a></li>
-</ul>
-</li>
-<li>图片压缩<ul>
-<li><a href="https://docsmall.com/image-compress" target="_blank" rel="noopener external nofollow noreferrer">Docsmall</a></li>
-</ul>
-</li>
-<li>电子书<ul>
-<li><a href="https://www.jiumodiary.com/" target="_blank" rel="noopener external nofollow noreferrer">鸠摩搜书</a></li>
 </ul>
 </li>
 <li>格式化<ul>
