@@ -28,7 +28,7 @@
 <meta property="og:url" content="https://jianghouren.com/archives/cfba8f6e.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imgsw.cn/static/images/aiqingzhangwei.jpg">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/error1.png">
 <meta property="og:image" content="https://imgsw.cn/static/images/error2.png">
 <meta property="og:image" content="https://imgsw.cn/static/images/error3.png">
@@ -36,11 +36,11 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/error5.png">
 <meta property="og:image" content="https://imgsw.cn/static/images/error6.png">
 <meta property="article:published_time" content="2020-06-17T03:33:20.000Z">
-<meta property="article:modified_time" content="2020-06-28T10:22:39.756Z">
+<meta property="article:modified_time" content="2020-07-03T11:13:59.862Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="Error">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://imgsw.cn/static/images/aiqingzhangwei.jpg">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
 <link rel="canonical" href="https://jianghouren.com/archives/cfba8f6e.html">
 
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-28 18:22:39" itemprop="dateModified" datetime="2020-06-28T18:22:39+08:00">2020-06-28</time>
+                <time title="修改时间：2020-07-03 19:13:59" itemprop="dateModified" datetime="2020-07-03T19:13:59+08:00">2020-07-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,94 +280,128 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img data-src="https://imgsw.cn/static/images/aiqingzhangwei.jpg" class="m_more_content_bg_img"></img></p>
+        <p><img data-src="https://imgsw.cn/static/images/aiqingzhangwei.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
-<div class="pdfobject-container" data-target="11233.ppt" data-height="500px"></div>
-
 <p class="m_more_content_p_red">1、在 AS 中运行 java 类报错</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Error:Gradle: failed to create directory &#39;E:\jhrFile\SortApplication\app\build\generated\source\r\debug\com\example\sortapplication&#39;.</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: Execution failed for task &#39;:app:processDebugResources&#39;.</span><br><span class="line">&gt;Failed to execute aapt</span><br></pre></td></tr></table></figure>
 
 <details class="m_more_content_details">
-  <summary>解决办法：</summary>
+  <summary>详细信息</summary>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Error:Gradle: failed to create directory &#39;E:\jhrFile\SortApplication\app\build\generated\source\r\debug\com\example\sortapplication&#39;.</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: java.util.concurrent.ExecutionException: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: com.android.tools.aapt2.Aapt2Exception: AAPT2 error: check logs for details</span><br><span class="line">Error:Gradle: Execution failed for task &#39;:app:processDebugResources&#39;.</span><br><span class="line">&gt;Failed to execute aapt</span><br></pre></td></tr></table></figure>
+  <br/>
+    解决办法：
+    <br/>
   在项目的 gradle.properties 中添加 android.enableAapt2=false 即可
 </details>
+---
 
-<hr>
 <p class="m_more_content_p_red">2、AndroidStudio 新版本 3.1.3 导入旧版本项目出现的问题</p>
-<img data-src="https://imgsw.cn/static/images/error1.png">
 
 <details class="m_more_content_details">
-  <summary>遇到了这个，别Update，我应该就是第三方用得太多：</summary>
+  <summary>详细信息</summary>
+  <img data-src="https://imgsw.cn/static/images/error1.png">
+  <br/>
+  遇到了这个，别Update，我应该就是第三方用得太多：
+    <br/>
   参考：
+  <br/>
     https://blog.csdn.net/qq_36009027/article/details/79009268
 </details>
+---
 
-<hr>
 <p class="m_more_content_p_red">3、AS 导入项目报错 Error:Your project path contains non-ASCII characters.</p>
-具体报错信息如下：
-
-<img data-src="https://imgsw.cn/static/images/error2.png">
-
-<img data-src="https://imgsw.cn/static/images/error3.png">
 
 <details class="m_more_content_details">
-  <summary>解决办法；</summary>
+  <summary>详细信息</summary>
+  具体报错信息如下：
+    <br/>
+    <img data-src="https://imgsw.cn/static/images/error2.png">
+    <br/>
+    <img data-src="https://imgsw.cn/static/images/error3.png">
+    <br/>
+    解决办法；
+    <br/>
     其实就是 工程项目路径 或者 项目名称 包含了中文
+    <br/>
     对于像我这种英文不好的人，确实挺尴尬。虽说英文不是硬性标准，但提升一下还是很有必要的。
+    <br/>
     参考：
+    <br/>
     对的，我们要专业，不仅限于包名，还有像类名，方法名等等......
+    <br/>
     https://blog.csdn.net/lovejjfg/article/details/50574140
 </details>
+---
 
-<hr>
 <p class="m_more_content_p_red">4、AS 版本 3.0.1 新建项目报错 Error:Execution failed for task ':app:preDebugAndroidTestBuild'。</p>
-具体报错信息如下：
-
-<img data-src="https://imgsw.cn/static/images/error4.png">
 
 <details class="m_more_content_details">
-  <summary>从报错信息来看，问题出在这两个依赖上：</summary>
-    其实就是 工程项目路径 或者 项目名称 包含了中文
-    对于像我这种英文不好的人，确实挺尴尬。虽说英文不是硬性标准，但提升一下还是很有必要的。
-    参考：
-    对的，我们要专业，不仅限于包名，还有像类名，方法名等等......
-    https://blog.csdn.net/lovejjfg/article/details/50574140
+  <summary>详细信息</summary>
+  具体报错信息如下：
+  <br/>
+  <img data-src="https://imgsw.cn/static/images/error4.png">
+  <br/>
+  从报错信息来看，问题出在这两个依赖上：
+     <br/>
     <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">androidTestImplementation &#39;com.android.support.test:runner:1.0.2&#39;</span><br><span class="line">androidTestImplementation &#39;com.android.support.test.espresso:espresso-core:3.0.2&#39;</span><br></pre></td></tr></table></figure>
-
-<p>应该就是 com.android.support:support-annotations 这个依赖冲突了，在 app 和 text app 中版本不一致。</p>
-<p>从查找的解决方案来看，思路应该就是将 text app 中的版本降到 26.0.1，与 app 中的版本保持一致。</p>
-<p>查到的解决办法有三种；</p>
-<p>1：Build-&gt;Rebuild Project，临时解决，重新打开项目还是会报错。</p>
-<p>2：在app下的build.gradle文件中的dependences {}中添加如下代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">androidTestCompile('com.android.support:support-annotations:26.1.0') &#123;</span><br><span class="line">    force = <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+ <br/>
+应该就是 com.android.support:support-annotations 这个依赖冲突了，在 app 和 text app 中版本不一致。
+ <br/>
+从查找的解决方案来看，思路应该就是将 text app 中的版本降到 26.0.1，与 app 中的版本保持一致。
+ <br/>
+查到的解决办法有三种；
+ <br/>
+1：Build->Rebuild Project，临时解决，重新打开项目还是会报错。
+ <br/>
+2：在app下的build.gradle文件中的dependences {}中添加如下代码：
+ <br/>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">androidTestCompile(&#39;com.android.support:support-annotations:26.1.0&#39;) &#123;</span><br><span class="line">    force &#x3D; true</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <br/>
 <img data-src="https://imgsw.cn/static/images/error5.png">
-
-<p>3：在app下的build.gradle文件中添加如下代码；</p>
+ <br/>
+3：在app下的build.gradle文件中添加如下代码；
+ <br/>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">configurations.all &#123;</span><br><span class="line">    resolutionStrategy.force 'com.android.support:support-annotations:26.1.0'</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+ <br/>
 <img data-src="https://imgsw.cn/static/images/error6.png">
-
-<p>对于哪种方法的优劣暂时还不清楚；</p>
-<p>参考；</p>
-<p><a href="https://www.cnblogs.com/fqfzs/p/9117520.html" target="_blank" rel="noopener external nofollow noreferrer">https://www.cnblogs.com/fqfzs/p/9117520.html</a></p>
-<p><a href="https://blog.csdn.net/wangzici/article/details/80140357" target="_blank" rel="noopener external nofollow noreferrer">https://blog.csdn.net/wangzici/article/details/80140357</a></p>
+ <br/>
+对于哪种方法的优劣暂时还不清楚；
+ <br/>
+参考；
+ <br/>
+https://www.cnblogs.com/fqfzs/p/9117520.html
+ <br/>
+https://blog.csdn.net/wangzici/article/details/80140357
 </details>
+---
 
-<hr>
 <p class="m_more_content_p_red">5、将 implementation 'androidx.core:core-ktx:1.2.0' 版本升级到 1.2.0后，sync 报错了：</p>
 
-<p>Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper ‘-jvm-target’ option</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">      </span><br><span class="line">    <span class="comment">//新增如下代码</span></span><br><span class="line">    kotlinOptions &#123;</span><br><span class="line">        jvmTarget = <span class="string">"1.8"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<details class="m_more_content_details">
+  <summary>详细信息</summary>
+  Cannot inline bytecode built with JVM target 1.8 into bytecode that is being built with JVM target 1.6. Please specify proper '-jvm-target' option
+  <br/>
+  解决办法：
+  <br/>
+    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;新增如下代码</span><br><span class="line">    kotlinOptions &#123;</span><br><span class="line">        jvmTarget &#x3D; &quot;1.8&quot;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</details>  
+
+
+
+
+
+
+
+
 
 <hr>
-<details class="m_more_content_details">
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><details class="m_more_content_details">
   <summary >单词音标：</summary>
 </details>
 
 <script src="/js/my_js.js"></script>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -498,6 +532,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">1.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -520,7 +555,7 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
