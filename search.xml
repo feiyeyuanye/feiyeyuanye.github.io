@@ -43,7 +43,33 @@
 <li><p><strong>DVM 早期没有使用 JIT 编译器</strong>。</p>
 <details class="m_more_content_details_supplement">
    <summary  class="m_more_content_summary">详细信息</summary>
-        <p></p>
+        <p>JVM 使用了 JIT 编译器（即时编译器），而 DVM 早起没有使用。早起的 DVM 每次执行代码，都需要通过解释器将 dex 代码编译成机器码，然后交给系统处理，效率不是很高。所以从 Android 2.2 版本开始 DVM 使用了 JIT 编译器，它会对多次运行的代码（热点代码）进行编译，生成相当精简的本地机器码（Native Code），这样在下次执行到相同逻辑时，直接使用编译之后的本地机器码，而不是每次都需要编译。需要注意的是，应用程序每一次重新运行时，都要重做这个编译工作，因此每次重新打开应用程序，都需要 JIT 编译。</p>
+</details>
+
+</li>
+</ol>
+<h3 id="DVM-架构"><a href="#DVM-架构" class="headerlink" title="DVM 架构"></a>DVM 架构</h3><p>首先 Java 编译器编译的 .class 文件经过 DX 工具转换为 .dex 文件，.dex 文件由类加载器处理，接着解释器根据指令集对 Dalvik 字节码进行解释、执行，最后交于 Linux 处理。</p>
+<h3 id="DVM-的运行时堆"><a href="#DVM-的运行时堆" class="headerlink" title="DVM 的运行时堆"></a>DVM 的运行时堆</h3><h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
+<details class="m_more_content_details">
+  <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+    <details class="m_more_content_details">
+        <summary  class="m_more_content_summary">zygote 英 [ˈzaɪɡəʊt] 美 [ˈzaɪɡoʊt]</summary>
+        n. 受精卵；接合子
+    </details>
+     <details class="m_more_content_details">
+        <summary class="m_more_content_summary">space 英 [speɪs] 美 [speɪs]：空间，距离，隔开</summary>
+        n. 空间；太空；距离 vi. 留间隔 vt. 隔开
+    </details>
+     <details class="m_more_content_details">
+        <summary  class="m_more_content_summary">fork 英 [fɔːk] 美 [fɔːrk]</summary>
+          n. 叉；餐叉；耙 vt. 叉起；使成叉状 vi. 分叉；分歧 n. (Fork)人名；(英、德)福克
+    </details>
+     <details class="m_more_content_details">
+        <summary class="m_more_content_summary">allocation 英 [ˌæləˈkeɪʃn] 美 [ˌæləˈkeɪʃn]</summary>
+          n. 分配，配置；安置
+    </details> 
+  </ul>
 </details>
 
 
@@ -52,12 +78,11 @@
 
 
 
-</li>
-</ol>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
-<details class="m_more_content_details">
-  <summary  class="m_more_content_summary">单词音标：</summary>
-</details>]]></content>
+
+
+
+
+]]></content>
       <categories>
         <category>Android 知识点</category>
       </categories>
@@ -605,7 +630,7 @@ https://www.cnblogs.com/fqfzs/p/9117520.html
 https://blog.csdn.net/wangzici/article/details/80140357
 </details>
 
-<p class="m_more_content_p_red">5、将 implementation 'androidx.core:core-ktx:1.2.0' 版本升级到 1.2.0后，sync 报错了：</p>
+<p class="m_more_content_p_red">5、将 implementation 'androidx.core:core-ktx:1.2.0' 版本升级到 1.2.0后，sync 报错了。</p>
 
 <details class="m_more_content_details">
   <summary>详细信息</summary>

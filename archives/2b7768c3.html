@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-02T00:29:41.000Z">
-<meta property="article:modified_time" content="2020-07-03T11:34:58.644Z">
+<meta property="article:modified_time" content="2020-07-03T16:19:01.555Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="虚拟机">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-03 19:34:58" itemprop="dateModified" datetime="2020-07-03T19:34:58+08:00">2020-07-03</time>
+                <time title="修改时间：2020-07-04 00:19:01" itemprop="dateModified" datetime="2020-07-04T00:19:01+08:00">2020-07-04</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -314,21 +314,46 @@
 <li><p><strong>DVM 早期没有使用 JIT 编译器</strong>。</p>
 <details class="m_more_content_details_supplement">
    <summary  class="m_more_content_summary">详细信息</summary>
-        <p></p>
+        <p>JVM 使用了 JIT 编译器（即时编译器），而 DVM 早起没有使用。早起的 DVM 每次执行代码，都需要通过解释器将 dex 代码编译成机器码，然后交给系统处理，效率不是很高。所以从 Android 2.2 版本开始 DVM 使用了 JIT 编译器，它会对多次运行的代码（热点代码）进行编译，生成相当精简的本地机器码（Native Code），这样在下次执行到相同逻辑时，直接使用编译之后的本地机器码，而不是每次都需要编译。需要注意的是，应用程序每一次重新运行时，都要重做这个编译工作，因此每次重新打开应用程序，都需要 JIT 编译。</p>
 </details>
-
-
-
-
-
-
 
 </li>
 </ol>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
+<h3 id="DVM-架构"><a href="#DVM-架构" class="headerlink" title="DVM 架构"></a>DVM 架构</h3><p>首先 Java 编译器编译的 .class 文件经过 DX 工具转换为 .dex 文件，.dex 文件由类加载器处理，接着解释器根据指令集对 Dalvik 字节码进行解释、执行，最后交于 Linux 处理。</p>
+<h3 id="DVM-的运行时堆"><a href="#DVM-的运行时堆" class="headerlink" title="DVM 的运行时堆"></a>DVM 的运行时堆</h3><h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
 <details class="m_more_content_details">
   <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+    <details class="m_more_content_details">
+        <summary  class="m_more_content_summary">zygote 英 [ˈzaɪɡəʊt] 美 [ˈzaɪɡoʊt]</summary>
+        n. 受精卵；接合子
+    </details>
+     <details class="m_more_content_details">
+        <summary class="m_more_content_summary">space 英 [speɪs] 美 [speɪs]：空间，距离，隔开</summary>
+        n. 空间；太空；距离 vi. 留间隔 vt. 隔开
+    </details>
+     <details class="m_more_content_details">
+        <summary  class="m_more_content_summary">fork 英 [fɔːk] 美 [fɔːrk]</summary>
+          n. 叉；餐叉；耙 vt. 叉起；使成叉状 vi. 分叉；分歧 n. (Fork)人名；(英、德)福克
+    </details>
+     <details class="m_more_content_details">
+        <summary class="m_more_content_summary">allocation 英 [ˌæləˈkeɪʃn] 美 [ˌæləˈkeɪʃn]</summary>
+          n. 分配，配置；安置
+    </details> 
+  </ul>
 </details>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
     
@@ -456,7 +481,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dalvik-虚拟机"><span class="nav-number">1.</span> <span class="nav-text">Dalvik 虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DVM-与-JVM-的区别"><span class="nav-number">1.1.</span> <span class="nav-text">DVM 与 JVM 的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Dalvik-虚拟机"><span class="nav-number">1.</span> <span class="nav-text">Dalvik 虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DVM-与-JVM-的区别"><span class="nav-number">1.1.</span> <span class="nav-text">DVM 与 JVM 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DVM-架构"><span class="nav-number">1.2.</span> <span class="nav-text">DVM 架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DVM-的运行时堆"><span class="nav-number">1.3.</span> <span class="nav-text">DVM 的运行时堆</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
