@@ -49,7 +49,41 @@
 </li>
 </ol>
 <h3 id="DVM-架构"><a href="#DVM-架构" class="headerlink" title="DVM 架构"></a>DVM 架构</h3><p>首先 Java 编译器编译的 .class 文件经过 DX 工具转换为 .dex 文件，.dex 文件由类加载器处理，接着解释器根据指令集对 Dalvik 字节码进行解释、执行，最后交于 Linux 处理。</p>
-<h3 id="DVM-的运行时堆"><a href="#DVM-的运行时堆" class="headerlink" title="DVM 的运行时堆"></a>DVM 的运行时堆</h3><h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
+<h3 id="DVM-的运行时堆"><a href="#DVM-的运行时堆" class="headerlink" title="DVM 的运行时堆"></a>DVM 的运行时堆</h3><p>它使用标记—清除（Mark-Sweep）算法进行 GC，由两个 Space 以及多个辅助数据结构组成。</p>
+<p>两个数据结构分别是：Zygote Space（Zygote Heap）和 Allocation Space（Active Heap）。</p>
+<details class="m_more_content_details_supplement">
+   <summary  class="m_more_content_summary">详细信息</summary>
+        <p>Zygote Space 用来管理 Zygote 进程在启动过程中预加载和创建的各种对象，Zygote Space 中不会触发 GC，在 Zygote 进程和应用程序进程之间会共享 Zygote Space。在 Zygote 进程 fork 第一个子进程之前，会把 Zygote Space 分为两部分，原来的已经被使用的那部分堆仍旧叫 Zygote Space，而未使用的那部分堆就叫做 Allocation Space，以后的对象都会在 Allocation 上进行分配和释放。Allocation Space 不是进程间共享的，在每个进程中独立拥有一份。</p>
+</details>
+
+<p>包含的数据结构：Card Table、Heap Bitmap、Mark Stack。</p>
+<details class="m_more_content_details_supplement">
+   <summary  class="m_more_content_summary">详细信息</summary>
+        <p>Card Table：用于 DVM Concurrent GC，当第一次进行垃圾标记后，记录垃圾信息。<br/>
+       Heap Bitmap：有两个 Heap Bitmap，一个用来记录上次 GC 存活的对象，另一个用来记录这次 GC 存活的对象。<br/>
+       Mark Stack：DVM 的运行时堆使用标记一清除 (Mark-Sweep) 算法进行 GC，Mark Stack 就是在 GC 的标记阶段使用的，它用来遍历存活的对象。</p>
+</details>
+
+<h3 id="DVM-的-GC-日志"><a href="#DVM-的-GC-日志" class="headerlink" title="DVM 的 GC 日志"></a>DVM 的 GC 日志</h3><p>在 DVM 中每次垃圾收集都会将 GC 日志打印到 logcat 中，具体的格式为：</p>
+<p><code>D/dalvikvm: &lt;GC_Reason&gt; &lt;Amount_freed&gt;, &lt;Heap_stats&gt;, &lt;External_memory_stats&gt;, &lt;Pause_time&gt;</code></p>
+<hr>
+<h2 id="ART-虚拟机"><a href="#ART-虚拟机" class="headerlink" title="ART 虚拟机"></a><p class="m_more_title_style">ART 虚拟机</p></h2><p>ART（Android Runtime）虚拟机是 Android 4.4 发布的，用来替换 Dalvik 虚拟机，Android 4.4 默认采用的还是 DVM，系统会提供一个选项来开启 ART。在 Android 5.0 版本中默认采用了 ART，DVM 从此退出历史舞台。</p>
+<h3 id="ART-与-DVM-的区别"><a href="#ART-与-DVM-的区别" class="headerlink" title="ART 与 DVM 的区别"></a>ART 与 DVM 的区别</h3><ol>
+<li><p>ART 中，系统在安装应用程序时会进行一次 AOT，并在 Android 7.0 版本加入了 JIT。</p>
+<details class="m_more_content_details_supplement">
+   <summary  class="m_more_content_summary">详细信息</summary>
+        <p>DVM 中的应用每次运行时，字节码都需要通过 JIT 编译器编译为机器码，这会使得应用程序的运行效率降低。而 ART 中，系统会在安装应用程序时进行一次 AOT（预编译），将字节码预先编译为机器码并存储在本地，这样应用程序每次运行时就不需要执行编译了，运行效率会大大提升，设备的耗电量也会降低。采用 AOT 主要有两个缺点：一是应用程序安装时间变长，而是预先编译为机器码，机器码需要的存储空间会多一些，所以 Android 7.0 版本中的 ART 加入了即时编译器 JIT，在应用程序安装时并不会将字节码全部编译成机器码，而是在运行中将热点代码编译成机器码，从而缩短应用程序的安装时间并节省了存储空间。</p>
+</details>
+</li>
+<li><p>DVM 是为 32 位 CPU 设计的，而 ART 支持 64 位并兼容 32 位 CPU，这也是 DVM 被淘汰的主要原因之一。</p>
+</li>
+<li><p>ART 对垃圾回收机制进行了改进，比如更频繁地执行并行垃圾收集，将 GC 暂停由 2 次减少为 1 次等。</p>
+</li>
+<li><p>ART 的运行时堆空间划分和 DVM 不同。</p>
+</li>
+</ol>
+<h3 id="ART-的运行时堆"><a href="#ART-的运行时堆" class="headerlink" title="ART 的运行时堆"></a>ART 的运行时堆</h3><p>ART 采用了多种垃圾收集方案，每个方案会运行不同的垃圾收集器，默认采用 CMS（Concurrent Mark-Sweep）方案，该方案主要使用了 sticky-CMS 和 partial-CMS。</p>
+<h3 id="ART-的-GC-日志"><a href="#ART-的-GC-日志" class="headerlink" title="ART 的 GC 日志"></a>ART 的 GC 日志</h3><h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
 <details class="m_more_content_details">
   <summary  class="m_more_content_summary">单词音标：</summary>
   <ul>
@@ -58,7 +92,7 @@
         n. 受精卵；接合子
     </details>
      <details class="m_more_content_details">
-        <summary class="m_more_content_summary">space 英 [speɪs] 美 [speɪs]：空间，距离，隔开</summary>
+        <summary class="m_more_content_summary">space 英 [speɪs] 美 [speɪs]</summary>
         n. 空间；太空；距离 vi. 留间隔 vt. 隔开
     </details>
      <details class="m_more_content_details">
@@ -69,8 +103,21 @@
         <summary class="m_more_content_summary">allocation 英 [ˌæləˈkeɪʃn] 美 [ˌæləˈkeɪʃn]</summary>
           n. 分配，配置；安置
     </details> 
+    <details class="m_more_content_details">
+        <summary class="m_more_content_summary">heap 英 [hiːp] 美 [hiːp]</summary>
+          n. 堆；许多；累积 vt. 堆；堆积 vi. 堆起来 n. (Heap)人名；(芬)海亚普；(东南亚国家华语)协；(英)希普
+    </details>
+    <details class="m_more_content_details">
+        <summary class="m_more_content_summary">concurrent 英 [kənˈkʌrənt] 美 [kənˈkɜːrənt]</summary>
+          adj. 并发的；一致的；同时发生的；并存的 n. [数] 共点；同时发生的事件
+    </details> 
+    <details class="m_more_content_details">
+        <summary class="m_more_content_summary">stack 英 [stæk] 美 [stæk]</summary>
+          n. 整齐的）一堆；（尤指工厂的）大烟囱；堆栈；（干草或谷物的）堆；竖着置放的高保真音响设备；定高分层盘旋（等待降落）的机群；（数支步枪支起的锥形）枪架；（车辆的）排气管；（浪蚀）岩柱；垛，堆（木材计量单位） v. （使）放成整齐的一叠；（使）成叠地放在……；（令飞机）分层盘旋等待着陆；（洗牌）作弊；跌倒 n. (Stack) （美）斯塔克（人名）
+    </details> 
   </ul>
 </details>
+
 
 
 
