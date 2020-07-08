@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Mac 本地服务器">
+<meta property="og:url" content="https://jianghouren.com/archives/3d8b5231.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/baisheyuanqi.jpg">
+<meta property="article:published_time" content="2020-06-23T05:35:55.000Z">
+<meta property="article:modified_time" content="2020-06-25T03:14:23.403Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="服务端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/baisheyuanqi.jpg">
+
+<link rel="canonical" href="https://jianghouren.com/archives/3d8b5231.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mac 本地服务器 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-计划">
+
+    <a href="/plan/" rel="section"><i class="fa fa-calendar fa-fw"></i>计划</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/3d8b5231.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mac 本地服务器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 13:35:55" itemprop="dateCreated datePublished" datetime="2020-06-23T13:35:55+08:00">2020-06-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-06-25 11:14:23" itemprop="dateModified" datetime="2020-06-25T11:14:23+08:00">2020-06-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">服务端</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/3d8b5231.html" class="post-meta-item leancloud_visitors" data-flag-title="Mac 本地服务器" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/3d8b5231.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/3d8b5231.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://imgsw.cn/static/images/baisheyuanqi.jpg" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<p>最近做 Web 项目遇到一些问题，比如获取本地文件相关，或者 iframe 的传值问题，使用本地文件的方式（file:///）是无效的。而每次上传到阿里云服务器上来测试又太麻烦，所以可使用 Mac 自带的 Apache 服务器。</p>
+<h2 id="配置流程"><a href="#配置流程" class="headerlink" title="配置流程"></a><p class="m_more_title_style">配置流程</p></h2><p><strong>1、创建文件夹</strong></p>
+<p>在家目录创建一个文件夹 <code>Sites</code> ，创建后这个文件夹会有所不同，文件夹上面有一个网络的标记。（提示：家目录也就是用户名目录，没有家目录的在 访达(Finder)-&gt; 偏好设置-&gt; 勾选家目录）</p>
+<p><strong>2、打开文件</strong></p>
+<p>打开终端，切换工作目录，进入 <code>apache2</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/apache2/</span><br></pre></td></tr></table></figure>
+
+<p>打开此目录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提示： `.` 代表当前目录; `..` 代表上一个目录</span></span><br><span class="line">open .</span><br></pre></td></tr></table></figure>
+
+<p>备份文件，以防不测：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">sudo</span> <span class="selector-tag">cp</span> <span class="selector-tag">httpd</span><span class="selector-class">.conf</span> <span class="selector-tag">httpd</span><span class="selector-class">.conf</span><span class="selector-class">.bak</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>3、修改文件内容</strong></p>
+<p>修改 <code>httpd.conf</code> 里面的内容：</p>
+<p>这里我是直接用软件打开了文件来修改（确认修改内容时，需要电脑用户名的密码。）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查找 php，干掉一个注释。</span></span><br><span class="line">LoadModule php7_module libexec/apache2/libphp7.so</span><br><span class="line"></span><br><span class="line"><span class="comment">#查找`#ServerName www.example.com:80`这行，去掉前面的#号，修改如下</span></span><br><span class="line"><span class="comment">#ServerName localhost:80 或者 ServerName 127.0.0.1:80</span></span><br><span class="line">ServerName localhost:80 </span><br><span class="line"></span><br><span class="line"><span class="comment"># 查找DocumentRoot，并修改路径为上面Sites的路径。</span></span><br><span class="line"><span class="comment"># 这里遇到了个麻烦，根据网上大多文章，接下的修改是 "/User/你的用户名/Sites"，</span></span><br><span class="line"><span class="comment"># 而实际上我是该成了 Users 才成功，这不禁让我想起前段时间想改阿里云服务器的默认目录也一直不成功，会不是也是这个 Users 的问题，这里先记录下。</span></span><br><span class="line">DocumentRoot <span class="string">"/Users/jianghouren/Sites"</span></span><br><span class="line">&lt;Directory <span class="string">"/Users/jianghouren/Sites"</span>&gt;</span><br><span class="line">  </span><br><span class="line"> 		<span class="comment"># 查找 Options，在其后面加一个 Indexes</span></span><br><span class="line"> 		<span class="comment"># 这个 Indexes 的作用是，如果此目录下没有 index.html 文件，则将目录内文件列出来，这用于本地测试很好用，但在正式服务器上一定要删除掉，否则可以通过域名加上目录名的方式，直接把服务器上的目录下文件都列出来。</span></span><br><span class="line">    Options Indexes FollowSymLinks Multiviews</span><br><span class="line">    MultiviewsMatch Any</span><br><span class="line"></span><br><span class="line">    AllowOverride None</span><br><span class="line"></span><br><span class="line">    Require all granted</span><br><span class="line">&lt;/Directory&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>4、切换目录</strong></p>
+<p>切换目录到 <code>/etc</code>，并拷贝 php.ini文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切换目录到 etc</span></span><br><span class="line"><span class="built_in">cd</span> /etc</span><br><span class="line"><span class="comment"># 并拷贝 php.ini文件</span></span><br><span class="line"><span class="comment"># `cp 文件1 文件2` 意思是 把文件1里面的内容全部拷贝到文件2</span></span><br><span class="line">sudo cp php.ini.default php.ini</span><br></pre></td></tr></table></figure>
+
+<p><strong>5、重启服务器</strong></p>
+<p>重启 apache 服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 暂停服务器： `sudo apachectl -k stop</span></span><br><span class="line"><span class="comment"># 开启服务器： `sudo apachectl -k start`</span></span><br><span class="line">sudo apachectl -k restart</span><br></pre></td></tr></table></figure>
+
+<p><strong>6、验证</strong></p>
+<p>验证 apache 服务器是否配置成功，在浏览器输入：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//localhost</span></span><br><span class="line">或者输入</span><br><span class="line">http:<span class="comment">//127.0.0.1</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>7、重试</strong></p>
+<p>如果重启 apache 出错了，可输入下面的命令,把上面的命令再重复一次：</p>
+<p>有问题的话，就直接手动操作覆盖内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp httpd.conf.bak httpd.conf</span><br></pre></td></tr></table></figure>
+
+<p><strong>8、更详细的图文操作，可查看参考资料链接。</strong></p>
+<p><strong>注意：如果某一目录层级中有 index.html，会默认打开此文件。</strong></p>
+<p><strong>9、连接同一网络的手机，可以通过访问 Mac 的 ip 地址来测试。（Mac 可以通过到网络里查看 ip 地址）</strong></p>
+<hr>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><p class="m_more_title_style">其它</p></h2><p>以前用 Windows 系统的指令，还没试过 Mac 下的效果，先记录：</p>
+<p><strong>查看本机 IP 地址：</strong><br>cmd-ipconfig-IPv4</p>
+<p><strong>更改 XAMPP 的端口号：</strong><br>软件右侧：Explorer–第二个文件夹：apache–第二个文件夹：conf–httpd.conf<br>修改两处：Listen（54行左右）和 ServerName localhost（222行左右）</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a href="https://www.jianshu.com/p/713adb751223" target="_blank" rel="noopener external nofollow noreferrer">iOS Mac本地搭建Apache服务器</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/3d8b5231.html" title="Mac 本地服务器">https://jianghouren.com/archives/3d8b5231.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 服务端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/cfba8f6e.html" rel="prev" title="Android Studio Error">
+      <i class="fa fa-chevron-left"></i> Android Studio Error
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/6ff5e3db.html" rel="next" title="Android Studio 配置">
+      Android Studio 配置 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置流程"><span class="nav-number">1.</span> <span class="nav-text">配置流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">2.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">686k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:24</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span>你若盛开，清风自来。心若浮沉，浅笑安然。<br/></span>	
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

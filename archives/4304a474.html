@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="JVM 基本原理(3)">
+<meta property="og:url" content="https://jianghouren.com/archives/4304a474.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-10-31T07:15:39.000Z">
+<meta property="article:modified_time" content="2020-07-01T01:21:04.300Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="虚拟机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+
+<link rel="canonical" href="https://jianghouren.com/archives/4304a474.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM 基本原理(3) | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-计划">
+
+    <a href="/plan/" rel="section"><i class="fa fa-calendar fa-fw"></i>计划</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/4304a474.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM 基本原理(3)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-10-31 15:15:39" itemprop="dateCreated datePublished" datetime="2019-10-31T15:15:39+08:00">2019-10-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-07-01 09:21:04" itemprop="dateModified" datetime="2020-07-01T09:21:04+08:00">2020-07-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Java 知识点</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-%E7%9F%A5%E8%AF%86%E7%82%B9/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/4304a474.html" class="post-meta-item leancloud_visitors" data-flag-title="JVM 基本原理(3)" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/4304a474.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/4304a474.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://imgsw.cn/static/images/幽灵公主.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<h2 id="Java-对象的内存布局"><a href="#Java-对象的内存布局" class="headerlink" title="Java 对象的内存布局"></a><p class="m_more_title_style">Java 对象的内存布局</p></h2><p>常见的 new 语句会被编译为 new 指令，以及对构造器的调用。每个类的构造器皆会直接或者间接调用父类的构造器，并且在同一个实例中初始化相应的字段。</p>
+<h3 id="压缩指针"><a href="#压缩指针" class="headerlink" title="压缩指针"></a>压缩指针</h3><p>每个对象都有一个对象头，对象头包括两部分，标记信息和类型指针。标记信息包括哈希值，锁信息，GC信息。类型指针指向这个对象的class。两个信息分别占用8个字节，所以每个对象的额外内存为16个字节。很消耗内存。</p>
+<p>Java 虚拟机引入了压缩指针的概念，为了减少类型指针的内存占用，将64位指针压缩至32位，进而节约内存。之前64位寻址，寻的是字节。现在32位寻址，寻的是变量。再加上内存对齐(补齐为8的倍数)，可以每次寻变量都以一定的规则寻找，并且一定可以找得到。</p>
+<p>压缩指针要求 Java 虚拟机堆中对象的起始地址要对齐至 8 的倍数。Java 虚拟机还会对每个类的字段进行重排列，使得字段也能够内存对齐。</p>
+<p>内存对齐的另一个好处是，使得CPU缓存行可以更好的实施。保证每个变量都只出现在一条缓存行中，不会出现跨行缓存。提高程序的执行效率。</p>
+<h3 id="字段重排序"><a href="#字段重排序" class="headerlink" title="字段重排序"></a>字段重排序</h3><p>其实就是更好的执行内存对齐标准，会调整字段在内存中的分布，达到方便寻址和节省空间的目的。</p>
+<p>虚共享，当两个线程分别访问一个对象中的不同volatile字段，理论上是不涉及变量共享和同步要求的。但是如果两个volatile字段处于同一个CPU缓存行中，对其中一个volatile字段的写操作，会导致整个缓存行的写回和读取操作，进而影响到了另一个volatile变量，也就是实际上的共享问题。</p>
+<p>@Contented注解，就是用来解决虚共享问题的，被该注解标识的变量，会独占一个CPU缓存行。但也因此浪费了大量的内存空间。</p>
+<hr>
+<h2 id="垃圾回收"><a href="#垃圾回收" class="headerlink" title="垃圾回收"></a><p class="m_more_title_style">垃圾回收</p></h2><p>JVM 语境下，垃圾回收，指将已经分配出去的，但已经死亡的对象所占据的堆空间回收回来，以便能够再次分配。</p>
+<h3 id="引用计数法与可达性分析"><a href="#引用计数法与可达性分析" class="headerlink" title="引用计数法与可达性分析"></a>引用计数法与可达性分析</h3><p><strong>引用计数法</strong>（reference counting）：<br>它的做法是为每个对象添加一个引用计数器，用来统计指向该对象的引用个数。一旦某个对象的引用计数器为 0，则说明该对象已经死亡，便可以被回收了。<br>它的问题在于除了需要额外的空间来存储计数器，以及繁琐的更新操作，引用计数法还有一个重大的漏洞，那便是无法处理循环引用对象。</p>
+<p><strong>可达性分析算法</strong>：<br>这个算法的实质在于将一系列 GC Roots 作为初始的存活对象合集（live set），然后从该合集出发，探索所有能够被该集合引用到的对象，并将其加入到该集合中，这个过程我们也称之为标记（mark）。最终，未被探索到的对象便是死亡的，是可以回收的。<br>它的问题在于，比如说，在多线程环境下，其他线程可能会更新已经访问过的对象中的引用，从而造成误报（将引用设置为 null）或者漏报（将引用设置为未被访问过的对象）。</p>
+<h3 id="Stop-the-world-以及安全点"><a href="#Stop-the-world-以及安全点" class="headerlink" title="Stop-the-world 以及安全点"></a>Stop-the-world 以及安全点</h3><p>为了解决漏报的麻烦，在 JVM 里，传统的垃圾回收算法采用的是 Stop-the-world（通过安全点机制来实现），停止其他非垃圾回收线程的工作，直到完成垃圾回收。这也就造成了垃圾回收所谓的暂停时间（GC pause）。</p>
+<h3 id="垃圾回收的三种方式"><a href="#垃圾回收的三种方式" class="headerlink" title="垃圾回收的三种方式"></a>垃圾回收的三种方式</h3><p>当标记完所有的存活对象时，便可以进行死亡对象的回收工作。主流的基础回收方式可分为三种：</p>
+<ul>
+<li><strong>清除</strong>（sweep）<br>即把死亡对象所占据的内存标记为空闲内存，并记录在一个空闲列表（free list）之中。当需要新建对象时，内存管理模块便会从该空闲列表中寻找空闲内存，并划分给新建的对象。<br>它有两个缺点，即会造成内存碎片，和分配效率较低。</li>
+<li><strong>压缩</strong>（compact）<br>即把存活的对象聚集到内存区域的起始位置，从而留下一段连续的内存空间。<br>这种做法能够解决内存碎片化的问题，但代价是压缩算法的性能开销。</li>
+<li><strong>复制</strong>（copy）<br>即把内存区域分为两等分，分别用两个指针 from 和 to 来维护，并且只是用 from 指针指向的内存区域来分配内存。当发生垃圾回收时，便把存活的对象复制到 to 指针指向的内存区域中，并且交换 from 指针和 to 指针的内容。<br>复制这种回收方式同样能够解决内存碎片化的问题，但是它的缺点也极其明显，即堆空间的使用效率极其低下。</li>
+</ul>
+<h3 id="Java-虚拟机的堆划分"><a href="#Java-虚拟机的堆划分" class="headerlink" title="Java 虚拟机的堆划分"></a>Java 虚拟机的堆划分</h3><p>Java 虚拟机将堆分为新生代和老年代（JVM 的分代回收思想），并且对不同代采用不同的垃圾回收算法。其中，新生代分为 Eden 区和两个大小一致的 Survivor 区，并且其中一个 Survivor 区是空的。</p>
+<p>在只针对新生代的 Minor GC 中，Eden 区和非空 Survivor 区的存活对象会被复制到空的 Survivor 区中，当 Survivor 区中的存活对象复制次数超过一定数值时，它将被晋升至老年代。</p>
+<h3 id="卡表"><a href="#卡表" class="headerlink" title="卡表"></a>卡表</h3><p>因为 Minor GC 只针对新生代进行垃圾回收，所以在枚举 GC Roots 的时候，它需要考虑从老年代到新生代的引用。为了避免扫描整个老年代，Java 虚拟机引入了名为卡表的技术，大致地标出可能存在老年代到新生代引用的内存区域。</p>
+<p>该技术将整个堆划分为一个个大小为 512 字节的卡，并且维护一个卡表，用来存储每张卡的一个标识位。这个标识位代表对应的卡是否可能存有指向新生代对象的引用。如果可能存在，那么我们就认为这张卡是脏的。</p>
+<hr>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><p class="m_more_title_style">链接</p></h2><p><strong>参考资料：</strong><br><a href="https://time.geekbang.org/column/intro/108" target="_blank" rel="noopener external nofollow noreferrer">极客时间-深入拆解Java虚拟机</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/4304a474.html" title="JVM 基本原理(3)">https://jianghouren.com/archives/4304a474.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"><i class="fa fa-tag"></i> 虚拟机</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/5a1f9535.html" rel="prev" title="JVM 基本原理(2)">
+      <i class="fa fa-chevron-left"></i> JVM 基本原理(2)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/11e65276.html" rel="next" title="Adnroid 四大组件的工作过程">
+      Adnroid 四大组件的工作过程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-对象的内存布局"><span class="nav-number">1.</span> <span class="nav-text">Java 对象的内存布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩指针"><span class="nav-number">1.1.</span> <span class="nav-text">压缩指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字段重排序"><span class="nav-number">1.2.</span> <span class="nav-text">字段重排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#垃圾回收"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#引用计数法与可达性分析"><span class="nav-number">2.1.</span> <span class="nav-text">引用计数法与可达性分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stop-the-world-以及安全点"><span class="nav-number">2.2.</span> <span class="nav-text">Stop-the-world 以及安全点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#垃圾回收的三种方式"><span class="nav-number">2.3.</span> <span class="nav-text">垃圾回收的三种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-虚拟机的堆划分"><span class="nav-number">2.4.</span> <span class="nav-text">Java 虚拟机的堆划分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卡表"><span class="nav-number">2.5.</span> <span class="nav-text">卡表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">3.</span> <span class="nav-text">链接</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">686k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">10:24</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span>你若盛开，清风自来。心若浮沉，浅笑安然。<br/></span>	
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>
