@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b134ff;
+  background: #b01fed;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2559,6 +2559,14 @@ hr {
   margin-top: 50px;
   border-radius: 20px;
   padding: 30px 60px 30px 60px;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 5px rgba(84,237,204,0.5);
+  -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
+  -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
+}
+.comments {
+  border-radius: 20px;
+  padding: 5px 5px;
   background: rgba(255,255,255,0.8);
   box-shadow: 0 0 5px rgba(84,237,204,0.5);
   -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
