@@ -4213,7 +4213,7 @@ https://blog.csdn.net/wangzici/article/details/80140357
 
 <h2 id="应用程序进程简介"><a href="#应用程序进程简介" class="headerlink" title="应用程序进程简介"></a><p class="m_more_title_style">应用程序进程简介</p></h2><p>要想启动一个应用程序，须先确保它所需的应用程序进程已经启动。<br>AMS 在启动应用程序时会检查这个进程是否存在，不存在就会请求 Zygote 进程来启动这个进程。<br>在 Zygote 的 Java 框架层中会创建一个 Server 端的 Socket 用来等待 Zygote 创建新的应用程序进程。<br>Zygote 进程通过 fock 自身创建应用程序进程，这个程序会获得 Zygote 进程在启动时创建的虚拟机实例，并且还创建了 Binder 线程池和消息循环，这样运行在应用进程中的应用程序就可以方便地使用 Binder 进行进程间通信以及处理消息了。</p>
 <hr>
-<hr>
+<h2 id="应用程序进程启动过程介绍"><a href="#应用程序进程启动过程介绍" class="headerlink" title="应用程序进程启动过程介绍"></a><p class="m_more_title_style">应用程序进程启动过程介绍</p></h2><h3 id="AMS-发送启动应用程序进程请求"><a href="#AMS-发送启动应用程序进程请求" class="headerlink" title="AMS 发送启动应用程序进程请求"></a>AMS 发送启动应用程序进程请求</h3><hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
 ]]></content>
       <categories>
