@@ -649,8 +649,25 @@
 
 
       </div>
-    </main>
 
+      <div class="skin_peeler" id="skin_peeler"></div>
+      <script>
+        var sty = "rgb(199,237,204)";
+        document.getElementById('skin_peeler').addEventListener('click',function(){
+           var postBlock=document.getElementsByClassName("post-block");
+           for (var i = 0;i<postBlock.length;i++) {
+              postBlock[i].style.backgroundColor = sty;
+           };
+           if(sty == "rgba(255, 255, 255, 0.8)"){
+              sty = "rgb(199,237,204)";
+           }else {
+              sty = "rgba(255, 255, 255, 0.8)";
+           }
+        })
+      </script>
+
+    </main>
+   
     <footer class="footer">
       <div class="footer-inner">
         
@@ -669,7 +686,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">686k</span>
+    <span title="站点总字数">687k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>

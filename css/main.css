@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #e94fbe;
+  background: #98ffff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2588,6 +2588,18 @@ hr {
 }
 .posts-expand .post-meta {
   margin-bottom: 20px;
+}
+.skin_peeler {
+  width: 25px;
+  height: 25px;
+  background: url("/images/huanfu.png");
+  background-size: 25px;
+  background-repeat: no-repeat;
+  position: fixed;
+  bottom: 80px;
+  right: 29px;
+  cursor: pointer;
+  z-index: 1300;
 }
 body:before {
   content: ' ';
