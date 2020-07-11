@@ -462,8 +462,8 @@
       <i class="fa fa-chevron-left"></i> 系统软件配置
     </a></div>
       <div class="post-nav-item">
-    <a href="/archives/fc03f94d.html" rel="next" title="Retrofit 源码">
-      Retrofit 源码 <i class="fa fa-chevron-right"></i>
+    <a href="/archives/22250a5.html" rel="next" title="Retrofit 使用">
+      Retrofit 使用 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -595,6 +595,8 @@
       </div>
 
       <div class="skin_peeler" id="skin_peeler"></div>
+      <div class="audioImg" id="audioImg"></div>
+      <audio id="audioMp3" src="/mp3/雷雨.mp3" controls="true" loop="loop" ></audio>
       <script>
         var sty = "rgb(199,237,204)";
         document.getElementById('skin_peeler').addEventListener('click',function(){
@@ -608,6 +610,24 @@
               sty = "rgba(255, 255, 255, 0.8)";
            }
         })
+
+      	var audioMp3 = document.getElementById("audioMp3");
+	var audioImg = document.getElementById("audioImg");
+	
+	audioMp3.style.display = 'none';
+	
+	var audioBoolean = false;
+	audioImg.addEventListener('click', function() {
+		if(audioBoolean) {
+			audioMp3.pause();
+			audioImg.style.animation = "";
+			audioBoolean = false;
+		} else {
+			audioMp3.play();
+			audioImg.style.animation = "3s linear infinite CDturn";
+			audioBoolean = true;
+		}
+	});
       </script>
 
     </main>

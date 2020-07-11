@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #98ffff;
+  background: #364994;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2671,11 +2671,17 @@ body:before {
   border-bottom: none;
   border-bottom: 1px solid #c3b091;
 }
-#about_audioImg {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  float: left;
+.audioImg {
+  width: 25px;
+  height: 25px;
+  background: url("/images/music.png");
+  background-size: 25px;
+  background-repeat: no-repeat;
+  position: fixed;
+  bottom: 120px;
+  right: 29px;
+  cursor: pointer;
+  z-index: 1300;
 }
 #about_span {
   font-size: 1.125em;
