@@ -1584,7 +1584,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-09 20:34:33" itemprop="dateModified" datetime="2020-07-09T20:34:33+08:00">2020-07-09</time>
+                <time title="修改时间：2020-07-12 08:25:26" itemprop="dateModified" datetime="2020-07-12T08:25:26+08:00">2020-07-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1798,40 +1798,8 @@
 
       <div class="skin_peeler" id="skin_peeler"></div>
       <div class="audioImg" id="audioImg"></div>
-      <audio id="audioMp3" src="/mp3/雷雨.mp3" controls="true" loop="loop" ></audio>
-      <script>
-        var sty = "rgb(199,237,204)";
-        document.getElementById('skin_peeler').addEventListener('click',function(){
-           var postBlock=document.getElementsByClassName("post-block");
-           for (var i = 0;i<postBlock.length;i++) {
-              postBlock[i].style.backgroundColor = sty;
-           };
-           if(sty == "rgba(255, 255, 255, 0.8)"){
-              sty = "rgb(199,237,204)";
-           }else {
-              sty = "rgba(255, 255, 255, 0.8)";
-           }
-        })
-
-      	var audioMp3 = document.getElementById("audioMp3");
-	var audioImg = document.getElementById("audioImg");
-	
-	audioMp3.style.display = 'none';
-	
-	var audioBoolean = false;
-	audioImg.addEventListener('click', function() {
-		if(audioBoolean) {
-			audioMp3.pause();
-			audioImg.style.animation = "";
-			audioBoolean = false;
-		} else {
-			audioMp3.play();
-			audioImg.style.animation = "3s linear infinite CDturn";
-			audioBoolean = true;
-		}
-	});
-      </script>
-
+      <audio id="audioMp3" controls="true" loop="loop" ></audio>
+      <script src="/js/my-diy.js"></script>
     </main>
    
     <footer class="footer">

@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #364994;
+  background: #05b19d;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2589,18 +2589,6 @@ hr {
 .posts-expand .post-meta {
   margin-bottom: 20px;
 }
-.skin_peeler {
-  width: 25px;
-  height: 25px;
-  background: url("/images/huanfu.png");
-  background-size: 25px;
-  background-repeat: no-repeat;
-  position: fixed;
-  bottom: 80px;
-  right: 29px;
-  cursor: pointer;
-  z-index: 1300;
-}
 body:before {
   content: ' ';
   position: fixed;
@@ -2671,12 +2659,30 @@ body:before {
   border-bottom: none;
   border-bottom: 1px solid #c3b091;
 }
-.audioImg {
-  width: 25px;
-  height: 25px;
-  background: url("/images/music.png");
-  background-size: 25px;
+.skin_peeler {
+  width: 26px;
+  height: 26px;
+  background: url("/images/skinpeeler.svg");
+  background-size: 21.5px 21.5px;
   background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222;
+  border-radius: 13px;
+  position: fixed;
+  bottom: 80px;
+  right: 29px;
+  cursor: pointer;
+  z-index: 1300;
+}
+.audioImg {
+  width: 26px;
+  height: 26px;
+  background: url("/images/music.svg");
+  background-size: 21.5px 21.5px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #222;
+  border-radius: 13px;
   position: fixed;
   bottom: 120px;
   right: 29px;
