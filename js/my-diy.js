@@ -1,16 +1,27 @@
 
 
 // 换肤
- var sty = "rgb(199,237,204)";
+var arr = ["rgb(199,237,204)","#252d38","rgba(255, 255, 255, 0.8)"]
+var index = 0;
  document.getElementById('skin_peeler').addEventListener('click',function(){
     var postBlock=document.getElementsByClassName("post-block");
+    // 第一次点击，切换到护眼主题。
+    // 第二点击，切换到暗黑主题。
+    // 第三次点击，切换到原主题。然后开始循环。
     for (var i = 0;i<postBlock.length;i++) {
-       postBlock[i].style.backgroundColor = sty;
+       postBlock[i].style.backgroundColor = arr[index];
+
+       if(index == 1){
+          // 暗黑模式，改变字体颜色。
+          postBlock[i].style.color = "#d0d0d0";
+       }else{
+          postBlock[i].style.color = "";
+       }
     };
-    if(sty == "rgba(255, 255, 255, 0.8)"){
-       sty = "rgb(199,237,204)";
+    if(index != 2){
+      index++;
     }else {
-       sty = "rgba(255, 255, 255, 0.8)";
+      index = 0;
     }
  })
 

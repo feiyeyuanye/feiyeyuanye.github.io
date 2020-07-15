@@ -24,19 +24,19 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Android 反思总结">
-<meta property="og:url" content="https://jianghouren.com/archives/9376910a.html">
+<meta property="og:title" content="Android 运行时权限">
+<meta property="og:url" content="https://jianghouren.com/archives/d584e492.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
-<meta property="article:published_time" content="2020-06-15T22:06:19.000Z">
-<meta property="article:modified_time" content="2020-07-01T01:27:38.031Z">
+<meta property="article:published_time" content="2020-07-14T13:57:01.000Z">
+<meta property="article:modified_time" content="2020-07-15T01:45:08.016Z">
 <meta property="article:author" content="houren">
-<meta property="article:tag" content="反思总结">
+<meta property="article:tag" content="适配系列">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
-<link rel="canonical" href="https://jianghouren.com/archives/9376910a.html">
+<link rel="canonical" href="https://jianghouren.com/archives/d584e492.html">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Android 反思总结 | 非也缘也 Blog</title>
+  <title>Android 运行时权限 | 非也缘也 Blog</title>
   
 
 
@@ -203,7 +203,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/9376910a.html">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/d584e492.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -216,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android 反思总结
+          Android 运行时权限
         </h1>
 
         <div class="post-meta">
@@ -226,14 +226,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-16 06:06:19" itemprop="dateCreated datePublished" datetime="2020-06-16T06:06:19+08:00">2020-06-16</time>
+              <time title="创建时间：2020-07-14 21:57:01" itemprop="dateCreated datePublished" datetime="2020-07-14T21:57:01+08:00">2020-07-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-01 09:27:38" itemprop="dateModified" datetime="2020-07-01T09:27:38+08:00">2020-07-01</time>
+                <time title="修改时间：2020-07-15 09:45:08" itemprop="dateModified" datetime="2020-07-15T09:45:08+08:00">2020-07-15</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
             </span>
 
           
-            <span id="/archives/9376910a.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 反思总结" title="阅读次数">
+            <span id="/archives/d584e492.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 运行时权限" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -261,8 +261,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/archives/9376910a.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/9376910a.html" itemprop="commentCount"></span>
+    <a title="valine" href="/archives/d584e492.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/d584e492.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,14 +274,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>94</span>
+              <span>3.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -293,15 +293,91 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <img data-src="https://imgsw.cn/static/images/bananbienaole.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/xingqiujueqi3.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <a id="more"></a>
 
-<ol>
-<li>有事还得找 Google ，切记，切记。</li>
-<li>从别处复制来的自定义 View，因为在 XML 使用时，会要求声明完整包名，记得要改成自己的包名。</li>
-<li>复制代码时，比如重复复制按钮的点击事件，记得要修改控件 id。</li>
-</ol>
+<p>Android 的权限机制从系统的第一个版本开始就已经存在了，只不过之前的权限机制在保护用户安全隐私等方面起到的作用比较有限。为此，Android 6.0 系统中引入了运行时权限这个功能。</p>
+<p><strong>在加入了权限声明后，用户主要在两个方面得到了保护。</strong></p>
+<ul>
+<li>如果用户在低于 6.0 系统的设备上安装该程序，会在安装界面给出提示，知晓该程序一共申请了哪些权限，从而决定是否要安装这个程序。</li>
+<li>用户可随时在应用程序管理界面查看任意一个程序的权限申请情况，保证程序不会出现各种滥用权限的情况。</li>
+</ul>
+<p>在 Android 6.0 系统中加入了运行时权限功能，这样，用户不需要在安装软件时一次性授权所有申请的权限，而是可以在软件的使用过程中再对某一项权限申请进行授权。</p>
+<p><strong>Android 将常用权限大致归为两类：普通权限、危险权限</strong>。（其实还有一些特殊权限，但使用较少）</p>
+<ul>
+<li>普通权限：指那些不会直接威胁到用户的安全和隐私的权限，对于这部分权限，系统会自动帮我们进行授权，不需要用户手动操作。</li>
+<li>危险权限：指那些可能会触及用户隐私或者对设备安全性造成影响的权限，如获取设备联系人信息，定位设备地理位置等，对于这部分权限申请，必须由用户手动授权才行，否则程序就无法使用相应的功能。</li>
+</ul>
+<p><strong>到 Android 10 系统为止所有的危险权限</strong></p>
+<table>
+<thead>
+<tr>
+<th>权限组名(group)</th>
+<th>权限名(permission)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CALENDAR</td>
+<td>READ_CALENDAR <br/>WRITE_CALENDAR</td>
+</tr>
+<tr>
+<td>CALL_LOG</td>
+<td>READ_CALL_LOG <br/>WRITE_CALL_LOG <br/>PROCESS_OUTGOING_CALLS</td>
+</tr>
+<tr>
+<td>CAMERA</td>
+<td>CAMERA</td>
+</tr>
+<tr>
+<td>CONTACTS</td>
+<td>WRITE_CONTACTS <br/>READ_CONTACTS（读取系统联系人） <br/>GET_ACCOUNTS</td>
+</tr>
+<tr>
+<td>LOCATION</td>
+<td>ACCESS_FINE_LOCATION <br/>ACCESS_COARSE_LOCATION <br/>ACCESS_BACKGROUND_LOCATION</td>
+</tr>
+<tr>
+<td>MICROPHONE</td>
+<td>RECORD_AUDIO</td>
+</tr>
+<tr>
+<td>PHONE</td>
+<td>READ_PHONE_STATE <br/>READ_PHONE_NUMBERS <br/>CALL_PHONE <br/>ANSWER_PHONE_CALLS <br/>ADD_VOICEMAIL <br/>USE_SIP <br/>ACCEPT_HANDOVER</td>
+</tr>
+<tr>
+<td>SENSORS</td>
+<td>BODY_SENSORS</td>
+</tr>
+<tr>
+<td>ACTIVITY_RECOGNITION</td>
+<td>ACTIVITY_RECOGNITION</td>
+</tr>
+<tr>
+<td>SMS</td>
+<td>SEND_SMS <br/>READ_SMS <br/>RECEIVE_SMS <br/>RECEIVE_MMS <br/>RECEIVE_WAP_PUSH</td>
+</tr>
+<tr>
+<td>STORAGE</td>
+<td>READ_EXTERNAL_STORAGE <br/>WRITE_EXTERNAL_STORAGE <br/>ACCESS_MEDIA_LOCATION</td>
+</tr>
+</tbody></table>
+<p>说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">所需权限无论是否是危险权限 均需要在清单文件声明</span><br><span class="line">在旧的权限管理系统中，权限仅仅在App安装时询问用户一次，用户同意了这些权限，App才能被安装，App一旦安装后后授权不可取消。Android 6.0 的已授权运行时权限可在手机设置内取消权限。</span><br></pre></td></tr></table></figure>
+
+<p>查看权限目录：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过 adb shell 命令</span><br><span class="line">查看危险权限 adb shell pm <span class="built_in">list</span> permissions -d -g</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：原则上，用户一旦同意了某个权限申请后，同组的其它权限也会被系统自动授权。但是，不要基于此规则来实现任何功能逻辑，因为 Android 系统随时有可能调整权限的分组。</strong></p>
+<hr>
+<p><strong>示例</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 运行时权限的核心，就是在程序运行过程中，由用户授权我们去执行某些危险操作。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PermissionActivity</span> :<span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_permission)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 申请运行时权限</span></span><br><span class="line">        btnCall.setOnClickListener&#123;</span><br><span class="line">            <span class="comment">// 先判断用户是否已经给过授权了，借助的是 ContextCompat.checkSelfPermission()，接收两个参数：</span></span><br><span class="line">            <span class="comment">// 第一个参数是 Context。</span></span><br><span class="line">            <span class="comment">// 第二个参数是具体的权限名，比如打电话的权限名是 Manifest.permission.CALL_PHONE。</span></span><br><span class="line">            <span class="comment">// 然后使用方法的返回值和 PackageManager.PERMISSION_GRANTED 比较，相等就说明用户已经授权。</span></span><br><span class="line">            <span class="keyword">if</span> (ContextCompat.checkSelfPermission(<span class="keyword">this</span>,</span><br><span class="line">                    Manifest.permission.CALL_PHONE)!=PackageManager.PERMISSION_GRANTED)&#123;</span><br><span class="line">                <span class="comment">// 如果不相等，说明未授权，则需要调用 ActivityCompat.requestPermissions() 向用户申请授权，它接收三个参数：</span></span><br><span class="line">                <span class="comment">// 第一个参数要求是 Activity 的实例</span></span><br><span class="line">                <span class="comment">// 第二个参数是一个 String 数组，把要申请的权限名放在数组中即可。</span></span><br><span class="line">                <span class="comment">// 第三个参数是请求码，只要是唯一值就可以。</span></span><br><span class="line">                ActivityCompat.requestPermissions(<span class="keyword">this</span>, arrayOf(android.Manifest.permission.CALL_PHONE),<span class="number">1</span>)</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                call()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用完 requestPermissions() 后，系统会弹出一个申请权限的对话框，不论是否同意，最终都会回调到这个方法中。</span></span><br><span class="line"><span class="comment">     * 授权的结果会封装在 grantResults 参数中。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onRequestPermissionsResult</span><span class="params">(requestCode: <span class="type">Int</span>, permissions: <span class="type">Array</span>&lt;<span class="type">out</span> <span class="type">String</span>&gt;, grantResults: <span class="type">IntArray</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults)</span><br><span class="line">        <span class="keyword">when</span>(requestCode)&#123;</span><br><span class="line">            <span class="comment">// 匹配请求码</span></span><br><span class="line">            <span class="number">1</span> -&gt; &#123;</span><br><span class="line">                <span class="comment">// 判断授权结果</span></span><br><span class="line">                <span class="keyword">if</span> (grantResults.isNotEmpty() &amp;&amp; grantResults[<span class="number">0</span>] == PackageManager.PERMISSION_GRANTED)&#123;</span><br><span class="line">                    call()</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    Toast.makeText(<span class="keyword">this</span>,<span class="string">"You denied the permission"</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">call</span><span class="params">()</span></span>&#123;</span><br><span class="line">            <span class="comment">// 打开拨号界面,不需要声明权限.</span></span><br><span class="line"><span class="comment">//            val intent = Intent(Intent.ACTION_DIAL)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 直接拨打电话,危险权限.清单文件声明和动态申请权限,都需要.</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(Intent.ACTION_CALL)</span><br><span class="line">            intent.<span class="keyword">data</span> = Uri.parse(<span class="string">"tel:1008611"</span>)</span><br><span class="line">            startActivity(intent)</span><br><span class="line">        &#125;<span class="keyword">catch</span> (e: SecurityException)&#123;</span><br><span class="line">            e.printStackTrace()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, PermissionActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 
     </div>
 
@@ -347,7 +423,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/9376910a.html" title="Android 反思总结">https://jianghouren.com/archives/9376910a.html</a>
+    <a href="https://jianghouren.com/archives/d584e492.html" title="Android 运行时权限">https://jianghouren.com/archives/d584e492.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -358,7 +434,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%8F%8D%E6%80%9D%E6%80%BB%E7%BB%93/" rel="tag"><i class="fa fa-tag"></i> 反思总结</a>
+              <a href="/tags/%E9%80%82%E9%85%8D%E7%B3%BB%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 适配系列</a>
           </div>
 
         
@@ -367,13 +443,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/bbf985d0.html" rel="prev" title="Kotlin 扩展课堂">
-      <i class="fa fa-chevron-left"></i> Kotlin 扩展课堂
+    <a href="/archives/2f3e6d4d.html" rel="prev" title="工具服务平台">
+      <i class="fa fa-chevron-left"></i> 工具服务平台
     </a></div>
-      <div class="post-nav-item">
-    <a href="/archives/6e630c17.html" rel="next" title="Kotlin 高级用法">
-      Kotlin 高级用法 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -433,6 +506,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">1.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
