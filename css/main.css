@@ -1222,7 +1222,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #c7ff44;
+  background: #bf7d6b;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2658,35 +2658,38 @@ hr {
   border-bottom: none;
   border-bottom: 1px solid #c3b091;
 }
-.skin_peeler {
+.diyclass {
   width: 26px;
   height: 26px;
-  background: url("/images/skinpeeler.svg");
-  background-size: 21.5px 21.5px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-color: #222;
   border-radius: 13px;
   position: fixed;
-  bottom: 80px;
   right: 29px;
   cursor: pointer;
   z-index: 1300;
 }
-.audioImg {
-  width: 26px;
-  height: 26px;
-  background: url("/images/music.svg");
-  background-size: 21.5px 21.5px;
+.skin_peeler {
+  background: url("/images/skinpeeler.svg");
   background-repeat: no-repeat;
   background-position: center;
+  background-size: 21.5px 21.5px;
   background-color: #222;
-  border-radius: 13px;
-  position: fixed;
-  bottom: 120px;
-  right: 29px;
-  cursor: pointer;
-  z-index: 1300;
+  bottom: 75px;
+}
+.read_aloud {
+  background: url("/images/readaloud.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 21.5px 21.5px;
+  background-color: #222;
+  bottom: 105px;
+}
+.audioImg {
+  background: url("/images/music.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 21.5px 21.5px;
+  background-color: #222;
+  bottom: 135px;
 }
 #about_span {
   font-size: 1.125em;
