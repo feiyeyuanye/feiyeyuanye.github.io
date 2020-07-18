@@ -24,19 +24,19 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Android 日志优化">
-<meta property="og:url" content="https://jianghouren.com/archives/15307383.html">
+<meta property="og:title" content="Android(8) 通知渠道">
+<meta property="og:url" content="https://jianghouren.com/archives/d0e4be87.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imgsw.cn/static/images/xixueguiqishi.jpg">
-<meta property="article:published_time" content="2020-06-11T08:26:22.000Z">
-<meta property="article:modified_time" content="2020-06-21T02:19:23.000Z">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-07-16T12:30:29.000Z">
+<meta property="article:modified_time" content="2020-07-18T01:48:31.786Z">
 <meta property="article:author" content="houren">
-<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="适配系列">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://imgsw.cn/static/images/xixueguiqishi.jpg">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
-<link rel="canonical" href="https://jianghouren.com/archives/15307383.html">
+<link rel="canonical" href="https://jianghouren.com/archives/d0e4be87.html">
 
 
 <script id="page-configurations">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Android 日志优化 | 非也缘也 Blog</title>
+  <title>Android(8) 通知渠道 | 非也缘也 Blog</title>
   
 
 
@@ -208,7 +208,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/15307383.html">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/d0e4be87.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -221,7 +221,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android 日志优化
+          Android(8) 通知渠道
         </h1>
 
         <div class="post-meta">
@@ -231,14 +231,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-11 16:26:22" itemprop="dateCreated datePublished" datetime="2020-06-11T16:26:22+08:00">2020-06-11</time>
+              <time title="创建时间：2020-07-16 20:30:29" itemprop="dateCreated datePublished" datetime="2020-07-16T20:30:29+08:00">2020-07-16</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-21 10:19:23" itemprop="dateModified" datetime="2020-06-21T10:19:23+08:00">2020-06-21</time>
+                <time title="修改时间：2020-07-18 09:48:31" itemprop="dateModified" datetime="2020-07-18T09:48:31+08:00">2020-07-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -251,7 +251,7 @@
             </span>
 
           
-            <span id="/archives/15307383.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 日志优化" title="阅读次数">
+            <span id="/archives/d0e4be87.html" class="post-meta-item leancloud_visitors" data-flag-title="Android(8) 通知渠道" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -266,8 +266,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/archives/15307383.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/15307383.html" itemprop="commentCount"></span>
+    <a title="valine" href="/archives/d0e4be87.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/d0e4be87.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -279,14 +279,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>285</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -298,20 +298,42 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p><img data-src="https://imgsw.cn/static/images/xixueguiqishi.jpg" class="m_more_content_bg_img"></img></p>
+        <img data-src="https://imgsw.cn/static/images/wangzhedaxiaojie.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
-<p>问题:</p>
-<p>Android 平台使用 java 实现日志模块，每有一句日志就加密写进文件。这样在使用过程中不仅存在大量的 GC，更致命的是因为有大量的 IO 需要写入，影响程序性能很容易导致程序卡顿。选择这种方案，在 release 版本只能选择把日志关掉。当有用户反馈时，就需要给用户重新编一个打开日志的安装包，用户重新安装重现后再通过日志来定位问题。不仅定位问题的效率低下，而且并不能保证每个需要定位的问题都能重现。</p>
-<p>解决方案:mars:xlog</p>
-<ul>
-<li>先把日志缓存到内存中 mmap</li>
-<li>进行压缩</li>
-<li>当到一定大小时再加密</li>
-<li>避免 Android 平台下存在频繁 GC 的问题，可以使用 C++ 来实现写入文件。</li>
-</ul>
+<p>在过去，用户是没办法对信息做区分的，要么同意接受所有信息，要么屏蔽所有信息，这也是 Android 通知功能的痛点。于是，Android 8.0 系统引入了通知渠道这个概念。</p>
+<p>通知渠道，就是每条通知都要属于一个对应的渠道。每个应用程序都可以自由地创建当前应用拥有哪些通知渠道，但是这些通知渠道的控制权是掌握在用户手上的。用户可以自由地选择这些通知渠道的重要程度，是否响铃、是否振动或者是否要关闭这个渠道的通知。</p>
+<p>通知渠道一旦创建之后就不能再修改了，因此开发者需要仔细分析自己的应用程序一共有哪些类型的通知，然后再去创建相应的通知渠道。</p>
+<p><strong>创建通知渠道</strong></p>
+<p>需要一个 NotificationManager 对通知进行管理，可以通过调用 Context 的 getSystemService() 获取。getSystemService() 接收一个字符串参数用于确定获取系统的哪个服务，这里传入 Context.NOTIFICATION_SERVICE 即可。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 NotificationManager 的实例</span></span><br><span class="line"><span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 NotificationChannel 类构建一个通知渠道，</span></span><br><span class="line"><span class="comment">// 并调用 NotificationManager 的 createNotificationChannel() 完成创建。</span></span><br><span class="line"><span class="comment">// NotificationChannel 类和 createNotificationChannel() 都是 Android 8.0 系统中新增的 API</span></span><br><span class="line"><span class="comment">// 所以在使用时需要先进行版本判断</span></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.0)&#123;</span><br><span class="line">    <span class="comment">// 创建一个通知渠道至少需要渠道 ID、渠道名称以及重要等级这 3 个参数：</span></span><br><span class="line">    <span class="comment">// 渠道 ID 可以随便定义，只需要保证全局唯一性。</span></span><br><span class="line">    <span class="comment">// 渠道名称是给用户看的，需要可以清楚地表达这个渠道的用途。</span></span><br><span class="line">    <span class="comment">// 通知的重要等级主要有 IMPORTANCE_HIGH、IMPORTANCE_DEFAULT、IMPORTANCE_LOW、IMPORTANCE_MIN </span></span><br><span class="line">    <span class="comment">// 对应的重要程度依次从高到低。不同等级会决定通知的不同行为。</span></span><br><span class="line">    <span class="comment">//（这里只是初始状态下的等级，用户可随时手动更改某个通知的重要等级，开发者是无法干预的）</span></span><br><span class="line">    <span class="keyword">val</span> channel = NotificationChannel(channelId,channelName,importance)</span><br><span class="line">    manager.createNotificationChannel(channel)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通知的基本用法</strong></p>
+<p>相比于 BroadcastReceiver 和 Service，在 Activity 里创建通知的场景还是比较少的，因为一般只有当程序进入后台时才需要使用通知。</p>
+<p>AndroidX 库中提供了一个 NotificationCompat 类，使用这个类的构造器创建 Notification 对象，可以保证程序在所有 Android 系统版本上都能正常工作。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Builder 构造器创建 Notification 对象。</span></span><br><span class="line"><span class="comment">// 第二个参数是渠道 ID，需要和我们创建通知渠道时指定的渠道 ID 相匹配。</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(context,channelId).build()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本设置</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(context,channelId)</span><br><span class="line">    .setContentTitle(<span class="string">"This is content title"</span>)</span><br><span class="line">    .setContentText(<span class="string">"This is content text"</span>)</span><br><span class="line">    <span class="comment">// 只能使用纯 alpha 图层的图片进行设置，小图标会显示在系统状态栏上。   </span></span><br><span class="line">    .setSmallIcon(R.drawable.small_icon)  </span><br><span class="line">    <span class="comment">// 大图标，当下拉系统状态栏时，可以看到。   </span></span><br><span class="line">    .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))    </span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示通知</span></span><br><span class="line"><span class="comment">// 第一个参数：id，要保证为每个通知指定的 id 都是不同的。</span></span><br><span class="line"><span class="comment">// 第二个参数：Notification 对象。</span></span><br><span class="line">manager.notify(<span class="number">1</span>,notification)</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例</strong></p>
+<p>首先获取了 NotificationManager 的实例，并创建了一个 ID 为 normal 通知渠道。</p>
+<p>在按钮的点击事件里完成了通知的创建工作，通过 PendingIntent 添加点击效果，取消通知的方式有两种。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里是英文字母 O，不是数字 0，尴尬。</span></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O)&#123;</span><br><span class="line">    <span class="comment">// 创建了一个 ID 为 normal 通知渠道。</span></span><br><span class="line">    <span class="comment">// 创建通知渠道的代码只在第一次执行时才会创建，当下次再执行创建代码时，</span></span><br><span class="line">    <span class="comment">// 系统会检测到该通知渠道已存在，因此不会重复创建，也并不会影响运行效率。</span></span><br><span class="line">    <span class="keyword">val</span> channel = NotificationChannel(<span class="string">"normal"</span>,<span class="string">"Normal"</span>,</span><br><span class="line">        NotificationManager.IMPORTANCE_DEFAULT)</span><br><span class="line">    manager.createNotificationChannel(channel)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注意在手机设置里,开启消息通知.</span></span><br><span class="line">btnSendNotice.setOnClickListener&#123;</span><br><span class="line">    <span class="comment">// 表达想要启动 CameraAlbumActivity 的意图。</span></span><br><span class="line">    <span class="comment">// 可在 CameraAlbumActivity 中显示地调用 NotificationManager 的 cancel() 取消通知。</span></span><br><span class="line">    <span class="comment">// val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager</span></span><br><span class="line">    <span class="comment">// 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">    <span class="comment">// 这个 1 是指在创建通知时给每条通知指定的 id，想取消哪条通知，就传入该通知的 id 即可。</span></span><br><span class="line">    <span class="comment">// manager.cancel(1)</span></span><br><span class="line">    <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,CameraAlbumActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">    <span class="comment">// PendingIntent 和 Intent 有些类似，它们都可以指明某一个"意图"，都可以用于启动 Activity、启动 Service 以及发送广播等。</span></span><br><span class="line">    <span class="comment">// 不同的是，Intent 倾向于立即执行某个动作。而 PendingIntent 倾向于在某个合适的时机执行某个动作，也可以简单地理解为延迟执行的 Intent。</span></span><br><span class="line">    <span class="comment">// 第二个参数一般用不到，传入 0 即可。</span></span><br><span class="line">    <span class="comment">// 第三个参数是一个 Intent 对象，可以通过这个对象构建出 PendingIntent 的"意图"。</span></span><br><span class="line">    <span class="comment">// 第四个参数用于确定 PendingIntent 的行为，一把传入 0 即可。（其它可选值：FLAG_ONE_SHOT,FLAG_CANCEL_CURRENT,FLAG_NO_CREATE,FLAG_UPDATE_CURRENT）</span></span><br><span class="line">    <span class="keyword">val</span> pi = PendingIntent.getActivity(<span class="keyword">this</span>,<span class="number">0</span>,intent,<span class="number">0</span>)</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">"normal"</span>)</span><br><span class="line">        .setContentTitle(<span class="string">"This is content title"</span>)</span><br><span class="line">        .setContentText(<span class="string">"This is content text"</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">        .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">        .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line"><span class="comment">//          .setAutoCancel(true)   // 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">        .build()</span><br><span class="line">  </span><br><span class="line">    manager.notify(<span class="number">1</span>,notification)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通知的进阶技巧</strong></p>
+<p> NotificationCompat.Builder 中提供了非常丰富的 API，以便我们创建出更加多样的通知效果。</p>
+<p>setStyle()：这个方法允许我们构建出富文本的通知内容。也就是说，通知中不光可以有文字和图标，还可以包含更多的东西。接收一个 NotificationCompat.Style 参数，用来构建具体的富文本信息，如长文字、图片等。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 我的手机品牌是 iQOO 第一代，系统为 Android 10。</span></span><br><span class="line"><span class="comment">* 程序安装后，需要手动到设置内通知管理将通知打开，否则点击按钮是没反应的。</span></span><br><span class="line"><span class="comment">* 长文字信息和大图，默认是折叠状态，需要手动下拉一下才能看到效果。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">"normal"</span>)</span><br><span class="line"><span class="comment">//   使用 setStyle() 替代，展示长文字信息，或者是显示一张大图</span></span><br><span class="line"><span class="comment">//    .setContentText("This is content text")  </span></span><br><span class="line"><span class="comment">//  展示长文字</span></span><br><span class="line">    .setStyle(NotificationCompat.BigTextStyle()</span><br><span class="line">        .bigText(<span class="string">"Learn how to build notifications, send and sync data, and use voice actions, Get the official Android IDE and developer tools to build apps for Android."</span>))</span><br><span class="line"><span class="comment">//  展示大图</span></span><br><span class="line"><span class="comment">//    .setStyle(NotificationCompat.BigPictureStyle()</span></span><br><span class="line"><span class="comment">//        .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.big_image)))</span></span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+
+<p><strong>重要等级</strong></p>
+<p>通知渠道的重要等级越高，发出的通知就越容易获得用户的注意。比如高重要等级的通知渠道发出的通知可以弹出横幅、发出声音，而低重要等级的通知渠道发出的通知不仅可能会在某些情况下被隐藏、而且可能会被改变显示的顺序。</p>
+<p>并且，开发者只能在创建通知渠道时为它指定初始的重要等级，如果用户不认可这个重要等级的话，可以随时进行修改，开发者对此无权再进行调整和变更，因为通知渠道一旦创建就不能再通过代码修改了。</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 
     </div>
 
@@ -357,7 +379,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/15307383.html" title="Android 日志优化">https://jianghouren.com/archives/15307383.html</a>
+    <a href="https://jianghouren.com/archives/d0e4be87.html" title="Android(8) 通知渠道">https://jianghouren.com/archives/d0e4be87.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -368,7 +390,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 性能优化</a>
+              <a href="/tags/%E9%80%82%E9%85%8D%E7%B3%BB%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 适配系列</a>
           </div>
 
         
@@ -377,13 +399,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/c5025de3.html" rel="prev" title="Android 耗电优化">
-      <i class="fa fa-chevron-left"></i> Android 耗电优化
+    <a href="/archives/d584e492.html" rel="prev" title="Android(6) 运行时权限">
+      <i class="fa fa-chevron-left"></i> Android(6) 运行时权限
     </a></div>
-      <div class="post-nav-item">
-    <a href="/archives/5a8f240e.html" rel="next" title="APK 优化">
-      APK 优化 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     

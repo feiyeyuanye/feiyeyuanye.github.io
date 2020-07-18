@@ -1,12 +1,10 @@
 
 
-
-var postBlock = document.getElementsByClassName("post-block");
-
 // 换肤
 var arr = ["rgb(199,237,204)", "#252d38", "rgba(255, 255, 255, 0.8)"]
 var index = 0;
 document.getElementById('skin_peeler').addEventListener('click', function () {
+   var postBlock = document.getElementsByClassName("post-block");
    // 第一次点击，切换到护眼主题。
    // 第二点击，切换到暗黑主题。
    // 第三次点击，切换到原主题。然后开始循环。
@@ -31,11 +29,12 @@ document.getElementById('skin_peeler').addEventListener('click', function () {
 var read_aloud = document.getElementById("read_aloud");
 var boo = false; 
 read_aloud.addEventListener('click', function () {
+   var postBody = document.getElementsByClassName("post-body");
    if (boo) {
       speechSynthesis.cancel();
       boo = false;
    } else {
-      var str = postBlock[0].innerText;
+      var str = postBody[0].innerText;
       var ssu = new SpeechSynthesisUtterance(str);
       speechSynthesis.speak(ssu);
       boo = true;
