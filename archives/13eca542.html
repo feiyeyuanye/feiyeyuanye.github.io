@@ -30,9 +30,8 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/activity_period.png">
-<meta property="og:image" content="https://imgsw.cn/static/images/service_period.png">
 <meta property="article:published_time" content="2019-03-25T09:00:57.000Z">
-<meta property="article:modified_time" content="2020-07-01T01:07:12.621Z">
+<meta property="article:modified_time" content="2020-07-20T15:09:02.179Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="四大组件">
 <meta name="twitter:card" content="summary">
@@ -235,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-01 09:07:12" itemprop="dateModified" datetime="2020-07-01T09:07:12+08:00">2020-07-01</time>
+                <time title="修改时间：2020-07-20 23:09:02" itemprop="dateModified" datetime="2020-07-20T23:09:02+08:00">2020-07-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -495,63 +494,6 @@
 <li>URI。默认值为 content 和 file。</li>
 </ul>
 </li>
-</ul>
-<hr>
-<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a><p class="m_more_title_style">Service</p></h1><table>
-<thead>
-<tr>
-<th>分类</th>
-<th>服务</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>按运行地点分</td>
-<td>本地服务，远程服务</td>
-</tr>
-<tr>
-<td>按运行类型分</td>
-<td>前台服务，后台服务</td>
-</tr>
-<tr>
-<td>按功能分</td>
-<td>可通信服务，不可通信服务</td>
-</tr>
-</tbody></table>
-<h2 id="本地服务-LocalService"><a href="#本地服务-LocalService" class="headerlink" title="本地服务(LocalService)"></a>本地服务(LocalService)</h2><p><strong>特点：运行在主进程中。主进程终止后，服务也会终止。它有两种启动方式：</strong></p>
-<h3 id="通过start方式开启服务"><a href="#通过start方式开启服务" class="headerlink" title="通过start方式开启服务"></a>通过start方式开启服务</h3><p>使用service的步骤：</p>
-<ol>
-<li>定义一个类继承service</li>
-<li>manifest.xml文件中配置service</li>
-<li>使用context的startService(Intent)方法启动service</li>
-<li>不在使用时，调用stopService(Intent)方法停止服务</li>
-</ol>
-<p>特点：一旦服务开启就跟调用者（开启者）没有任何关系了。开启者退出或者挂了，服务还在后台长期的运行，开启者不能调用服务里面的方法。</p>
-<h3 id="通过bing方式开启服务"><a href="#通过bing方式开启服务" class="headerlink" title="通过bing方式开启服务"></a>通过bing方式开启服务</h3><p>使用service的步骤：</p>
-<ol>
-<li>定义一个类继承Service</li>
-<li>在manifest.xml文件中注册service</li>
-<li>使用context的bindService(Intent,ServiceConnection,int)方法启动service</li>
-<li>不再使用时，调用unbindService(ServiceConnection)方法停止该服务</li>
-</ol>
-<p>特点：bind的方式开启服务，绑定服务，调用者挂了，服务也会跟着挂掉。绑定者可以调用服务里面的方法。</p>
-<h3 id="生命周期："><a href="#生命周期：" class="headerlink" title="生命周期："></a>生命周期：</h3><img data-src="https://imgsw.cn/static/images/service_period.png">
-
-<h2 id="远程服务"><a href="#远程服务" class="headerlink" title="远程服务()"></a>远程服务()</h2><p><strong>特点：调用者和service不在同一个进程中，service在单独的进程中的main线程，是一种垮进程通信方式</strong><br>绑定远程服务的步骤：</p>
-<ol>
-<li>在服务的内部创建一个内部类，提供一个方法，可以间接调用服务的方法</li>
-<li>把暴露的接口文件的扩展名改为.aidl文件 去掉访问修饰符</li>
-<li>实现服务的onbind方法，继承Bander和实现aidl定义的接口，提供给外界可调用的方法</li>
-<li>在activity 中绑定服务。bindService()</li>
-<li>在服务成功绑定的时候会回调 onServiceConnected方法 传递一个 IBinder对象</li>
-<li>aidl定义的接口.Stub.asInterface(binder) 调用接口里面的方法</li>
-</ol>
-<h3 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h3><p>IntentService是Service子类，特征:</p>
-<ul>
-<li>会创建独立的worker线程来处理所有的Intent请求；</li>
-<li>会创建独立的worker线程来处理onHandleIntent()方法实现的代码，无需处理多线程问题；</li>
-<li>所有请求处理完成后，IntentService会自动停止，无需调用stopSelf()方法停止Service；</li>
-<li>为Service的onBind()提供默认实现，返回null；</li>
-<li>为Service的onStartCommand提供默认实现，将请求Intent添加到队列中；</li>
 </ul>
 <h1 id="BroadcastReceiver"><a href="#BroadcastReceiver" class="headerlink" title="BroadcastReceiver"></a><p class="m_more_title_style">BroadcastReceiver</p></h1><p><strong>广播分为普通广播(无序广播)和有序广播。而广播的注册方式又有两种，分静态注册和动态注册,xml中注册的(静态广播)优先级高于动态注册广播</strong></p>
 <ul>
@@ -777,7 +719,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常情况下的生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">正常情况下的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常情况下的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与Fragment生命周期关系"><span class="nav-number">1.3.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与menu创建先后顺序"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与menu创建先后顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">1.5.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentFiler-的匹配规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">IntentFiler 的匹配规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">2.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本地服务-LocalService"><span class="nav-number">2.1.</span> <span class="nav-text">本地服务(LocalService)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过start方式开启服务"><span class="nav-number">2.1.1.</span> <span class="nav-text">通过start方式开启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过bing方式开启服务"><span class="nav-number">2.1.2.</span> <span class="nav-text">通过bing方式开启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生命周期："><span class="nav-number">2.1.3.</span> <span class="nav-text">生命周期：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程服务"><span class="nav-number">2.2.</span> <span class="nav-text">远程服务()</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentService"><span class="nav-number">2.2.1.</span> <span class="nav-text">IntentService</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver"><span class="nav-number">3.</span> <span class="nav-text">BroadcastReceiver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态广播注册步骤："><span class="nav-number">3.1.</span> <span class="nav-text">静态广播注册步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态广播注册步骤："><span class="nav-number">3.2.</span> <span class="nav-text">动态广播注册步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册与动态注册的区别"><span class="nav-number">3.3.</span> <span class="nav-text">静态注册与动态注册的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentProvider"><span class="nav-number">4.</span> <span class="nav-text">ContentProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用系统的ContentProvider"><span class="nav-number">4.1.</span> <span class="nav-text">使用系统的ContentProvider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义ContentProvider"><span class="nav-number">4.2.</span> <span class="nav-text">自定义ContentProvider</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常情况下的生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">正常情况下的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常情况下的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与Fragment生命周期关系"><span class="nav-number">1.3.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与menu创建先后顺序"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与menu创建先后顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">1.5.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentFiler-的匹配规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">IntentFiler 的匹配规则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver"><span class="nav-number">2.</span> <span class="nav-text">BroadcastReceiver</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态广播注册步骤："><span class="nav-number">2.1.</span> <span class="nav-text">静态广播注册步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态广播注册步骤："><span class="nav-number">2.2.</span> <span class="nav-text">动态广播注册步骤：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册与动态注册的区别"><span class="nav-number">2.3.</span> <span class="nav-text">静态注册与动态注册的区别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentProvider"><span class="nav-number">3.</span> <span class="nav-text">ContentProvider</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用系统的ContentProvider"><span class="nav-number">3.1.</span> <span class="nav-text">使用系统的ContentProvider</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义ContentProvider"><span class="nav-number">3.2.</span> <span class="nav-text">自定义ContentProvider</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#备注"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -793,7 +735,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">104</span>
+          <span class="site-state-item-count">106</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -872,12 +814,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">710k</span>
+    <span title="站点总字数">755k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">10:45</span>
+    <span title="站点阅读时长">11:26</span>
 </div>
 
 
