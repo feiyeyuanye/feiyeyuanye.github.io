@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 协程">
+<meta property="og:url" content="https://jianghouren.com/archives/7a161085.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-07-24T00:55:21.000Z">
+<meta property="article:modified_time" content="2020-07-24T14:39:51.050Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+
+<link rel="canonical" href="https://jianghouren.com/archives/7a161085.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Kotlin 协程 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-链接">
+
+    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/7a161085.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 协程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-07-24 08:55:21 / 修改时间：22:39:51" itemprop="dateCreated datePublished" datetime="2020-07-24T08:55:21+08:00">2020-07-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/7a161085.html" class="post-meta-item leancloud_visitors" data-flag-title="Kotlin 协程" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/7a161085.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/7a161085.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <img data-src="https://imgsw.cn/static/images/zhizhuxiapingxingyuzhou.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<a id="more"></a>
+
+<p>协程，可以将它简单地理解成一种轻量级的线程。要知道，之前所学习的线程是非常重量级的，需要依靠操作系统的调度才能实现不同线程之间的切换。而使用协程却可以仅在编程语言的层面就能实现不同协程之间的切换，从而大大提升了并发编程的运行效率。</p>
+<p>协程允许我们在单线程模式下模拟多线程编程的效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。这种特性使得高并发程序的运行效率得到了极大地提升。</p>
+<h2 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a><p class="m_more_title_style">协程的基本用法</p></h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>首先要添加依赖库：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"</span></span><br><span class="line"><span class="comment">// 此依赖库是 Android 项目才会用到的，纯 Kotlin 程序其实用不到。</span></span><br><span class="line">implementation <span class="string">"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="GlobalScope-launch-函数"><a href="#GlobalScope-launch-函数" class="headerlink" title="GlobalScope.launch 函数"></a>GlobalScope.launch 函数</h3><p>最简单的开启一个协程的方式：使用 GlobalScope.launch 函数，它可以创建一个协程的作用域。并且创建的永远是顶层协程，这一点和线程比较像，因为线程也没有层级这一说，永远是顶层的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// GlobalScope.launch 函数每次创建的都是一个顶层协程，这种协程当应用程序运行结束时也会跟着一起结束，所以，</span></span><br><span class="line">    <span class="comment">// 代码块中的代码还没来得及运行，应用程序就结束了。解决的办法是：让程序延迟一段时间再结束。</span></span><br><span class="line">    GlobalScope.launch &#123;</span><br><span class="line">        println(<span class="string">"codes run in coroutine scope"</span>)</span><br><span class="line">        <span class="comment">// delay 函数可以让当前协程延迟指定时间后再运行。</span></span><br><span class="line">        <span class="comment">// delay 函数是一个非阻塞式的挂起函数，它只会挂起当前协程，并不会影响其它协程的运行。</span></span><br><span class="line">        <span class="comment">// delay 函数只能在协程的作用域或其他挂起函数中调用。</span></span><br><span class="line">        <span class="comment">// ----------------------------------------------------------------------</span></span><br><span class="line">        <span class="comment">// 而 Thread.sleep() 会阻塞当前的线程，这样运行在该线程下的所有协程都会被阻塞。</span></span><br><span class="line">        delay(<span class="number">1500</span>)</span><br><span class="line">        println(<span class="string">"codes run in coroutine scope finished"</span>)  <span class="comment">// 不会运行</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果代码块中的代码不能在 1 秒钟内运行结束，那么就会被强制中断。</span></span><br><span class="line">    Thread.sleep(<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="runBlocking-函数"><a href="#runBlocking-函数" class="headerlink" title="runBlocking 函数"></a>runBlocking 函数</h3><p>借助 runBlocking 函数可以让应用程序在协程中所有代码都运行完了之后再结束。</p>
+<p>注意：此函数通常只应该在测试环境下使用，在正式环境中使用容易产生一些性能上的问题。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// runBlocking 同样会创建一个协程的作用域，</span></span><br><span class="line">    <span class="comment">// 但是它可以保证协程作用域的内的所有协程和子协程没有全部执行完之前一直阻塞当前线程。</span></span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        println(<span class="string">"codes run in coroutine scope"</span>)</span><br><span class="line">        delay(<span class="number">1500</span>)</span><br><span class="line">        println(<span class="string">"codes run in coroutine scope finished"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="launch-函数"><a href="#launch-函数" class="headerlink" title="launch 函数"></a>launch 函数</h3><p>使用 launch 函数可以创建多个协程，它必须在协程的作用域中才能调用，其次，它会在当前协程的作用域下创建子协程。子协程的特点是如果外层作用域的协程结束了，该作用域下的所有子协程也会一同结束。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        launch &#123;</span><br><span class="line">            println(<span class="string">"launch1"</span>)</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            println(<span class="string">"launch1 finished"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        launch &#123;</span><br><span class="line">            println(<span class="string">"launch2"</span>)</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            println(<span class="string">"launch2 finished"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 运行结果：</span></span><br><span class="line">    <span class="comment">// launch1</span></span><br><span class="line">    <span class="comment">// launch2</span></span><br><span class="line">    <span class="comment">// launch1 finished</span></span><br><span class="line">    <span class="comment">// launch2 finished</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 测试性能</span></span><br><span class="line">    test()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">test</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> start = System.currentTimeMillis()</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="comment">// 循环创建了 10 万个协程</span></span><br><span class="line">        repeat(<span class="number">100000</span>)&#123;</span><br><span class="line">            launch &#123;</span><br><span class="line">                println(<span class="string">"."</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 查看消耗时间</span></span><br><span class="line">    <span class="keyword">val</span> end = System.currentTimeMillis()</span><br><span class="line">    println(end - start)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 运行结果：433 毫秒</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="suspend-关键字"><a href="#suspend-关键字" class="headerlink" title="suspend 关键字"></a>suspend 关键字</h3><p>在 launch 函数中编写的代码是拥有协程作用域的，但是提取到一个单独的函数中就没有协程作用域了。</p>
+<p>这时可以使用 suspend 关键字，它可以将任意函数声明成挂起函数，而挂起函数之间都是可以相互调用的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">printDot</span><span class="params">()</span></span>&#123;</span><br><span class="line">    println(<span class="string">"."</span>)</span><br><span class="line">    delay(<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="coroutineScope-函数"><a href="#coroutineScope-函数" class="headerlink" title="coroutineScope 函数"></a>coroutineScope 函数</h3><p>但 suspend 关键字无法提供协程作用域，也就无法调用像 launch 函数。这时可使用 coroutineScope 函数，它也是一个挂起函数，因此可以在任何其他挂起函数中调用。它的特点是会继承外部的协程作用域并创建一个子作用域。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        printDot()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">printDot</span><span class="params">()</span></span> = coroutineScope&#123;</span><br><span class="line">    launch &#123;</span><br><span class="line">        println(<span class="string">"."</span>)</span><br><span class="line">        delay(<span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>coroutineScope 函数和 runBlocking 函数还有点类似，它可以保证其作用域内的所有代码和子协程在全部执行完之前，会一直阻塞当前协程。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 创建了一个协程作用域</span></span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="comment">// 创建了一个子协程作用域</span></span><br><span class="line">        coroutineScope &#123;</span><br><span class="line">            <span class="comment">// 创建了一个子协程</span></span><br><span class="line">            launch &#123;</span><br><span class="line">                <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>..<span class="number">10</span>)&#123;</span><br><span class="line">                    println(i)</span><br><span class="line">                    delay(<span class="number">1000</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        println(<span class="string">"coroutineScope finished"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    println(<span class="string">"runBlocking finished"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 运行结果：</span></span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="comment">// 4</span></span><br><span class="line">    <span class="comment">// 5</span></span><br><span class="line">    <span class="comment">// 6</span></span><br><span class="line">    <span class="comment">// 7</span></span><br><span class="line">    <span class="comment">// 8</span></span><br><span class="line">    <span class="comment">// 9</span></span><br><span class="line">    <span class="comment">// 10</span></span><br><span class="line">    <span class="comment">// coroutineScope finished</span></span><br><span class="line">    <span class="comment">// runBlocking finished</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但是，coroutineScope 函数只会阻塞当前协程，既不影响其它协程，也不影响任何线程，因此是不会造成任何性能上的问题的。而  runBlocking 函数由于会阻塞当前线程，而我们又恰好在主线程中调用它的话，那么就有可能会导致界面卡死的情况，所以不太推荐在实际项目中使用。</p>
+<hr>
+<h2 id="更多的作用域构造器"><a href="#更多的作用域构造器" class="headerlink" title="更多的作用域构造器"></a><p class="m_more_title_style">更多的作用域构造器</p></h2><p>上面学习了几种作用域构造器，它们都可以用于创建一个新的协程作用域。不过，GlobalScope.launch 和 runBlocking 函数是可以在任意地方调用的，coroutineScope 函数可以在协程作用域或挂起函数中调用，而 launch 函数只能在协程作用域中调用。</p>
+<h3 id="Job-对象"><a href="#Job-对象" class="headerlink" title="Job 对象"></a>Job 对象</h3><p>其中，GlobalScope.launch 由于每次创建的都是顶层协程，一般也不太建议使用，因为它管理起来成本太高了，当 Activity 关闭时，需要逐个调用所有已创建协程的 cancel() 方法。除非非常明确就是要创建顶层函数。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取消协程的办法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 不管是 GlobalScope.launch 函数还是 launch 函数，它们都会返回一个 Job 对象。</span></span><br><span class="line">    <span class="keyword">val</span> job = GlobalScope.launch &#123; </span><br><span class="line">        <span class="comment">//处理具体逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    job.cancel()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际项目中比较常用的写法如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 创建 Job 对象并传入到 CoroutineScope() 函数中。</span></span><br><span class="line">    <span class="keyword">val</span> job = Job()</span><br><span class="line">    <span class="comment">// CoroutineScope() 函数会返回一个 CoroutineScope 对象，便可以调用它的 launch 函数来创建一个协程了。</span></span><br><span class="line">    <span class="keyword">val</span> scope = CoroutineScope(job)</span><br><span class="line">    <span class="comment">// 这样创建的协程都会被关联在 Job 对象的作用域下面，只需要调用一次 cancel()，</span></span><br><span class="line">    <span class="comment">// 就可以将同一作用域内的所有协程全部取消，从而大大降低了协程管理的成本。</span></span><br><span class="line">    scope.launch &#123; </span><br><span class="line">        <span class="comment">// 处理具体的逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    job.cancel()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="async-函数"><a href="#async-函数" class="headerlink" title="async 函数"></a>async 函数</h3><p>当调用 launch 函数时可以创建一个新的协程，但 launch 函数只能用于执行一段逻辑，却不能获取执行的结果，因为它的返回值永远是一个 Job 对象。这时，可使用 async 函数实现。</p>
+<p>async 函数必须在协程作用域当中调用，它会创建一个新的子协程并返回一个 Deferred 对象，并通过此对象的 await() 即可。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="keyword">val</span> result = async &#123;</span><br><span class="line">            <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">        &#125;.await()</span><br><span class="line">        println(result)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在调用 async 函数后，代码块中的代码会立刻开始执行。当调用 await() 时，如果代码块中的代码还没执行完，那么 await() 会将当前协程阻塞住，直到可以获得 async 函数的执行结果。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="keyword">val</span> start = System.currentTimeMillis()</span><br><span class="line">        <span class="keyword">val</span> result = async &#123;</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">        &#125;.await()</span><br><span class="line">        <span class="keyword">val</span> result2 = async &#123;</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="number">4</span> + <span class="number">6</span></span><br><span class="line">        &#125;.await()</span><br><span class="line">        println(<span class="string">"result id <span class="subst">$&#123;result + result2&#125;</span>."</span>)</span><br><span class="line">        <span class="keyword">val</span> end = System.currentTimeMillis()</span><br><span class="line">        println(<span class="string">"cost <span class="subst">$&#123;end - start&#125;</span> ms."</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 运行结果：</span></span><br><span class="line">        <span class="comment">// result id 20.</span></span><br><span class="line">        <span class="comment">// cost 2021 ms.  // 耗时 2 秒，说明确实是串行。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将上面代码改为并行关系，从而提升运行效率：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line">        <span class="keyword">val</span> start = System.currentTimeMillis()</span><br><span class="line">        <span class="keyword">val</span> result = async &#123;</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">val</span> result2 = async &#123;</span><br><span class="line">            delay(<span class="number">1000</span>)</span><br><span class="line">            <span class="number">4</span> + <span class="number">6</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 仅在需要用到 async 函数的执行结果时才调用 await() 获取。</span></span><br><span class="line">        println(<span class="string">"result id <span class="subst">$&#123;result.await() + result2.await()&#125;</span>."</span>)</span><br><span class="line">        <span class="keyword">val</span> end = System.currentTimeMillis()</span><br><span class="line">        println(<span class="string">"cost <span class="subst">$&#123;end - start&#125;</span> ms."</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 运行结果：</span></span><br><span class="line">        <span class="comment">// result id 20.</span></span><br><span class="line">        <span class="comment">// cost 1021 ms.  // 耗时 1 秒，说明确实是并行。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="withContext-函数"><a href="#withContext-函数" class="headerlink" title="withContext 函数"></a>withContext 函数</h3><p>一个比较特殊的作用域构造器，它是一个挂起函数，大体可将它理解成 async 函数的一种简化版写法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    runBlocking &#123;</span><br><span class="line"><span class="comment">//        val result1 = async &#123; 5 + 5 &#125;.await()</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 等价于上面代码，唯一不同的是，强制需要指定一个线程参数。</span></span><br><span class="line">        <span class="comment">// ------------------------------------------------------------</span></span><br><span class="line">        <span class="comment">// 调用 withContext 函数后会立即执行代码块中的代码，同时将当前协程阻塞住。</span></span><br><span class="line">        <span class="comment">// 当执行结束后，会将最后一行的执行结果作为返回值。</span></span><br><span class="line">        <span class="keyword">val</span> result = withContext(Dispatchers.Default)&#123;</span><br><span class="line">            <span class="number">5</span> + <span class="number">5</span></span><br><span class="line">        &#125;</span><br><span class="line">        println(result)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程参数的意义在于：虽然不需要像传统编程那样开启多线程来执行并发任务，只需要在一个线程下开启多个协程即可。但是，这并不意味着就不再需要开启线程了，比如 Android 中执行耗时任务需要在子线程当中，那我们在主线程中开启的协程就无法胜任了。这时，便可以通过线程参数来为协程指定一个具体的运行线程。</p>
+<p>线程参数主要有以下 3 种值可选：</p>
+<ul>
+<li>Dispatchers.Default：使用一种默认低并发的线程策略，当要执行的代码属于计算密集型任务时，开启过高的并发反而可能会影响任务的运行效率，此时就可以使用 Dispatchers.Default。</li>
+<li>Dispatchers.IO：使用一种较高并发的线程策略，当要执行的代码大多数时间是在阻塞和等待中，比如执行网络请求时，为了能够支持更高的并发数量，此时可使用 Dispatchers.IO。</li>
+<li>Dispatchers.Main：表示不会开启子线程，并且这个值只能在 Android 项目中使用，会在 Android 主线程中执行代码。</li>
+</ul>
+<p>事实上，以上所学的协程作用域构造器中，除了 coroutineScope 函数之外，其它函数都是可以指定这样一个线程参数的，只不过 withContext 函数是强制要求指定的。</p>
+<hr>
+<h2 id="简化回调的写法"><a href="#简化回调的写法" class="headerlink" title="简化回调的写法"></a><p class="m_more_title_style">简化回调的写法</p></h2><p>协程的主要用途是可以大幅度地提升并发编程的运行效率。但实际上，Kotlin 中的协程还可以对传统回调的写法进行优化，从而让代码变得更加简洁。</p>
+<p>简化 HttpURLConnection 网络请求的回调：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 回调机制基本上是依靠匿名类来实现的，但这种写法通常比较繁琐，</span></span><br><span class="line"><span class="comment">* 比如下面的代码，有多少个地方发起请求，就需要编写多少次这样的匿名类实现。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">HttpUtil.sendHttpRequest(address, <span class="keyword">object</span> : HttpCallbackListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 得到服务器返回的具体内容</span></span><br><span class="line">            showResponse(response)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e: <span class="type">Exception</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 在这里对异常情况进行处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在过去，可能确实没什么更加简单的写法了。但在 Kotlin 中，可借助 suspendCoroutine 函数来继续简化。</span></span><br><span class="line"><span class="comment">* suspendCoroutine 函数必须在协程作用域或挂起函数中才能调用，它接收一个 Lambda 表达式参数，主要作用是将当* 前协程立即挂起，然后在一个普通的线程中执行 Lambda 表达式中的代码，Lambda 表达式的参数列表上会传入一个</span></span><br><span class="line"><span class="comment">* Continuation 参数，调用它的 resume() 或 resumeWithException() 可以让协程恢复执行，</span></span><br><span class="line"><span class="comment">* -----------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">* 定义一个挂起函数 request()</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">request</span><span class="params">(address:<span class="type">String</span>)</span></span>:String&#123;</span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine &#123; continuation -&gt;</span><br><span class="line">        HttpUtil.sendHttpRequest(address,<span class="keyword">object</span>:HttpCallbackListener&#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">                continuation.resume(response)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e: <span class="type">Exception</span>)</span></span> &#123;</span><br><span class="line">                continuation.resumeWithException(e)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取百度首页的响应数据</span></span><br><span class="line"><span class="comment"> * 也是一个挂起函数，因此当调用 request() 时，当前的协程就会被立刻挂起，然后一直等待网络请求成功或失败后，当前协程才能恢复运行。这样即使不使用回调的写法，也能获得异步网络请求的响应数据，而如果请求失败，则会直接进入 catch 语句当中。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getBaiduResponse</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> response = request(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">        <span class="comment">// 对服务器相应的数据进行处理</span></span><br><span class="line">    &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>简化 Retrofit 网络请求的回调：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统写法</span></span><br><span class="line"><span class="keyword">val</span> appService = ServiceCreator.create&lt;AppService&gt;()</span><br><span class="line">appService.getAppData().enqueue(<span class="keyword">object</span> : Callback&lt;List&lt;AppBean&gt;&gt;&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, response: <span class="type">Response</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 得到服务器返回的数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 等价于上面的写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAppData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 对于 try catch，现在每次请求都要进行一次。</span></span><br><span class="line">    <span class="comment">// 也可以选择不处理，然后发生异常时会一层层向上抛出，直到被某一层的函数处理了位置，</span></span><br><span class="line">    <span class="comment">// 所以也可以在某一统一的入口函数中只进行一次 try catch，从而让代码变得更加精简。</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> appList = ServiceCreator.create&lt;AppService&gt;().getAppData().await()</span><br><span class="line">    &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义一个挂起函数 await()</span></span><br><span class="line"><span class="comment"> * 由于不同的 Service 接口返回的数据类型也不同，所以使用泛型的方式。</span></span><br><span class="line"><span class="comment"> * 给它声明了一个泛型 T，并将函数定义成了 Call&lt;T&gt; 的扩展函数，这样，</span></span><br><span class="line"><span class="comment"> * 所有返回值是 Call 类型的 Retrofit 网络请求接口就都可以直接调用此函数了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Call<span class="type">&lt;T&gt;</span>.<span class="title">await</span><span class="params">()</span></span>: T&#123;</span><br><span class="line">    <span class="comment">// 挂起当前协程，并且由于扩展函数的原因，现在拥有了 Call 对象的上下文，可直接调用 enqueue()。</span></span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine &#123; continuation -&gt;</span><br><span class="line">        enqueue(<span class="keyword">object</span> : Callback&lt;T&gt;&#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, response: <span class="type">Response</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">                <span class="keyword">val</span> body = response.body()</span><br><span class="line">                <span class="keyword">if</span> (body!=<span class="literal">null</span>)continuation.resume(body)</span><br><span class="line">                <span class="keyword">else</span> continuation.resumeWithException(RuntimeException(<span class="string">"response body is null"</span>))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">                continuation.resumeWithException(t)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：挂起函数只能在协程作用域或其他挂起函数中调用，使用起来会有局限性。但通过合理的项目架构设计，也可以轻松地将各种协程的代码应用到一个普通的项目当中。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a><br><a href="https://github.com/JetBrains/kotlin" target="_blank" rel="noopener external nofollow noreferrer">官方文档</a><br><a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener external nofollow noreferrer">官方中文翻译站</a></p>
+<p><strong>传送门</strong>：<a href="https://github.com/feiyeyuanye/Preliminary-use-of-Kotlin" target="_blank" rel="noopener external nofollow noreferrer">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/7a161085.html" title="Kotlin 协程">https://jianghouren.com/archives/7a161085.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"><i class="fa fa-tag"></i> Kotlin</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/3bac3cd7.html" rel="prev" title="Android 格式数据解析">
+      <i class="fa fa-chevron-left"></i> Android 格式数据解析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/b770e11f.html" rel="next" title="Kotlin 泛型">
+      Kotlin 泛型 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#协程的基本用法"><span class="nav-number">1.</span> <span class="nav-text">协程的基本用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加依赖"><span class="nav-number">1.1.</span> <span class="nav-text">添加依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GlobalScope-launch-函数"><span class="nav-number">1.2.</span> <span class="nav-text">GlobalScope.launch 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runBlocking-函数"><span class="nav-number">1.3.</span> <span class="nav-text">runBlocking 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#launch-函数"><span class="nav-number">1.4.</span> <span class="nav-text">launch 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#suspend-关键字"><span class="nav-number">1.5.</span> <span class="nav-text">suspend 关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#coroutineScope-函数"><span class="nav-number">1.6.</span> <span class="nav-text">coroutineScope 函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多的作用域构造器"><span class="nav-number">2.</span> <span class="nav-text">更多的作用域构造器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Job-对象"><span class="nav-number">2.1.</span> <span class="nav-text">Job 对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-函数"><span class="nav-number">2.2.</span> <span class="nav-text">async 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#withContext-函数"><span class="nav-number">2.3.</span> <span class="nav-text">withContext 函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简化回调的写法"><span class="nav-number">3.</span> <span class="nav-text">简化回调的写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+
+      <div class="skin_peeler diyclass" id="skin_peeler"></div>
+      <div class="read_aloud diyclass" id="read_aloud"></div>
+      <div class="audioImg diyclass" id="audioImg"></div>
+      <audio id="audioMp3" controls="true" loop="loop"></audio>
+      <script src="/js/my-diy.js"></script>
+    </main>
+   
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">764k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">11:35</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>
