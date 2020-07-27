@@ -24,13 +24,13 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Android(10) 作用域存储">
+<meta property="og:title" content="Android 10(Q)">
 <meta property="og:url" content="https://jianghouren.com/archives/99f08afa.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imgsw.cn/static/images/jialebihaidao5.jpg">
 <meta property="article:published_time" content="2020-06-28T04:02:26.000Z">
-<meta property="article:modified_time" content="2020-07-16T12:43:16.200Z">
+<meta property="article:modified_time" content="2020-07-27T14:00:19.534Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="适配系列">
 <meta name="twitter:card" content="summary">
@@ -49,7 +49,7 @@
   };
 </script>
 
-  <title>Android(10) 作用域存储 | 非也缘也 Blog</title>
+  <title>Android 10(Q) | 非也缘也 Blog</title>
   
 
 
@@ -216,7 +216,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android(10) 作用域存储
+          Android 10(Q)
         </h1>
 
         <div class="post-meta">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-16 20:43:16" itemprop="dateModified" datetime="2020-07-16T20:43:16+08:00">2020-07-16</time>
+                <time title="修改时间：2020-07-27 22:00:19" itemprop="dateModified" datetime="2020-07-27T22:00:19+08:00">2020-07-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +246,7 @@
             </span>
 
           
-            <span id="/archives/99f08afa.html" class="post-meta-item leancloud_visitors" data-flag-title="Android(10) 作用域存储" title="阅读次数">
+            <span id="/archives/99f08afa.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 10(Q)" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -274,14 +274,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>809</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -296,7 +296,7 @@
         <p><img data-src="https://imgsw.cn/static/images/jialebihaidao5.jpg" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
-<h2 id="Android-Q-10"><a href="#Android-Q-10" class="headerlink" title="Android Q(10) "></a><p class="m_more_title_style">Android Q(10) </p></h2><p>最近手机版本升到了 10，突然发现音频功能无效了。明明解决了动态申请权限，却还是报错 open failed: EACCES (Permission denied) 的问题。这是因为在安卓 Q(10) 开始，就采用存储的分区控制。导致明明已经申请了android.permission.WRITE_EXTERNAL_STORAGE 权限，却还是报错。解决办法：manifest 文件的 applicaiton 标签添加 <code>android:requestLegacyExternalStorage=&quot;true&quot;</code>标识。</p>
+<h2 id="作用域存储"><a href="#作用域存储" class="headerlink" title="作用域存储 "></a><p class="m_more_title_style">作用域存储 </p></h2><p>最近手机版本升到了 10，突然发现音频功能无效了。明明解决了动态申请权限，却还是报错 open failed: EACCES (Permission denied) 的问题。这是因为在安卓 Q(10) 开始，就采用存储的分区控制。导致明明已经申请了android.permission.WRITE_EXTERNAL_STORAGE 权限，却还是报错。解决办法：manifest 文件的 applicaiton 标签添加 <code>android:requestLegacyExternalStorage=&quot;true&quot;</code>标识。</p>
 <p><strong>分析原因</strong>：</p>
 <p>Android Q 文件存储机制修改成了沙盒模式，有点模仿苹果的意思。APP 只能访问自己目录下的文件和公共媒体文件。对于 Android Q 以下，还是使用老的文件存储方式。Android Q 仍然使用 READ_EXTERNAL_STORAGE 和WRITE_EXTERNAL_STORAGE 作为存储相关运行时权限，但现在即使获取了这些权限，访问外部存储也受到了限制。</p>
 <p>android:requestLegacyExternalStorage=”true” 的意思就是使用旧的存储策略，不使用 androidQ 的新策略。但这个不是长久之计，很快将会强制都使用新策略。最好的解决策略就是：</p>
@@ -304,8 +304,35 @@
 <p>2、不需要长期保存的，并且涉及安全问题的，使用私有目录。<br>APP私有目录</p>
 <p>地址：/storage/emulated/0/Android/data/包名/files</p>
 <hr>
+<h2 id="深色主题"><a href="#深色主题" class="headerlink" title="深色主题"></a><p class="m_more_title_style">深色主题</p></h2><p>深色主题除了让眼部在夜间使用时更加舒适之外，还可以减少电量消耗，从而延长手机续航，是一项非常有用的功能。</p>
+<p>在 Android 10.0 及以上系统的手机，都可以在 ”设置 -&gt; 显示“ 内对深色主题进行开启和关闭。开启深色主题后，系统的界面风格包括一些内置的应用程序都会变成深色主题的色调。为了让我们的应用程序保持与系统的主题风格一致，接下来对深色主题进行适配。</p>
+<h3 id="Force-Dark"><a href="#Force-Dark" class="headerlink" title="Force Dark"></a>Force Dark</h3><p>最简单的一种实现方式是使用 Force Dark，它是一种能让应用程序快速适配深色主题，并且几乎不用编写额外代码的方式。它的工作原理是系统会分析浅色主题应用下的每一层 View，并且在这些 View 绘制到屏幕之前，自动将它们的颜色转换成更加适合深色主题的颜色。（注意，只有原本使用浅色主题的应用才能使用这种方式。）</p>
+<p>启用 Force Dark 功能要借助 android:forceDarkAllowed 属性：这个属性是 API 29（Android 10）才开始有的，所以需要进行一些系统差异性编程（values-v29 目录是只有 Android 10.0 及以上的系统才会去读取的，因此这是一种系统差异性编程的实现方式）。</p>
+<p>res 目录 -&gt; 新建 values-v29 目录 -&gt; 新建 Values resource file -&gt; 新建文件 styles.xml</p>
+<figure class="highlight xml"><figcaption><span>styles.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 内容都是从 res/values/styles.xml 中复制过来的。</span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.DarkActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@color/colorPrimaryDark<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>@color/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">        // 新增属性，这个属性是 API 29（Android 10）才开始有的。</span></span><br><span class="line"><span class="undefined">        // 将值设置为 ture，表示允许系统使用 Force Dark 将应用程序强制转换成深色主题。</span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:forceDarkAllowed"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>但实际上，这种简单粗暴的转换方式实现的转换效果通常是不尽如人意的。一般推荐使用更加传统的手动实现方式。</p>
+<h3 id="手动实现"><a href="#手动实现" class="headerlink" title="手动实现"></a>手动实现</h3><p>更好的方式，应该是针对每一个界面都进行浅色和深色两种主题的界面设计。</p>
+<p>关于系统主题，除了常用的深色(Theme.AppCompat.NoActionBar)与浅色(Theme.AppCompat.Light.NoActionBar)主题外，现在有了另一种选择，使用 DayNight(Theme.AppCompat.DayNight.NoActionBar) 主题。</p>
+<p>使用 DayNight 主题后，当用户在系统设置中开启深色主题时，应用程序会自动使用深色主题，反之则使用浅色主题。</p>
+<figure class="highlight xml"><figcaption><span>values/styles.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.DayNight.NoActionBar"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>@color/colorPrimary<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>@color/colorPrimaryDark<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>@color/colorAccent<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></span><br><span class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一些问题，比如当一些控件使用定义在 colors.xml 中的颜色值时，这种指定颜色值引用的方式相当于对控件的颜色进行了硬编码，DayNight 主题是不能对这些颜色进行动态转换的。这时需要进行一些主题差异型编程。</p>
+<p>res 目录 -&gt; 新建 values-night 目录 -&gt; 新建 Values resource file -&gt; 新建文件 colors.xml。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 在此文件中指定深色主题下的颜色值</span><br><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimary"</span>&gt;</span>#303030<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorPrimaryDark"</span>&gt;</span>#232323<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">color</span> <span class="attr">name</span>=<span class="string">"colorAccent"</span>&gt;</span>#008577<span class="tag">&lt;/<span class="name">color</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>虽说使用主题差异型的编程方式几乎可以解决所有的适配问题，但是在 DayNight 主题下，最好还是尽量减少通过硬编码的方式来指定控件的颜色，而是应该更多地使用能够根据当前主题自动切换颜色的主题属性。比如说黑色文字通常应该衬托在白色的背景下，反之白色文字通常应该衬托在黑色背景下。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 使用主题属性会自动根据系统当前的主题模式选择最合适的颜色值呈现给用户</span><br><span class="line"><span class="tag">&lt;<span class="name">FrameLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></span></span><br><span class="line"><span class="tag">    // 添加背景</span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">"?android:attr/colorBackground"</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">"center"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:text</span>=<span class="string">"Hello world"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:textSize</span>=<span class="string">"40sp"</span></span></span><br><span class="line"><span class="tag">        // 添加字体颜色      </span></span><br><span class="line"><span class="tag">        <span class="attr">android:textColor</span>=<span class="string">"?android:attr/textColorPrimary"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">FrameLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>并且，还可以在浅色主题和深色主题下分别执行不同的代码逻辑。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 判断当前系统是浅色主题还是深色主题，然后可以根据返回值做相应处理。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">isDarkTheme</span><span class="params">(context:<span class="type">Context</span>)</span></span>:<span class="built_in">Boolean</span>&#123;</span><br><span class="line">    <span class="comment">// 由于 Kotlin 取消了按位运算符的写法，改成了使用英文关键字，因此这里的 and 关键字其实就对应了 Java 中的 &amp; 运算符，</span></span><br><span class="line">    <span class="comment">// 而 Kotlin 中的 or 关键字对应了 Java 中的 | 运算符，</span></span><br><span class="line">    <span class="comment">// xor 关键字对应了 Java 中的 ^ 运算符。</span></span><br><span class="line">    <span class="keyword">val</span> flag = context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK</span><br><span class="line">    <span class="keyword">return</span> flag == Configuration.UI_MODE_NIGHT_YES</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105419420" target="_blank" rel="noopener external nofollow noreferrer">Android 10适配要点，作用域存储</a></p>
+<p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 
     </div>
 
@@ -351,7 +378,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/99f08afa.html" title="Android(10) 作用域存储">https://jianghouren.com/archives/99f08afa.html</a>
+    <a href="https://jianghouren.com/archives/99f08afa.html" title="Android 10(Q)">https://jianghouren.com/archives/99f08afa.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -437,7 +464,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-Q-10"><span class="nav-number">1.</span> <span class="nav-text">Android Q(10) </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域存储"><span class="nav-number">1.</span> <span class="nav-text">作用域存储 </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深色主题"><span class="nav-number">2.</span> <span class="nav-text">深色主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Force-Dark"><span class="nav-number">2.1.</span> <span class="nav-text">Force Dark</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手动实现"><span class="nav-number">2.2.</span> <span class="nav-text">手动实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -453,7 +480,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">115</span>
+          <span class="site-state-item-count">117</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -532,12 +559,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">811k</span>
+    <span title="站点总字数">817k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:17</span>
+    <span title="站点阅读时长">12:23</span>
 </div>
 
 
