@@ -15,6 +15,7 @@
 <hr>
 <p>在调式模式下，程序的运行效率将会大大降低，如果这时断点加在一个比较靠后的位置，需要执行很多操作才能运行到这个断点，那么前面这些操作就会有一些卡顿的感觉。</p>
 <p>所以，Android 还提供了另外一种调试的方式，可以让程序随时进入调式模式。</p>
+<p>这次使用正常的方式来启动程序，然后点击 Android Studio 顶部工具栏的 “Attach Debugger to Android Process” 按钮。</p>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 ]]></content>
@@ -1223,6 +1224,12 @@
 <li>在 GitHub 上刷新一下项目版本库的主页，就可以看到提交的文件了。</li>
 </ol>
 <hr>
+<h2 id="修改-GitHub-仓库提交信息邮箱"><a href="#修改-GitHub-仓库提交信息邮箱" class="headerlink" title="修改 GitHub 仓库提交信息邮箱"></a><p class="m_more_title_style">修改 GitHub 仓库提交信息邮箱</p></h2><p>修改了 GitHub 的邮箱后，导致提交信息记录（绿色的小格子）消失。</p>
+<p><a href="https://www.dazhuanlan.com/2020/03/01/5e5aa51db0750/" target="_blank" rel="noopener external nofollow noreferrer">https://www.dazhuanlan.com/2020/03/01/5e5aa51db0750/</a></p>
+<p><a href="https://docs.github.com/en/github/using-git/changing-author-info" target="_blank" rel="noopener external nofollow noreferrer">https://docs.github.com/en/github/using-git/changing-author-info</a></p>
+<p><a href="https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi?rq=1" target="_blank" rel="noopener external nofollow noreferrer">https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi?rq=1</a></p>
+<p><a href="https://stackoverflow.com/questions/39631983/github-invalid-author-email-commits-no-contribution-activity" target="_blank" rel="noopener external nofollow noreferrer">https://stackoverflow.com/questions/39631983/github-invalid-author-email-commits-no-contribution-activity</a></p>
+<hr>
 <h2 id="Sourcetree-使用"><a href="#Sourcetree-使用" class="headerlink" title="Sourcetree 使用"></a><p class="m_more_title_style">Sourcetree 使用</p></h2><p>添加本地代码到 GitHub：</p>
 <ul>
 <li><p>在 GitHub 上创建一个新的仓库。</p>
@@ -1236,6 +1243,7 @@
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 <p><a href="https://www.liaoxuefeng.com/wiki/896043488029600" target="_blank" rel="noopener external nofollow noreferrer">廖雪峰学git</a></p>
+<p><a href="https://docs.github.com/en" target="_blank" rel="noopener external nofollow noreferrer">GitHub 文件</a></p>
 ]]></content>
       <categories>
         <category>工具配置</category>
@@ -7417,8 +7425,8 @@ https://blog.csdn.net/wangzici/article/details/80140357
         <category>Android 知识点</category>
       </categories>
       <tags>
-        <tag>架构</tag>
         <tag>网络编程</tag>
+        <tag>架构</tag>
       </tags>
   </entry>
   <entry>
