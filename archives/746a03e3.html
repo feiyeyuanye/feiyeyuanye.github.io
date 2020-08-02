@@ -29,8 +29,11 @@
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_mvvm_schematic.png?imageView2/2/h/450">
+<meta property="og:image" content="https://imgsw.cn/static/images/mvvm_sunny_construction.png?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_mvvm_sunnyweather.png?imageView2/2/h/450">
 <meta property="article:published_time" content="2020-07-28T02:35:36.000Z">
-<meta property="article:modified_time" content="2020-08-02T12:59:44.947Z">
+<meta property="article:modified_time" content="2020-08-02T23:22:26.717Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="架构">
 <meta name="twitter:card" content="summary">
@@ -233,7 +236,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-02 20:59:44" itemprop="dateModified" datetime="2020-08-02T20:59:44+08:00">2020-08-02</time>
+                <time title="修改时间：2020-08-03 07:22:26" itemprop="dateModified" datetime="2020-08-03T07:22:26+08:00">2020-08-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,14 +277,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>835</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -305,6 +308,8 @@
 <li>ViewModel 则比较特殊，可将它理解成一个连接数据模型和界面展示的桥梁，从而实现让业务逻辑和界面展示分离的程序结构设计。</li>
 </ul>
 <p>而一个优秀的项目架构除了会包含以上 3 部分内容以外，还应该包含仓库、数据源等。一个简单易懂的 MVVM 项目架构如下：</p>
+<img data-src="https://imgsw.cn/static/images/android_mvvm_schematic.png?imageView2/2/h/450">
+
 <ul>
 <li>UI 控制层：包含了平时写的 Activity、Fragment、布局文件等与界面相关的东西。</li>
 <li>ViewModel 层：用于持有和 UI 元素相关的数据，以保证这些数据在屏幕旋转时不会丢失，并且还要提供接口给 UI 控制层调用以及和仓库层进行通信。</li>
@@ -321,7 +326,7 @@
 </li>
 </ul>
 <p>注意：引用持有都是单向的，并且不能跨层持有。比如，UI 控制层会持有 ViewModel 层的引用，反之则不行，并且 UI 控制层也不能持有仓库层的引用。谨记每一层的组件都只能与它相邻的组件进行交互。</p>
-<p><strong>以第一行代码(第 3 版)的项目举例学习</strong>：</p>
+<p><strong>以《第一行代码(第 3 版)》的项目举例学习</strong>：</p>
 <p>为了让项目能够有更好的结构，一般会新建几个包：</p>
 <ul>
 <li>logic：用于存放业务逻辑相关的代码<ul>
@@ -331,12 +336,55 @@
 </ul>
 </li>
 <li>ui：用于存放界面展示相关的代码，place 和 weather 两个子包，分别对应 SunnyWeather 中的两个主要界面。<ul>
-<li>place</li>
-<li>weather</li>
+<li>place（搜索全球城市数据）</li>
+<li>weather（显示天气信息）</li>
 </ul>
 </li>
 </ul>
-<p>搜索全球城市数据：实现过程应该主要分为逻辑层实现和 UI 层实现两部分</p>
+<p><strong>开发流程</strong>：</p>
+<p><strong>搜索全球城市数据</strong>：实现过程应该主要分为逻辑层实现和 UI 层实现两部分</p>
+<p>实现逻辑层代码：</p>
+<ul>
+<li>首先定义数据模型，logic/model 下新建 PlaceResponse 文件。</li>
+<li>定义用于访问网络的接口，logic/network 下新建 PlaceService 接口。（Retrofit 的接口文件）</li>
+<li>创建 Retrofit 构造器，logic/network 包下新建 ServiceCreator 单例类。</li>
+<li>定义统一的网络数据源访问入口，对所有网络请求的 API 进行封装，logic/network 包下新建 SunnyWeatherNetwork 单例类。</li>
+<li>logic 包下新建 Repository 单例类，作为仓库层的统一封装入口。</li>
+<li>定义 ViewModel 层，在 ui/place 包下新建 PlaceViewModel 。</li>
+</ul>
+<p>实现 UI 层代码：</p>
+<ul>
+<li>编写布局文件，RecyclerView 的 item 布局，适配器。</li>
+<li>ui/place 包下新建 PlaceFragment，并将之添加到 MainActivity 中。</li>
+<li>MainActivity 为搜索页面。</li>
+</ul>
+<p><strong>显示天气信息</strong>：实现过程应该主要分为逻辑层实现和 UI 层实现两部分</p>
+<p>实现逻辑层代码：</p>
+<ul>
+<li>首先定义数据模型，logic/model 下新建 RealtimeResponse 文件。（实时天气）</li>
+<li>首先定义数据模型，logic/model 下新建 DailyResponse 文件。（未来天气）</li>
+<li>定义好数据模型好，进行网络层相关的的代码编写</li>
+<li>logic/network 包下新建 WeatherService 接口。（Retrofit 的接口文件）</li>
+<li>在 SunnyWeatherNetwork 中对新增的 WeatherService 接口进行封装。</li>
+<li>然后应该去仓库层进行相关代码的实现了，修改 Repository 中代码。</li>
+<li>定义 ViewModel 层，在 ui/weather 包下新建 WeatherViewModel 。</li>
+</ul>
+<p>实现 UI 层代码</p>
+<ul>
+<li>ui/weather 包下新建 WeatherActivity </li>
+</ul>
+<p><strong>记录选中的城市</strong>：</p>
+<ul>
+<li>logic/dao 包下新建 PlaceDao 单例类，操作 SharedPreferences 存储数据。</li>
+<li>在仓库层进行实现，修改 Repository 中的代码。</li>
+<li>这几个接口的业务逻辑是和 PlaceViewModel 相关的，因此在 PlaceViewModel 中再进行一层封装。</li>
+<li>并在 PlaceAdapter 中进行保存操作，在PlaceFragment 中进行读取操作。</li>
+</ul>
+<p><strong>最终的项目结构如下</strong>：</p>
+<img data-src="https://imgsw.cn/static/images/mvvm_sunny_construction.png?imageView2/2/h/600">
+
+<img data-src="https://imgsw.cn/static/images/android_mvvm_sunnyweather.png?imageView2/2/h/450">
+
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
@@ -567,12 +615,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">826k</span>
+    <span title="站点总字数">828k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:31</span>
+    <span title="站点阅读时长">12:33</span>
 </div>
 
 
