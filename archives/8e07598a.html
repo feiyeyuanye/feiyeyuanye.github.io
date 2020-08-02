@@ -24,19 +24,20 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Android 耗电优化">
-<meta property="og:url" content="https://jianghouren.com/archives/c5025de3.html">
+<meta property="og:title" content="Adnroid 生成正式签名的 APK 文件">
+<meta property="og:url" content="https://jianghouren.com/archives/8e07598a.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imgsw.cn/static/images/chenqingling.jpg">
-<meta property="article:published_time" content="2020-06-11T08:26:08.000Z">
-<meta property="article:modified_time" content="2020-06-21T02:19:23.000Z">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_create_keystore.png">
+<meta property="article:published_time" content="2020-08-02T06:45:19.000Z">
+<meta property="article:modified_time" content="2020-08-02T12:36:56.353Z">
 <meta property="article:author" content="houren">
-<meta property="article:tag" content="性能优化">
+<meta property="article:tag" content="Android">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://imgsw.cn/static/images/chenqingling.jpg">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
-<link rel="canonical" href="https://jianghouren.com/archives/c5025de3.html">
+<link rel="canonical" href="https://jianghouren.com/archives/8e07598a.html">
 
 
 <script id="page-configurations">
@@ -49,7 +50,7 @@
   };
 </script>
 
-  <title>Android 耗电优化 | 非也缘也 Blog</title>
+  <title>Adnroid 生成正式签名的 APK 文件 | 非也缘也 Blog</title>
   
 
 
@@ -203,7 +204,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/c5025de3.html">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/8e07598a.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -216,7 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android 耗电优化
+          Adnroid 生成正式签名的 APK 文件
         </h1>
 
         <div class="post-meta">
@@ -225,16 +226,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2020-06-11 16:26:08" itemprop="dateCreated datePublished" datetime="2020-06-11T16:26:08+08:00">2020-06-11</time>
+              <time title="创建时间：2020-08-02 14:45:19 / 修改时间：20:36:56" itemprop="dateCreated datePublished" datetime="2020-08-02T14:45:19+08:00">2020-08-02</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-21 10:19:23" itemprop="dateModified" datetime="2020-06-21T10:19:23+08:00">2020-06-21</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -246,7 +241,7 @@
             </span>
 
           
-            <span id="/archives/c5025de3.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 耗电优化" title="阅读次数">
+            <span id="/archives/8e07598a.html" class="post-meta-item leancloud_visitors" data-flag-title="Adnroid 生成正式签名的 APK 文件" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -261,8 +256,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/archives/c5025de3.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/c5025de3.html" itemprop="commentCount"></span>
+    <a title="valine" href="/archives/8e07598a.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/8e07598a.html" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -274,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>617</span>
+              <span>2.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -293,59 +288,65 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <img data-src="https://imgsw.cn/static/images/chenqingling.jpg" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/yitiantulongji.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <a id="more"></a>
 
-<p>Battery-Historian</p>
-<p>官方网站:<a href="https://developer.android.com/topic/performance/power/battery-historian?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">https://developer.android.com/topic/performance/power/battery-historian?hl=zh-cn</a></p>
-<p>安装:</p>
-<ul>
-<li>源码安装</li>
-<li>docker 安装</li>
-</ul>
-<p>优化建议:</p>
-<ul>
-<li><p>加入电量白名单</p>
+<p>通过 Android Studio 将程序安装到手机上，实际是 Android Studio 会将程序代码打包成一个 APK 文件，然后将这个文件传输到手机上，最后再执行安装操作。</p>
+<p>Android 系统会将所有的 APK 文件识别为应用程序的安装包，类似于 Windows 系统上的 EXE 文件。并且，只有签名后的 APK 文件才可以安装到手机上。而直接通过 Android Studio 运行程序会使用一个默认的 keystore 文件帮我们自动进行了签名。（点击 Android Studio 右侧工具栏的 Gradle -&gt; 项目名 -&gt; app -&gt; Tasks -&gt; android -&gt; 双击 “signingReport”，查看这个 debug.keystore 文件具体内容）</p>
+<p>正式发布的应用程序，还是需要一个正式的 keystore 文件来进行签名才行。</p>
+<h2 id="生成正式签名的-APK-文件"><a href="#生成正式签名的-APK-文件" class="headerlink" title="生成正式签名的 APK 文件"></a><p class="m_more_title_style">生成正式签名的 APK 文件</p></h2><h3 id="使用-AS-的可视化工具生成"><a href="#使用-AS-的可视化工具生成" class="headerlink" title="使用 AS 的可视化工具生成"></a>使用 AS 的可视化工具生成</h3><ul>
+<li><p>Android App Bundle：创建 Android App Bundle 文件，用于上架 Google Play 商店的。（最后生成 .aab 后缀的签名文件）</p>
+<details class="m_more_content_details_supplement">
+   <summary  class="m_more_content_summary">详细信息</summary>
+   <p>使用这种类型的文件，Google Play 可以根据用户的手机，只下发它需要的那部分程序资源。比如说一个高分辨率的手机，是没有必要下载低分辨率目录下的图片资源的，一个 arm 架构的手机，也没有必要下载 x86 架构下的 so 文件（so 文件是使用 C/C++ 代码开发的库文件）。因此，使用此类型文件可以显著地减少 App 的下载体积，但缺点是它不能直接安装到手机上，也不能用于上架除 Google Play 之外的其它应用程序。</p>
+   </details>
 </li>
-<li><p>GPS 优化</p>
-<ul>
-<li>选择合适的定位模式</li>
-<li>选择合适的定位间隔</li>
-<li>不用及时注销</li>
-</ul>
-</li>
-<li><p>不是紧急的文件可以选择用户连接 wifi 在上传，同时配个一定的规则，避免用户一直使用 4G 环境(可以选择如果在多少时间内网络状态还是 wifi 并且在充电状态下可以选择上传大文件，比如 APP 日志等)</p>
-</li>
-<li><p>慎用 WakeLock 唤醒 CPU</p>
-<ul>
-<li><p>亮屏替换://在Activity中：<br>getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);</p>
-<p>//或在布局中添加这个属性：<br>android:keepScreenOn=”true”</p>
-</li>
-<li><p>alarm 闹钟让 CPU 间断式工作</p>
+<li><p>APK：创建 APK 文件。（最后生成 .apk 后缀的签名文件）</p>
 </li>
 </ul>
-</li>
-<li><p>JobScheduler (8.0 后 Google 推荐使用)</p>
+<p><strong>创建 APK 文件举例</strong>：（不管创建哪种类型的文件，后面的流程基本上是一样的。）</p>
+<p>点击 AS 导航栏上的 Build -&gt; Generate Signed Bundle/APK ，选择 APK ，点击 “Next” 按钮，然后开始填入 keystore 文件的路径和密码。第一次使用则点击 “Create new” 按钮，然后填写创建 keystore 文件所必要的信息，根据自己的实际情况进行填写即可。</p>
 <ul>
-<li>把工作任务放到合适的时间再去执行，比如充电时间，wifi 连接后</li>
-<li>可以把多个任务合并到一起，再选择时间去执行</li>
-<li>在充电并且连接 wifi 的状态下发送数据（这里旋转屏幕是为了发送数据用的）</li>
+<li>Key store path：存储签名文件的的路径地址</li>
+<li>Password/Confirm：密码/确认密码</li>
+<li>Key<ul>
+<li>Alias：别名</li>
+<li>Password/Confirm：签名密码/确认签名密码</li>
+<li>Validity（years）：有效时长（单位：年。建议设置的长一些）</li>
+<li>Certificate<ul>
+<li>First and Last Name：名字</li>
+<li>Organizational Unit：组织或公司</li>
+<li>Organization：组织</li>
+<li>City or Locality：城市或地区</li>
+<li>State or Province：州或省</li>
+<li>Country Code（XX）：国家代码（中国：cn）</li>
 </ul>
 </li>
-<li><p>减少 View 绘制，借鉴 布局优化</p>
-</li>
-<li><p>复杂计算尽量使用 native 处理</p>
-</li>
-<li><p>硬编码替换软编码，降低 CPU 负荷</p>
-</li>
-<li><p>TCP 心跳机制建议 30s 以后</p>
-</li>
-<li><p>定时器任务如果不是特殊的也尽量在 30s 以后</p>
+</ul>
 </li>
 </ul>
+<p>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_create_keystore.png">
+
+<p>填写完成后，点击 “OK”，然后刚才填写的信息会自动填充到创建签名 APK 的对话框中。如果希望以后都不用再输 keystore 的密码了，可以将 “Remember passwords” 选项勾上，然后点击 “Next” 来选择 APK 文件的输出地址。</p>
+<ul>
+<li>Destination Folder：默认将 APK 文件生成到项目的 app 目录下</li>
+<li>Build Veriants：选择构建类型</li>
+<li>Signature Versions：这里将签名版本中的 V1 和 V2 选项同时勾上，表示会使用同时兼容新老版本系统的签名方式。</li>
+</ul>
+<p>最后点击 “Finish” 按钮，然后稍等一段时间，APK 文件就会生成好了，并且会在右下角弹出提示（或在 Event Log 中查看提示）。点击提示上的 “locate” 可以立刻查看生成的 APK 文件，“analyze” 可以对 APK 文件进行分析 。</p>
+<h3 id="使用-Gradle-生成"><a href="#使用-Gradle-生成" class="headerlink" title="使用 Gradle 生成"></a>使用 Gradle 生成</h3><p>Gradle 是一个非常先进的项目构建工具，在 Android Studio 中开发的所有项目都是使用它来构建的。</p>
+<p>首先配置 app/build.gradle 文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    </span><br><span class="line">   ...</span><br><span class="line">     </span><br><span class="line"><span class="comment">//     在 android 闭包中添加了一个 signingConfigs 闭包</span></span><br><span class="line">    signingConfigs&#123;</span><br><span class="line"><span class="comment">//         添加 config 闭包，在其中配置 keystore 文件的各种信息</span></span><br><span class="line">        config&#123;</span><br><span class="line"><span class="comment">//            将敏感数据配置在一个独立的文件里面，然后在这里去读取这些数据          </span></span><br><span class="line"><span class="comment">//            指定 keystore 文件的位置（需要一个已存在的文件，若果没有则去 create）</span></span><br><span class="line">            <span class="function">storeFile <span class="title">file</span><span class="params">(KEY_PATH)</span></span></span><br><span class="line"><span class="function"><span class="comment">//            指定密码（create 时填写的密码）</span></span></span><br><span class="line"><span class="function">            storePassword KEY_PASS</span></span><br><span class="line"><span class="function"><span class="comment">//            指定别名（create 时填写的别名）</span></span></span><br><span class="line"><span class="function">            keyAlias ALIAS_NAME</span></span><br><span class="line"><span class="function"><span class="comment">//            指定别名密码（create 时填写的密码）</span></span></span><br><span class="line"><span class="function">            keyPassword ALIAS_PASS</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="literal">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'</span><br><span class="line">              </span><br><span class="line"><span class="comment">//            这样，当生成正式 APK 文件时，就会自动使用这个配置的签名信息来进行签名了。</span></span><br><span class="line">            signingConfig signingConfigs.config</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了避免将 keystore 的信息以明文的形式直接配置在 build.gradle 中，更推荐的做法是将这些敏感数据配置在一个独立的文件里面，这里则配置在 Android Studio 项目的根目录下的 gradle.properties 文件中，这个文件它是专门用来配置全局键值对数据的。（然后，如果要开源代码时，只需要将这个文件从 Git 版本控制中排除即可。）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 配置 keystore 信息</span><br><span class="line">KEY_PATH=/Users/jianghouren/jhr.jks</span><br><span class="line">KEY_PASS=<span class="number">1234567</span></span><br><span class="line">ALIAS_NAME=jhrdev</span><br><span class="line">ALIAS_PASS=<span class="number">1234567</span></span><br></pre></td></tr></table></figure>
+
+<p>然后通过 Android Studio 中内置的 Gradle Tasks 来生成 APK 文件，点击右侧工具栏的 Gradle -&gt; 项目名 -&gt; app -&gt; Tasks -&gt;build，其中 assemble 就是用于生成 APK 文件的，它会同时生成 debug 和 release 两个版本的 APK 文件，只需要双击即可执行这个 Task。当提示 BUILD SUCCESSFUL 时说明 assemble 执行成功了，APK 文件会自动生成在 app/build/outputs/apk 目录下。</p>
 <hr>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 
     </div>
 
@@ -391,7 +392,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/c5025de3.html" title="Android 耗电优化">https://jianghouren.com/archives/c5025de3.html</a>
+    <a href="https://jianghouren.com/archives/8e07598a.html" title="Adnroid 生成正式签名的 APK 文件">https://jianghouren.com/archives/8e07598a.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -402,7 +403,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 性能优化</a>
+              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
           </div>
 
         
@@ -411,13 +412,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/archives/fd4af033.html" rel="prev" title="Android 稳定性优化">
-      <i class="fa fa-chevron-left"></i> Android 稳定性优化
+    <a href="/archives/3d825bc5.html" rel="prev" title="Android SDK 开发">
+      <i class="fa fa-chevron-left"></i> Android SDK 开发
     </a></div>
-      <div class="post-nav-item">
-    <a href="/archives/15307383.html" rel="next" title="Android 日志优化">
-      Android 日志优化 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -477,7 +475,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">1.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#生成正式签名的-APK-文件"><span class="nav-number">1.</span> <span class="nav-text">生成正式签名的 APK 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-AS-的可视化工具生成"><span class="nav-number">1.1.</span> <span class="nav-text">使用 AS 的可视化工具生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Gradle-生成"><span class="nav-number">1.2.</span> <span class="nav-text">使用 Gradle 生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 

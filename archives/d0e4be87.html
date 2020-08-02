@@ -24,13 +24,14 @@
   </script>
 
   <meta property="og:type" content="article">
-<meta property="og:title" content="Android(8) 通知渠道">
+<meta property="og:title" content="Android 8(O)">
 <meta property="og:url" content="https://jianghouren.com/archives/d0e4be87.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/as_image_asset.png">
 <meta property="article:published_time" content="2020-07-16T12:30:29.000Z">
-<meta property="article:modified_time" content="2020-07-18T01:48:31.786Z">
+<meta property="article:modified_time" content="2020-08-02T06:44:40.534Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="适配系列">
 <meta name="twitter:card" content="summary">
@@ -49,7 +50,7 @@
   };
 </script>
 
-  <title>Android(8) 通知渠道 | 非也缘也 Blog</title>
+  <title>Android 8(O) | 非也缘也 Blog</title>
   
 
 
@@ -216,7 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Android(8) 通知渠道
+          Android 8(O)
         </h1>
 
         <div class="post-meta">
@@ -233,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-18 09:48:31" itemprop="dateModified" datetime="2020-07-18T09:48:31+08:00">2020-07-18</time>
+                <time title="修改时间：2020-08-02 14:44:40" itemprop="dateModified" datetime="2020-08-02T14:44:40+08:00">2020-08-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +247,7 @@
             </span>
 
           
-            <span id="/archives/d0e4be87.html" class="post-meta-item leancloud_visitors" data-flag-title="Android(8) 通知渠道" title="阅读次数">
+            <span id="/archives/d0e4be87.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 8(O)" title="阅读次数">
               <span class="post-meta-item-icon">
                 <i class="fa fa-eye"></i>
               </span>
@@ -274,14 +275,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
+              <span>6.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -297,7 +298,7 @@
 
 <a id="more"></a>
 
-<p>在过去，用户是没办法对信息做区分的，要么同意接受所有信息，要么屏蔽所有信息，这也是 Android 通知功能的痛点。于是，Android 8.0 系统引入了通知渠道这个概念。</p>
+<h2 id="通知渠道"><a href="#通知渠道" class="headerlink" title="通知渠道"></a><p class="m_more_title_style">通知渠道</p></h2><p>在过去，用户是没办法对信息做区分的，要么同意接受所有信息，要么屏蔽所有信息，这也是 Android 通知功能的痛点。于是，Android 8.0 系统引入了通知渠道这个概念。</p>
 <p>通知渠道，就是每条通知都要属于一个对应的渠道。每个应用程序都可以自由地创建当前应用拥有哪些通知渠道，但是这些通知渠道的控制权是掌握在用户手上的。用户可以自由地选择这些通知渠道的重要程度，是否响铃、是否振动或者是否要关闭这个渠道的通知。</p>
 <p>通知渠道一旦创建之后就不能再修改了，因此开发者需要仔细分析自己的应用程序一共有哪些类型的通知，然后再去创建相应的通知渠道。</p>
 <p><strong>创建通知渠道</strong></p>
@@ -326,6 +327,51 @@
 <p><strong>重要等级</strong></p>
 <p>通知渠道的重要等级越高，发出的通知就越容易获得用户的注意。比如高重要等级的通知渠道发出的通知可以弹出横幅、发出声音，而低重要等级的通知渠道发出的通知不仅可能会在某些情况下被隐藏、而且可能会被改变显示的顺序。</p>
 <p>并且，开发者只能在创建通知渠道时为它指定初始的重要等级，如果用户不认可这个重要等级的话，可以随时进行修改，开发者对此无权再进行调整和变更，因为通知渠道一旦创建就不能再通过代码修改了。</p>
+<hr>
+<h2 id="App-图标"><a href="#App-图标" class="headerlink" title="App 图标"></a><p class="m_more_title_style">App 图标</p></h2><p>在过去，Android 应用程序的图标都应该放到相应分辨率的 mipmap 目录下，不过从 Android 8.0 系统开始，Google 已经不再建议使用单一的一张图片来作为应用程序的图标，而是应该使用前景和背景分离的图标设计方式。</p>
+<p>具体来讲，应用程序的图标应该被分为两层：前景层和背景层。前景层用来展示应用图标的 Logo，背景层用来衬托应用图标的 Logo。</p>
+<p>并且要注意，背景层在设计时只允许定义颜色和纹理，不能定义形状。图标的形状由手机厂商来定义，手机厂商会在图标的前景层和背景层之上再盖上一层 mask，这个 mask 可以是圆角矩形、圆形或是方形等，视具体手机厂商而定，这样就可以将手机上所有程序的图标都<strong>裁剪</strong>成相同的形状，从而统一图标的设计规范。</p>
+<p>然后借助 Android Studio 提供的 Asset Studio 工具来制作能够兼容各个 Android 系统版本的应用程序图标。单击导航栏中 File -&gt; New -&gt; Image Asset 打开工具。（左边是操作区域，右边是预览区域）</p>
+<img data-src="https://imgsw.cn/static/images/as_image_asset.png">
+
+<p>操作区域：</p>
+<ul>
+<li>Icon Type：保持默认即可，表示同时创建兼容 8.0 系统以及老版本系统的应用图标。</li>
+<li>Name：应用图标的名称，保持 ic_launcher 的命名即可，这样可以覆盖掉之前自动生成的应用程序图标。</li>
+<li>Foreground Layer 页签：用于编辑前景层<ul>
+<li>Path：图片路径</li>
+<li>Resize：拖动条对图片进行缩放，以保证前景层的所有内容都是在安全区域中。</li>
+</ul>
+</li>
+<li>Background Layer 页签：用于编辑背景层<ul>
+<li>Asset Type：选取 Color 模式，并设置颜色值作为背景层的颜色。</li>
+</ul>
+</li>
+<li>Legacy 页签：用于编辑老版本系统的图标</li>
+</ul>
+<p>预览区域：</p>
+<p>它的主要作用就是预览应用图标在应对不同类型的 mask 的最终效果。在预览区域中给出了可能生成的图标形状。并且每个预览图标中都有一个圆圈，它叫做安全区域，必须保证图标的前景层完全处于安全区域中才行，否则可能会出现应用图标的 Logo 被手机厂商的 mask 裁减掉的情况。</p>
+<ul>
+<li><p>Circle：圆形</p>
+</li>
+<li><p>Squircle：方圆形</p>
+</li>
+<li><p>Rounded Square：圆角正方形</p>
+</li>
+<li><p>Square：正方形</p>
+</li>
+</ul>
+<p>接下来点击 “Next” 会进入一个确认图标生成路径的界面，然后直接点击界面上的 “Finish” 按钮完成图标的制作。所有图标相关的文件都会被生成到相应分辨率的 mipmap 目录下，其中有个 mipmap-anydpi-v26 目录中放的并不是图片，而是 xml 文件，这是因为 Android 8.0 及以上系统的手机，都会使用这个目录下的文件作为图标。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line">// 适配 Android 8.0 及以上系统应用图标的标准写法</span><br><span class="line"><span class="tag">&lt;<span class="name">adaptive-icon</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></span><br><span class="line">  // 指定图标的背景层，引用的是之前设置的颜色值。</span><br><span class="line">    <span class="tag">&lt;<span class="name">background</span> <span class="attr">android:drawable</span>=<span class="string">"@color/ic_launcher_background"</span>/&gt;</span></span><br><span class="line">  // 指定图标的前景层，引用的是之前准备的 Logo 图片。</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreground</span> <span class="attr">android:drawable</span>=<span class="string">"@mipmap/ic_launcher_foreground"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">adaptive-icon</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">"com.sunnyweather.android"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        // 这个属性就是专门用于指定应用程序图标的</span></span><br><span class="line"><span class="tag">        // <span class="attr">8.0</span> 及以上系统中，会使用 <span class="attr">mipmap-anydpi-v26</span> 目录下的 <span class="attr">ic_launcher.xml</span> 文件。</span></span><br><span class="line"><span class="tag">        // <span class="attr">7.0</span> 及以下系统会使用 <span class="attr">mipmap</span> 相应分辨率目录下的 <span class="attr">ic_launcher.png</span> 图片。        </span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></span><br><span class="line"><span class="tag">        // 此属性是一个只适用于 <span class="attr">Android</span> <span class="attr">7.1</span> 系统的过渡版本，很快就被 <span class="attr">8.0</span> 系统的新图标适配方案所替代了，不必关心它。         </span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">"@mipmap/ic_launcher_round"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">"true"</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
@@ -374,7 +420,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/d0e4be87.html" title="Android(8) 通知渠道">https://jianghouren.com/archives/d0e4be87.html</a>
+    <a href="https://jianghouren.com/archives/d0e4be87.html" title="Android 8(O)">https://jianghouren.com/archives/d0e4be87.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -460,7 +506,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">1.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通知渠道"><span class="nav-number">1.</span> <span class="nav-text">通知渠道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-图标"><span class="nav-number">2.</span> <span class="nav-text">App 图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -476,7 +522,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">121</span>
+          <span class="site-state-item-count">122</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -555,12 +601,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">821k</span>
+    <span title="站点总字数">826k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:26</span>
+    <span title="站点阅读时长">12:31</span>
 </div>
 
 
