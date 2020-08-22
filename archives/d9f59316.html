@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-08-18T23:37:29.000Z">
-<meta property="article:modified_time" content="2020-08-19T02:28:56.193Z">
+<meta property="article:modified_time" content="2020-08-22T12:37:38.645Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="音视频">
 <meta name="twitter:card" content="summary">
@@ -220,10 +220,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2020-08-19 07:37:29 / 修改时间：10:28:56" itemprop="dateCreated datePublished" datetime="2020-08-19T07:37:29+08:00">2020-08-19</time>
+              <time title="创建时间：2020-08-19 07:37:29" itemprop="dateCreated datePublished" datetime="2020-08-19T07:37:29+08:00">2020-08-19</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-22 20:37:38" itemprop="dateModified" datetime="2020-08-22T20:37:38+08:00">2020-08-22</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -263,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>128</span>
+              <span>2.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
 
         </div>
@@ -287,7 +293,75 @@
 <a id="more"></a>
 
 <p>Android 音视频开发的难度相对较高，音视频开发中很多有特色的或者核心的模块使用 NDK 开发，而 NDK 开发又主要使用 C/C++ 语言编写代码 ，这对于使用 Java 语言的 Android 开发者来说有门槛。</p>
-<h2 id="音视频基础知识"><a href="#音视频基础知识" class="headerlink" title="音视频基础知识"></a><p class="m_more_title_style">音视频基础知识</p></h2><h3 id="视频编码"><a href="#视频编码" class="headerlink" title="视频编码"></a>视频编码</h3><h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<h2 id="音视频基础知识"><a href="#音视频基础知识" class="headerlink" title="音视频基础知识"></a><p class="m_more_title_style">音视频基础知识</p></h2><h3 id="视频编码"><a href="#视频编码" class="headerlink" title="视频编码"></a>视频编码</h3><p>指通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。</p>
+<p>主要分为两个系列：</p>
+<ul>
+<li>MPEG 系列：有视频编码和音频编码。</li>
+<li>H.26X 系列：侧重网络传输，并且只有视频编码。</li>
+</ul>
+<p>此外，在互联网上被广泛应用的还有 Real-Networks 的 RealVideo、微软公司的 WMV 以及 Apple 公司的 QuickTime 等。</p>
+<h3 id="音频编码"><a href="#音频编码" class="headerlink" title="音频编码"></a>音频编码</h3><p>常见的音频编码格式有：</p>
+<ul>
+<li>AAC：一种专为声音数据设计的文件压缩格式，属于有损压缩格式，特点是使文件更加小巧。</li>
+<li>MP3：一种音频压缩技术，被设计用来大幅度地降低音频数据量。特点是利用人耳对高频声音信号不敏感的特性，将时域波形信号转换成频域信号，并划分成多个频段，对不同频段使用不同的压缩率，对高频信号使用大压缩率（甚至忽略信号），对低频信号使用小压缩率。从而将声音用 1:10 甚至 1:12 的压缩率压缩。</li>
+<li>AC3：有损音频编码格式，被广泛应用于 5.1 声道（Dolby AC3 提供的环绕声系统由 5 个全频域声道和 1 个超低音声道组成）。</li>
+</ul>
+<h3 id="多媒体播放组件"><a href="#多媒体播放组件" class="headerlink" title="多媒体播放组件"></a>多媒体播放组件</h3><p>Android 多媒体播放组件包含：</p>
+<ul>
+<li>MediaPlayer：播放控制。</li>
+<li>MediaCodec：音视频编解码。</li>
+<li>OMX：多媒体部分采用的编解码标准。</li>
+<li>StageFright：一个替代 OpenCore 的框架，主要做了一个 OMX 层，仅仅对 OpenCore 的 omx-component 部分做了引用。</li>
+<li>AudioTrack：音频播放</li>
+</ul>
+<p>IOS 多媒体播放组件包含：VideoToolBox、AudioToolBox、AVPlayer。</p>
+<h3 id="常见的多媒体框架及解决方案"><a href="#常见的多媒体框架及解决方案" class="headerlink" title="常见的多媒体框架及解决方案"></a>常见的多媒体框架及解决方案</h3><p>常见的多媒体框架及解决方案有：</p>
+<ul>
+<li><p>VLC：即 Video LAN Client ，是一款自由、开源的跨平台多媒体播放器及框架。</p>
+</li>
+<li><p>FFmpeg：多媒体解决方案，不是多媒体框架，广泛用于音视频开发中。</p>
+</li>
+<li><p>GStreamer：一套构建流媒体应用的开源多媒体框架。</p>
+</li>
+</ul>
+<h3 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h3><p><strong>帧率（Frame Rate）</strong>：用于测量显示帧数的量度。所谓的测量单位为每秒显示帧数（frames per second，简称 fps）或 ”赫兹“（Hz）。每秒显示帧数或者帧率表示图形处理器处理场时每秒能够更新的次数。高帧率可以得到更流畅、更逼真的动画。</p>
+<p><strong>分辨率</strong>：指视频成像产品所形成的图像大小或尺寸。</p>
+<p><strong>刷新率</strong>：指屏幕每秒画面被刷新的次数，分为垂直刷新率和水平刷新率，一般提到的刷新率通常指垂直刷新率。垂直刷新率表示屏幕上图像每秒重绘多少次，也就是每次屏幕刷新的次数，以 Hz 为单位。刷新率越高，图像就越稳定，图像显示就越自然清晰，对眼睛的影响也越小。刷新率越低，图像闪烁和抖动得就越厉害，眼睛疲劳得就越快。一般来说，如果能达到 80Hz 以上的刷新率，就可以完全消除图像闪烁和抖动感，眼睛也不太容易疲劳。</p>
+<p><strong>编码的格式</strong>：编码的目的是压缩数据量，采用编码算法压缩冗余数据。常用的编码格式有如下两种：</p>
+<ul>
+<li>MPEG（MPEG-2、MPEG-4）</li>
+<li>H.26X（H.263、H.264/AVC、H.265/HEVC）</li>
+</ul>
+<p><strong>封装格式</strong>：把编码后的音视频数据以一定格式封装到一个容器，封装格式有 MKV、AVI、TS 等。</p>
+<p><strong>码率</strong>：也就是比特率，比特率是单位时间播放连续的媒体（如压缩后的音频或视频）的比特数量。比特率越高，带宽消耗的越多。比特（bit）就是二进制里面最小的单位，要么是 0，要么是 1。</p>
+<ul>
+<li>文件大小（b）= 码率（b/s）x 时长（s）</li>
+</ul>
+<p><strong>画质以码率</strong>：实际上视频质量和码率、编码算法都有关系，并不是码率越大，画质越好，视频越流畅。</p>
+<p><strong>DTS 与 PTS</strong>：前者主要用于标示读入内存中的比特流在什么时候开始送入解码器中进行解码。后者主要用于度量解码后的视频帧什么时候被显示出来。</p>
+<p><strong>YUV 与 RGB</strong>：</p>
+<ul>
+<li>YUV：也被称作 YCbCr，是被欧洲电视系统所采用的一种颜色编码方法（属于 PAL），是 PAL 和 SECAM 模拟彩色电视制式采用的颜色空间模型。在YUV家族中，YCbCr是在计算机系统中应用最多的成员，其应用领域很广泛，JPEG、MPEG均采用此格式。一般人们所讲的YUV大多是指YCbCr。引用微软对YV12和NV12的描述：<a href="https://docs.microsoft.com/en-us/previous-versions/aa904813(v=vs.80)。其中" target="_blank" rel="noopener external nofollow noreferrer">https://docs.microsoft.com/en-us/previous-versions/aa904813(v=vs.80)。其中</a> Y 代表亮度，UV 代表色差，U 和 V 是构成颜色的两个分量。</li>
+<li>RGB：是一种颜色空间模型，通过对红（R）、绿（G）、蓝（B）3 个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色，RGB 即代表红、绿、蓝 3 个通道的颜色。</li>
+</ul>
+<p><strong>视频帧及音频帧</strong>：</p>
+<p>常见的视频帧：</p>
+<ul>
+<li>I 帧：表示关键帧，可以理解为这一帧画面的完整保留，解码时只需要本帧数据就可以完成（因为包含完整画面）。</li>
+<li>P 帧：表示这一帧和之前的一个关键帧（或 P 帧）的差别，解码时需要用之前缓存的画面叠加上本帧定义的差别生成最终画面。（也就是差别帧，P 帧没有完整画面数据，只有与前一帧的画面差别的数据。）</li>
+<li>B 帧：双向差别帧，也就是 B 帧记录的是本帧与前后帧的差别（具体比较复杂，有 4 种情况），换言之，要解码 B 帧，不仅要取得之前的缓存页面，还要解码之后的画面，通过前后画面数据与本帧数据的叠加取得最终的画面。B 帧压缩率高，但是解码时 CPU 会比较吃力。</li>
+</ul>
+<p>音频帧的概念没有视频帧那么清晰，几乎所有视频编码格式都可以简单地认为 I 帧就是编码后的一幅图像。但音频帧跟编码格式相关，它是各个编码标准自己实现的。</p>
+<ul>
+<li>对 PCM（未经编码的音频数据）来说，它根本就不需要帧的概念，根据采样率和采样精度就可以播放。关于 PCM 的采样率和比特率换算，常见的比特率并没有 44.1Hz，而是 44.1KHz。</li>
+<li>AMP 帧，规定每 20ms 的音频是一帧，每一帧音频都是独立的，有可能采用不同的编码算法以及不同的编码参数。</li>
+<li>MP3 帧，音频数据帧个数由文件大小和帧长决定，每一帧的长度可能不固定，也可能固定，由比特率决定，每一帧又分为帧头和数据实体两部分，帧头记录了 MP3 的比特率、采样率、版本等信息，每一帧之间相互对立。</li>
+</ul>
+<p><strong>量化精度</strong>：表示可以将模拟信号分成多少个等级，量化精度越高，音乐的声压振幅越接近原音乐。量化精度的单位是 bit（比特），CD 标准的量化精度是 16bit，DVD 标准的量化精度是 24bit。也可理解为一个采样点用多少 bit 表示（8/16/24/32bit）。</p>
+<p><strong>采样率</strong>：指每秒音频采样点个数（8000/44100Hz），采样率单位用 Hz（赫兹）表示。</p>
+<p><strong>声道</strong>：指声音在录制或播放时在不同空间位置采集或回收的相互独立的音频信号，所以声道数也就是声音录制时的音源数量或回收时相应的扬声器数量。常见的有单声道、立体声道、4 声道、5.1 声道、7.1 声道等。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://blog.csdn.net/hejjunlin/article/details/83304678?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param" target="_blank" rel="noopener external nofollow noreferrer">Android 音视频开发</a></p>
 
     </div>
@@ -420,7 +494,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#音视频基础知识"><span class="nav-number">1.</span> <span class="nav-text">音视频基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#视频编码"><span class="nav-number">1.1.</span> <span class="nav-text">视频编码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#音视频基础知识"><span class="nav-number">1.</span> <span class="nav-text">音视频基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#视频编码"><span class="nav-number">1.1.</span> <span class="nav-text">视频编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#音频编码"><span class="nav-number">1.2.</span> <span class="nav-text">音频编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多媒体播放组件"><span class="nav-number">1.3.</span> <span class="nav-text">多媒体播放组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见的多媒体框架及解决方案"><span class="nav-number">1.4.</span> <span class="nav-text">常见的多媒体框架及解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关知识点"><span class="nav-number">1.5.</span> <span class="nav-text">相关知识点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -435,7 +509,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">130</span>
+          <span class="site-state-item-count">131</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -514,12 +588,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">855k</span>
+    <span title="站点总字数">857k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:57</span>
+    <span title="站点阅读时长">12:59</span>
 </div>
 
 
