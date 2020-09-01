@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-11-03T12:00:27.000Z">
-<meta property="article:modified_time" content="2020-08-11T08:28:22.000Z">
+<meta property="article:modified_time" content="2020-08-26T01:53:30.394Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="消息机制">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-11 16:28:22" itemprop="dateModified" datetime="2020-08-11T16:28:22+08:00">2020-08-11</time>
+                <time title="修改时间：2020-08-26 09:53:30" itemprop="dateModified" datetime="2020-08-26T09:53:30+08:00">2020-08-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -456,6 +456,15 @@
 </li>
 </ul>
 <hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><p class="m_more_title_style">总结</p></h2><p><strong>消息传递机制</strong></p>
+<ul>
+<li>当通过 handler.sendMessage(msg) 发送消息时，实际上这个 Message 是发送到了与当前线程绑定的一个MessageQueue 中，</li>
+<li>然后与当前线程绑定的 Looper 会通过 queue.next()（MessageQueue的方法）方法不断地从MessageQueue 中取出新的 Message，</li>
+<li>next() 操作是一个阻塞操作，进而导致 loop 一直阻塞，无消息时阻塞等待，当有消息时，Looper 收到消息之后开始处理消息，调用 msg.target.dispatchMessage(msg) 方法将消息分发到与 Message 绑定的 Handler 中的 handler.handleMessage() 回调方法中。</li>
+<li>handler.handleMessage(msg) 在 dispatchMessage（Message msg）中回调的。</li>
+<li>Handler 处理消息过程；会检查 Message 的 callback 和 mCallback 是否为 null，当发送一条消息时，最终都会调用 enqueneMessage()，而 msg.target 得赋值就在这个方法中，也是在这里将 message 信息添加到MessageQueue 中。</li>
+</ul>
+<hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 <p><a href="https://blog.csdn.net/singwhatiwanna" target="_blank" rel="noopener external nofollow noreferrer">Android 开发艺术探索</a></p>
@@ -590,7 +599,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-的消息机制概述"><span class="nav-number">1.</span> <span class="nav-text">Android 的消息机制概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-的消息机制分析"><span class="nav-number">2.</span> <span class="nav-text">Android 的消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal-的工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">ThreadLocal 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列的工作原理"><span class="nav-number">2.2.</span> <span class="nav-text">消息队列的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Looper-的工作原理"><span class="nav-number">2.3.</span> <span class="nav-text">Looper 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler-的工作原理"><span class="nav-number">2.4.</span> <span class="nav-text">Handler 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主线程的消息循环"><span class="nav-number">2.5.</span> <span class="nav-text">主线程的消息循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler-的基本使用"><span class="nav-number">3.</span> <span class="nav-text">Handler 的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler-的内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">Handler 的内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些问题"><span class="nav-number">5.</span> <span class="nav-text">一些问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-的消息机制概述"><span class="nav-number">1.</span> <span class="nav-text">Android 的消息机制概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-的消息机制分析"><span class="nav-number">2.</span> <span class="nav-text">Android 的消息机制分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadLocal-的工作原理"><span class="nav-number">2.1.</span> <span class="nav-text">ThreadLocal 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#消息队列的工作原理"><span class="nav-number">2.2.</span> <span class="nav-text">消息队列的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Looper-的工作原理"><span class="nav-number">2.3.</span> <span class="nav-text">Looper 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Handler-的工作原理"><span class="nav-number">2.4.</span> <span class="nav-text">Handler 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主线程的消息循环"><span class="nav-number">2.5.</span> <span class="nav-text">主线程的消息循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler-的基本使用"><span class="nav-number">3.</span> <span class="nav-text">Handler 的基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Handler-的内存泄漏"><span class="nav-number">4.</span> <span class="nav-text">Handler 的内存泄漏</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些问题"><span class="nav-number">5.</span> <span class="nav-text">一些问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">7.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -605,7 +614,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -684,12 +693,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">857k</span>
+    <span title="站点总字数">870k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:59</span>
+    <span title="站点阅读时长">13:11</span>
 </div>
 
 

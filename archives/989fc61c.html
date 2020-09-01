@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-11-04T02:59:26.000Z">
-<meta property="article:modified_time" content="2020-08-10T08:02:57.000Z">
+<meta property="article:modified_time" content="2020-08-26T01:44:30.585Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="进程与线程">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-10 16:02:57" itemprop="dateModified" datetime="2020-08-10T16:02:57+08:00">2020-08-10</time>
+                <time title="修改时间：2020-08-26 09:44:30" itemprop="dateModified" datetime="2020-08-26T09:44:30+08:00">2020-08-26</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,7 +276,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>15 分钟</span>
+              <span>16 分钟</span>
             </span>
 
         </div>
@@ -427,10 +427,41 @@
 <li>submit()：提交任务有返回值。</li>
 </ul>
 <hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><p class="m_more_title_style">总结</p></h2><ul>
+<li><p>进程是拥有资源的基本单位，而线程是 CPU 调度的基本单位。</p>
+</li>
+<li><p>一个进程至少得有一个线程，每个线程执行的都是进程代码的某个片段。</p>
+</li>
+<li><p>当系统中存在大量线程时，系统以时间片轮转的方式调度每个线程。</p>
+</li>
+<li><p>实现线程的方式一般有两种：类继承 Thread 和实现 Runnable 接口，推荐使用后者。</p>
+</li>
+<li><p>线程分为主线程和子线程，前者处理 UI 交互，后者处理耗时操作。</p>
+</li>
+<li><p>Android 中充当线程的角色还有 AsyncTask，HandlerThread，IntentService。</p>
+</li>
+<li><p>线程池的优点，对线程来讲：可避免其性能开销，控制其最大并发数，对其进行简单管理。</p>
+</li>
+<li><p>线程池的具体实现是 ThreadPoolExecutor 类，通过其构造方法来配置线程池参数。</p>
+</li>
+<li><p>Android 中常见的线程池：FixedThreadPool，CachedThreadPool，ScheduledThreadPool，SingleThreadExecutor。</p>
+</li>
+</ul>
+<hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></p>
 <p><a href="https://blog.csdn.net/singwhatiwanna" target="_blank" rel="noopener external nofollow noreferrer">Android 开发艺术探索</a></p>
-
+<details class="m_more_content_details">
+  <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+      <li>fixed  英  [fɪkst]   美  [fɪkst]</li>
+      <li>cached  英  [kæʃt]   美  [kæʃt]</li>
+      <li>scheduled  英  ['ʃedjuːld]   美  [ˈskedʒuːld]</li>
+      <li>single  英  [ˈsɪŋɡl]   美  [ˈsɪŋɡl]</li>
+      <li>async  英  [əˈsɪŋk]   美  [æˈsɪŋk]</li>
+      <li>executor  英  [ɪɡˈzekjətə(r)]   美  [ɪɡˈzekjətər]</li>
+  </ul>
+</details>
     </div>
 
     
@@ -561,7 +592,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现线程的方式"><span class="nav-number">1.</span> <span class="nav-text">实现线程的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主线程和子线程"><span class="nav-number">2.</span> <span class="nav-text">主线程和子线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-中线程形态"><span class="nav-number">3.</span> <span class="nav-text">Android 中线程形态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask"><span class="nav-number">3.1.</span> <span class="nav-text">AsyncTask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask-的工作原理"><span class="nav-number">3.2.</span> <span class="nav-text">AsyncTask 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerThread"><span class="nav-number">3.3.</span> <span class="nav-text">HandlerThread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentService"><span class="nav-number">3.4.</span> <span class="nav-text">IntentService</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-中的线程池"><span class="nav-number">4.</span> <span class="nav-text">Android 中的线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">4.1.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的分类"><span class="nav-number">4.2.</span> <span class="nav-text">线程池的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池一般用法"><span class="nav-number">4.3.</span> <span class="nav-text">线程池一般用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实现线程的方式"><span class="nav-number">1.</span> <span class="nav-text">实现线程的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主线程和子线程"><span class="nav-number">2.</span> <span class="nav-text">主线程和子线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-中线程形态"><span class="nav-number">3.</span> <span class="nav-text">Android 中线程形态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask"><span class="nav-number">3.1.</span> <span class="nav-text">AsyncTask</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncTask-的工作原理"><span class="nav-number">3.2.</span> <span class="nav-text">AsyncTask 的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HandlerThread"><span class="nav-number">3.3.</span> <span class="nav-text">HandlerThread</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentService"><span class="nav-number">3.4.</span> <span class="nav-text">IntentService</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-中的线程池"><span class="nav-number">4.</span> <span class="nav-text">Android 中的线程池</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ThreadPoolExecutor"><span class="nav-number">4.1.</span> <span class="nav-text">ThreadPoolExecutor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池的分类"><span class="nav-number">4.2.</span> <span class="nav-text">线程池的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程池一般用法"><span class="nav-number">4.3.</span> <span class="nav-text">线程池一般用法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -576,7 +607,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">131</span>
+          <span class="site-state-item-count">133</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -655,12 +686,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">857k</span>
+    <span title="站点总字数">870k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">12:59</span>
+    <span title="站点阅读时长">13:11</span>
 </div>
 
 
