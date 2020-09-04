@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解上下文 Context">
+<meta property="og:url" content="https://jianghouren.com/archives/e3bb0b27.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:description" content="…">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_context%E7%9A%84%E5%85%B3%E8%81%94%E7%B1%BB.jpeg?imageView2/2/h/600">
+<meta property="article:published_time" content="2020-09-03T12:41:50.000Z">
+<meta property="article:modified_time" content="2020-09-04T01:36:46.754Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="理解系列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/android_context%E7%9A%84%E5%85%B3%E8%81%94%E7%B1%BB.jpeg?imageView2/2/h/600">
+
+<link rel="canonical" href="https://jianghouren.com/archives/e3bb0b27.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>理解上下文 Context | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-链接">
+
+    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/e3bb0b27.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          理解上下文 Context
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-03 20:41:50" itemprop="dateCreated datePublished" datetime="2020-09-03T20:41:50+08:00">2020-09-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-04 09:36:46" itemprop="dateModified" datetime="2020-09-04T09:36:46+08:00">2020-09-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/e3bb0b27.html" class="post-meta-item leancloud_visitors" data-flag-title="理解上下文 Context" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/e3bb0b27.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/e3bb0b27.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>…</p>
+<a id="more"></a>
+
+<p>Context 也就是上下文对象，是 Android 常用的类，四大组件都会涉及 Context。</p>
+<h2 id="Context-的关联类"><a href="#Context-的关联类" class="headerlink" title="Context 的关联类"></a><p class="m_more_title_style">Context 的关联类</p></h2><p>Context 意为上下文，是一个应用程序环境信息的接口。它的使用场景总的来说分为两大类：</p>
+<ul>
+<li>使用 Context 调用方法，比如启动 Activity、访问资源、调用系统级服务等。</li>
+<li>调用方法时传入 Context，比如弹出 Toast、创建 Dialog 等。</li>
+</ul>
+<p>Activity、Service 和 Application 都间接地继承自 Context，因此可以计算出一个应用程序进程中有多少个 Context，这个数量等于 Activity 和 Service 的总个数加 1（ 1 指的是 Application 的数量）。</p>
+<p>Context 是一个抽象类，它的内部定义了很多方法以及静态常量，它的具体实现类为 ContextImpl。和 Context 相关联的类，除了 ContextImpl，还有 ContextWrapper、ContextThemeWrapper 和 Activity 等。</p>
+<img data-src="https://imgsw.cn/static/images/android_context的关联类.jpeg?imageView2/2/h/600">
+
+<ul>
+<li>ContextImpl 和 ContextWrapper 继承自 Context。</li>
+<li>ContextWrapper 内部包含 Context 类型的 mBase 对象，mBase 具体指向 ContextImpl。</li>
+<li>ContextImpl 提供了很多功能，但是外界需要使用并拓展 ContextImpl 的功能，因此设计上使用了装饰模式，ContextWrapper 是装饰类，它对 ContextImpl 进行包装，ContextWrapper 主要是起了方法传递的作用，ContextWrapper 中几乎所有的方法都是调用 ContextImpl 的相应方法来实现的。</li>
+<li>ContextThemeWrapper、Service 和 Application 都继承自 ContextWrapper，这样它们都可以通过 mBase 来使用 Context 的方法，同时它们也是装饰类，在 ContextWrapper 的基础上又添加了不同的功能。</li>
+<li>ContextThemeWrapper 中包含和主题相关的方法（比如 getTheme 方法），因此，需要主题的 Activity 继承 ContextThemeWrapper，而不需要主题的 Service 继承 ContextWrapper。</li>
+</ul>
+<p>Context 的关联类采用了装饰模式，主要有以下的优点：</p>
+<ul>
+<li>使用者（比如 Service）能够更方便地使用 Context。</li>
+<li>如果 ContextImpl 发生了变化，它的装饰类 ContextWrapper 不需要做任何修改。</li>
+<li>ContextImpl 的实现不会暴露给使用者，使用者也不必关心 ContextImpl 的实现。</li>
+<li>通过组合而非继承的方式，拓展 ContextImpl 的功能，在运行时选择不同的装饰类，实现不同的功能。</li>
+</ul>
+<p>为了更好地理解 Context 的关联类的设计理念，接下来分别介绍 Application 、Activity、Service 的 Context 的创建过程。</p>
+<hr>
+<h2 id="Application-Context-的创建过程"><a href="#Application-Context-的创建过程" class="headerlink" title="Application Context 的创建过程"></a><p class="m_more_title_style">Application Context 的创建过程</p></h2><p>在一个应用程序启动完成后，应用程序就会有一个全局的 Application Context，并且我们可以通过调用 getApplicationContext 来获取。接下来就从应用程序启动过程开始着手分析 Application Context 的创建过程。</p>
+<p>ActivityThread 类作为应用程序进程的主线程管理类，它会调用它的内部类 ApplicationThread 的 scheduleLaunchActivity() 启动 Activity，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityThread.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>        </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">scheduleLaunchActivity</span><span class="params">(Intent intent, IBinder token, <span class="keyword">int</span> ident,</span></span></span><br><span class="line"><span class="function"><span class="params">                ActivityInfo info, Configuration curConfig, Configuration overrideConfig,</span></span></span><br><span class="line"><span class="function"><span class="params">                CompatibilityInfo compatInfo, String referrer, IVoiceInteractor voiceInteractor,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> procState, Bundle state, PersistableBundle persistentState,</span></span></span><br><span class="line"><span class="function"><span class="params">                List&lt;ResultInfo&gt; pendingResults, List&lt;ReferrerIntent&gt; pendingNewIntents,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">boolean</span> notResumed, <span class="keyword">boolean</span> isForward, ProfilerInfo profilerInfo)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            updateProcessState(procState, <span class="keyword">false</span>);</span><br><span class="line"></span><br><span class="line">            ActivityClientRecord r = <span class="keyword">new</span> ActivityClientRecord();</span><br><span class="line"></span><br><span class="line">            r.token = token;</span><br><span class="line">            r.ident = ident;</span><br><span class="line">            r.intent = intent;</span><br><span class="line">            r.referrer = referrer;</span><br><span class="line">            r.voiceInteractor = voiceInteractor;</span><br><span class="line">            r.activityInfo = info;</span><br><span class="line">            ...</span><br><span class="line">            updatePendingConfiguration(curConfig);</span><br><span class="line"><span class="comment">// 向 H 类发送 LAUNCH_ACTIVITY 类型的消息，目的是将启动 Activity 的逻辑放在主线程的消息队列中，这样启动 Activity 的逻辑会在主线程中执行。</span></span><br><span class="line">            sendMessage(H.LAUNCH_ACTIVITY, r);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// H 继承自 Handler，是 ActivityThread 的内部类。  </span></span><br><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">H</span> <span class="keyword">extends</span> <span class="title">Handler</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> LAUNCH_ACTIVITY         = <span class="number">100</span>;</span><br><span class="line">      ...</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (DEBUG_MESSAGES) Slog.v(TAG, <span class="string">"&gt;&gt;&gt; handling: "</span> + codeToString(msg.what));</span><br><span class="line">            <span class="keyword">switch</span> (msg.what) &#123;</span><br><span class="line">                <span class="keyword">case</span> LAUNCH_ACTIVITY: &#123;</span><br><span class="line">                    Trace.traceBegin(Trace.TRACE_TAG_ACTIVITY_MANAGER, <span class="string">"activityStart"</span>);</span><br><span class="line">                    <span class="keyword">final</span> ActivityClientRecord r = (ActivityClientRecord) msg.obj;</span><br><span class="line"><span class="comment">// 通过 getPackageInfoNoCheck 方法获得 LoadedApk 类型的对象，并将该对象赋值给 ActivityClientRecord 的成员变量 packageInfo，其中 LoadedApk 用来描述已加载的 APK 文件。</span></span><br><span class="line">                    r.packageInfo = getPackageInfoNoCheck(</span><br><span class="line">                            r.activityInfo.applicationInfo, r.compatInfo);</span><br><span class="line"><span class="comment">// 调用了 ActivityThread 的 handleLaunchActivity 方法。                  </span></span><br><span class="line">                    handleLaunchActivity(r, <span class="keyword">null</span>, <span class="string">"LAUNCH_ACTIVITY"</span>);</span><br><span class="line">                    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">                &#125; <span class="keyword">break</span>;</span><br><span class="line">     ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 handleLaunchActivity 方法中调用了 ActivityThread 的 performLaunchActivity 方法，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleLaunchActivity</span><span class="params">(ActivityClientRecord r, Intent customIntent, String reason)</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">    Activity a = performLaunchActivity(r, customIntent);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> Activity <span class="title">performLaunchActivity</span><span class="params">(ActivityClientRecord r, Intent customIntent)</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// ActivityClientRecord 的成员变量 packageInfo 是 LoadedApk 类型的。</span></span><br><span class="line">            Application app = r.packageInfo.makeApplication(<span class="keyword">false</span>, mInstrumentation);  </span><br><span class="line">          ...</span><br><span class="line">        &#125;    </span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>performLaunchActivity 方法中有很多重要的逻辑，这里只保留了和 Application Context 相关的逻辑，接下来查看 LoadedApk 的 makeApplication 方法，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/LoadedApk.java" target="_blank" rel="noopener external nofollow noreferrer">LoadedApk.java</a>，做了如下几件事：</p>
+<ul>
+<li><p>判断 mApplication 不为 null 则返回 mApplication，这里假设是第一次启动应用程序，因此 mApplication 为null。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Application mApplication;</span><br><span class="line">...       </span><br><span class="line">	<span class="keyword">if</span> (mApplication != <span class="keyword">null</span>) &#123;         </span><br><span class="line">  	<span class="keyword">return</span> mApplication;        </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过 ContextImpl 的 createAppContext 方法来创建 ContextImpl。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ContextImpl appContext = ContextImpl.createAppContext(mActivityThread, <span class="keyword">this</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 Application，在 Instrumentation 的 newApplication 方法中传入了 ClassLoader 类型的对象以及上一步创建的 ContextImpl 。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Application app = <span class="keyword">null</span>;</span><br><span class="line">...</span><br><span class="line">app = mActivityThread.mInstrumentation.newApplication(cl, appClass, appContext);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 Application 赋值给 ContextImpl 的 Context 类型的成员变量 mOuterContext，这样 ContextImpl 中也包含了 Application 的引用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appContext.setOuterContext(app);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 Application 赋值给 LoadedApk 的成员变量 mApplication，这个 mApplication 是 Application 类型的对象，它用来代表 Application Context，在 Application Context 的获取过程中会再次提到 mApplication。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mApplication = app;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>接下来查看 Instrumentation 的 newApplication 方法，看下 Application 是如何创建的，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/Instrumentation.java" target="_blank" rel="noopener external nofollow noreferrer">Instrumentation.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Application <span class="title">newApplication</span><span class="params">(ClassLoader cl, String className, Context context)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> InstantiationException, IllegalAccessException,</span></span><br><span class="line"><span class="function">        ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> newApplication(cl.loadClass(className), context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 有两个 newApplication 重载方法，最终会调用这个重载方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">public</span> Application <span class="title">newApplication</span><span class="params">(Class&lt;?&gt; clazz, Context context)</span></span></span><br><span class="line"><span class="function">        <span class="keyword">throws</span> InstantiationException, IllegalAccessException,</span></span><br><span class="line"><span class="function">        ClassNotFoundException </span>&#123;</span><br><span class="line">    <span class="comment">// 通过反射来创建 Application。</span></span><br><span class="line">    Application app = (Application)clazz.newInstance();</span><br><span class="line">    <span class="comment">// 调用 Application 的 attach 方法，将 ContextImpl 传进去。</span></span><br><span class="line">    app.attach(context);</span><br><span class="line">    <span class="comment">// 返回 Application。      </span></span><br><span class="line">    <span class="keyword">return</span> app;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在 Application 的 attach 方法中调用了 attachBaseContext 方法，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/Application.java" target="_blank" rel="noopener external nofollow noreferrer">Application.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* package */</span> <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    attachBaseContext(context);</span><br><span class="line">    mLoadedApk = ContextImpl.getImpl(context).mPackageInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>attachBaseContext 方法在 Application 的父类 ContextWrapper 中实现如下， <a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/ContextWrapper.java" target="_blank" rel="noopener external nofollow noreferrer">ContextWrapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 这个一路传递过来的 base 指的是 ContextImpl，它是 Context 的实现类。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mBase != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Base context already set"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 将 ContextImpl 赋值给 ContextWrapper 的 Context 类型的成员变量 mBase，这样 ContextWrapper 中就可以使用 Context 的方法，而 Application 继承自 ContextWrapper，同样可以使用 Context 的方法。</span></span><br><span class="line">    mBase = base;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Application 的 attach 方法的作用就是使 Application 可以使用 Context 的方法，这样 Application 才可以用来代表 Application Context。</p>
+<h2 id="Application-Context-的获取过程"><a href="#Application-Context-的获取过程" class="headerlink" title="Application Context 的获取过程"></a><p class="m_more_title_style">Application Context 的获取过程</p></h2><p>我们是通过调用 getApplicationContext 方法来获得 Application Context，此方法在 ContextWrapper 中实现。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/ContextWrapper.java" target="_blank" rel="noopener external nofollow noreferrer">ContextWrapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Context <span class="title">getApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// mBase 指的是 ContextImpl</span></span><br><span class="line">    <span class="keyword">return</span> mBase.getApplicationContext();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 ContextImpl 的 getApplicationContext()。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ContextImpl.java" target="_blank" rel="noopener external nofollow noreferrer">ContextImpl.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Context <span class="title">getApplicationContext</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 如果 LoadedApk 类型的 mPackageInfo 不为 null，则调用它的 getApplication 方法，否则调用 ActivityThread 的 getApplication 方法。</span></span><br><span class="line">  <span class="comment">// 由于应用程序这时已经启动，因此 LoadedApk 不会为 null，则会调用 LoadedApk  的 getApplication 方法。</span></span><br><span class="line">    <span class="keyword">return</span> (mPackageInfo != <span class="keyword">null</span>) ?</span><br><span class="line">            mPackageInfo.getApplication() : mMainThread.getApplication();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>LoadedApk  的 getApplication 方法。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/LoadedApk.java" target="_blank" rel="noopener external nofollow noreferrer">LoadedApk.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Application <span class="title">getApplication</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// mApplication 在 LoadedApk 的 makeApplication 方法中被赋值。</span></span><br><span class="line">    <span class="keyword">return</span> mApplication;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，便通过 getApplicationContext 方法获取到了 Application Context。</p>
+<h2 id="Activity-的-Context-创建过程"><a href="#Activity-的-Context-创建过程" class="headerlink" title="Activity 的 Context 创建过程"></a><p class="m_more_title_style">Activity 的 Context 创建过程</p></h2><p>想要在 Activity 中使用 Context 提供的方法，务必要先创建 Context，Activity 的 Context 会在 Activity 的启动过程中被创建。</p>
+<p>ActivityThread 是应用程序进程的主线程管理类，它的内部类 ApplicationThread 会调用 scheduleLaunchActivity 方法启动 Activity，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityThread.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span>        </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">scheduleLaunchActivity</span><span class="params">(Intent intent, IBinder token, <span class="keyword">int</span> ident,</span></span></span><br><span class="line"><span class="function"><span class="params">                ActivityInfo info, Configuration curConfig, Configuration overrideConfig,</span></span></span><br><span class="line"><span class="function"><span class="params">                CompatibilityInfo compatInfo, String referrer, IVoiceInteractor voiceInteractor,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">int</span> procState, Bundle state, PersistableBundle persistentState,</span></span></span><br><span class="line"><span class="function"><span class="params">                List&lt;ResultInfo&gt; pendingResults, List&lt;ReferrerIntent&gt; pendingNewIntents,</span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">boolean</span> notResumed, <span class="keyword">boolean</span> isForward, ProfilerInfo profilerInfo)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">            updateProcessState(procState, <span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 将启动 Activity 的参数封装成 ActivityClientRecord</span></span><br><span class="line">            ActivityClientRecord r = <span class="keyword">new</span> ActivityClientRecord();</span><br><span class="line"></span><br><span class="line">            r.token = token;</span><br><span class="line">            r.ident = ident;</span><br><span class="line">            r.intent = intent;</span><br><span class="line">            r.referrer = referrer;</span><br><span class="line">            ...</span><br><span class="line"><span class="comment">// 向 H 类发送类型为 LAUNCH_ACTIVITY 的消息，并将 ActivityClientRecord 传递过去。</span></span><br><span class="line">            sendMessage(H.LAUNCH_ACTIVITY, r);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>H 类的 handleMessage 方法会对此类型的消息进行处理，其中调用了 ActivityThread 的 handleLaunchActivity 方法，此方法又调用了 performLaunchActivity 方法，此方法中有很多重要的逻辑，这里只保留 Activity 的 Context 相关的逻辑。 <a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityThread.java</a></p>
+<ul>
+<li><p>创建 Activity 的 ContextImpl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 createBaseContextForActivity 方法中会调用 ContextImpl 的 createActivityContext 方法来创建 ContextImpl。</span></span><br><span class="line">ContextImpl appContext = createBaseContextForActivity(r);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建 Activity 的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">activity = mInstrumentation.newActivity(cl, component.getClassName(), r.intent);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将创建的 Activity 实例赋值给 ContextImpl 的成员变量 mOuterContext，这样 ContextImpl 也可以访问 Activity 的变量和方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appContext.setOuterContext(activity);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将创建的 ContextImpl 传入 activity 的 attach 方法中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">activity.attach(appContext, <span class="keyword">this</span>, getInstrumentation(), r.token,</span><br><span class="line">        r.ident, app, r.intent, r.activityInfo, title, r.parent,</span><br><span class="line">        r.embeddedID, r.lastNonConfigurationInstances, config,</span><br><span class="line">        r.referrer, r.voiceInteractor, window, r.configCallback);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在 mInstrumentation 的 callActivityOnCreate 方法中会调用 Activity 的 onCreate 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (r.isPersistable()) &#123;</span><br><span class="line">    mInstrumentation.callActivityOnCreate(activity, r.state, r.persistentState);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    mInstrumentation.callActivityOnCreate(activity, r.state);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>接下来查看 Activity 的 attach 方法。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/Activity.java" target="_blank" rel="noopener external nofollow noreferrer">Activity.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(Context context, ActivityThread aThread,</span></span></span><br><span class="line"><span class="function"><span class="params">         Instrumentation instr, IBinder token, <span class="keyword">int</span> ident,</span></span></span><br><span class="line"><span class="function"><span class="params">         Application application, Intent intent, ActivityInfo info,</span></span></span><br><span class="line"><span class="function"><span class="params">         CharSequence title, Activity parent, String id,</span></span></span><br><span class="line"><span class="function"><span class="params">         NonConfigurationInstances lastNonConfigurationInstances,</span></span></span><br><span class="line"><span class="function"><span class="params">         Configuration config, String referrer, IVoiceInteractor voiceInteractor,</span></span></span><br><span class="line"><span class="function"><span class="params">         Window window, ActivityConfigCallback activityConfigCallback)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// attachBaseContext 方法在 ContextThemeWrapper 中实现，此方法内部调用了 ContextThemeWrapper 的父类 ContextWrapper 的 attachBaseContext 方法。（super.attachBaseContext(newBase)）</span></span><br><span class="line">     attachBaseContext(context);</span><br><span class="line">     mFragments.attachHost(<span class="keyword">null</span> <span class="comment">/*parent*/</span>);</span><br><span class="line"> <span class="comment">// 创建 PhoneWindow，它代表应用程序窗口。</span></span><br><span class="line"> <span class="comment">// PhoneWindow 在运行中会间接触发很多事件，比如点击、菜单弹出、屏幕焦点变化等事件，这些事件需要转发给与 PhoneWindow 关联的 Activity，转发操作通过 Window.Callback 接口实现，Activity 实现了这个接口。</span></span><br><span class="line">     mWindow = <span class="keyword">new</span> PhoneWindow(<span class="keyword">this</span>, window, activityConfigCallback);</span><br><span class="line">     mWindow.setWindowControllerCallback(<span class="keyword">this</span>);</span><br><span class="line">  <span class="comment">// 将当前 Activity 通过 Window 的 setCallback 方法传递给 PhoneWindow。</span></span><br><span class="line">     mWindow.setCallback(<span class="keyword">this</span>);</span><br><span class="line">     mWindow.setOnWindowDismissedCallback(<span class="keyword">this</span>);</span><br><span class="line">     mWindow.getLayoutInflater().setPrivateFactory(<span class="keyword">this</span>);</span><br><span class="line">    ...</span><br><span class="line">  <span class="comment">// 为 PhoneWindow 设置 WindowManager。    </span></span><br><span class="line">    mWindow.setWindowManager(</span><br><span class="line">            (WindowManager)context.getSystemService(Context.WINDOW_SERVICE),</span><br><span class="line">            mToken, mComponent.flattenToString(),</span><br><span class="line">            (info.flags &amp; ActivityInfo.FLAG_HARDWARE_ACCELERATED) != <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">if</span> (mParent != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mWindow.setContainer(mParent.getWindow());</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 获取 WindowManager 并赋值给 Activity 的成员变量 mWindowManager。</span></span><br><span class="line">    mWindowManager = mWindow.getWindowManager();</span><br><span class="line">    mCurrentConfig = config;</span><br><span class="line"></span><br><span class="line">    mWindow.setColorMode(info.colorMode);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 ContextWrapper 的 attachBaseContext 方法 。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/ContextWrapper.java" target="_blank" rel="noopener external nofollow noreferrer">ContextWrapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* base 指的是一路传递过来的 Activity 的 ContextImpl，将它赋值给 ContextWrapper 的成员变量 mBase。这样 ContextWrapper 的功能就可以交由 ContextImpl 来处理。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mBase != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Base context already set"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mBase = base;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>举个例子：<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/ContextWrapper.java" target="_blank" rel="noopener external nofollow noreferrer">ContextWrapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 当调用 getTheme 方法时，实际是调用了 ContextImpl 的 getTheme 方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> Resources.<span class="function">Theme <span class="title">getTheme</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> mBase.getTheme();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：在启动 Activity 的过程中创建 ContextImpl，并赋值给 ContextWrapper 的成员变量 mBase。Activity 继承自 ContextWrapper 的子类 ContextThemeWrapper，这样在 Activity 中就可以使用 Context 中定义的方法了。</p>
+<h2 id="Service-的-Context-创建过程"><a href="#Service-的-Context-创建过程" class="headerlink" title="Service 的 Context 创建过程"></a><p class="m_more_title_style">Service 的 Context 创建过程</p></h2><p>与 Activity 的过程类似，是在 Service 的启动过程中被创建的。</p>
+<p>ActivityThread 的内部类 ApplicationThread 会调用 scheduleCreateService 方法启动 Service，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityThread.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">scheduleCreateService</span><span class="params">(IBinder token,</span></span></span><br><span class="line"><span class="function"><span class="params">        ServiceInfo info, CompatibilityInfo compatInfo, <span class="keyword">int</span> processState)</span> </span>&#123;</span><br><span class="line">    updateProcessState(processState, <span class="keyword">false</span>);</span><br><span class="line">    CreateServiceData s = <span class="keyword">new</span> CreateServiceData();</span><br><span class="line">    s.token = token;</span><br><span class="line">    s.info = info;</span><br><span class="line">    s.compatInfo = compatInfo;</span><br><span class="line"></span><br><span class="line">    sendMessage(H.CREATE_SERVICE, s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>向 H 类发送 CREATE_SERVICE 类型消息，H 类的 handleMessage 方法会对此类型消息进行处理，其中调用了 ActivityThread 的 handleCreateService 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">handleCreateService</span><span class="params">(CreateServiceData data)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (localLOGV) Slog.v(TAG, <span class="string">"Creating service "</span> + data.info.name);</span><br><span class="line"><span class="comment">// 创建 ContextImpl。</span></span><br><span class="line">        ContextImpl context = ContextImpl.createAppContext(<span class="keyword">this</span>, packageInfo);</span><br><span class="line">        context.setOuterContext(service);</span><br><span class="line"></span><br><span class="line">        Application app = packageInfo.makeApplication(<span class="keyword">false</span>, mInstrumentation);</span><br><span class="line"><span class="comment">// 将创建的 ContextImpl 传入到 service 的 attach 方法中。</span></span><br><span class="line">        service.attach(context, <span class="keyword">this</span>, data.info.name, data.token, app,</span><br><span class="line">                ActivityManager.getService());</span><br><span class="line">        service.onCreate();</span><br><span class="line">        mServices.put(data.token, service);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            ActivityManager.getService().serviceDoneExecuting(</span><br><span class="line">                    data.token, SERVICE_DONE_EXECUTING_ANON, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">            <span class="keyword">throw</span> e.rethrowFromSystemServer();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 service 的 attach 方法。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/Service.java" target="_blank" rel="noopener external nofollow noreferrer">Service.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">attach</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        Context context,</span></span></span><br><span class="line"><span class="function"><span class="params">        ActivityThread thread, String className, IBinder token,</span></span></span><br><span class="line"><span class="function"><span class="params">        Application application, Object activityManager)</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 调用了 ContextWrapper 的 attachBaseContext 方法。</span></span><br><span class="line">    attachBaseContext(context);</span><br><span class="line">    mThread = thread;           <span class="comment">// <span class="doctag">NOTE:</span>  unused - remove?</span></span><br><span class="line">    mClassName = className;</span><br><span class="line">    mToken = token;</span><br><span class="line">    mApplication = application;</span><br><span class="line">    mActivityManager = (IActivityManager)activityManager;</span><br><span class="line">    mStartCompatibility = getApplicationInfo().targetSdkVersion</span><br><span class="line">            &lt; Build.VERSION_CODES.ECLAIR;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 ContextWrapper 的 attachBaseContext 方法 。<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/content/ContextWrapper.java" target="_blank" rel="noopener external nofollow noreferrer">ContextWrapper.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* base 就是一路传递过来的 ContextImpl，将它赋值给 ContextWrapper 的 Context 类型的成员变量 mBase。这样 ContextWrapper 中就可以使用 Context 的方法。而 Service 继承自 ContextWrapper，同样可以使用  Context 的方法。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">attachBaseContext</span><span class="params">(Context base)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mBase != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Base context already set"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    mBase = base;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>注：基于 Android 8.0 版本源码分析</strong></p>
+<p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
+<details class="m_more_content_details">
+  <summary>单词音标：</summary>
+
+
+
+</details>
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/e3bb0b27.html" title="理解上下文 Context">https://jianghouren.com/archives/e3bb0b27.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%90%86%E8%A7%A3%E7%B3%BB%E5%88%97/" rel="tag"><i class="fa fa-tag"></i> 理解系列</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/302d6e0e.html" rel="prev" title="关于学习方式的理解">
+      <i class="fa fa-chevron-left"></i> 关于学习方式的理解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/738a4eb5.html" rel="next" title="理解 ActivityManagerService">
+      理解 ActivityManagerService <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Context-的关联类"><span class="nav-number">1.</span> <span class="nav-text">Context 的关联类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Context-的创建过程"><span class="nav-number">2.</span> <span class="nav-text">Application Context 的创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Application-Context-的获取过程"><span class="nav-number">3.</span> <span class="nav-text">Application Context 的获取过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity-的-Context-创建过程"><span class="nav-number">4.</span> <span class="nav-text">Activity 的 Context 创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-的-Context-创建过程"><span class="nav-number">5.</span> <span class="nav-text">Service 的 Context 创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">137</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">37</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hencoder.com/" title="https:&#x2F;&#x2F;hencoder.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· HenCoder</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+
+      <div class="skin_peeler diyclass" id="skin_peeler"></div>
+      <div class="read_aloud diyclass" id="read_aloud"></div>
+      <div class="audioImg diyclass" id="audioImg"></div>
+      <audio id="audioMp3" controls="true" loop="loop"></audio>
+      <script src="/js/my-diy.js"></script>
+    </main>
+   
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">896k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">13:35</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

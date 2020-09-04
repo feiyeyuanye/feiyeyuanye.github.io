@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-09-05T04:54:03.000Z">
-<meta property="article:modified_time" content="2020-09-02T03:45:38.266Z">
+<meta property="article:modified_time" content="2020-09-03T09:12:48.834Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="启动过程">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-02 11:45:38" itemprop="dateModified" datetime="2020-09-02T11:45:38+08:00">2020-09-02</time>
+                <time title="修改时间：2020-09-03 17:12:48" itemprop="dateModified" datetime="2020-09-03T17:12:48+08:00">2020-09-03</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.1k</span>
+              <span>9.3k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -370,10 +370,44 @@
 
 </li>
 </ul>
-<p>applicationInit () 内部会调用 invokeStaticMain(args.startClass, args.startArgs, classLoader);，它的第一个参数指的就是前面的 android.app.ActivityThread 参数。invokeStaticMain() 做了如下几件事：<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/RuntimeInit.java" target="_blank" rel="noopener external nofollow noreferrer">RuntimeInit.java</a></p>
+<p>applicationInit() 内部会调用 invokeStaticMain(args.startClass, args.startArgs, classLoader);，它的第一个参数指的就是前面的 android.app.ActivityThread 参数。invokeStaticMain() 做了如下几件事：<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/RuntimeInit.java" target="_blank" rel="noopener external nofollow noreferrer">RuntimeInit.java</a></p>
 <ul>
-<li></li>
+<li><p>通过反射获得 android.app.ActivityThread 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; cl;</span><br><span class="line">    cl = Class.forName(className, <span class="keyword">true</span>, classLoader);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得 ActivityThread 的 main 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Method m;</span><br><span class="line">    m = cl.getMethod(<span class="string">"main"</span>, <span class="keyword">new</span> Class[] &#123; String[].class &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将上一步的 main 方法传入 Zygote 中的 MethodAndArgsCaller 类的构造方法中，这里抛出的 MethodAndArgsCaller 异常会被 Zygote 的 main 方法捕获。这里采用了抛出异常而不是直接调用 ActivityThread 的 main，原理和 Zygote 处理 SystemServer 进程是一样的，这种抛出异常的处理会清除所有的设置过程需要的堆栈帧，并让 ActivityThread 的 main 方法看起来像是应用程序进程的入口方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> Zygote.MethodAndArgsCaller(m, argv);</span><br></pre></td></tr></table></figure>
+
+</li>
 </ul>
+<p>接下来 ZygoteInit.java 的 main 方法通过 try catch 捕获到 MethodAndArgsCaller 异常时，会调用 MethodAndArgsCaller 的 run 方法，MethodAndArgsCaller 是 Zygote.java 的静态内部类。在 run 方法中调用了 <code>mMethod.invoke(null, new Object[] { mArgs });</code>，mMethod 指的就是 ActivityThread 的 main 方法，调用了 mMethod 的 invoke 方法后，ActivityThread 的 main 方法就会被动态调用，应用程序进程就进入了 ActivityThread 的 main 方法中。到这里，应用程序进程就创建完成了并且运行了主线程的管理类 ActivityThread。</p>
+<hr>
+<h2 id="Binder-线程池启动过程"><a href="#Binder-线程池启动过程" class="headerlink" title="Binder 线程池启动过程"></a><p class="m_more_title_style">Binder 线程池启动过程</p></h2><p>当 Zygote 接收请求并创建应用程序进程，在应用程序进程创建过程中会启动 Binder 线程池，查看 ZygoteInit 类的 zygoteInit 方法，通过 <code>ZygoteInit.nativeZygoteInit();</code> 在新创建的应用程序进程中创建 Binder 线程池，nativeZygoteInit() 是一个 JNI 方法 <code>private static final native void nativeZygoteInit();</code>，它对应的函数是在 AndroidRuntime.cpp 的 JNINativeMethod 数组中的 com_android_internal_os_ZygoteInit_nativeZygoteInit，在 <a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/jni/AndroidRuntime.cpp" target="_blank" rel="noopener external nofollow noreferrer">AndroidRuntime.cpp</a> 中可以看到，com_android_internal_os_ZygoteInit_nativeZygoteInit 函数如下，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">com_android_internal_os_ZygoteInit_nativeZygoteInit</span><span class="params">(JNIEnv* env, jobject clazz)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    gCurRuntime-&gt;onZygoteInit();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>gCurRuntime 是 AndroidRuntime 类型的指针，它是在 AndroidRuntime 初始化时就创建的，如下所示，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="keyword">static</span> AndroidRuntime* gCurRuntime = <span class="literal">NULL</span>;</span><br><span class="line">...</span><br><span class="line">AndroidRuntime::AndroidRuntime(<span class="keyword">char</span>* argBlockStart, <span class="keyword">const</span> <span class="keyword">size_t</span> argBlockLength) :</span><br><span class="line">        mExitWithoutCleanup(<span class="literal">false</span>),</span><br><span class="line">        mArgBlockStart(argBlockStart),</span><br><span class="line">        mArgBlockLength(argBlockLength)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    gCurRuntime = <span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AppRuntime 继承自 AndroidRuntime，AppRuntime 创建时就会调用 AndroidRuntime 的构造函数，gCurRuntime 就会被初始化，它指向的是 AppRuntime，接下来查看 AppRuntime 的 onZygoteInit 函数，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/cmds/app_process/app_main.cpp" target="_blank" rel="noopener external nofollow noreferrer">app_main.cpp</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">onZygoteInit</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sp&lt;ProcessState&gt; proc = ProcessState::self();</span><br><span class="line">    ALOGV(<span class="string">"App process: starting thread pool.\n"</span>);</span><br><span class="line">    proc-&gt;startThreadPool();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后一行会调用 ProcessState 的 startThreadPool 函数来启动 Binder 线程池，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/native/libs/binder/ProcessState.cpp" target="_blank" rel="noopener external nofollow noreferrer">ProcessState.cpp</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> ProcessState::startThreadPool()</span><br><span class="line">&#123;</span><br><span class="line">    AutoMutex _l(mLock);</span><br><span class="line">    <span class="keyword">if</span> (!mThreadPoolStarted) &#123;</span><br><span class="line">        mThreadPoolStarted = <span class="literal">true</span>;</span><br><span class="line">        spawnPooledThread(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>支持 Binder 通信的进程中都有一个 ProcessState 类，它里面有一个 mThreadPoolStarted 变量，表示 Binder 线程池是否已经被启动过，默认值是 false。在每次调用 startThreadPool() 时都会先检查这个标记，从而确保 Binder 线程池只会被启动一次。如果 Binder 线程池未被启动，则设置 mThreadPoolStarted 为 true，并调用 spawnPooledThread() 来创建线程池中的第一个线程，也就是线程池的主线程，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> ProcessState::spawnPooledThread(<span class="keyword">bool</span> isMain)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (mThreadPoolStarted) &#123;</span><br><span class="line">        String8 name = makeBinderThreadName();</span><br><span class="line">        ALOGV(<span class="string">"Spawning new pooled thread, name=%s\n"</span>, name.<span class="built_in">string</span>());</span><br><span class="line">        sp&lt;Thread&gt; t = <span class="keyword">new</span> PoolThread(isMain);</span><br><span class="line">        t-&gt;run(name.<span class="built_in">string</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 Binder 线程为一个 PoolThread。并调用了它的 run 函数来启动一个新线程，接下来查看 PoolThread 类，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PoolThread 类继承了 Thread 类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PoolThread</span> :</span> <span class="keyword">public</span> Thread</span><br><span class="line">&#123;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">threadLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      <span class="comment">// 调用了 IPCThreadState 的 joinThreadPool 函数，将当前线程注册到 Binder 驱动程序中，这样创建的线程就加入了 Binder 线程池中，新创建的应用程序进程就支持 Binder 进程间通信了，我们只需要创建当前进程的 Binder 对象，并将它注册到 ServiceManager 中就可以实现 Binder 进程间通信，而不必关心进程是如何通过 Binder 进行通信的。</span></span><br><span class="line">        IPCThreadState::self()-&gt;joinThreadPool(mIsMain);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">bool</span> mIsMain;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="消息循环创建过程"><a href="#消息循环创建过程" class="headerlink" title="消息循环创建过程"></a><p class="m_more_title_style">消息循环创建过程</p></h2><p>当 Zygote 接收请求并创建应用程序进程，在应用程序进程启动后会创建消息循环。首先回到 RuntimeInit 的 invokeStaticMain()，此方法的最后一行会抛出一个 MethodAndArgsCaller 异常，此异常会被 ZygoteInit 的 main 方法通过 try catch 捕获，并执行 MethodAndArgsCaller 的 run 方法，在 run 方法中调用了 <code>mMethod.invoke(null, new Object[] { mArgs });</code>，mMethod 指的就是 ActivityThread 的 main 方法，mArgs 指的是应用程序进程的启动参数，查看 ActivityThread 的 main 方法，<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityThread.java</a>。ActivityThread 类用于管理当前应用程序进程的主线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 创建主线程的消息循环 Looper</span></span><br><span class="line">    Looper.prepareMainLooper();</span><br><span class="line"><span class="comment">// 创建 ActivityThread</span></span><br><span class="line">    ActivityThread thread = <span class="keyword">new</span> ActivityThread();</span><br><span class="line">    thread.attach(<span class="keyword">false</span>);</span><br><span class="line"><span class="comment">// 判断 Handler 类型的 sMainThreadHandler 是否为 null</span></span><br><span class="line">    <span class="keyword">if</span> (sMainThreadHandler == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 创建主线程 H 类（获取 H 类并赋值给 sMainThreadHandler，这个 H 类继承自 Handler，是 ActivityThread 的内部类，用于处理主线程的消息循环。）</span></span><br><span class="line">        sMainThreadHandler = thread.getHandler();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">false</span>) &#123;</span><br><span class="line">        Looper.myLooper().setMessageLogging(<span class="keyword">new</span></span><br><span class="line">                LogPrinter(Log.DEBUG, <span class="string">"ActivityThread"</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">  <span class="comment">// 开始工作（调用 Looper 的 loop 方法，使得 Looper 开始处理消息。）</span></span><br><span class="line">    Looper.loop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"Main thread loop unexpectedly exited"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，系统在应用程序进程启动完成后，就会创建一个消息循环，这样运行在应用程序进程中的应用程序可以方便地使用消息处理机制。</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>注：基于 Android 8.0 源码</strong></p>
 <p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
@@ -508,7 +542,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序进程简介"><span class="nav-number">1.</span> <span class="nav-text">应用程序进程简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序进程启动过程介绍"><span class="nav-number">2.</span> <span class="nav-text">应用程序进程启动过程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AMS-发送启动应用程序进程请求"><span class="nav-number">2.1.</span> <span class="nav-text">AMS 发送启动应用程序进程请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zygote-接收请求并创建应用程序进程"><span class="nav-number">2.2.</span> <span class="nav-text">Zygote 接收请求并创建应用程序进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序进程简介"><span class="nav-number">1.</span> <span class="nav-text">应用程序进程简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序进程启动过程介绍"><span class="nav-number">2.</span> <span class="nav-text">应用程序进程启动过程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AMS-发送启动应用程序进程请求"><span class="nav-number">2.1.</span> <span class="nav-text">AMS 发送启动应用程序进程请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zygote-接收请求并创建应用程序进程"><span class="nav-number">2.2.</span> <span class="nav-text">Zygote 接收请求并创建应用程序进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-线程池启动过程"><span class="nav-number">3.</span> <span class="nav-text">Binder 线程池启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息循环创建过程"><span class="nav-number">4.</span> <span class="nav-text">消息循环创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -523,7 +557,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">133</span>
+          <span class="site-state-item-count">137</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -608,12 +642,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">877k</span>
+    <span title="站点总字数">896k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">13:17</span>
+    <span title="站点阅读时长">13:35</span>
 </div>
 
 
