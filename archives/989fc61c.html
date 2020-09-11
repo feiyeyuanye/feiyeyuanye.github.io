@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-11-04T02:59:26.000Z">
-<meta property="article:modified_time" content="2020-08-26T01:44:30.585Z">
+<meta property="article:modified_time" content="2020-09-11T08:51:58.140Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="进程与线程">
 <meta name="twitter:card" content="summary">
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-26 09:44:30" itemprop="dateModified" datetime="2020-08-26T09:44:30+08:00">2020-08-26</time>
+                <time title="修改时间：2020-09-11 16:51:58" itemprop="dateModified" datetime="2020-09-11T16:51:58+08:00">2020-09-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -292,8 +292,11 @@
 
 <a id="more"></a>
 
-<p>Java程序运行在JVM中，JVM进程其实就是他们的容器。<br>进程是重量级的，并且进程之间是隔离的。<br>进程是拥有资源的基本单位：word打开文件，QQ音乐打开了Socket。<br>线程是CPU调度的基本单位：T1线程接受文字输入，T2负责自动保存。T3线程负责从Socket读取数据，T4线程对音乐数据解码。</p>
-<p>在操作系统中，线程是操作系统调度的最小单元，同时它又是一种受限的系统资源（不可能无限制地产生），并且线程的创建和销毁都会有相应的开销。操作系统在做调度的时候基本单位不是word和QQ音乐这样的进程，而是T1、T2这种线程。</p>
+<p>Java程序运行在JVM中，JVM进程其实就是他们的容器。<br>进程是重量级的，并且进程之间是隔离的。</p>
+<p>进程一般指一个执行单元，在 PC 和移动设备上指一个程序或者一个应用。它可包含多个线程。</p>
+<p>进程是拥有资源的基本单位：word打开文件，QQ音乐打开了Socket。</p>
+<p>线程是CPU调度的基本单位：T1线程接受文字输入，T2负责自动保存。T3线程负责从Socket读取数据，T4线程对音乐数据解码。</p>
+<p>在操作系统中，线程是 CPU 调度的最小单元，同时它又是一种受限的系统资源（不可能无限制地产生，是有限的。），并且线程的创建和销毁都会有相应的开销。操作系统在做调度的时候基本单位不是word和QQ音乐这样的进程，而是T1、T2这种线程。</p>
 <p>线程，就是程序代码的执行，一个进程至少得有一个线程。每个线程执行的都是进程代码的某个片段。以word为例，如有定时保存文档的功能，当只有一个线程时，当这功能运行时，则无法输入文字。s</p>
 <p>当系统中存在大量的线程时，系统会通过时间片轮转的方式调度每个线程，因此线程不可能做到绝对的并行，除非线程数量小于等于 CPU 的核心数，一般来说这不可能。</p>
 <p>使用多线程不一定是为了提高效率，也许是为了发挥多核的优势，或者是更好的利用CPU快速的运算能力。</p>
@@ -607,7 +610,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">139</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -692,12 +695,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">959k</span>
+    <span title="站点总字数">982k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">14:32</span>
+    <span title="站点阅读时长">14:53</span>
 </div>
 
 

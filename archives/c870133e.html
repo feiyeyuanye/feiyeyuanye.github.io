@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="结构型设计模式">
+<meta property="og:url" content="https://jianghouren.com/archives/c870133e.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:description" content="…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-09T22:20:39.000Z">
+<meta property="article:modified_time" content="2020-09-11T00:25:53.304Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jianghouren.com/archives/c870133e.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>结构型设计模式 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-链接">
+
+    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/c870133e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          结构型设计模式
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-10 06:20:39" itemprop="dateCreated datePublished" datetime="2020-09-10T06:20:39+08:00">2020-09-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-11 08:25:53" itemprop="dateModified" datetime="2020-09-11T08:25:53+08:00">2020-09-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/c870133e.html" class="post-meta-item leancloud_visitors" data-flag-title="结构型设计模式" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/c870133e.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/c870133e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>…</p>
+<a id="more"></a>
+
+<p>结构型设计模式是从程序的结构上解决模块之间的耦合问题。它包含适配器模式、代理模式、装饰模式、外观模式、桥接模式、组合模式和享元模式。</p>
+<h2 id="代理模式（委托模式）"><a href="#代理模式（委托模式）" class="headerlink" title="代理模式（委托模式）"></a><p class="m_more_title_style">代理模式（委托模式）</Center></h2><p>在现实生活中用到类似代理模式的场景有很多，比如代理上网、打官司等。</p>
+<p>定义：为其他对象提供一种代理以控制对这个对象的访问。</p>
+<p>在代理模式中有如下角色</p>
+<ul>
+<li>Subject：抽象主题类，声明真实主题与代理的共同接口方法。</li>
+<li>RealSubject：真实主题类，代理类所代表的的真实主题。客户端通过代理类间接地调用真实主题类的方法。</li>
+<li>Proxy：代理类，持有对真实主题类的引用，在其所实现的接口方法中调用真实主题类中相应的接口方法执行。</li>
+<li>Client：客户端类。</li>
+</ul>
+<p>代理模式的简单实现：比如代购</p>
+<p>抽象主题类：具有真实主题类和代理的共同接口方法，此方法就是购买。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IShop</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">buy</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>真实主题类：购买者实现了 IShop 接口提供的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LiuWangShu</span> <span class="keyword">implements</span> <span class="title">IShop</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"购买"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代理类：购买者找的代理类也要实现 IShop 接口，并且要持有被代理者，在 buy 方法中调用了被代理者的 buy 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Purchasing</span> <span class="keyword">implements</span> <span class="title">IShop</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> IShop mShop;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Purchasing</span><span class="params">(IShop mShop)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mShop = mShop;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">buy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        mShop.buy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端类：由代理类包含了真实主题类（被代理者），最终调用的都是真实主题类实现的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        IShop liuwangshu = <span class="keyword">new</span> LiuWangShu();</span><br><span class="line">        IShop purchasing = <span class="keyword">new</span> Purchasing(liuwangshu);</span><br><span class="line">        purchasing.buy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>动态代理的简单实现：</p>
+<p>从编码的角度来说，代理模式分为静态代理和动态代理。上面的例子是静态代理，在代码运行前就已经存在了代理类的 class 编译文件。而动态代理则是在代码运行时通过反射来动态地生成代理类的对象，并确定到底来代理谁。也就是在编码阶段无需知道代理谁，代理谁将会在代码运行时决定。Java 提供了动态的代理接口 InvocationHandler，实现该接口需要重写 invoke()。接下来在上面静态代理的基础上，做些修改。</p>
+<p>首先创建动态代理类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicPurchasing</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 声明了一个 Object 的引用，该引用指向被代理类。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Object obj;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicPurchasing</span><span class="params">(Object obj)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.obj = obj;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用被代理类的具体方法在 invoke 方法中执行</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        Object result = method.invoke(obj,args);</span><br><span class="line">        <span class="keyword">if</span> (method.getName().endsWith(<span class="string">"buy"</span>))&#123;</span><br><span class="line">            System.out.println(<span class="string">"Liuwangshu 在买"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>修改客户端类代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 创建 Liuwangshu</span></span><br><span class="line">        IShop liuwangshu = <span class="keyword">new</span> LiuWangShu();</span><br><span class="line">        <span class="comment">// 创建动态代理</span></span><br><span class="line">        DynamicPurchasing dynamicPurchasing = <span class="keyword">new</span> DynamicPurchasing(liuwangshu);</span><br><span class="line">        <span class="comment">// 创建 Liuwangshu 的 ClassLoader</span></span><br><span class="line">        ClassLoader loader = liuwangshu.getClass().getClassLoader();</span><br><span class="line">        <span class="comment">// 动态创建代理类。调用 Proxy.newProxyInstance 来生成动态代理类。</span></span><br><span class="line">        IShop purchasing = (IShop) Proxy.newProxyInstance(loader,<span class="keyword">new</span> Class[]&#123;IShop.class&#125;,dynamicPurchasing);</span><br><span class="line">        <span class="comment">// 调用 purchasing 的 buy 方法会调用 DynamicPurchasing 的 invoke 方法。 </span></span><br><span class="line">        purchasing.buy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>代理模式的类型和优点</p>
+<p>代理模式从编码的角度来说可分为静态代理和动态代理，而从适用范围来讲则可分为以下 4 中类型：</p>
+<ul>
+<li>远程代理：为一个对象在不同的地址空间提供局部代表，这样系统可以将 Server 部分的实现隐藏。</li>
+<li>虚拟代理：使用一个代理对象表示一个十分耗费资源的对象并在真正需要时才创建。</li>
+<li>安全代理：用来控制真实对象访问时的权限。一般用于真实对象有不同的访问权限时。</li>
+<li>智能指引：当调用真实的对象时，代理处理另外一些事，比如计算真实对象的引用计数，当该对象没有引用时，可以自动释放它；或者访问一个实际对象时，检查是否已经能够锁定它，以确保其它对象不能改变它。</li>
+</ul>
+<p>代理模式的优点：</p>
+<ul>
+<li>真实主题类就是实现实际的的业务逻辑，不用关心其它非本职的工作。</li>
+<li>真实主题类随时都会发生变化，但是因为它实现了公共的接口，所以代理类可以不做任何修改就能够使用。</li>
+</ul>
+<hr>
+<h2 id="装饰模式"><a href="#装饰模式" class="headerlink" title="装饰模式"></a><p class="m_more_title_style">装饰模式</Center></h2><p>在不必改变类文件和使用继承的情况下，动态地扩展一个对象的功能，是继承的替代方案之一。它通过创建一个包装对象，也就是装饰来包裹真实的对象。</p>
+<p>定义：动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
+<p>在装饰模式中有如下角色：</p>
+<ul>
+<li>Component：抽象组件，可以是接口或是抽象类，被装饰的最原始的对象。</li>
+<li>ConcreteComponent：组件具体实现类。Component 的具体实现类，被装饰的具体对象。</li>
+<li>Decorator：抽象装饰者，从外类来拓展 Component 类的功能，但对于 Component 来说无需知道 Decorator 的存在。在它的属性中必然有一个 private 变量指向 Component 抽象组件。</li>
+<li>ConcreteDecorator：装饰者的具体实现类。</li>
+</ul>
+<p>装饰模式的简单实现：杨过本身会全真剑法，有两位武学前辈洪七公和欧阳锋分别向杨过传授过打狗棒法和蛤蟆功，这样杨过除了会全真剑法，还会打狗棒法和蛤蟆功。洪七公和欧阳锋就起到了 ”装饰“ 杨过的作用。</p>
+<p>抽象组件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义一个武侠的抽象类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Swordsman</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用武功的抽象方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">attackMagic</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>组件具体实现类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 被装饰的具体对象</span></span><br><span class="line"><span class="comment"> * 在这里就是被教授武学的具体武侠，也就是杨过。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">YangGuo</span> <span class="keyword">extends</span> <span class="title">Swordsman</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attackMagic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 杨过初始的武学是全真剑法</span></span><br><span class="line">        System.out.println(<span class="string">"杨过使用全真剑法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>抽象装饰者：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Master</span> <span class="keyword">extends</span> <span class="title">Swordsman</span></span>&#123;</span><br><span class="line">  	<span class="comment">/**</span></span><br><span class="line"><span class="comment">  	* 抽象装饰者保持了一个对抽象组件的引用，方便调用被装饰对象中的方法。</span></span><br><span class="line"><span class="comment">  	* 在这个例子中就是武学前辈要持有武侠的引用，方便教授他武学并使他融会贯通。</span></span><br><span class="line"><span class="comment">  	*/</span></span><br><span class="line">    <span class="keyword">private</span> Swordsman swordsman;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Master</span><span class="params">(Swordsman swordsman)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.swordsman = swordsman;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attackMagic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        swordsman.attackMagic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>装饰者具体实现类：</p>
+<p>这个例子中用两个装饰者具体实现类，分别是洪七公和欧阳锋，他们负责向杨过传授新的武功。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HongQiGong</span> <span class="keyword">extends</span> <span class="title">Master</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">HongQiGong</span><span class="params">(Swordsman swordsman)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(swordsman);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teachAttachMagic</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"洪七公教授打狗棒法"</span>);</span><br><span class="line">        System.out.println(<span class="string">"杨过使用打狗棒法"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attackMagic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.attackMagic();</span><br><span class="line">        teachAttachMagic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OuYangFeng</span> <span class="keyword">extends</span> <span class="title">Master</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">OuYangFeng</span><span class="params">(Swordsman swordsman)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(swordsman);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">teachAttachMagic</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"欧阳锋教授蛤蟆功"</span>);</span><br><span class="line">        System.out.println(<span class="string">"杨过使用蛤蟆功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">attackMagic</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.attackMagic();</span><br><span class="line">        teachAttachMagic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 创建杨过</span></span><br><span class="line">        YangGuo yangGuo = <span class="keyword">new</span> YangGuo();</span><br><span class="line">        <span class="comment">// 洪七公向杨过传授打狗棒法，杨过学会了打狗棒法。</span></span><br><span class="line">        HongQiGong hongQiGong = <span class="keyword">new</span> HongQiGong(yangGuo);</span><br><span class="line">        hongQiGong.attackMagic();</span><br><span class="line">        <span class="comment">// 欧阳锋向杨过传授蛤蟆功，杨过学会了蛤蟆功。</span></span><br><span class="line">        OuYangFeng ouYangFeng = <span class="keyword">new</span> OuYangFeng(yangGuo);</span><br><span class="line">        ouYangFeng.attackMagic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用场景和优缺点</p>
+<ul>
+<li>使用场景：<ul>
+<li>在不影响其他对象的情况下，以动态、透明的方式给单个对象添加职责。</li>
+<li>需要动态地给一个对象增加功能，这些功能可以动态地撤销。</li>
+<li>当不能采用继承的方式对系统进行扩充或者采用继承不利于系统扩展和维护时。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>通过组合而非继承的方式，动态地扩展一个对象的功能，在运行时选择不同的装饰器，从而实现不同的行为。</li>
+<li>有效避免了使用继承的方式扩展对象功能而带来的灵活性差、子类无限制扩张的问题。</li>
+<li>具体组件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体组件类和具体装饰类，在使用时再对其进行组合，原有代码无需改变，符合 “开放封闭原则”。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>因为所有对象均继承于 Component，所以如果 Component 内部结构发生变化，则不可避免地影响所有子类（装饰者和被装饰者）。如果基类改变，则势必影响对象的内部。</li>
+<li>比继承更加灵活机动的特性，也同时意味着装饰模式比继承更加易于出错，排错也很困难。对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为烦琐。所以，只在必要的时候使用装饰模式。</li>
+<li>装饰层数不能过多，否则会影响效率。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="外观模式（门面模式）"><a href="#外观模式（门面模式）" class="headerlink" title="外观模式（门面模式）"></a><p class="m_more_title_style">外观模式（门面模式）</Center></h2><p>当开发 Android 的时候，无论是做 SDK 开发还是封装 API，大多都会用到外观模式，它通过一个外观类使得整个系统的结构只有一个统一的高层接口，这样能降低用户的使用成本。</p>
+<p>定义：要求一个子系统的外部与内部的通信必须通过一个统一的对象进行。此模式提供一个高层的接口，使得子系统更易于使用。</p>
+<p>在外观模式中有如下角色：</p>
+<ul>
+<li>Facade：外观类，知道哪些子系统类负责处理请求，将客户端的请求代理给适当的子系统对象。</li>
+<li>Subsystem：子系统类，可以有一个或者多个子系统。实现子系统的功能，处理外观类指派的任务，注意子系统类不含有外观类的引用。</li>
+</ul>
+<p>外观模式的简单实现</p>
+<p>把武侠张无忌当做一个系统，张无忌作为一个武侠，他本身分为 3 个系统，分别是招式、内功和经脉。</p>
+<p>子系统类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子系统招式</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZhaoShi</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TaiJiQuan</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"使用招式太极拳"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QiShangQuan</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"使用招式七伤拳"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShengHuo</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"使用招式圣火令"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子系统内功</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NeiGong</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">JiuYang</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"使用九阳神功"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QianKun</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"使用乾坤大挪移"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 子系统经脉</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JingMai</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">jingMai</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"开启经脉"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>外观类：</p>
+<p>这里的外观类就是张无忌，他负责将自己的招式、内功和经脉通过不同的情况合理地搭配运用并对外界隐藏。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZhangWuJi</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> JingMai jingMai;</span><br><span class="line">    <span class="keyword">private</span> ZhaoShi zhaoShi;</span><br><span class="line">    <span class="keyword">private</span> NeiGong neiGong;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ZhangWuJi</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 初始化外观类的同时将各个子系统类创建好</span></span><br><span class="line">        jingMai = <span class="keyword">new</span> JingMai();</span><br><span class="line">        zhaoShi = <span class="keyword">new</span> ZhaoShi();</span><br><span class="line">        neiGong = <span class="keyword">new</span> NeiGong();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QianKun</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 使用乾坤大挪移</span></span><br><span class="line">        jingMai.jingMai();  <span class="comment">// 开启经脉</span></span><br><span class="line">        neiGong.QianKun();  <span class="comment">// 使用内功乾坤大挪移</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">QiShang</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 使用七伤拳</span></span><br><span class="line">        jingMai.jingMai();       <span class="comment">// 开启经脉</span></span><br><span class="line">        neiGong.JiuYang();       <span class="comment">// 使用内功九阳神功</span></span><br><span class="line">        zhaoShi.QiShangQuan();   <span class="comment">// 使用招式七伤拳</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用：</p>
+<p>外观模式会使子系统的逻辑和交互隐藏起来，为用户提供一个高层次的接口，使得系统更加易用，同时也隐藏了具体的实现。这样即使具体的子系统发生了变化，用户也不会感知到。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ZhangWuJi zhangWuJi = <span class="keyword">new</span> ZhangWuJi();</span><br><span class="line">        <span class="comment">// 张无忌使用乾坤大挪移和七伤拳。</span></span><br><span class="line">        <span class="comment">// 此时，比武对手并不知道张无忌本身运用了什么，同时张无忌也无需重新计划使用七伤拳时要怎么做（他早已计划好了），如果每次使用时都要计划怎么做很显然会增加成本并贻误战机。</span></span><br><span class="line">        <span class="comment">// 另外，张无忌也可以改变自己的内功、招式和经脉，这些都是对比武对手有所隐瞒的。</span></span><br><span class="line">        zhangWuJi.qianKun();</span><br><span class="line">        zhangWuJi.qiShang();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用场景和优缺点</p>
+<ul>
+<li>使用场景<ul>
+<li>构建一个有层次结构的子系统时，使用外观模式定义子系统中每层的入口点。如果子系统之间是相互依赖的，则可以让其通过外观接口进行通信，减少子系统之间的依赖关系。</li>
+<li>子系统往往会因为不断地重构演化而变得越来越复杂，大多数的模式使用时也会产生很多很小的类，这给外部调用它们的用户程序带来了使用上的困难。我们可以使用外观类提供一个简单的接口，对外隐藏子系统的具体实现并隔离变化。</li>
+<li>当维护一个遗留的大型系统时，可能这个系统已经非常难以维护和拓展，但因为它含有重要的功能，所以新的需要必须依赖于它，这时可以使用外观类，为设计粗糙或者复杂的遗留代码提供一个简单的接口，让新系统和外观类交互，而外观类负责与遗留的代码进行交互。</li>
+</ul>
+</li>
+<li>优点<ul>
+<li>减少系统的相互依赖，所有的依赖都是对外观类的依赖，与子系统无关。</li>
+<li>对用户隐藏了子系统的具体实现，减少用户对子系统的耦合。这样即使具体的子系统发生了变化，用户也不会感知到。</li>
+<li>加强了安全性，子系统中的方法如果不在外观类中开通，就无法访问到子系统中的方法。</li>
+</ul>
+</li>
+<li>缺点<ul>
+<li>不符合开放封闭原则。如果业务出现变更，则可能要直接修改外观类。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a><p class="m_more_title_style">享元模式</Center></h2><p>是池技术的重要实现方式。它可以减少应用程序创建的对象，降低程序内存的占用，提供程序的性能。</p>
+<p>定义：使用共享对象有效地支持大量细粒度的对象。</p>
+<p>要求细粒度对象，那么不可避免地使得对象数量多且性质相近。这些对象分为两个部分：</p>
+<ul>
+<li>内部状态：是对象可共享出来的信息，存储在享元对象内部并且不会随环境的改变而改变。</li>
+<li>外部状态：是对象依赖的一个标记，它是随环境改变而改变的并且不可共享的状态。</li>
+</ul>
+<p>在享元模式中有如下角色：</p>
+<ul>
+<li>Flyweight：抽象享元角色，同时定义出对象的外部状态和内部状态的接口或者实现。</li>
+<li>ConcreteFlyweight：具体享元角色，实现抽象享元角色定义的业务。</li>
+<li>FlyWeightFactory：享元工厂，负责管理对象池和创建享元对象。</li>
+</ul>
+<p>享元模式的简单实现</p>
+<p>某著名网上商城卖商品，如果每个用户下单都生成商品对象，这显然会耗费很多资源。如果赶上 “双 11”，那恐怖的订单量会生成很多商品对象，更何况商城卖的商品种类繁多，这样就极易产生 “Out Of Memory”。因此，采用享元模式来对商品的创建进行优化。</p>
+<p>抽象享元角色：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 商品接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IGoods</span></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 展示商品的价格</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showGoodsPrice</span><span class="params">(String name)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体享元角色：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Goods</span> <span class="keyword">implements</span> <span class="title">IGoods</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;  <span class="comment">// 名称。内部状态。</span></span><br><span class="line">    <span class="keyword">private</span> String version;   <span class="comment">// 版本。外部状态。</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Goods</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">showGoodsPrice</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">"32G"</span>.endsWith(version))&#123;</span><br><span class="line">            System.out.println(<span class="string">"价格为 5199 元"</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (<span class="string">"128G"</span>.endsWith(version))&#123;</span><br><span class="line">            System.out.println(<span class="string">"价格为 5999 元"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>享元工厂：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 享元工厂 GoodsFactory 用来创建 Goods 对象。</span></span><br><span class="line"><span class="comment"> * 通过 Map 容器来存储 Goods 对象，将内部状态 name 作为 key，以便标识 Goods 对象。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GoodsFactory</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String,Goods&gt; pool = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Goods <span class="title">getGoods</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">      <span class="comment">// 如果包含 key，则使用存储的对象。否则创建新对象，并放入容器中。</span></span><br><span class="line">        <span class="keyword">if</span> (pool.containsKey(name))&#123;</span><br><span class="line">            System.out.println(<span class="string">"使用缓存，key 为："</span>+name);</span><br><span class="line">            <span class="keyword">return</span> pool.get(name);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            Goods goods = <span class="keyword">new</span> Goods(name);</span><br><span class="line">            pool.put(name,goods);</span><br><span class="line">            System.out.println(<span class="string">"创建商品，key 为："</span>+name);</span><br><span class="line">            <span class="keyword">return</span> goods;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Client</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Goods goods1 = GoodsFactory.getGoods(<span class="string">"iphone7"</span>);</span><br><span class="line">        goods1.showGoodsPrice(<span class="string">"32G"</span>);</span><br><span class="line">        Goods goods2 = GoodsFactory.getGoods(<span class="string">"iphone7"</span>);</span><br><span class="line">        goods2.showGoodsPrice(<span class="string">"32G"</span>);</span><br><span class="line">        Goods goods3 = GoodsFactory.getGoods(<span class="string">"iphone7"</span>);</span><br><span class="line">        goods3.showGoodsPrice(<span class="string">"128G"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 执行结果：</span></span><br><span class="line">        <span class="comment">// 创建商品，key 为：iphone7</span></span><br><span class="line">        <span class="comment">// 使用缓存，key 为：iphone7</span></span><br><span class="line">        <span class="comment">// 使用缓存，key 为：iphone7</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用场景</p>
+<ul>
+<li>系统中存在大量的相似对象。</li>
+<li>需要缓冲池的场景。</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</Center></h2><p><strong>参考资料：</strong></p>
+<p><a href="https://blog.csdn.net/itachi85" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶之光</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/c870133e.html" title="结构型设计模式">https://jianghouren.com/archives/c870133e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/9197097e.html" rel="prev" title="创建型设计模式">
+      <i class="fa fa-chevron-left"></i> 创建型设计模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/archives/3eb267f6.html" rel="next" title="行为型设计模式">
+      行为型设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#代理模式（委托模式）"><span class="nav-number">1.</span> <span class="nav-text">代理模式（委托模式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#装饰模式"><span class="nav-number">2.</span> <span class="nav-text">装饰模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#外观模式（门面模式）"><span class="nav-number">3.</span> <span class="nav-text">外观模式（门面模式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#享元模式"><span class="nav-number">4.</span> <span class="nav-text">享元模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">140</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://hencoder.com/" title="https:&#x2F;&#x2F;hencoder.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· HenCoder</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+
+      <div class="skin_peeler diyclass" id="skin_peeler"></div>
+      <div class="read_aloud diyclass" id="read_aloud"></div>
+      <div class="audioImg diyclass" id="audioImg"></div>
+      <audio id="audioMp3" controls="true" loop="loop"></audio>
+      <script src="/js/my-diy.js"></script>
+    </main>
+   
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">982k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">14:53</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>
