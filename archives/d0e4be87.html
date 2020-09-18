@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/as_image_asset.png">
 <meta property="article:published_time" content="2020-07-16T12:30:29.000Z">
-<meta property="article:modified_time" content="2020-08-02T06:44:40.000Z">
+<meta property="article:modified_time" content="2020-09-17T22:27:50.232Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="适配系列">
 <meta name="twitter:card" content="summary">
@@ -229,7 +229,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-02 14:44:40" itemprop="dateModified" datetime="2020-08-02T14:44:40+08:00">2020-08-02</time>
+                <time title="修改时间：2020-09-18 06:27:50" itemprop="dateModified" datetime="2020-09-18T06:27:50+08:00">2020-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -270,14 +270,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.6k</span>
+              <span>9.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>9 分钟</span>
             </span>
 
         </div>
@@ -322,6 +322,10 @@
 <p><strong>重要等级</strong></p>
 <p>通知渠道的重要等级越高，发出的通知就越容易获得用户的注意。比如高重要等级的通知渠道发出的通知可以弹出横幅、发出声音，而低重要等级的通知渠道发出的通知不仅可能会在某些情况下被隐藏、而且可能会被改变显示的顺序。</p>
 <p>并且，开发者只能在创建通知渠道时为它指定初始的重要等级，如果用户不认可这个重要等级的话，可以随时进行修改，开发者对此无权再进行调整和变更，因为通知渠道一旦创建就不能再通过代码修改了。</p>
+<h3 id="示例（Kotlin）"><a href="#示例（Kotlin）" class="headerlink" title="示例（Kotlin）"></a>示例（Kotlin）</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotificationActivity</span>:<span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_notification)</span><br><span class="line"></span><br><span class="line">        initData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 使用 Builder 构造器创建 Notification 对象。</span></span><br><span class="line">        <span class="comment">// 第二个参数是渠道 ID，需要和我们创建通知渠道时指定的渠道 ID 相匹配。</span></span><br><span class="line">        <span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 这里是英文字母 O，不是数字 0，尴尬。</span></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O)&#123;</span><br><span class="line">            <span class="comment">// 创建了一个 ID 为 normal 通知渠道。</span></span><br><span class="line">            <span class="comment">// 创建通知渠道的代码只在第一次执行时才会创建，当下次再执行创建代码时，</span></span><br><span class="line">            <span class="comment">// 系统会检测到该通知渠道已存在，因此不会重复创建，也并不会影响运行效率。</span></span><br><span class="line">            <span class="keyword">val</span> channel = NotificationChannel(<span class="string">"normal"</span>,<span class="string">"Normal"</span>,</span><br><span class="line">                NotificationManager.IMPORTANCE_DEFAULT)</span><br><span class="line">            <span class="comment">// 创建一个重要等级的通知渠道。</span></span><br><span class="line">            <span class="keyword">val</span> channel2 = NotificationChannel(<span class="string">"important"</span>,<span class="string">"Important"</span>,</span><br><span class="line">                NotificationManager.IMPORTANCE_HIGH)</span><br><span class="line">            manager.createNotificationChannel(channel)</span><br><span class="line">            manager.createNotificationChannel(channel2)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 注意在手机设置里,开启消息通知.</span></span><br><span class="line">        btnSendNotice.setOnClickListener&#123;</span><br><span class="line">            <span class="comment">// 表达想要启动 CameraAlbumActivity 的意图。</span></span><br><span class="line">            <span class="comment">// 可在 CameraAlbumActivity 中显示地调用 NotificationManager 的 cancel() 取消通知。</span></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, CameraAlbumActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            <span class="comment">// PendingIntent 和 Intent 有些类似，它们都可以指明某一个"意图"，都可以用于启动 Activity、启动 Service 以及发送广播等。</span></span><br><span class="line">            <span class="comment">// 不同的是，Intent 倾向于立即执行某个动作。而 PendingIntent 倾向于在某个合适的时机执行某个动作，也可以简单地理解为延迟执行的 Intent。</span></span><br><span class="line">            <span class="comment">// 第二个参数一般用不到，传入 0 即可。</span></span><br><span class="line">            <span class="comment">// 第三个参数是一个 Intent 对象，可以通过这个对象构建出 PendingIntent 的"意图"。</span></span><br><span class="line">            <span class="comment">// 第四个参数用于确定 PendingIntent 的行为，一把传入 0 即可。（其它可选值：FLAG_ONE_SHOT,FLAG_CANCEL_CURRENT,FLAG_NO_CREATE,FLAG_UPDATE_CURRENT）</span></span><br><span class="line">            <span class="keyword">val</span> pi = PendingIntent.getActivity(<span class="keyword">this</span>,<span class="number">0</span>,intent,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">"normal"</span>)</span><br><span class="line">                .setContentTitle(<span class="string">"This is content title"</span>)</span><br><span class="line"><span class="comment">//                .setContentText("This is content text")  // 使用 setStyle() 替代，展示长文字信息，或者是显示一张大图</span></span><br><span class="line">                .setStyle(NotificationCompat.BigTextStyle()  <span class="comment">// 展示长文字，在 iQOO Android 10 的手机上，默认折叠。</span></span><br><span class="line">                    .bigText(<span class="string">"Learn how to build notifications, send and sync data, and use voice actions, Get the official Android IDE and developer tools to build apps for Android."</span>))</span><br><span class="line">                .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">                .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line"><span class="comment">//                .setAutoCancel(true)   // 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。这里使用了另一种方式。</span></span><br><span class="line">                .build()</span><br><span class="line">            manager.notify(<span class="number">1</span>,notification)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将通知渠道的重要等级设置成了 "高"。关于弹出横幅，实际上在我的手机默认是关闭横幅通知的。</span></span><br><span class="line">            <span class="keyword">val</span> notification2 = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">"important"</span>)</span><br><span class="line">                .setContentTitle(<span class="string">"This is content title"</span>)</span><br><span class="line">                .setStyle(NotificationCompat.BigPictureStyle()  <span class="comment">// 展示大图，在 iQOO Android 10 的手机上，默认折叠。</span></span><br><span class="line">                    .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.big_image)))</span><br><span class="line">                .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">                .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line">                .setAutoCancel(<span class="literal">true</span>)   <span class="comment">// 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">                .build()</span><br><span class="line">            manager.notify(<span class="number">2</span>,notification2)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, NotificationActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
 <h2 id="App-图标"><a href="#App-图标" class="headerlink" title="App 图标"></a><p class="m_more_title_style">App 图标</p></h2><p>在过去，Android 应用程序的图标都应该放到相应分辨率的 mipmap 目录下，不过从 Android 8.0 系统开始，Google 已经不再建议使用单一的一张图片来作为应用程序的图标，而是应该使用前景和背景分离的图标设计方式。</p>
 <p>具体来讲，应用程序的图标应该被分为两层：前景层和背景层。前景层用来展示应用图标的 Logo，背景层用来衬托应用图标的 Logo。</p>
@@ -501,7 +505,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通知渠道"><span class="nav-number">1.</span> <span class="nav-text">通知渠道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-图标"><span class="nav-number">2.</span> <span class="nav-text">App 图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通知渠道"><span class="nav-number">1.</span> <span class="nav-text">通知渠道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例（Kotlin）"><span class="nav-number">1.1.</span> <span class="nav-text">示例（Kotlin）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-图标"><span class="nav-number">2.</span> <span class="nav-text">App 图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -516,7 +520,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -529,7 +533,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -601,12 +605,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1m</span>
+    <span title="站点总字数">1.1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:52</span>
+    <span title="站点阅读时长">17:08</span>
 </div>
 
 

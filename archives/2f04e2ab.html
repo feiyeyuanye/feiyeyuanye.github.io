@@ -30,9 +30,9 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-26T13:47:08.000Z">
-<meta property="article:modified_time" content="2020-07-28T00:55:45.000Z">
+<meta property="article:modified_time" content="2020-09-18T01:13:40.575Z">
 <meta property="article:author" content="houren">
-<meta property="article:tag" content="Android">
+<meta property="article:tag" content="四大组件">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
@@ -228,7 +228,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-28 08:55:45" itemprop="dateModified" datetime="2020-07-28T08:55:45+08:00">2020-07-28</time>
+                <time title="修改时间：2020-09-18 09:13:40" itemprop="dateModified" datetime="2020-09-18T09:13:40+08:00">2020-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -269,14 +269,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>5.9k</span>
+              <span>6.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
+              <span>6 分钟</span>
             </span>
 
         </div>
@@ -324,6 +324,20 @@
 <figure class="highlight kotlin"><figcaption><span>SecondActivity.kt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用了 Intent 的 getSerializableExtra() 获取通过参数传递过来的序列化对象，然后将它向下转型成 Person 对象。</span></span><br><span class="line"><span class="keyword">val</span> person = intent.getSerializableExtra(<span class="string">"person_data"</span>) <span class="keyword">as</span> Person</span><br></pre></td></tr></table></figure>
 
 <p>注意：这种传递对象的工作原理是先将一个对象序列化成可存储或可运输的状态，传递给另外一个 Activity 后再将其反序列化成一个新的对象。虽然这两个对象中存储的数据完全一致，但是它们实际上是不同的对象。</p>
+<h4 id="Java序列化技术"><a href="#Java序列化技术" class="headerlink" title="Java序列化技术"></a>Java序列化技术</h4><p>就是将Java对象序列化为二进制文件</p>
+<p><strong>序列化ID问题</strong></p>
+<p>虚拟机是否允许反序列化，不仅取决于“类路径“和”功能代码“是否一致，还需要两个类的序列化ID是否一致：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 两种生成策略：</span></span><br><span class="line"><span class="comment">// 1.自定义，比如这里为 1L 。</span></span><br><span class="line"><span class="comment">// 2.不指定的话，会随机生成（实际上是使用JDK工具生成）。</span></span><br><span class="line"><span class="comment">// 一般使用默认的 1L 就可以。</span></span><br><span class="line"><span class="comment">// 对于随机生成的序列化 ID ，有些时候，通过改变序列化 ID 可以用来限制某些用户的使用。</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>静态变量序列化</strong></p>
+<p>因为，序列化保存的是对象的状态，静态变量属于类的状态，<br>因此，序列化并不保存静态变量。</p>
+<p><strong>父类的序列化与 Transient 关键字</strong></p>
+<p>要想将父类对象也序列化，就需要让父类也实现Serializable 接口。<br>如果父类不实现的话的，就 需要有默认的无参的构造函数。</p>
+<p>Transient 关键字的作用是控制变量的序列化，在变量声明前加上该关键字，可以阻止该变量被序列化到文件中，<br>在被反序列化后，transient 变量的值被设为初始值，如 int 型的是 0，对象型的是 null。</p>
+<p><strong>对敏感字段加密</strong></p>
+<p>在序列化过程中，虚拟机会试图调用对象类里的 writeObject 和 readObject 方法，进行用户自定义的序列化和反序列化，<br>如果没有这样的方法，则默认调用是 ObjectOutputStream 的 defaultWriteObject 方法以及 ObjectInputStream 的 defaultReadObject 方法。<br>用户自定义的 writeObject 和 readObject 方法可以允许用户控制序列化的过程，比如可以在序列化的过程中动态改变序列化的数值。</p>
+<p><strong>序列化存储规则</strong></p>
+<p>Java 序列化机制为了节省磁盘空间，具有特定的存储规则，<br>当写入文件的为同一对象时，并不会再将对象的内容进行存储，而只是再次存储一份引用。<br>反序列化时，恢复引用关系，使得这两个对象指向唯一的对象，二者相等。该存储规则极大的节省了存储空间。</p>
 <h3 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h3><p>Parcelable 的实现原理是将一个完整的对象进行分解，而分解后的每一部分都是 Intent 所支持的数据类型，这样就能实现传递对象的功能了。对比 Serializable，Serializable 的方式较为简单，但由于会把这个对象进行序列化。因此效率会比 Parcelable 方式低一些，所以通常情况下，还是更加推荐使用 Parcelable 的方式来实现 Intent 传递对象的功能。 </p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> : <span class="type">Parcelable &#123;</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将 Person 类中的字段一一写出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">writeToParcel</span><span class="params">(parcel: <span class="type">Parcel</span>, flags: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        parcel.writeString(name)   <span class="comment">// 写出 name</span></span><br><span class="line">        parcel.writeInt(age)   <span class="comment">// 写出 age</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 直接返回 0 即可</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">describeContents</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 还必须在 Person 类中提供一个名为 CREATOR 的匿名类实现</span></span><br><span class="line"><span class="comment">     * 这里创建了 Parcelable.Creator 接口的一个实现，并将泛型指定为 Person。</span></span><br><span class="line"><span class="comment">     * 并重写两个方法。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> CREATOR : Parcelable.Creator&lt;Person&gt; &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 要创建出一个 Person 对象进行返回，并读取刚才写出的字段，并且读取的顺序要和写出的顺序一致。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">createFromParcel</span><span class="params">(parcel: <span class="type">Parcel</span>)</span></span>: Person &#123;</span><br><span class="line">            <span class="keyword">val</span> person = Person()</span><br><span class="line">            person.name = parcel.readString()?:<span class="string">""</span>  <span class="comment">// 读取 name</span></span><br><span class="line">            person.age = parcel.readInt()      <span class="comment">// 读取 age</span></span><br><span class="line">            <span class="keyword">return</span> person</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用 arrayOfNulls 方法，并使用参数中传入的 size 作为数组大小，创建一个空的 Person 数组即可。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">newArray</span><span class="params">(size: <span class="type">Int</span>)</span></span>: Array&lt;Person?&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight kotlin"><figcaption><span>MainActivity.kt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> person = Person()</span><br><span class="line">person.name = <span class="string">"Tom"</span></span><br><span class="line">person.age = <span class="number">20</span></span><br><span class="line"><span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,SecondActivity::Class.java)</span><br><span class="line">intent.putExtra(<span class="string">"person_data"</span>,person)</span><br><span class="line">startActivity(intent)</span><br></pre></td></tr></table></figure>
@@ -396,7 +410,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Android/" rel="tag"><i class="fa fa-tag"></i> Android</a>
+              <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 四大组件</a>
           </div>
 
         
@@ -471,7 +485,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传递常用数据类型"><span class="nav-number">1.</span> <span class="nav-text">传递常用数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传递对象"><span class="nav-number">2.</span> <span class="nav-text">传递对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable"><span class="nav-number">2.1.</span> <span class="nav-text">Serializable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parcelable"><span class="nav-number">2.2.</span> <span class="nav-text">Parcelable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-Activity-的最佳写法"><span class="nav-number">3.</span> <span class="nav-text">启动 Activity 的最佳写法</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#传递常用数据类型"><span class="nav-number">1.</span> <span class="nav-text">传递常用数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传递对象"><span class="nav-number">2.</span> <span class="nav-text">传递对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Serializable"><span class="nav-number">2.1.</span> <span class="nav-text">Serializable</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java序列化技术"><span class="nav-number">2.1.1.</span> <span class="nav-text">Java序列化技术</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parcelable"><span class="nav-number">2.2.</span> <span class="nav-text">Parcelable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-Activity-的最佳写法"><span class="nav-number">3.</span> <span class="nav-text">启动 Activity 的最佳写法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -486,7 +500,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">142</span>
+          <span class="site-state-item-count">149</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -499,7 +513,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-count">37</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -571,12 +585,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1m</span>
+    <span title="站点总字数">1.1m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">15:52</span>
+    <span title="站点阅读时长">17:08</span>
 </div>
 
 
