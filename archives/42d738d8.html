@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="…">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android BLE4.0">
+<meta property="og:url" content="https://jianghouren.com/archives/42d738d8.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:description" content="…">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-18T13:52:47.000Z">
+<meta property="article:modified_time" content="2020-09-19T00:58:10.208Z">
+<meta property="article:author" content="houren">
+<meta property="article:tag" content="BLE">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jianghouren.com/archives/42d738d8.html">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Android BLE4.0 | 非也缘也 Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-链接">
+
+    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
+
+  </li>
+        <li class="menu-item menu-item-体系">
+
+    <a href="/system/" rel="section"><i class="fa fa-calendar fa-fw"></i>体系</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/42d738d8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="houren">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android BLE4.0
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-18 21:52:47" itemprop="dateCreated datePublished" datetime="2020-09-18T21:52:47+08:00">2020-09-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-19 08:58:10" itemprop="dateModified" datetime="2020-09-19T08:58:10+08:00">2020-09-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/archives/42d738d8.html" class="post-meta-item leancloud_visitors" data-flag-title="Android BLE4.0" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/archives/42d738d8.html#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/archives/42d738d8.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>…</p>
+<a id="more"></a>
+
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a><p class="m_more_title_style">示例</p></h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 需求：</span></span><br><span class="line"><span class="comment">* 1. 界面没有任何按钮操控，需要完全自动化实现多个设备的同时连接，数据处理等操作。</span></span><br><span class="line"><span class="comment">* 2. 每台移动设备对应的蓝牙仪器是固定的，扫描到匹配的设备才可以连接，断开连接时需要自动重新连接。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> List&lt;BluetoothDevice&gt; devicelist = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> BluetoothAdapter bluetoothAdapter;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> SCAN_PERIOD = <span class="number">10000</span>; <span class="comment">//用于设置蓝牙搜索时间</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">private</span> List&lt;BluetoothDevice&gt; dList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    <span class="keyword">private</span> BluetoothGatt bluetoothGatt;</span><br><span class="line">    <span class="keyword">private</span> BluetoothGattCharacteristic controlCharacteristicl, notifyCharacteristic, batteryCharacteristic;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> ACCESS_LOCATION = <span class="number">1</span>;</span><br><span class="line">    Blue a1;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        getPermission();</span><br><span class="line">        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();</span><br><span class="line">        <span class="keyword">if</span> (!bluetoothAdapter.isEnabled()) &#123;        <span class="comment">//第一步  判断是否开启了蓝牙。。没开启则提示打开蓝牙</span></span><br><span class="line">            bluetoothAdapter.enable();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BluetoothManager bluetoothManager = (BluetoothManager)getSystemService(BLUETOOTH_SERVICE);</span><br><span class="line">        <span class="comment">//得到蓝牙的适配器</span></span><br><span class="line">        bluetoothAdapter = bluetoothManager.getAdapter();</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@SuppressLint</span>(<span class="string">"WrongConstant"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">getPermission</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt; Build.VERSION_CODES.M) &#123;</span><br><span class="line">            <span class="keyword">int</span> permissionCheck = <span class="number">0</span>;</span><br><span class="line">            permissionCheck = <span class="keyword">this</span>.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);</span><br><span class="line">            permissionCheck += <span class="keyword">this</span>.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION);</span><br><span class="line">            <span class="keyword">if</span> (permissionCheck != PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">                <span class="keyword">this</span>.requestPermissions( <span class="comment">// 请求授权</span></span><br><span class="line">                        <span class="keyword">new</span> String[]&#123;Manifest.permission.ACCESS_FINE_LOCATION,</span><br><span class="line">                                Manifest.permission.ACCESS_COARSE_LOCATION&#125;,</span><br><span class="line">                        ACCESS_LOCATION);<span class="comment">// 自定义常量,任意整型</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// 已经获得权限</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRequestPermissionsResult</span><span class="params">(<span class="keyword">int</span> requestCode, String[] permissions, <span class="keyword">int</span>[] grantResults)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (requestCode) &#123;</span><br><span class="line">            <span class="keyword">case</span> ACCESS_LOCATION:</span><br><span class="line">                <span class="keyword">if</span> (hasAllPermissionGranted(grantResults)) &#123;</span><br><span class="line">                    Log.e(<span class="string">"TAG"</span>, <span class="string">"onRequestPermissionsResult: OK"</span>);</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    Log.e(<span class="string">"TAG"</span>, <span class="string">"onRequestPermissionsResult: NOT OK"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">hasAllPermissionGranted</span><span class="params">(<span class="keyword">int</span>[] grantResults)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> grantResult : grantResults) &#123;</span><br><span class="line">            <span class="keyword">if</span> (grantResult == PackageManager.PERMISSION_DENIED) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">      <span class="comment">// 初始化仪器类</span></span><br><span class="line">        a1 = <span class="keyword">new</span> Blue(<span class="keyword">this</span>, bluetoothGatt, controlCharacteristicl, notifyCharacteristic);</span><br><span class="line">      <span class="comment">// 读取缓存的蓝牙设备地址</span></span><br><span class="line">        blueReader();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Handler handler = <span class="keyword">new</span> Handler() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">            <span class="keyword">switch</span> (msg.what) &#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="comment">// 开启扫描</span></span><br><span class="line">                    scaning();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                    <span class="comment">// 仪器</span></span><br><span class="line">                    forDelect(<span class="string">""</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">                    <span class="comment">//如果开始扫描后，5秒内没有搜索到任何设备。。则重新开始扫描</span></span><br><span class="line">                    <span class="keyword">if</span> (dList.size() == <span class="number">0</span>) &#123;</span><br><span class="line">                        LogUtils.e(<span class="string">"没有扫描到设备，从新开始扫描"</span>);</span><br><span class="line">                        bluetoothAdapter.stopLeScan(mLeScanCallback);</span><br><span class="line">                        handler.sendEmptyMessageDelayed(<span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">forDelect</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        LogUtils.e(devicelist.toString() + <span class="string">"--------------------------------------仪器断开，删除之前"</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; devicelist.size(); i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (devicelist.get(i).getName().equals(str)) &#123;</span><br><span class="line">                devicelist.remove(i);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        LogUtils.e(devicelist.toString() + <span class="string">"--------------------------------------仪器断开，删除之后"</span>);</span><br><span class="line">        handler.sendEmptyMessageDelayed(<span class="number">1</span>, <span class="number">3500</span>);</span><br><span class="line">        dList.clear();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startScan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        flag = <span class="keyword">true</span>;</span><br><span class="line"><span class="comment">//        handler.sendEmptyMessage(1);</span></span><br><span class="line">        handler.sendEmptyMessageDelayed(<span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onResume();</span><br><span class="line">        startScan();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy();</span><br><span class="line">        stopScan();</span><br><span class="line"><span class="comment">//        if (mReceiver != null) &#123;</span></span><br><span class="line"><span class="comment">//            mContext.unregisterReceiver(mReceiver);</span></span><br><span class="line"><span class="comment">//            mReceiver = null;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line">        a1.onDes();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onStop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop();</span><br><span class="line">        stopScan();</span><br><span class="line">        flag = <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">stopScan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//如果正在扫描，，就停止扫描</span></span><br><span class="line"><span class="comment">//        boolean discovering = bluetoothAdapter.isDiscovering();</span></span><br><span class="line"><span class="comment">//        LogUtils.e("是否正在扫描当中;" + discovering);</span></span><br><span class="line"><span class="comment">//        if (!discovering) &#123;</span></span><br><span class="line">        bluetoothAdapter.stopLeScan(mLeScanCallback);</span><br><span class="line">        LogUtils.e(<span class="string">"停止扫描"</span>);</span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        if (discovering) &#123;</span></span><br><span class="line"><span class="comment">//            bluetoothAdapter.cancelDiscovery();</span></span><br><span class="line"><span class="comment">//            LogUtils.e("停止扫描");</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">scaning</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">            LogUtils.e(<span class="string">"开始扫描"</span>);</span><br><span class="line">            <span class="comment">//最好调用这个过时的方法，因为可以支持很多API</span></span><br><span class="line">            <span class="keyword">boolean</span> a = bluetoothAdapter.startLeScan(mLeScanCallback);</span><br><span class="line">            LogUtils.e(a + <span class="string">"------------------------------是否成功开启扫描"</span>);</span><br><span class="line">            <span class="keyword">if</span> (a)</span><br><span class="line">                handler.sendEmptyMessageDelayed(<span class="number">8</span>, <span class="number">8000</span>);</span><br><span class="line"><span class="comment">//            else &#123;</span></span><br><span class="line"><span class="comment">//                bluetoothAdapter.stopLeScan(mLeScanCallback);</span></span><br><span class="line"><span class="comment">//                handler.sendEmptyMessageDelayed(1, 1000);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//            bluetoothAdapter.startDiscovery();     //开启扫描</span></span><br><span class="line"><span class="comment">//            LogUtils.e(devicelist.size()+"--size");</span></span><br><span class="line"><span class="comment">//            if (devicelist .size()!= 0) &#123;</span></span><br><span class="line"><span class="comment">//                LogUtils.e(devicelist.toString()+"-------------蓝牙集合");</span></span><br><span class="line"><span class="comment">//                handler.sendEmptyMessage(2);</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            handler.sendEmptyMessageDelayed(1, 5000);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connecting</span><span class="params">(BluetoothDevice device)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        连接前停止搜索</span></span><br><span class="line">        bluetoothAdapter.stopLeScan(mLeScanCallback);</span><br><span class="line"><span class="comment">//        bluetoothAdapter.cancelDiscovery();</span></span><br><span class="line">        <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">            LogUtils.e(<span class="string">"正在连接"</span>);</span><br><span class="line">            String name = device.getName();</span><br><span class="line">            LogUtils.e(name + <span class="string">"----name-&gt;1"</span>);</span><br><span class="line">            <span class="keyword">if</span> (name.equals(startWith[<span class="number">0</span>])) &#123;</span><br><span class="line">                a1.init(device);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            LogUtils.e(<span class="string">"走完连接方法，重新开始扫描"</span>);</span><br><span class="line">            handler.sendEmptyMessageDelayed(<span class="number">1</span>, <span class="number">2000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 设备名</span></span><br><span class="line">    String[] startWith = &#123;<span class="string">""</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> BluetoothAdapter.LeScanCallback mLeScanCallback = <span class="keyword">new</span> BluetoothAdapter.LeScanCallback() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onLeScan</span><span class="params">(<span class="keyword">final</span> BluetoothDevice device, <span class="keyword">int</span> rssi, <span class="keyword">byte</span>[] scanRecord)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (!(dList.contains(device))) &#123;</span><br><span class="line">                Log.e(<span class="string">"TAG"</span>, device.getName() + <span class="string">"-------------- device.getName()"</span>);</span><br><span class="line">                Log.e(<span class="string">"TAG"</span>, device.getAddress() + <span class="string">"--------------device.getAddress()"</span>);</span><br><span class="line">                dList.add(device);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//项目的正式方法，根据唯一的设备地址判别</span></span><br><span class="line">                <span class="keyword">if</span> (adress != <span class="keyword">null</span> &amp;&amp; adress.length != <span class="number">0</span>) &#123;</span><br><span class="line">                    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; adress.length; i++) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (device.getName() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                            <span class="keyword">if</span> (adress[i] != <span class="keyword">null</span>) &#123;</span><br><span class="line">                                <span class="comment">//如果已扫描的设备在本地有记录，并且集合不包含。。。</span></span><br><span class="line">                                <span class="comment">//则添加到集合中，并且调用连接方法</span></span><br><span class="line">                                <span class="keyword">if</span> (device.getAddress().equals(adress[i]) &amp;&amp; !(devicelist.contains(device))) &#123;</span><br><span class="line">                                    devicelist.add(device);</span><br><span class="line">                                    connecting(device);</span><br><span class="line"><span class="comment">//                                handler.sendEmptyMessage(2);</span></span><br><span class="line">                                    <span class="keyword">return</span>;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//这个数组是用来保存地址的，主要用来做判断</span></span><br><span class="line">    <span class="keyword">private</span> String[] adress;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//文件流。。。读取内存的蓝牙地址</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">blueReader</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// FileInputStream对文件进行读取</span></span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">"/storage/emulated/0/BlueAdress.txt"</span>);</span><br><span class="line">        <span class="comment">// 打开流</span></span><br><span class="line">        FileInputStream fis = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">            fis = <span class="keyword">new</span> FileInputStream(file);</span><br><span class="line">            <span class="keyword">byte</span>[] buf = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">            <span class="keyword">int</span> len = fis.read(buf); <span class="comment">// 长度 0, 65</span></span><br><span class="line">            String str = <span class="keyword">new</span> String(buf, <span class="number">0</span>, len);</span><br><span class="line">            StringTokenizer tokener = <span class="keyword">new</span> StringTokenizer(str, <span class="string">"."</span>);</span><br><span class="line">            String[] result = <span class="keyword">new</span> String[tokener.countTokens()];</span><br><span class="line">            adress = <span class="keyword">new</span> String[tokener.countTokens()];</span><br><span class="line">            <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span> (tokener.hasMoreTokens()) &#123;</span><br><span class="line">                result[i++] = tokener.nextToken();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> a = <span class="number">0</span>; a &lt; result.length; a++) &#123;</span><br><span class="line">                String[] s1 = result[a].split(<span class="string">","</span>);</span><br><span class="line">                <span class="keyword">if</span> (s1[<span class="number">0</span>].equals(<span class="string">""</span>)) &#123;   <span class="comment">// 仪器</span></span><br><span class="line">                    adress[a] = s1[<span class="number">1</span>];</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (fis != <span class="keyword">null</span>)</span><br><span class="line">                    fis.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>蓝牙设备类，发送指令，接收数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Blue</span> </span>&#123;</span><br><span class="line">    Context mContext;</span><br><span class="line">    BluetoothGatt bluetoothGatt;</span><br><span class="line">    BluetoothDevice device;</span><br><span class="line">    BluetoothGattCharacteristic controlCharacteristicl, notifyCharacteristic;</span><br><span class="line">    <span class="comment">// 数据处理</span></span><br><span class="line">    BlueCount blueCount;</span><br><span class="line">    String uuidFa;</span><br><span class="line">    String uuidShou;</span><br><span class="line">    String s;</span><br><span class="line">    <span class="keyword">boolean</span> isConnecting = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">// 工具类</span></span><br><span class="line">    ConversionUtils conversionUtils;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Blue</span><span class="params">(<span class="keyword">final</span> Context mContext, BluetoothGatt bluetoothGatt, <span class="keyword">final</span> BluetoothGattCharacteristic controlCharacteristicl, BluetoothGattCharacteristic notifyCharacteristic)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.mContext = mContext;</span><br><span class="line">        <span class="keyword">this</span>.bluetoothGatt = bluetoothGatt;</span><br><span class="line">        <span class="keyword">this</span>.controlCharacteristicl = controlCharacteristicl;</span><br><span class="line">        <span class="keyword">this</span>.notifyCharacteristic = notifyCharacteristic;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 回调监听</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> OnErWenListener onErWenListener;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">OnErWenListener</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">onErWenListener</span><span class="params">(<span class="keyword">int</span> position)</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setOnErWenListener</span><span class="params">(OnErWenListener onErWenListener)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.onErWenListener = onErWenListener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDes</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isConnecting) &#123;  <span class="comment">//如果未连接。</span></span><br><span class="line">            bluetoothGatt.disconnect();</span><br><span class="line">            LogUtils.e(<span class="string">"耳温仪已断开蓝牙连接"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">final</span> BluetoothDevice device)</span> </span>&#123;</span><br><span class="line"><span class="comment">//        y = 1;</span></span><br><span class="line">        onErWenListener.onErWenListener(<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">this</span>.device = device;</span><br><span class="line">        conversionUtils = <span class="keyword">new</span> ConversionUtils();</span><br><span class="line">        <span class="keyword">new</span> Thread() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">super</span>.run();</span><br><span class="line">                <span class="keyword">if</span> (device == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                bluetoothGatt = device.connectGatt(mContext, <span class="keyword">false</span>, gattCallback);</span><br><span class="line">                <span class="keyword">if</span> (bluetoothGatt == <span class="keyword">null</span>) &#123;</span><br><span class="line">                    <span class="keyword">return</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                uuidShou = <span class="string">""</span>;</span><br><span class="line">                uuidFa = <span class="string">""</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Handler handler1 = <span class="keyword">new</span> Handler() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleMessage</span><span class="params">(Message msg)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.handleMessage(msg);</span><br><span class="line">            <span class="keyword">if</span> (isConnecting) &#123;</span><br><span class="line">                LogUtils.e(<span class="string">"-----》发送指令；"</span>);</span><br><span class="line">                <span class="keyword">byte</span>[] byte2 = conversionUtils.hexStringToBytes(<span class="string">""</span>);<span class="comment">//APP给蓝牙设备发送指令</span></span><br><span class="line">                controlCharacteristicl.setValue(byte2);</span><br><span class="line">                bluetoothGatt.writeCharacteristic(controlCharacteristicl);</span><br><span class="line"><span class="comment">//                handler1.sendEmptyMessageDelayed(1, 4000);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">//连接4.0蓝牙的回调接口</span></span><br><span class="line">    <span class="keyword">private</span> BluetoothGattCallback gattCallback = <span class="keyword">new</span> BluetoothGattCallback() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 连接状态改变的回调</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> gatt</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> status</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> newState</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConnectionStateChange</span><span class="params">(<span class="keyword">final</span> BluetoothGatt gatt, <span class="keyword">int</span> status, <span class="keyword">final</span> <span class="keyword">int</span> newState)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onConnectionStateChange(gatt, status, newState);</span><br><span class="line">            <span class="comment">//更新UI必须用在主线程</span></span><br><span class="line">            <span class="keyword">switch</span> (newState) &#123;</span><br><span class="line">                <span class="keyword">case</span> BluetoothGatt.STATE_CONNECTED:</span><br><span class="line">                    LogUtils.e(<span class="string">"连接状态：已连接"</span>);</span><br><span class="line">                    isConnecting = <span class="keyword">true</span>;</span><br><span class="line">                    onErWenListener.onErWenListener(<span class="number">2</span>);</span><br><span class="line">                    <span class="comment">//当连接成果以后，开启这个服务，就可以通信了</span></span><br><span class="line">                    bluetoothGatt.discoverServices();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> BluetoothGatt.STATE_CONNECTING:</span><br><span class="line">                    LogUtils.e(<span class="string">"连接状态：正在连接"</span>);</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> BluetoothGatt.STATE_DISCONNECTED:</span><br><span class="line">                    LogUtils.e(<span class="string">"连接状态：断开连接"</span>);</span><br><span class="line">                    bluetoothGatt.close();</span><br><span class="line">                    onErWenListener.onErWenListener(<span class="number">3</span>);</span><br><span class="line">                    isConnecting = <span class="keyword">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> BluetoothGatt.STATE_DISCONNECTING:</span><br><span class="line">                    LogUtils.e(<span class="string">"连接状态：正在断开连接"</span>);</span><br><span class="line">                    onErWenListener.onErWenListener(<span class="number">10</span>);  <span class="comment">//无效，不会走这个方法</span></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onServicesDiscovered</span><span class="params">(BluetoothGatt gatt, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onServicesDiscovered(gatt, status);</span><br><span class="line">            <span class="keyword">if</span> (status == BluetoothGatt.GATT_SUCCESS) &#123;</span><br><span class="line">                List&lt;BluetoothGattService&gt; services = bluetoothGatt.getServices();</span><br><span class="line">                <span class="keyword">for</span> (BluetoothGattService bluetoothGattService : services) &#123;</span><br><span class="line"><span class="comment">//                    Log.e("====================》", " server:" + bluetoothGattService.getUuid().toString());</span></span><br><span class="line">                    List&lt;BluetoothGattCharacteristic&gt; characteristics = bluetoothGattService.getCharacteristics();</span><br><span class="line">                    <span class="keyword">for</span> (BluetoothGattCharacteristic bluetoothGattCharacteristic : characteristics) &#123;</span><br><span class="line"><span class="comment">//                        Log.e("====================》", " charac:" + bluetoothGattCharacteristic.getUuid().toString());</span></span><br><span class="line"><span class="comment">//                        int permission = bluetoothGattCharacteristic.getPermissions();</span></span><br><span class="line"><span class="comment">//                        LogUtils.e("----&gt;char permission:" + Utils.getCharPermission(permission));</span></span><br><span class="line"><span class="comment">//                        int property = bluetoothGattCharacteristic.getProperties();</span></span><br><span class="line"><span class="comment">//                        LogUtils.e("----&gt;char property:" + Utils.getCharPropertie(property));</span></span><br><span class="line"></span><br><span class="line">                        <span class="comment">// 这个UUID要根据蓝牙设备来定    APP---》蓝牙设备</span></span><br><span class="line"><span class="comment">//                        LogUtils.e(uuidFa + "----1");</span></span><br><span class="line">                        <span class="keyword">if</span> (bluetoothGattCharacteristic.getUuid().toString().equals(uuidFa)) &#123;</span><br><span class="line"><span class="comment">//                            LogUtils.e(uuidFa + "----2");</span></span><br><span class="line">                            LogUtils.e(<span class="string">"准备发送指令"</span>);</span><br><span class="line">                            controlCharacteristicl = bluetoothGattCharacteristic;</span><br><span class="line">                            handler1.sendEmptyMessageDelayed(<span class="number">1</span>, <span class="number">1000</span>);</span><br><span class="line"><span class="comment">//                            handler.sendEmptyMessage(3);</span></span><br><span class="line">                            <span class="comment">//  蓝牙设备---》APP</span></span><br><span class="line"><span class="comment">//                            LogUtils.e(uuidShou + "----1");</span></span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (bluetoothGattCharacteristic.getUuid().toString().equals(uuidShou)) &#123;</span><br><span class="line"><span class="comment">//                            LogUtils.e(uuidShou + "----2");</span></span><br><span class="line">                            LogUtils.e(<span class="string">"准备接收数据"</span>);</span><br><span class="line">                            bluetoothGatt.setCharacteristicNotification(bluetoothGattCharacteristic, <span class="keyword">true</span>);</span><br><span class="line">                            notifyCharacteristic = bluetoothGattCharacteristic;</span><br><span class="line">                            <span class="comment">//enableNotification(true, notifyCharacteristic);必须执行，不执行的话，APP无法从蓝牙设备获得数据</span></span><br><span class="line">                            enableNotification(<span class="keyword">true</span>, notifyCharacteristic);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCharacteristicRead</span><span class="params">(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onCharacteristicRead(gatt, characteristic, status);</span><br><span class="line">            <span class="keyword">if</span> (status == BluetoothGatt.GATT_SUCCESS)</span><br><span class="line">                LogUtils.e(<span class="string">"onCharRead "</span> + gatt.getDevice().getName()</span><br><span class="line">                        + <span class="string">" read "</span></span><br><span class="line">                        + characteristic.getUuid().toString()</span><br><span class="line">                        + <span class="string">" -&gt; "</span></span><br><span class="line">                        + Utils.bytesToHexString(characteristic.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCharacteristicWrite</span><span class="params">(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onCharacteristicWrite(gatt, characteristic, status);</span><br><span class="line">            ConversionUtils conversionUtils = <span class="keyword">new</span> ConversionUtils();</span><br><span class="line">            LogUtils.e(<span class="string">"onCharWrite "</span> + gatt.getDevice().getName()</span><br><span class="line">                    + <span class="string">" write "</span></span><br><span class="line">                    + characteristic.getUuid().toString()</span><br><span class="line">                    + <span class="string">" -&gt; "</span></span><br><span class="line">                    + conversionUtils.Bytes2HexString(characteristic.getValue()));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 这个方法用于APP接收蓝牙设备发送的数据</span></span><br><span class="line"><span class="comment">         *</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> gatt</span></span><br><span class="line"><span class="comment">         * <span class="doctag">@param</span> characteristic</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCharacteristicChanged</span><span class="params">(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onCharacteristicChanged(gatt, characteristic);</span><br><span class="line"><span class="comment">//            LogUtils.e("APP准备接收数据");</span></span><br><span class="line">            <span class="keyword">if</span> (characteristic.getUuid().toString().equals(notifyCharacteristic.getUuid().toString())) &#123;</span><br><span class="line"><span class="comment">//                if (doi) &#123;</span></span><br><span class="line"><span class="comment">//                    byte[] value = characteristic.getValue();</span></span><br><span class="line"><span class="comment">//                    String str = conversionUtils.Bytes2HexString(value);</span></span><br><span class="line"><span class="comment">//                    String str1 = str.substring(10, 12);</span></span><br><span class="line"><span class="comment">//                    if (str1.equals("65")) &#123;</span></span><br><span class="line"><span class="comment">//                        doi = false;</span></span><br><span class="line"><span class="comment">//                        erWen(characteristic);</span></span><br><span class="line"><span class="comment">//                    &#125;</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line">                erWen(characteristic);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDescriptorRead</span><span class="params">(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onDescriptorRead(gatt, descriptor, status);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDescriptorWrite</span><span class="params">(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onDescriptorWrite(gatt, descriptor, status);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReliableWriteCompleted</span><span class="params">(BluetoothGatt gatt, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onReliableWriteCompleted(gatt, status);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReadRemoteRssi</span><span class="params">(BluetoothGatt gatt, <span class="keyword">int</span> rssi, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onReadRemoteRssi(gatt, rssi, status);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onMtuChanged</span><span class="params">(BluetoothGatt gatt, <span class="keyword">int</span> mtu, <span class="keyword">int</span> status)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.onMtuChanged(gatt, mtu, status);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.clone();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.equals(o);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">            <span class="keyword">super</span>.finalize();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.hashCode();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">super</span>.toString();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">enableNotification</span><span class="params">(<span class="keyword">boolean</span> enable, BluetoothGattCharacteristic characteristic)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bluetoothGatt == <span class="keyword">null</span> || characteristic == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (!bluetoothGatt.setCharacteristicNotification(characteristic, enable))</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        BluetoothGattDescriptor clientConfig = characteristic.getDescriptor(UUID.fromString(<span class="string">"00002902-0000-1000-8000-00805f9b34fb"</span>));</span><br><span class="line">        <span class="keyword">if</span> (clientConfig == <span class="keyword">null</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (enable) &#123;</span><br><span class="line">            clientConfig.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            clientConfig.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);</span><br><span class="line">        &#125;</span><br><span class="line">        LogUtils.e(bluetoothGatt.writeDescriptor(clientConfig) + <span class="string">"----------&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;bluetoothGatt.writeDescriptor(clientConfig)"</span>);</span><br><span class="line">        <span class="keyword">return</span> bluetoothGatt.writeDescriptor(clientConfig);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">double</span> wen;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">wen</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> wen;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 数据处理</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">erWen</span><span class="params">(BluetoothGattCharacteristic characteristic)</span> </span>&#123;</span><br><span class="line">        blueCount = <span class="keyword">new</span> BlueCount();</span><br><span class="line">        <span class="keyword">byte</span>[] value = characteristic.getValue();</span><br><span class="line">        String str = conversionUtils.Bytes2HexString(value);</span><br><span class="line">        Log.e(<span class="string">"接收到的16进制字符串---&gt;&gt;"</span>, str);</span><br><span class="line">        <span class="keyword">if</span> (str.equals(<span class="string">""</span>))&#123;</span><br><span class="line">            <span class="keyword">if</span> (isConnecting) &#123;  <span class="comment">//如果未连接。</span></span><br><span class="line">                bluetoothGatt.disconnect();</span><br><span class="line">                LogUtils.e(<span class="string">"耳温仪已断开蓝牙连接"</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        String str1 = str.substring(<span class="number">10</span>, <span class="number">12</span>);</span><br><span class="line">        Log.e(<span class="string">"截取后的字符串---&gt;&gt;"</span>, str1);</span><br><span class="line">        <span class="keyword">if</span> (str1.equals(<span class="string">""</span>)) &#123;</span><br><span class="line">            String str2 = str.substring(<span class="number">12</span>, <span class="number">16</span>);</span><br><span class="line">            Log.e(<span class="string">"拿到的数据---&gt;&gt;"</span>, str2);</span><br><span class="line">            blueCount.show(str2);</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">//            handler1.sendEmptyMessageDelayed(1, 4000);</span></span><br><span class="line"><span class="comment">//            return;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="keyword">double</span> n = blueCount.getM();</span><br><span class="line"><span class="comment">//        LogUtils.e("开始下一次的延迟发送");</span></span><br><span class="line"><span class="comment">//        handler.sendEmptyMessageDelayed(1, 500);</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (n != <span class="number">0.0</span>) &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>数据处理</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BlueCount</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    BluetoothGattCharacteristic characteristic;</span><br><span class="line">    ConversionUtils conversionUtils;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">double</span> m;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">getM</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> m;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BlueCount</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        init();</span><br><span class="line">        <span class="keyword">this</span>.characteristic = characteristic;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        conversionUtils = <span class="keyword">new</span> ConversionUtils();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">show</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        String s1 = str.substring(<span class="number">0</span>, <span class="number">2</span>);</span><br><span class="line"><span class="comment">//        Log.e("第一字节十六进制数值---&gt;&gt;", s1);</span></span><br><span class="line">        <span class="keyword">int</span> s11 = conversionUtils.LiuZhuanShi(s1);</span><br><span class="line"><span class="comment">//        Log.e("第一字节十进制数值---&gt;&gt;", s11 + "");</span></span><br><span class="line">        String s2 = str.substring(<span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line"><span class="comment">//        Log.e("第二字节十六进制数值---&gt;&gt;", s2);</span></span><br><span class="line">        <span class="keyword">int</span> s22 = conversionUtils.LiuZhuanShi(s2);</span><br><span class="line"><span class="comment">//        Log.e("第二字节十进制数值---&gt;&gt;", s22 + "");</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        m = (<span class="keyword">double</span>) (s11 + s22 * <span class="number">256</span>) / (<span class="keyword">double</span>) <span class="number">10</span>;</span><br><span class="line"></span><br><span class="line">        Log.e(<span class="string">"测量结果---&gt;&gt;"</span>, m + <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConversionUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String hexStr = <span class="string">"0123456789ABCDEF"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String[] binaryArray =</span><br><span class="line">            &#123;<span class="string">"0000"</span>, <span class="string">"0001"</span>, <span class="string">"0010"</span>, <span class="string">"0011"</span>,</span><br><span class="line">                    <span class="string">"0100"</span>, <span class="string">"0101"</span>, <span class="string">"0110"</span>, <span class="string">"0111"</span>,</span><br><span class="line">                    <span class="string">"1000"</span>, <span class="string">"1001"</span>, <span class="string">"1010"</span>, <span class="string">"1011"</span>,</span><br><span class="line">                    <span class="string">"1100"</span>, <span class="string">"1101"</span>, <span class="string">"1110"</span>, <span class="string">"1111"</span>&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> hexString</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 将十六进制转换为二进制字节数组   16-2</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] hexStr2BinArr(String hexString) &#123;</span><br><span class="line">        <span class="comment">//hexString的长度对2取整，作为bytes的长度</span></span><br><span class="line">        <span class="keyword">int</span> len = hexString.length() / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] bytes = <span class="keyword">new</span> <span class="keyword">byte</span>[len];</span><br><span class="line">        <span class="keyword">byte</span> high = <span class="number">0</span>;<span class="comment">//字节高四位</span></span><br><span class="line">        <span class="keyword">byte</span> low = <span class="number">0</span>;<span class="comment">//字节低四位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">            <span class="comment">//右移四位得到高位</span></span><br><span class="line">            high = (<span class="keyword">byte</span>) ((hexStr.indexOf(hexString.charAt(<span class="number">2</span> * i))) &lt;&lt; <span class="number">4</span>);</span><br><span class="line">            low = (<span class="keyword">byte</span>) hexStr.indexOf(hexString.charAt(<span class="number">2</span> * i + <span class="number">1</span>));</span><br><span class="line">            bytes[i] = (<span class="keyword">byte</span>) (high | low);<span class="comment">//高地位做或运算</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> bytes;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//将发送的字符串指令转换为16进制。。。。。用来发送指令</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] hexStringToBytes(String hexString) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hexString == <span class="keyword">null</span> || hexString.equals(<span class="string">""</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        hexString = hexString.toUpperCase();</span><br><span class="line">        <span class="keyword">int</span> length = hexString.length() / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">char</span>[] hexChars = hexString.toCharArray();</span><br><span class="line">        <span class="keyword">byte</span>[] d = <span class="keyword">new</span> <span class="keyword">byte</span>[length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">int</span> pos = i * <span class="number">2</span>;</span><br><span class="line">            d[i] = (<span class="keyword">byte</span>) (charToByte(hexChars[pos]) &lt;&lt; <span class="number">4</span> | charToByte(hexChars[pos + <span class="number">1</span>]));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> d;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">byte</span> <span class="title">charToByte</span><span class="params">(<span class="keyword">char</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">byte</span>) <span class="string">"0123456789ABCDEF"</span>.indexOf(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 二进制数组转换为二进制字符串   2-2</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">bytes2BinStr</span><span class="params">(<span class="keyword">byte</span>[] bArray)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String outStr = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">int</span> pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">byte</span> b : bArray) &#123;</span><br><span class="line">            <span class="comment">//高四位</span></span><br><span class="line">            pos = (b &amp; <span class="number">0xF0</span>) &gt;&gt; <span class="number">4</span>;</span><br><span class="line">            outStr += binaryArray[pos];</span><br><span class="line">            <span class="comment">//低四位</span></span><br><span class="line">            pos = b &amp; <span class="number">0x0F</span>;</span><br><span class="line">            outStr += binaryArray[pos];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outStr;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从字节数组到十六进制字符串转</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span>[] hex = <span class="string">"0123456789ABCDEF"</span>.getBytes();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">Bytes2HexString</span><span class="params">(<span class="keyword">byte</span>[] b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span> * b.length];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; b.length; i++) &#123;</span><br><span class="line">            buff[<span class="number">2</span> * i] = hex[(b[i] &gt;&gt; <span class="number">4</span>) &amp; <span class="number">0x0f</span>];</span><br><span class="line">            buff[<span class="number">2</span> * i + <span class="number">1</span>] = hex[b[i] &amp; <span class="number">0x0f</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> String(buff);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//二进制转换为十进制</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">con</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        BigInteger src42 = <span class="keyword">new</span> BigInteger(str, <span class="number">2</span>);<span class="comment">//转换为BigInteger类型</span></span><br><span class="line">        <span class="keyword">return</span> src42.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//十六进制转为十进制</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">LiuZhuanShi</span><span class="params">(String str)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Integer.parseInt(str, <span class="number">16</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//byte转String</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> String <span class="title">byte2hex</span><span class="params">(<span class="keyword">byte</span>[] data)</span> </span>&#123;</span><br><span class="line">        StringBuffer sb = <span class="keyword">new</span> StringBuffer();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; data.length; i++) &#123;</span><br><span class="line">            String temp = Integer.toHexString(((<span class="keyword">int</span>) data[i]) &amp; <span class="number">0xFF</span>);</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> t = temp.length(); t &lt; <span class="number">2</span>; t++) &#123;</span><br><span class="line">                sb.append(<span class="string">"0"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            sb.append(temp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogUtils</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">boolean</span> isDebug = <span class="keyword">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">e</span><span class="params">(String msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isDebug)</span><br><span class="line">            Log.e(<span class="string">"As"</span>, <span class="string">"----------&gt;&gt;"</span> + msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">e</span><span class="params">(String... msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isDebug) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; msg.length; i++) &#123;</span><br><span class="line">                Log.e(<span class="string">"MathBox"</span>, <span class="string">"-------&gt;&gt;"</span> + <span class="string">"msg"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">e</span><span class="params">(<span class="keyword">int</span> msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isDebug)</span><br><span class="line">            Log.e(<span class="string">"As"</span>, <span class="string">"----------&gt;&gt;"</span> + msg + <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">e</span><span class="params">(<span class="keyword">boolean</span> msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isDebug)</span><br><span class="line">            Log.e(<span class="string">"As"</span>, <span class="string">"----------&gt;&gt;"</span> + msg + <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">e</span><span class="params">(Object msg)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isDebug)</span><br><span class="line">            Log.e(<span class="string">"As"</span>, <span class="string">"----------&gt;&gt;"</span> + msg.toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>权限：AndroidManifest.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.BLUETOOTH"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.BLUETOOTH_ADMIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- Android6.0 蓝牙扫描才需要--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_FINE_LOCATION"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_COARSE_LOCATION"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>传送门</strong>：<a href="https://github.com/feiyeyuanye/BLE4.0" target="_blank" rel="noopener external nofollow noreferrer">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+    
+   <div>
+     
+       <div>
+   
+		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+	
+</div>
+     
+   </div>
+        <div class="reward-container">
+  <div></div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="houren 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="houren 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>houren
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://jianghouren.com/archives/42d738d8.html" title="Android BLE4.0">https://jianghouren.com/archives/42d738d8.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/BLE/" rel="tag"><i class="fa fa-tag"></i> BLE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/archives/e899fad1.html" rel="prev" title="开发手册">
+      <i class="fa fa-chevron-left"></i> 开发手册
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例"><span class="nav-number">1.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+
+      <div class="skin_peeler diyclass" id="skin_peeler"></div>
+      <div class="read_aloud diyclass" id="read_aloud"></div>
+      <div class="audioImg diyclass" id="audioImg"></div>
+      <audio id="audioMp3" controls="true" loop="loop"></audio>
+      <script src="/js/my-diy.js"></script>
+    </main>
+   
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17:35</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

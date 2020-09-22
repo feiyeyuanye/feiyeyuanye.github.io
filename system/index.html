@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="目录               Android         博客体系Android 四大组件   四大组件的工作过程  Activity   View   理解  RemoteView  View 的事件体系  View 的工作原理 自定义 View  Xfermode 与 Matrix  自定义 View 基础  手势检测     Layout   动态创建布局  五大布局">
+<meta property="og:type" content="website">
+<meta property="og:title" content="知识体系">
+<meta property="og:url" content="https://jianghouren.com/system/index.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:description" content="目录               Android         博客体系Android 四大组件   四大组件的工作过程  Activity   View   理解  RemoteView  View 的事件体系  View 的工作原理 自定义 View  Xfermode 与 Matrix  自定义 View 基础  手势检测     Layout   动态创建布局  五大布局">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-09-22T08:30:57.000Z">
+<meta property="article:modified_time" content="2020-09-22T14:00:11.399Z">
+<meta property="article:author" content="houren">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://jianghouren.com/system/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>知识体系 | 非也缘也 Blog
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">非也缘也 Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-链接">
+
+    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
+
+  </li>
+        <li class="menu-item menu-item-体系">
+
+    <a href="/system/" rel="section"><i class="fa fa-calendar fa-fw"></i>体系</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">知识体系
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <div class="note info no-icon">
+  <details class="m_more_content_details">
+   <summary class="m_more_content_summary">目录</summary>
+     <dl>
+        <dt><a href="#Android">Android</dt>
+    </dl>
+</details>
+</div>
+
+<h2 id="博客体系"><a href="#博客体系" class="headerlink" title="博客体系"></a><p class="m_more_title_style">博客体系</p></h2><h3 id="Android"><a href="#Android" class="headerlink" title="Android"></a><a name="Android">Android</a></h3><ul>
+<li><p><a name="四大组件">四大组件</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/11e65276.html">四大组件的工作过程</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/13eca542.html">Activity</a></li>
+</ul>
+</li>
+<li><p><a name="View">View</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/sd6d7f1f6.html">理解  RemoteView</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/c9829065.html">View 的事件体系</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/e44f5800.html">View 的工作原理</a></li>
+<li>自定义 View<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/cecad596.html">Xfermode 与 Matrix</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/4e1a4955.html">自定义 View 基础</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/9b6664a3.html">手势检测</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a name="Layout">Layout</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2a059a45.html">动态创建布局</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/9d7816f1.html">五大布局</a></li>
+</ul>
+</li>
+<li><p><a name="数据存储">数据存储</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/50145819.html">SQLite</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2c38bfbf.html">File 文件流</a></li>
+</ul>
+</li>
+<li><p><a name="Bitmap">Bitmap</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6131000d.html">Bitmap</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/9ae0256a.html">Bitmap 的加载和 Cache</a></li>
+</ul>
+</li>
+<li><p><a name="动画">动画</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/ef010ae3.html">动画</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/167fa9ae.html">View 动画</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/674a2a07.html">属性动画</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/1d43aeed.html">逐帧动画</a></li>
+</ul>
+</li>
+<li><p><a name="通信机制">通信机制</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/ab7d7f79.html">Handler</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/438d7339.html">IPC 机制</a></li>
+</ul>
+</li>
+<li><p><a name="Thread">Thread</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/989fc61c.html">线程和线程池</a> </li>
+</ul>
+</li>
+<li><p><a name="架构模式">架构模式</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/8a250496.html">MVP 模式</a></li>
+</ul>
+</li>
+<li><p><a name="虚拟机">虚拟机</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2b7768c3.html">Dalvik 和 ART</a></li>
+</ul>
+</li>
+<li><p><a name="资源">资源</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/5131856d.html">Drawable</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/94e5a0e.html">xml 资源引用</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/5da4dd77.html">资源</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/e4b9d37a.html">主题颜色属性</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d491122b.html">selector，shape，layer-list</a> </li>
+</ul>
+</li>
+<li><p><a name="框架与库">框架与库</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d260f7d4.html">EventBus 源码</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2c415e3c.html">EventBus 使用</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/fc03f94d.html">Retrofit 源码</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/22250a5.html">Retrofit 使用</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2efded73.html">OkHttp 源码</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d0dc449b.html">OkHttp 使用</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6faa267d.html">LeakCanary</a></li>
+</ul>
+</li>
+<li><p><a name="Jetpack">Jetpack</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/5a9d7efd.html">高级程序开发组件</a></li>
+</ul>
+</li>
+<li><p><a name="组件化">组件化</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/55632dfe.html">组件化</a></li>
+</ul>
+</li>
+<li><p><a name="插件化">插件化</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> 插件化</li>
+</ul>
+</li>
+<li><p><a name="热修复">热修复</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> 插件化</li>
+</ul>
+</li>
+<li><p><a name="JNI">JNI 与 NDK</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> JNI</li>
+<li><input disabled="" type="checkbox"> NDK</li>
+</ul>
+</li>
+<li><p><a name="BLE">BLE</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/42d738d8.html">Android BLE4.0</a></li>
+</ul>
+</li>
+<li><p><a name="综合技术">综合技术</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/89eda35e.html">综合技术</a> </li>
+</ul>
+</li>
+<li><p><a name="性能优化">性能优化</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/c5025de3.html">耗电优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/75852874.html">存储优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/8a5dff17.html">内存优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/544b3ab0.html">卡顿优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/85102257.html">崩溃优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/fd4af033.html">稳定性优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2305b87b.html">网络优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/15307383.html">日志优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/cfb1ac9b.html">启动优化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/5a8f240e.html"> APK 优化</a></li>
+</ul>
+</li>
+<li><p><a name="音视频开发">音视频开发</a></p>
+</li>
+<li><p><a name="适配">适配</a></p>
+<ul>
+<li><input disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d584e492.html">运行时权限</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/99f08afa.html">版本适配</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/b05e1533.html">屏幕适配</a> </li>
+</ul>
+</li>
+<li><p><a name="测试">测试</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d9ef4533.html">测试</a></li>
+<li><input disabled="" type="checkbox"> UI 自动化测试</li>
+<li><input disabled="" type="checkbox"> 单元测试</li>
+</ul>
+</li>
+<li><p><a name="源码分析">源码分析</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6e49e308.html">应用程序进程启动过程</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/e9ed765f.html">Window 和 WindowManager</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2d4e716c.html">系统启动</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/9e663e1d.html">项目结构</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/27cba059.html">系统架构</a> </li>
+</ul>
+</li>
+<li><p><a name="功能实现">功能实现</a></p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/fd6e976f.html">九宫格</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/252e0103.html">倒计时</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/ec4acfa5.html">移动支付</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a><a name="Kotlin">Kotlin</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://github.com/feiyeyuanye/Preliminary-use-of-Kotlin" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6006a97d.html">Kotlin 语言入门</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/bbf985d0.html">Kotlin 扩展课堂</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6e630c17.html">Kotlin 高级用法</a> </li>
+</ul>
+<h3 id="Java"><a href="#Java" class="headerlink" title="Java"></a><a name="Java">Java</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/22bff8cc.html">Java序列化</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/7015a9cc.html">wait、notify、notifyAll</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/66b5cb5f.html">synchronized</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/46008e3b.html">CountDownLatch</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/54430254.html">代码块与函数</a> </li>
+<li><a name="JVM">JVM</a><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/4304a474.html">基本原理(3)</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/5a1f9535.html">基本原理(2)</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/7132c6f6.html">基本原理(1)</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/c69e2769.html">虚拟机</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="跨平台"><a href="#跨平台" class="headerlink" title="跨平台"></a><a name="跨平台">跨平台</a></h3><ul>
+<li><a name="Flutter">Flutter</a><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/935b0f87.html">Hello World</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/f7159b41.html">UI布局和控件</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/f1c6064.html">Dart 语言基础</a> </li>
+</ul>
+</li>
+<li><a name="Web">Web</a><ul>
+<li><a name="HTML">HTML</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/4e5d699d.html">HTML 页面显示 md 文件</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/b39822c.html">HTML基础</a> </li>
+<li><a name="CSS">CSS</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/c6f5af44.html">CSS基础</a> </li>
+<li><a name="JS">JS</a></li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/c94fd93e.html">常用小功能</a> </li>
+</ul>
+</li>
+<li><a name="HyBrid">HyBrid</a><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/10410692.html">Hybrid</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d1bb9f93.html">WebView</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a><a name="设计模式">设计模式</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/f1601c3e.html">单例模式</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/364ea8cc.html">设计模式</a> </li>
+</ul>
+<h3 id="数据结构与算法"><a href="#数据结构与算法" class="headerlink" title="数据结构与算法"></a><a name="数据结构与算法">数据结构与算法</a></h3><ul>
+<li><a name="数据结构">数据结构</a><ul>
+<li><input disabled="" type="checkbox"> 插件化 </li>
+</ul>
+</li>
+<li><a name="算法">算法</a><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/97fc4ab0.html">重建二叉树</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/cd65786b.html">排序算法总结</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/4d56a87f.html">查找算法总结</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/cc713db.html">斐波那契数列</a> </li>
+</ul>
+</li>
+</ul>
+<h3 id="网络编程"><a href="#网络编程" class="headerlink" title="网络编程"></a><a name="网络编程">网络编程</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/d54f64ae.html">网络通信协议</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/ed6e57da.html">Sockete</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/e3a936c0.html">HttpURLConnectione</a> </li>
+</ul>
+<h3 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a><a name="服务端">服务端</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/6e110137.html">Apache 防域名恶意解析</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/2c778873.html">ssl 证书配置</a> </li>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/3d8b5231.html">Mac 本地服务器</a> </li>
+</ul>
+<h3 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a><a name="版本控制">版本控制</a></h3><ul>
+<li><input checked="" disabled="" type="checkbox"> <a href="https://jianghouren.com/archives/15f503f8.html">Git</a></li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#博客体系"><span class="nav-number">1.</span> <span class="nav-text">博客体系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android"><span class="nav-number">1.1.</span> <span class="nav-text">Android</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Kotlin"><span class="nav-number">1.2.</span> <span class="nav-text">Kotlin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java"><span class="nav-number">1.3.</span> <span class="nav-text">Java</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跨平台"><span class="nav-number">1.4.</span> <span class="nav-text">跨平台</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计模式"><span class="nav-number">1.5.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构与算法"><span class="nav-number">1.6.</span> <span class="nav-text">数据结构与算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络编程"><span class="nav-number">1.7.</span> <span class="nav-text">网络编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端"><span class="nav-number">1.8.</span> <span class="nav-text">服务端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本控制"><span class="nav-number">1.9.</span> <span class="nav-text">版本控制</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="houren"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">houren</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives">
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+
+      <div class="skin_peeler diyclass" id="skin_peeler"></div>
+      <div class="read_aloud diyclass" id="read_aloud"></div>
+      <div class="audioImg diyclass" id="audioImg"></div>
+      <audio id="audioMp3" controls="true" loop="loop"></audio>
+      <script src="/js/my-diy.js"></script>
+    </main>
+   
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">houren</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">1.2m</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">17:35</span>
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+	</span>
+	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+    	<span class="post-meta-divider">|</span>
+	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+	</span>
+ <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
+      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
+      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : '' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+
+  <script async src="/js/cursor/fireworks.js"></script>
+
+
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>
