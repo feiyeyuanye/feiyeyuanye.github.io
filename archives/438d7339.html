@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/nzaypq.png?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/android_binder_%E8%BF%9E%E6%8E%A5%E6%B1%A0.jpeg?imageView2/2/h/600">
 <meta property="article:published_time" content="2019-09-12T03:53:02.000Z">
-<meta property="article:modified_time" content="2020-09-13T21:44:41.893Z">
+<meta property="article:modified_time" content="2020-10-01T03:43:24.336Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="通信机制">
 <meta name="twitter:card" content="summary">
@@ -237,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-14 05:44:41" itemprop="dateModified" datetime="2020-09-14T05:44:41+08:00">2020-09-14</time>
+                <time title="修改时间：2020-10-01 11:43:24" itemprop="dateModified" datetime="2020-10-01T11:43:24+08:00">2020-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -285,7 +285,7 @@
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
+              <span>15 分钟</span>
             </span>
 
         </div>
@@ -339,17 +339,21 @@
 <li><strong>套接字</strong>：套接字是更为基础的进程间通信机制，与其他方式不同的是，套接字可用于不同机器之间的进程间通信。</li>
 </ul>
 <hr>
-<h2 id="Activity-中的多进程模式"><a href="#Activity-中的多进程模式" class="headerlink" title="Activity 中的多进程模式"></a><p class="m_more_title_style">Activity 中的多进程模式</p></h2><h3 id="开启多进程模式"><a href="#开启多进程模式" class="headerlink" title="开启多进程模式"></a>开启多进程模式</h3><p>一般在 Android 中，多进程指一个应用中存在多个进程的情况。同一个应用间的多进程，就相当于两个不同的应用采用了 SharedUID 的模式。<br>可通过在 AndroidMenifest 中给四大组件指定 android:process 属性，来开启多进程。（也可以通过 JNI 在 native 层去 fork 一个新的进程，但不常用）</p>
+<h2 id="Activity-中的多进程模式"><a href="#Activity-中的多进程模式" class="headerlink" title="Activity 中的多进程模式"></a><p class="m_more_title_style">Activity 中的多进程模式</p></h2><h3 id="开启多进程模式"><a href="#开启多进程模式" class="headerlink" title="开启多进程模式"></a>开启多进程模式</h3><p>一般在 Android 中，多进程指一个应用中存在多个进程的情况。同一个应用间的多进程，就相当于两个不同的应用采用了 SharedUID 的模式。<br>可通过在 AndroidMenifest 中给四大组件指定 android:process 属性，来开启多进程。（也可以通过 JNI 在 native 层去 fork 一个新的进程，但不常用）可通过 getProcessName(this) 来获取进程名。</p>
 <ul>
 <li><strong>android:process=”:remote”</strong><br>简写的方式，指在当前进程名前面附加上当前的包名。<br>属于当前应用的私有进程，其他应用的组件不可以和它跑在同一个进程中。</li>
 <li><strong>android:process=”com.ryg.chapter_2.remote”</strong><br>完整的命名方式，不会附加包名信息。<br>属于全局进程，每个应用有唯一的 UID，其他应用通过 ShareUID 方式可以和它跑在同一进程中（需要它们有相同的 ShareUID 并且签名相同）。</li>
 </ul>
 <h3 id="多进程模式的运行机制"><a href="#多进程模式的运行机制" class="headerlink" title="多进程模式的运行机制"></a>多进程模式的运行机制</h3><p><strong>使用多进程会造成的几个问题：</strong></p>
 <ul>
-<li>静态成员和单例模式完全失效<br>Android 为每一个应用（进程）分配了一个独立的虚拟机，不同虚拟机在内存分配上有不同的地址空间，这就导致在不同虚拟机中访问同一个类对象会产生多份副本。</li>
-<li>线程同步机制完全失效<br>本质上和上个问题类似，不同进程锁的不是同一个对象。</li>
-<li>SharedPreferences 的可靠性下降<br>SP 不支持两个进程同时去执行写操作，否则会导致一定几率的数据丢失。</li>
-<li>Application 会多次创建<br>其实，就是启动一个应用的过程。不同进程的组件会拥有独立的虚拟机、Application 以及内存空间。</li>
+<li>静态成员和单例模式完全失效：Android 为每一个应用（进程）分配了一个独立的虚拟机，不同虚拟机在内存分配上有不同的地址空间，这就导致在不同虚拟机中访问同一个类对象会产生多份副本。</li>
+<li>线程同步机制完全失效：本质上和上个问题类似，不同进程锁的不是同一个对象。</li>
+<li>SharedPreferences 的可靠性下降：SP 不支持两个进程同时去执行写操作，否则会导致一定几率的数据丢失。</li>
+<li>Application 会多次创建：其实，就是启动一个应用的过程。不同进程的组件会拥有独立的虚拟机、Application 以及内存空间。（假设项目的 Application 为 LagouApplication，新创建 RemoteActivity 的 process 为 “lagou.process”，这将导致它会在一个新的进程中创建。当在 MainActivity 中跳转到 RemoteActivity 时，LagouApplication 会被再次创建，因此各种初始化的操作也会被执行 2 遍。）针对这个问题，目前有两种比较好的处理方式：<ul>
+<li>onCreate 方法中判断进程的名称，只有在符合要求的进程里，才执行初始化操作；</li>
+<li>抽象出一个与 Application 生命周期同步的类，并根据不同的进程创建相应的 Application 实例。</li>
+</ul>
+</li>
 </ul>
 <hr>
 <h2 id="IPC-基础概念介绍"><a href="#IPC-基础概念介绍" class="headerlink" title="IPC 基础概念介绍"></a><p class="m_more_title_style">IPC 基础概念介绍</p></h2><h3 id="Serializable-接口"><a href="#Serializable-接口" class="headerlink" title="Serializable 接口"></a>Serializable 接口</h3><p>是 Java 提供的一个序列化接口，它是一个空接口，为对象提供标准的序列化和反序列化操作。<br>实现序列化，只需要类实现 Serializable 接口并声明一个 serialVersionUID 即可（这个声明不是必须的，但会对反序列化过程产生影响）。</p>
@@ -366,7 +370,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Parcelable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> userId;</span><br><span class="line">    <span class="keyword">public</span> String userName;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">boolean</span> isMale;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Book book;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(<span class="keyword">int</span> userId,String userName,<span class="keyword">boolean</span> isMale)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.userId = userId;</span><br><span class="line">        <span class="keyword">this</span>.userName = userName;</span><br><span class="line">        <span class="keyword">this</span>.isMale = isMale;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  从序列化后的对象中创建原始对象</span></span><br><span class="line"><span class="comment">     *  Parcel 内部包装了可序列化的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">User</span><span class="params">(Parcel in)</span> </span>&#123;</span><br><span class="line">        userId = in.readInt();</span><br><span class="line">        userName = in.readString();</span><br><span class="line">        isMale = in.readInt() == <span class="number">1</span>;</span><br><span class="line">        <span class="comment">// book 是另一个可序列化对象，</span></span><br><span class="line">        <span class="comment">// 它的反序列化过程需要传递当前线程的上下文类加载器，</span></span><br><span class="line">        <span class="comment">// 否则会报无法找到类的错误。</span></span><br><span class="line">        book = in.readParcelable(Thread.currentThread().getContextClassLoader());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  反序列化功能由 CREATOR 完成，</span></span><br><span class="line"><span class="comment">     *  其内部标明了如何创建序列化对象和数组，</span></span><br><span class="line"><span class="comment">     *  并通过 Parcel 的一系列 read 方法来完成反序列化过程。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Creator&lt;User&gt; CREATOR = <span class="keyword">new</span> Creator&lt;User&gt;() &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 从序列化后对象中创建原始对象</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> User <span class="title">createFromParcel</span><span class="params">(Parcel in)</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> User(in);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 创建指定长度的原始对象数组</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> User[] newArray(<span class="keyword">int</span> size) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> User[size];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 内容描述功能</span></span><br><span class="line"><span class="comment">     * 仅当当前对象中存在文件描述符时，返回 1。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">describeContents</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  实现了序列化功能</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel dest, <span class="keyword">int</span> flags)</span> </span>&#123;</span><br><span class="line">        dest.writeInt(userId);</span><br><span class="line">        dest.writeString(userName);</span><br><span class="line">        dest.writeInt(isMale?<span class="number">1</span>:<span class="number">0</span>);</span><br><span class="line">        dest.writeParcelable(book,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="二者区别"><a href="#二者区别" class="headerlink" title="二者区别"></a>二者区别</h3><p>1、Serilizable 是 Java 中的序列化接口，使用简单，但开销很大，序列化和反序列化过程需要大量的 I/O 操作。<br>2、Parcelable 是 Android 中的序列化方式，使用麻烦，但效率很高，推荐使用。<br>3、Parcelable 主要用在内存序列化上，通过它将对象序列化到存储设备中或者将对象序列化后通过网络传输也都可以，但过程稍显复杂，这两种情况建议使用 Serilizable。</p>
 <hr>
-<h2 id="Android-中的-IPC-方式"><a href="#Android-中的-IPC-方式" class="headerlink" title="Android 中的 IPC 方式"></a><p class="m_more_title_style">Android 中的 IPC 方式</p></h2><p>Android系统是基于Linux内核的，在Linux内核基础上，又拓展出了一些IPC机制。Android系统除了支持套接字，还支持序列化、Messenger、AIDL、Bundle、文件共享、ContentProvider、Binder等。</p>
+<h2 id="Android-中的-IPC-方式"><a href="#Android-中的-IPC-方式" class="headerlink" title="Android 中的 IPC 方式"></a><p class="m_more_title_style">Android 中的 IPC 方式</p></h2><p>Android系统是基于Linux内核的，在Linux内核基础上，又拓展出了一些IPC机制。Android系统除了支持套接字，还支持序列化、Messenger、AIDL、Bundle、文件共享、ContentProvider、Binder（除了传统的技术，是Android新开发的一种进程间通信机制，也是实现IPC的主要底层机制）等。</p>
 <h3 id="使用序列化"><a href="#使用序列化" class="headerlink" title="使用序列化"></a>使用序列化</h3><p>序列化指的是Serializable/Parcelable，Serializable是Java提供的一个序列化接口，是一个空接口，为对象提供标准的序列化和反序列化操作。Parcelable接口是Android中的序列化方式，更适合在Android平台上使用，用起来比较麻烦，效率很高。</p>
 <h3 id="使用-Bundle"><a href="#使用-Bundle" class="headerlink" title="使用 Bundle"></a>使用 Bundle</h3><p>四大组件中的 Activity、Service、Receiver 都是支持在 Intent 中通过Bundle来进行数据传递。<br>Bundle 实现了 Parcelable 接口，使用简单方便，但传输的数据必须能够被序列化。</p>
 <h3 id="使用文件共享"><a href="#使用文件共享" class="headerlink" title="使用文件共享"></a>使用文件共享</h3><p>两个进程通过读/写同一个文件来交换数据（数据共享，共享的文件可以是文本、XML、JOSN）。<br>文件共享方式适合在对数据同步要求不高的进程之间进行通信，并且要妥善处理并发读/写的问题。</p>
@@ -387,7 +391,8 @@
 </ul>
 </li>
 </ul>
-<h3 id="使用-AIDL"><a href="#使用-AIDL" class="headerlink" title="使用 AIDL"></a>使用 AIDL</h3><p>AIDL全名为Android interface definition Language，即Android接口定义语言。Messenger是以串行的方式来处理客户端发来的信息，如果有大量的消息发到服务端，服务端仍然一个一个的处理再响应客户端显然是不合适的。另外还有一点，Messenger用来进程间进行数据传递但是却不能满足跨进程的方法调用，这个时候就需要使用AIDL了。</p>
+<h3 id="使用-AIDL"><a href="#使用-AIDL" class="headerlink" title="使用 AIDL"></a>使用 AIDL</h3><p>AIDL（Android interface definition Language），即 Android 接口定义语言。Messenger是以串行的方式来处理客户端发来的信息，如果有大量的消息发到服务端，服务端仍然一个一个的处理再响应客户端显然是不合适的。另外还有一点，Messenger用来进程间进行数据传递但是却不能满足跨进程的方法调用，这个时候就需要使用AIDL了。</p>
+<p>AIDL 可生成在进程间通信的代码，底层由Binder机制实现。实现主要分三部分：客户端调用远程服务器，服务器提供服务，AIDL接口，参数传递。当作为客户的一方要和作为服务器的一方进行通信时，需指定一些双方都认可的接口，这样才能顺利地进行通信，AIDL就是定义这些接口的一种工具。</p>
 <p><strong>使用流程：</strong></p>
 <ul>
 <li><strong>服务端</strong><ul>
@@ -621,7 +626,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

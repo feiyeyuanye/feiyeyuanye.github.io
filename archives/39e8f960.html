@@ -23,18 +23,18 @@
     var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="…">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="article">
 <meta property="og:title" content="Android ListView">
 <meta property="og:url" content="https://jianghouren.com/archives/39e8f960.html">
 <meta property="og:site_name" content="非也缘也 Blog">
-<meta property="og:description" content="…">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-09-17T14:59:04.000Z">
-<meta property="article:modified_time" content="2020-09-27T11:11:22.735Z">
+<meta property="article:modified_time" content="2020-10-02T01:24:55.815Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="常用控件">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
 <link rel="canonical" href="https://jianghouren.com/archives/39e8f960.html">
 
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-27 19:11:22" itemprop="dateModified" datetime="2020-09-27T19:11:22+08:00">2020-09-27</time>
+                <time title="修改时间：2020-10-02 09:24:55" itemprop="dateModified" datetime="2020-10-02T09:24:55+08:00">2020-10-02</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
+              <span>3.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -293,7 +293,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>…</p>
+        <img data-src="https://imgsw.cn/static/images/wallhaven-39xk69_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
 <a id="more"></a>
 
 <h2 id="ListView"><a href="#ListView" class="headerlink" title="ListView"></a><p class="m_more_title_style">ListView</p></h2><h3 id="示例（Kotlin）"><a href="#示例（Kotlin）" class="headerlink" title="示例（Kotlin）"></a>示例（Kotlin）</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * ListView 的性能需要一些技巧来提升。</span></span><br><span class="line"><span class="comment"> * ListView 的扩展性不够好，并且只能实现数据的纵向滚动效果。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ListViewActivity</span> : <span class="type">BaseActivity</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> fruitList = ArrayList&lt;FruitBean&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_lv)</span><br><span class="line"></span><br><span class="line"><span class="comment">//        val  data = intent.getStringArrayListExtra("param1")</span></span><br><span class="line"><span class="comment">//        // 最好用的适配器 ArrayAdapter，它通过泛型来指定要适配的数据类型。</span></span><br><span class="line"><span class="comment">//        // R.layout.simple_list_item_1 系统内置的布局文件，内部只有一个 TextView。</span></span><br><span class="line"><span class="comment">//        val adapter = ArrayAdapter&lt;String&gt;(this, android.R.layout.simple_list_item_1,data)</span></span><br><span class="line"></span><br><span class="line">        initFruit()</span><br><span class="line">        <span class="keyword">val</span> adapter = FruitLVAdapter(<span class="keyword">this</span>, R.layout.item_fruit,fruitList)</span><br><span class="line">        lv.adapter = adapter</span><br><span class="line"><span class="comment">//        lv.setOnItemClickListener&#123;parent, view, position, id -&gt;</span></span><br><span class="line"><span class="comment">//            val fruit = fruitList[position]</span></span><br><span class="line"><span class="comment">//            Toast.makeText(this,fruit.name,Toast.LENGTH_SHORT).show()</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        <span class="comment">// Kotlin 更加推荐将没有用到的参数使用下划线来替代，但参数的位置不能变。</span></span><br><span class="line">        lv.setOnItemClickListener&#123; _, _, position, _ -&gt;</span><br><span class="line">            <span class="keyword">val</span> fruit = fruitList[position]</span><br><span class="line">            Toast.makeText(<span class="keyword">this</span>,fruit.name,Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initFruit</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// repeat 函数会将表达式内的内容执行 2 遍。</span></span><br><span class="line">        repeat(<span class="number">3</span>)&#123;</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">            fruitList.add(</span><br><span class="line">                FruitBean(</span><br><span class="line">                    <span class="string">"Apple"</span>,</span><br><span class="line">                    R.drawable.ic_launcher_background</span><br><span class="line">                )</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, ListViewActivity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -309,6 +310,16 @@
 <li>采用 ViewHolder 并避免在 getView 中执行耗时操作</li>
 <li>根据列表的滑动状态来控制任务的执行频率</li>
 <li>尝试开启硬件加速来使 ListView 的滑动更加流畅</li>
+</ul>
+<p>其它优化方式比如：</p>
+<ul>
+<li>Item布局，层级越少越好，使用hierarchyview工具查看优化。</li>
+<li>复用convertView</li>
+<li>使用ViewHolder</li>
+<li>item中有图片时，异步加载</li>
+<li>快速滑动时，不加载图片</li>
+<li>item中有图片时，应对图片进行适当压缩</li>
+<li>实现数据的分页加载</li>
 </ul>
 
     </div>
@@ -456,7 +467,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

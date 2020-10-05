@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-08-13T07:10:54.000Z">
-<meta property="article:modified_time" content="2020-09-18T12:26:16.774Z">
+<meta property="article:modified_time" content="2020-10-01T02:04:32.019Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-18 20:26:16" itemprop="dateModified" datetime="2020-09-18T20:26:16+08:00">2020-09-18</time>
+                <time title="修改时间：2020-10-01 10:04:32" itemprop="dateModified" datetime="2020-10-01T10:04:32+08:00">2020-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.2k</span>
+              <span>7.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -467,6 +467,12 @@
 <p>排查；log日志，代码，ANR成因，data目录下的trace.txt文件，检测ANR的watchdog，LeakCanary库。<br>FC（Force Close）: Error，OOM，SOFE，Runtime，注意内存。</p>
 <p>如何分析ANR?<br>ANR产生时, 系统会生成一个traces.txt的文件放在/data/anr/下. 开发人员可通过adb命令将其导出到本地 ($adb pull data/anr/traces.txt .)通过分析,可以根据具体的日志查看Anr原因( 如: 普通阻塞,CPU满负荷,内存泄露 )</p>
 <p>UI线程主要包括如下：<br>Activity:onCreate(), onResume(), onDestroy(), onKeyDown(), onClick()<br>AsyncTask: onPreExecute(), onProgressUpdate(), onPostExecute(), onCancel()<br>Mainthread handler: handleMessage(), post(runnable r)<br>other</p>
+<h2 id="高性能编程及调优"><a href="#高性能编程及调优" class="headerlink" title="高性能编程及调优"></a>高性能编程及调优</h2><ul>
+<li><p>对于高性能编码：常见的比如说，常量使用static final修饰符，尽量使用系统封装好的API，静态优于抽象，使用增强型for循环，尽量访问本地变量而不是成员变量，对于for的第二个条件不要调用任何方法，避免在内部调用Getter/Setter，避免创建不必要的对象和临时对象，减少不必要的全局变量，采用三级缓存，但也尽量避免过量使用，对于图片合理的缩放，加载时可在内存中直接操作，对于能保存路径地址的就不要存放图片。</p>
+</li>
+<li><p>对于调优：主要还是处理内存的问题，管理内存也就是内存的分配和内存的回收，分配由系统完成，主要关注的是内存的回收问题。回收靠的是GC操作，也就是垃圾回收机制，对于GC操作，首先要避免的就是内存泄漏的问题，其实，我们还可以在内存不足时或界面不可见时释放内存，使用优化过的数据集合，使用IntentService代替Service，避免在Bitmap上浪费内存。其他还有像布局优化，主要两种手段，一是删除无用控件和层级，并且尽量使用性能较低的ViewGroup。二是跟三个控件相关，对于绘制优化，像自定义View较多，所以避免在View的onDraw()方法中执行大量操作，像创建新的局部变量，耗时操作，大量的循环操作。<br>对于项目来讲，在布局优化上主要采用的include，merge和viewStab，在性能上比如采用合适的集合。</p>
+</li>
+</ul>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="https://time.geekbang.org/column/intro/142?code=BoHaFtvdLwqi5oAhvaQpHa440OBxaicg-o5HhgsJGLw%3D" target="_blank" rel="noopener external nofollow noreferrer">极客时间-Android开发高手课</a><br><a href="https://mp.weixin.qq.com/s/Z7oMv0IgKWNkhLon_hFakg?" target="_blank" rel="noopener external nofollow noreferrer">Android 内存优化杂谈–张绍文</a><br><a href="https://github.com/facebook/device-year-class" target="_blank" rel="noopener external nofollow noreferrer">device-year-class</a></p>
 
@@ -600,7 +606,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行内存"><span class="nav-number">1.</span> <span class="nav-text">运行内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存引发的问题"><span class="nav-number">2.</span> <span class="nav-text">内存引发的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存优化和架构设计时的两个误区"><span class="nav-number">3.</span> <span class="nav-text">内存优化和架构设计时的两个误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测量方法"><span class="nav-number">4.</span> <span class="nav-text">测量方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存优化探讨"><span class="nav-number">5.</span> <span class="nav-text">内存优化探讨</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存监控"><span class="nav-number">6.</span> <span class="nav-text">内存监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-number">7.</span> <span class="nav-text">OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卡顿"><span class="nav-number">8.</span> <span class="nav-text">卡顿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR"><span class="nav-number">9.</span> <span class="nav-text">ANR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">10.</span> <span class="nav-text">备注</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行内存"><span class="nav-number">1.</span> <span class="nav-text">运行内存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存引发的问题"><span class="nav-number">2.</span> <span class="nav-text">内存引发的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存优化和架构设计时的两个误区"><span class="nav-number">3.</span> <span class="nav-text">内存优化和架构设计时的两个误区</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测量方法"><span class="nav-number">4.</span> <span class="nav-text">测量方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存优化探讨"><span class="nav-number">5.</span> <span class="nav-text">内存优化探讨</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存监控"><span class="nav-number">6.</span> <span class="nav-text">内存监控</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOM"><span class="nav-number">7.</span> <span class="nav-text">OOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#卡顿"><span class="nav-number">8.</span> <span class="nav-text">卡顿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ANR"><span class="nav-number">9.</span> <span class="nav-text">ANR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高性能编程及调优"><span class="nav-number">10.</span> <span class="nav-text">高性能编程及调优</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">11.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -615,7 +621,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

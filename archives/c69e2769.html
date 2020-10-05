@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-11-22T00:47:34.000Z">
-<meta property="article:modified_time" content="2020-07-02T00:31:12.000Z">
+<meta property="article:modified_time" content="2020-10-01T01:53:53.425Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="虚拟机">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-02 08:31:12" itemprop="dateModified" datetime="2020-07-02T08:31:12+08:00">2020-07-02</time>
+                <time title="修改时间：2020-10-01 09:53:53" itemprop="dateModified" datetime="2020-10-01T09:53:53+08:00">2020-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -278,14 +278,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.8k</span>
+              <span>4.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>4 分钟</span>
             </span>
 
         </div>
@@ -373,6 +373,27 @@
 <li>设置对象的对象头</li>
 <li>执行 init 方法进行初始化</li>
 </ul>
+<p>当虚拟机收到一个 new 指令时，首先会判断对象对应的类是否加载，链接和初始化，然后为对象分配内存并处理并发安全问题，然后初始化分配到的内存空间，为对象设置对象头，最后执行 init 方法进行初始化。</p>
+<p>类的加载过程，Person  p  = new Person(); 为例进行说明。</p>
+<ul>
+<li><p>因为new用到了Person.class，所以会先找到Person.class文件，并加载到内存中;</p>
+</li>
+<li><p>执行该类中的static代码块，如果有的话，给Person.class类进行初始化;</p>
+</li>
+<li><p>在堆内存中开辟空间分配内存地址;</p>
+</li>
+<li><p>在堆内存中建立对象的特有属性，并进行默认初始化;</p>
+</li>
+<li><p>对属性进行显示初始化;</p>
+</li>
+<li><p>对对象进行构造代码块初始化;</p>
+</li>
+<li><p>对对象进行与之对应的构造函数进行初始化;</p>
+</li>
+<li><p>将内存地址付给栈内存中的 p 变量</p>
+</li>
+</ul>
+<p>首先查找并加载 person.class 文件，然后执行该类中的静态代码块，并初始化 person.class 类。然后在堆内存中开辟空间分配内存地址，再经过一系列的初始化过程（特有属性，构造代码块，构造函数），最后将内存地址付给栈内存中的 p 变量。</p>
 <hr>
 <h2 id="对象的堆内存布局"><a href="#对象的堆内存布局" class="headerlink" title="对象的堆内存布局"></a><p class="m_more_title_style">对象的堆内存布局</p></h2><p>以 HotSpot 虚拟机为例，分三个区域：</p>
 <ul>
@@ -384,6 +405,7 @@
 <li>实例数据（Instance Data）：用于存储对象中的各种类型的字段信息（包括从父类继承来的）。</li>
 <li>对齐填充（padding）：不一定存在，起到了占位符的作用，没有特别的含义。</li>
 </ul>
+<p>以 HotSpot 为例，分三个区域。对象头，实例数据和对其填充。其中对象头包括两部分信息，Mark World 和元数据指针，Mark World 用来存储其运行时数据，元数据指针用来确定其具体类型，实例数据用来存储对象各种类型的字段信息，对其填充不一定存在，起到占位符的作用，没有实际意义。</p>
 <hr>
 <h2 id="oop-klass-模型"><a href="#oop-klass-模型" class="headerlink" title="oop-klass 模型"></a><p class="m_more_title_style">oop-klass 模型</p></h2><p>用来描述 Java 对象实例的一种模型，分为两个部分：</p>
 <ul>
@@ -396,6 +418,9 @@
 <li>内存的划分和分配</li>
 <li>对垃圾进行回收</li>
 </ul>
+<p>以我的理解简单的解释下，GC就是垃圾回收机制，分为检测垃圾和回收垃圾两步。</p>
+<p>检测垃圾两种方法：引用计数法（无法处理循环引用的问题）。可达性分析算法（重点看这个），可以想象为一个有向图，以根集对象为起始点，如果对象不可达，则是垃圾对象。（接下来为个人理解，不知是否正确）比如，java以main为入口，其中创建了两个对象A和B，则在堆内存中，给A对象实例和B对象实例分配内存，在栈内存中持有他们的引用变量。这时有向图为：mian-&gt;A(堆)-&gt;A(栈)，mian-&gt;B(堆)-&gt;B(栈)。将对象A赋值给对象B，即0bjectB=objectA，则B的引用变量也指向了A(堆)，不再指向B(堆)。这时B(堆)则是自己孤零零的呆在堆内存中，没有引用变量指向他，也就意味着B(堆)和main是不通的（也就是不存在main入口到他的持续指向箭头），B(堆)就叫做对象不可达，可以被回收。</p>
+<p>为什么说长生命周期持有短生命周期的对象，会导致短生命周期对象无法释放。GC回收是通过对象是否可达来判断，然后长生命周期对象持有短生命周期的对象，就会导致对象一直是可达的。。以上面对象A和对象B为例，引用变量A和引用变量B都指向堆内存中的A对象实例，这时就有两个连通的线路；mian-&gt;A(堆)-&gt;A(栈)，mian-&gt;B(堆)-&gt;A(栈)。所以，即使A对象本身的生命周期走完了，可B对象的生命周期还没走完，依然还会保有对A对象实例的引用。即使第一条线路断开了，第二条还是连通的，则A对象还是可达的，无法被GC回收。</p>
 <h3 id="Java-中的引用"><a href="#Java-中的引用" class="headerlink" title="Java 中的引用"></a>Java 中的引用</h3><ul>
 <li>强引用：当新建一个对象时就创建了一个具有强引用的对象，即使 OOM 它也不会被 GC 回收。</li>
 <li>软引用：内存不够时，会回收这些对象的内存。</li>
@@ -405,6 +430,7 @@
 <h3 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h3><p>其基本思想就是每个对象都有一个引用计数器，当对象在某处被引用时，它的引用计数器就加 1，引用失效就减 1。当值为 0，则该对象就不能被使用，变成了垃圾。</p>
 <p>它没有解决对象之间相互循环引用的问题。</p>
 <h3 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h3><p>其基本思想就是选定一些对象作为 GC Roots，并组成根对象集合，然后以这些 GC Roots 的对象作为起始点，向下搜索，如果目标对象到 GC Roots 是连接着的，就称该目标对象是可达的，如果目标对象不可达则说明目标对象是可以被回收的对象。</p>
+<p>垃圾标记算法有引用计数法和根搜索算法。引用计数法指每个对象都有一个引用计数器，引用成功加一，引用失败减一，当为零时，则成为了垃圾。但此算法不能解决对象循环引用的问题。所以可使用根搜索算法解决，又叫可达性分析算法，指可选用一些对象作为根节点，从根节点到引用对象如果是连接着的，就代表是可达状态，否则为不可达状态可被回收。</p>
 <hr>
 <h2 id="Java-对象在虚拟机中的生命周期"><a href="#Java-对象在虚拟机中的生命周期" class="headerlink" title="Java 对象在虚拟机中的生命周期"></a><p class="m_more_title_style">Java 对象在虚拟机中的生命周期</p></h2><p>在 Java 对象被类加载器加载到虚拟机中后，Java 对象在 JVM 中有 7 个阶段：</p>
 <ol>
@@ -450,6 +476,7 @@
 <li>Minor Collection：新生代垃圾收集</li>
 <li>Full Collection（Major Collection）：老年代垃圾收集，通常情况下会伴随至少一次的 Minor Collection，它的收集频率较低，耗时较长。</li>
 </ul>
+<p>垃圾清除算法有标记清除，复制，标记压缩和分代收集算法。标记清除算法会将垃圾回收分为标记阶段和清除阶段，标记阶段会将可回收对象进行标记，而清除阶段则将被标记的对象所占空间进行回收。它的缺点是效率不高，并且会造成大量不连续的内存碎片。复制算法是将内存空间分为相等两份，每次使用其中的一份区域，垃圾收集时会将存活对象复制到另外一份空间中，并对此空间可回收对象进行回收，它被广泛应用于新生代中。标记压缩是将存活对象压缩到内存的一角，然后对边界外空间进行垃圾回收，它被广泛应用于老年代中。分代收集算法是指根据 java 堆的分代空间划分，然后对相应空间采取相应的垃圾清除算法。</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="http://liuwangshu.cn/" target="_blank" rel="noopener external nofollow noreferrer">Android 进阶解密</a></p>
 
@@ -598,7 +625,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-26T13:47:08.000Z">
-<meta property="article:modified_time" content="2020-09-22T08:25:59.948Z">
+<meta property="article:modified_time" content="2020-10-01T03:28:20.552Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="数据存储">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-22 16:25:59" itemprop="dateModified" datetime="2020-09-22T16:25:59+08:00">2020-09-22</time>
+                <time title="修改时间：2020-10-01 11:28:20" itemprop="dateModified" datetime="2020-10-01T11:28:20+08:00">2020-10-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
+              <span>7.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -321,6 +321,12 @@
 
 <hr>
 <h2 id="传递对象"><a href="#传递对象" class="headerlink" title="传递对象"></a><p class="m_more_title_style">传递对象</p></h2><p>使用 Intent 传递对象通常有两种方式：Serializable 和 Parcelable。</p>
+<p>为什么要序列化？</p>
+<ul>
+<li>永久性保存对象，保存对象的字节序列到本地文件中；</li>
+<li>通过序列化对象在网络中传递对象；</li>
+<li>通过序列化在进程间传递对象。</li>
+</ul>
 <h3 id="Serializable"><a href="#Serializable" class="headerlink" title="Serializable"></a>Serializable</h3><p>它是序列化的意思，表示将一个对象转换成可存储或可运输的状态。序列化后的对象可以在网络上进行传输，也可以存储到本地。只需要让一个类去实现 Serializable 这个接口即可完成序列化。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> : <span class="type">Serializable &#123;</span></span></span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -343,6 +349,12 @@
 <p>在序列化过程中，虚拟机会试图调用对象类里的 writeObject 和 readObject 方法，进行用户自定义的序列化和反序列化，<br>如果没有这样的方法，则默认调用是 ObjectOutputStream 的 defaultWriteObject 方法以及 ObjectInputStream 的 defaultReadObject 方法。<br>用户自定义的 writeObject 和 readObject 方法可以允许用户控制序列化的过程，比如可以在序列化的过程中动态改变序列化的数值。</p>
 <p><strong>序列化存储规则</strong></p>
 <p>Java 序列化机制为了节省磁盘空间，具有特定的存储规则，<br>当写入文件的为同一对象时，并不会再将对象的内容进行存储，而只是再次存储一份引用。<br>反序列化时，恢复引用关系，使得这两个对象指向唯一的对象，二者相等。该存储规则极大的节省了存储空间。</p>
+<p><strong>Binder 传递数据限制</strong></p>
+<p>Intent 传值 Bean 对象时偶尔也会导程序崩溃，因为 Intent 传递数据过大，最终原因是 Android 系统对使用 Binder 传数据进行了限制。通常情况为 1M，但是根据不同版本、不同厂商，这个值会有区别。解决办法：</p>
+<ul>
+<li>减少通过 Intent 传递的数据，将非必须字段使用 transient 关键字修饰，避免将其序列化。</li>
+<li>将对象转化为 JSON 字符串，减少数据体积。因为 JVM 加载类通常会伴随额外的空间来保存类相关信息，将类中数据转化为 JSON 字符串可以减少数据大小。比如使用 Gson.toJson 方法。（大多时候，将类转化为 JSON 字符串之后，还是会超出 Binder 限制，说明实际需要传递的数据是很大的。这种情况则需要考虑使用本地持久化来实现数据共享，或者使用 EventBus 来实现数据传递。）</li>
+</ul>
 <h3 id="Parcelable"><a href="#Parcelable" class="headerlink" title="Parcelable"></a>Parcelable</h3><p>Parcelable 的实现原理是将一个完整的对象进行分解，而分解后的每一部分都是 Intent 所支持的数据类型，这样就能实现传递对象的功能了。对比 Serializable，Serializable 的方式较为简单，但由于会把这个对象进行序列化。因此效率会比 Parcelable 方式低一些，所以通常情况下，还是更加推荐使用 Parcelable 的方式来实现 Intent 传递对象的功能。 </p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> : <span class="type">Parcelable &#123;</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> age = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将 Person 类中的字段一一写出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">writeToParcel</span><span class="params">(parcel: <span class="type">Parcel</span>, flags: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">        parcel.writeString(name)   <span class="comment">// 写出 name</span></span><br><span class="line">        parcel.writeInt(age)   <span class="comment">// 写出 age</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 直接返回 0 即可</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">describeContents</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 还必须在 Person 类中提供一个名为 CREATOR 的匿名类实现</span></span><br><span class="line"><span class="comment">     * 这里创建了 Parcelable.Creator 接口的一个实现，并将泛型指定为 Person。</span></span><br><span class="line"><span class="comment">     * 并重写两个方法。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> CREATOR : Parcelable.Creator&lt;Person&gt; &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 要创建出一个 Person 对象进行返回，并读取刚才写出的字段，并且读取的顺序要和写出的顺序一致。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">createFromParcel</span><span class="params">(parcel: <span class="type">Parcel</span>)</span></span>: Person &#123;</span><br><span class="line">            <span class="keyword">val</span> person = Person()</span><br><span class="line">            person.name = parcel.readString()?:<span class="string">""</span>  <span class="comment">// 读取 name</span></span><br><span class="line">            person.age = parcel.readInt()      <span class="comment">// 读取 age</span></span><br><span class="line">            <span class="keyword">return</span> person</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 调用 arrayOfNulls 方法，并使用参数中传入的 size 作为数组大小，创建一个空的 Person 数组即可。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">newArray</span><span class="params">(size: <span class="type">Int</span>)</span></span>: Array&lt;Person?&gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> arrayOfNulls(size)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight kotlin"><figcaption><span>MainActivity.kt</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> person = Person()</span><br><span class="line">person.name = <span class="string">"Tom"</span></span><br><span class="line">person.age = <span class="number">20</span></span><br><span class="line"><span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,SecondActivity::Class.java)</span><br><span class="line">intent.putExtra(<span class="string">"person_data"</span>,person)</span><br><span class="line">startActivity(intent)</span><br></pre></td></tr></table></figure>
@@ -505,7 +517,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">153</span>
+          <span class="site-state-item-count">152</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
