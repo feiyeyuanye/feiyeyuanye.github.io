@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-11-03T12:00:27.000Z">
-<meta property="article:modified_time" content="2020-10-22T03:16:54.264Z">
+<meta property="article:modified_time" content="2020-10-22T03:38:19.816Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="通信机制">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-22 11:16:54" itemprop="dateModified" datetime="2020-10-22T11:16:54+08:00">2020-10-22</time>
+                <time title="修改时间：2020-10-22 11:38:19" itemprop="dateModified" datetime="2020-10-22T11:38:19+08:00">2020-10-22</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -318,7 +318,25 @@
 <li>消息循环<br>主要分为「消息出队」和「消息分发」两个步骤，Looper会通过循环取出消息队列MessageQueue里面的消息Message，并分发到创建该消息的处理者Handler。如果消息循环过程中，消息队列MessageQueue为空队列的话，则线程阻塞。</li>
 <li>消息处理<br>Handler接收到Looper发来的消息，开始进行处理。</li>
 </ul>
-<p>异步消息处理流程：首先需要在主线程中创建一个 Handler 对象，并重写 handleMessage()。然后当子线程中需要进行 UI 操作时，就创建一个 Message 对象，并通过 Handler 将这条消息发送出去。之后这条消息会被添加到 MessageQueue 的队列中等待被处理，而 Looper 则会一直尝试从 MessageQueue 中取出待处理消息，最后分发回 Handler 的 handleMessage() 中。由于 Handler 是在主线程中创建的，所以此时 handleMessage() 方法中的代码也会在主线程中运行，于是就可以在这里进行 UI 操作了。</p>
+<p>异步消息处理流程：</p>
+<ul>
+<li><p>首先需要在主线程中创建一个 Handler 对象，并重写 handleMessage()。</p>
+</li>
+<li><p>然后当子线程中需要进行 UI 操作时，就创建一个 Message 对象，并通过 Handler 将这条消息发送出去。</p>
+</li>
+<li><p>实际上这个 Message 是发送到了与当前线程绑定的一个MessageQueue 的队列中等待被处理。</p>
+</li>
+<li><p>然后与当前线程绑定的 Looper 会在构造函数中通过 queue.next()（MessageQueue的方法）方法不断地从MessageQueue 中取出新的 Message，</p>
+</li>
+<li><p>next() 操作是一个阻塞操作，进而导致 loop 一直阻塞，无消息时阻塞等待，当有消息时，Looper 收到消息之后开始处理消息，同样在构造函数中调用 msg.target.dispatchMessage(msg) 方法将消息分发到与 Message 绑定的 Handler 中的 handler.handleMessage() 回调方法中。这里的msg.target就是 Handler。</p>
+</li>
+<li><p>handler.handleMessage(msg) 在 dispatchMessage（Message msg）中回调的。</p>
+</li>
+<li><p>Handler 处理消息过程；会检查 Message 的 callback 和 mCallback 是否为 null，当发送一条消息时，最终都会调用 enqueneMessage()，而 msg.target 得赋值就在这个方法中，也是在这里将 message 信息添加到MessageQueue 中。</p>
+</li>
+<li><p>由于 Handler 是在主线程中创建的，所以此时 handleMessage() 方法中的代码也会在主线程中运行，于是就可以在这里进行 UI 操作了。</p>
+</li>
+</ul>
 <h3 id="ThreadLocal-的工作原理"><a href="#ThreadLocal-的工作原理" class="headerlink" title="ThreadLocal 的工作原理"></a>ThreadLocal 的工作原理</h3><p>Handler 创建时会采用当前线程的 Looper（通过 ThreadLocal 获取每个线程的 Looper，它可在不同线程中互不干扰地存储并提供数据）来构造消息循环系统。</p>
 <p>一般来说，当某些数据是以线程为作用域并且不同线程具有不同的数据副本的时候，或是复杂逻辑下的对象传递，可考虑采用 ThreadLocal。</p>
 <p>它是一个线程内部的数据存储类，在指定线程中存储数据，并在指定线程中获取数据。可在不同线程中维护一套数据的副本并且彼此互不干扰。（因为不同线程访问同一个 ThreadLocal 的 get()，ThreadLocal 内部会从各自的线程中取出一个数组，然后根据当前 ThreadLocal 的索引去查找出对应的 value 值）</p>
