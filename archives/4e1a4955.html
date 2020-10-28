@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/cover1.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/demo_view.png">
 <meta property="article:published_time" content="2019-04-08T07:02:13.000Z">
-<meta property="article:modified_time" content="2020-10-05T23:04:21.635Z">
+<meta property="article:modified_time" content="2020-10-27T00:57:00.109Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="View">
 <meta name="twitter:card" content="summary">
@@ -234,7 +234,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-06 07:04:21" itemprop="dateModified" datetime="2020-10-06T07:04:21+08:00">2020-10-06</time>
+                <time title="修改时间：2020-10-27 08:57:00" itemprop="dateModified" datetime="2020-10-27T08:57:00+08:00">2020-10-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -340,7 +340,7 @@
 <p>因此自定义 View 的重点工作其实就是复写并合理的实现这 3 个方法。注意：并不是每个自定义 View 都需要实现这 3 个方法，大多数情况下只需要实现其中 2 个甚至 1 个方法也能满足需求。</p>
 <hr>
 <h2 id="自定义-View-三步骤"><a href="#自定义-View-三步骤" class="headerlink" title="自定义 View 三步骤"></a><p class="m_more_title_style">自定义 View 三步骤</p></h2><p><strong>自定义View三步骤，即；onMeasure()（测量），onLayout()（布局），onDraw()（绘制）。</strong></p>
-<h3 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h3><p>首先我们需要弄清楚，自定义 View 为什么需要重新测量。正常情况下，我们直接在 XML 布局文件中定义好 View 的宽高，然后让自定义 View 在此宽高的区域内显示即可。但是为了更好地兼容不同尺寸的屏幕，Android 系统提供了 wrap_contetn 和 match_parent 属性来规范控件的显示规则。它们分别代表自适应大小和填充父视图的大小，但是这两个属性并没有指定具体的大小，因此我们需要在 onMeasure 方法中过滤出这两种情况，真正的测量出自定义 View 应该显示的宽高大小。</p>
+<h3 id="onMeasure"><a href="#onMeasure" class="headerlink" title="onMeasure()"></a>onMeasure()</h3><p>首先我们需要弄清楚，自定义 View 为什么需要重新测量。正常情况下，我们直接在 XML 布局文件中定义好 View 的宽高，然后让自定义 View 在此宽高的区域内显示即可。但是为了更好地兼容不同尺寸的屏幕，Android 系统提供了 wrap_content 和 match_parent 属性来规范控件的显示规则。它们分别代表自适应大小和填充父视图的大小，但是这两个属性并没有指定具体的大小，因此我们需要在 onMeasure 方法中过滤出这两种情况，真正的测量出自定义 View 应该显示的宽高大小。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 测量</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> widthMeasureSpec 包含测量模式和宽度信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> heightMeasureSpec 包含测量模式和高度信息</span></span><br><span class="line"><span class="comment"> * int型数据，采用二进制，占32个bit。其中前2个bit为测量模式。后30个bit为测量数据(尺寸大小)。</span></span><br><span class="line"><span class="comment"> * 这里测量出的尺寸大小，并不是View的最终大小，而是父View提供的参考大小。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onMeasure</span><span class="params">(<span class="keyword">int</span> widthMeasureSpec, <span class="keyword">int</span> heightMeasureSpec)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">    Log.e(<span class="string">"TAG"</span>,<span class="string">"onMeasure()"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>MeasureSpec：</strong></p>
 <ul>
@@ -388,8 +388,8 @@
 <ul>
 <li><strong>View的位置参数：</strong><br>由View的四个属性决定；left（左上角横坐标），right（右下角横坐标），top（左上角纵坐标），bottom（右下角纵坐标）。是一种相对坐标，相对父容器。<br>四个参数对应View源码中的mLeft等四个成员变量，通过getLeft（）等方法来获取。</li>
 <li><strong>View的宽高和坐标的关系：</strong><br>width=right-left；<br>height=bottom-top；</li>
-<li><strong>从Android3.0开始，新增额外的四个参数：</strong><br>x，y，translationX，translationY。前两者是View左上角坐标，后两者是View左上角相对于父容器的偏移量，并且默认值0.和四个基本位置参数一样，也提供了get/set方法。</li>
-<li><strong>换算关系如下；</strong><br>x=left+translationX；<br>y=top+translationY；<br>注意；在View平移过程中，top和left表示的是原始左上角的位置信息，值并不会改变。发生改变的是想；x，y，translationX，translationY这四个参数。</li>
+<li><strong>从Android3.0开始，新增额外的四个参数：</strong><br>x，y，translationX，translationY。前两者是View左上角坐标，后两者是View左上角相对于父容器的偏移量，并且默认值0。和四个基本位置参数一样，也提供了get/set方法。</li>
+<li><strong>换算关系如下；</strong><br>x=left+translationX；<br>y=top+translationY；<br>注意；在View平移过程中，top和left表示的是原始左上角的位置信息，值并不会改变。发生改变的是；x，y，translationX，translationY这四个参数。</li>
 </ul>
 <p>它是一个抽象方法，也就是说每一个自定义 ViewGroup 都必须主动实现如何排布子 View，具体就是遍历每一个子 View，调用 child.(l, t, r, b) 方法来为每个子 View 设置具体的布局位置。四个参数分别代表左上右下的坐标位置，一个简易的 FlowLayout 实现如下：</p>
 <p>在大多数 App 的搜索界面经常会使用 FlowLayout 来展示历史搜索记录或者热门搜索项。<br>FlowLayout 的每一行上的 item 个数不一定，当每行的 item 累计宽度超过可用总宽度，则需要重启一行摆放 item 项。因此我们需要在 onMeasure 方法中主动的分行计算出 FlowLayout 的最终高度，如下所示：</p>
@@ -663,7 +663,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:16</span>
+    <span title="站点阅读时长">18:20</span>
 </div>
 
 
