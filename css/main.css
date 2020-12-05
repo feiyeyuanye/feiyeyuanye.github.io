@@ -1257,7 +1257,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #be4114;
+  background: #ffe440;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2696,6 +2696,12 @@ hr {
   border-bottom: none;
   border-bottom: 1px solid #c3b091;
 }
+.about_details {
+  cursor: pointer;
+}
+.about_details > summary::-webkit-details-marker {
+  display: none;
+}
 .diyclass {
   width: 26px;
   height: 26px;
@@ -2728,9 +2734,6 @@ hr {
   background-size: 21.5px 21.5px;
   background-color: #222;
   bottom: 135px;
-}
-#about_span {
-  font-size: 1.125em;
 }
 @-moz-keyframes CDturn {
   from {
