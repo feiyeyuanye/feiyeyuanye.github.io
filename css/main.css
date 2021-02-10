@@ -1257,7 +1257,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #394686;
+  background: #f73e79;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2659,7 +2659,8 @@ body:before {
 .footer {
   background-color: rgba(255,255,255,0.5);
 }
-.m_more_title_style {
+.m_more_title_style,
+h2 {
   color: #c3b091;
   text-align: center;
 }
