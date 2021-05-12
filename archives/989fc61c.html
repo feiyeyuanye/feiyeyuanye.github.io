@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/Java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%8A%BD%E8%B1%A1%E7%A4%BA%E6%84%8F%E5%9B%BE.jpeg?imageView2/2/h/600">
 <meta property="article:published_time" content="2019-11-04T02:59:26.000Z">
-<meta property="article:modified_time" content="2020-10-26T11:43:30.645Z">
+<meta property="article:modified_time" content="2021-04-27T08:59:19.320Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="多线程">
 <meta name="twitter:card" content="summary">
@@ -235,7 +235,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-26 19:43:30" itemprop="dateModified" datetime="2020-10-26T19:43:30+08:00">2020-10-26</time>
+                <time title="修改时间：2021-04-27 16:59:19" itemprop="dateModified" datetime="2021-04-27T16:59:19+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -299,9 +299,10 @@
 
 <a id="more"></a>
 
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a><p class="m_more_title_style">简介</p></h2><h3 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h3><p><strong>什么是进程</strong></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="线程基础"><a href="#线程基础" class="headerlink" title="线程基础"></a>线程基础</h3><p><strong>什么是进程</strong></p>
 <p>进程是操作系统结构的基础，是程序在一个数据集合上运行的过程，是系统进行资源分配和调度的基本单元。进程可以被看作程序的实体，同样，它也是线程的容器。（Java 程序运行在 JVM 中，JVM 进程其实就是他们的容器。）</p>
 <p>简单来讲，进程就是程序的实体，是受操作系统管理的基本运行单元。并且进程是重量级的，进程之间也是隔离的。</p>
+<p> Android 基于 Linux，App 运行在沙箱机制，就是一个 App 独立运行在一个虚拟机中，即使出错也不会影响系统，所以每一个虚拟机，运行的过程叫做进程。</p>
 <p><strong>什么是线程</strong></p>
 <p>在操作系统中，程序里面运行的子任务就是线程，线程是 CPU 调度的最小单元，也叫作轻量级进程，同时它又是一种受限的系统资源（不可能无限制地产生，是有限的），并且线程的创建和销毁都会有相应的开销。</p>
 <p>在一个进程中可以创建多个线程，这些线程都拥有各自的计数器、堆栈和局部变量等属性，并且能够访问共享的内存变量。</p>
@@ -515,7 +516,8 @@
 </ul>
 <p>mServiceHandler 收到消息后，会将 Intent 对象传递给 onHandleIntent()（一个抽象方法，需要在子类实现，它的作用是从 Intent 参数中区分具体的任务并执行这些任务）去处理，当 onHandleIntent() 执行结束后，IntentService 会通过 stopSelf(int startId)（区别于 stopSelf() 会立刻停止服务，它会等待所有消息处理完毕后才终止服务） 来尝试停止服务。</p>
 <hr>
-<h2 id="Android-中的线程池"><a href="#Android-中的线程池" class="headerlink" title="Android 中的线程池"></a><p class="m_more_title_style">Android 中的线程池</p></h2><p>线程池：用少量线程，让线程保持忙碌。（线程处理完任务，回到线程池中等待，不结束。）</p>
+<h2 id="Android-中的线程池"><a href="#Android-中的线程池" class="headerlink" title="Android 中的线程池"></a>Android 中的线程池</h2><p>池：同类对象的批量管理。</p>
+<p>线程池：用少量线程，让线程保持忙碌。（线程处理完任务，回到线程池中等待，不结束。）</p>
 <p>线程可以预先创建，让它进入阻塞状态，等待任务在唤醒。<br>BlockingQueue：</p>
 <ul>
 <li>take()-&gt;取数据-&gt;如果这Queue中没数据-&gt;则会阻塞</li>
@@ -715,14 +717,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -797,12 +799,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:51</span>
+    <span title="站点阅读时长">19:15</span>
 </div>
 
 

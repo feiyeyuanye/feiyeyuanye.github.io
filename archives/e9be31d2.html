@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-27T14:00:57.000Z">
-<meta property="article:modified_time" content="2020-07-29T22:43:11.000Z">
+<meta property="article:modified_time" content="2021-05-01T10:19:41.583Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-30 06:43:11" itemprop="dateModified" datetime="2020-07-30T06:43:11+08:00">2020-07-30</time>
+                <time title="修改时间：2021-05-01 18:19:41" itemprop="dateModified" datetime="2021-05-01T18:19:41+08:00">2021-05-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -301,13 +301,13 @@
 
 <a id="more"></a>
 
-<h2 id="Java-代码转换成-Kotlin-代码"><a href="#Java-代码转换成-Kotlin-代码" class="headerlink" title="Java 代码转换成 Kotlin 代码"></a><p class="m_more_title_style">Java 代码转换成 Kotlin 代码</p></h2><p>有许多老项目是使用 Java 语言编写的，而现在想要转换成 Kotlin 语言，最笨的转换方式就是对每一行代码都重新手动编写。</p>
+<h2 id="Java-代码转换成-Kotlin-代码"><a href="#Java-代码转换成-Kotlin-代码" class="headerlink" title="Java 代码转换成 Kotlin 代码"></a>Java 代码转换成 Kotlin 代码</h2><p>有许多老项目是使用 Java 语言编写的，而现在想要转换成 Kotlin 语言，最笨的转换方式就是对每一行代码都重新手动编写。</p>
 <h3 id="第一种转换方式"><a href="#第一种转换方式" class="headerlink" title="第一种转换方式"></a>第一种转换方式</h3><p>事实上，将 Java 代码转换成 Kotlin 代码，在语法层面上是有一定规律的，而 Android Studio 给我们提供了非常便利的功能来一键完成这种转换工作。</p>
 <p>首先，只要复制一段 Java 代码，然后在 Android Studio 中的任意一个 Kotlin 文件中进行粘贴，Android Studio 都会弹出提示框，询问我们是否要把即将粘贴的 Java 代码片段转换成 kotlin 代码。</p>
 <p>但上述这种实现方式，它只会按照固定的语法变化规律来执行转换工作，而不会自动应用 Kotlin 的各种优秀特性。因此，依靠这种自动转换工具只能实现基础版的 Kotlin 语法，细节方面的代码优化还是得靠我们手动完成。</p>
 <h3 id="第二种转换方式"><a href="#第二种转换方式" class="headerlink" title="第二种转换方式"></a>第二种转换方式</h3><p>除了复制粘贴的方式外，还可以直接将一个 Java 文件以及其中的所有代码一次性转换成 Kotlin 版本。具操操作是：首先打开 Java 文件，然后点击导航栏中的 Code -&gt; Convert Java File to Kotlin File。</p>
 <hr>
-<h2 id="Kotlin-代码转换成-Java-代码"><a href="#Kotlin-代码转换成-Java-代码" class="headerlink" title="Kotlin 代码转换成 Java 代码"></a><p class="m_more_title_style">Kotlin 代码转换成 Java 代码</p></h2><p>Android Studio 并没有提供类似的功能，因为 Kotlin 拥有许多 Java 中并不存在的特性，因此很难执行这样的一键转换。</p>
+<h2 id="Kotlin-代码转换成-Java-代码"><a href="#Kotlin-代码转换成-Java-代码" class="headerlink" title="Kotlin 代码转换成 Java 代码"></a>Kotlin 代码转换成 Java 代码</h2><p>Android Studio 并没有提供类似的功能，因为 Kotlin 拥有许多 Java 中并不存在的特性，因此很难执行这样的一键转换。</p>
 <p>但是，却可以先将 Kotlin 代码转换成 Kotlin 字节码，然后再通过反编译的方式将它还原成 Java 代码。这种反编译出来的代码可能无法像正常编写的 Java 代码那样直接运行，但是非常有利于帮助理解诸多 Kotlin 特性背后的实现原理。</p>
 <p>示例（Kotlin）：kotlin-android-extensions  插件原理</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">BaseActivity</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 'kotlin-android-extensions' 插件的作用，不必再 findViewById()。</span></span><br><span class="line">        <span class="comment">// 这个插件会根据布局文件中定义的控件 id 自动生成一个具有相同名称的变量。</span></span><br><span class="line">        btn_main.setOnClickListener &#123;</span><br><span class="line">              Toast.makeText(<span class="keyword">this</span>,<span class="string">"Toast"</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -467,14 +467,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -549,12 +549,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:51</span>
+    <span title="站点阅读时长">19:15</span>
 </div>
 
 

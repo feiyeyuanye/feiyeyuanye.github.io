@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-24T00:55:21.000Z">
-<meta property="article:modified_time" content="2020-10-27T01:39:56.224Z">
+<meta property="article:modified_time" content="2021-04-27T02:55:21.618Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-27 09:39:56" itemprop="dateModified" datetime="2020-10-27T09:39:56+08:00">2020-10-27</time>
+                <time title="修改时间：2021-04-27 10:55:21" itemprop="dateModified" datetime="2021-04-27T10:55:21+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -241,11 +241,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
+                  <a href="/categories/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
                 </span>
             </span>
 
@@ -278,14 +274,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.9k</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
+              <span>10 分钟</span>
             </span>
 
         </div>
@@ -301,15 +297,29 @@
 
 <a id="more"></a>
 
-<p>协程，可以将它简单地理解成一种轻量级的线程。要知道，之前所学习的线程是非常重量级的，需要依靠操作系统的调度才能实现不同线程之间的切换。而使用协程却可以仅在编程语言的层面就能实现不同协程之间的切换，从而大大提升了并发编程的运行效率。</p>
+<p>协程，可以将它简单地理解成一种轻量级的线程，协程和线程属于一个层级的概念。要知道，之前所学习的线程是非常重量级的，需要依靠操作系统的调度才能实现不同线程之间的切换。而使用协程却可以仅在编程语言的层面就能实现不同协程之间的切换，从而大大提升了并发编程的运行效率。</p>
 <p>协程允许我们在单线程模式下模拟多线程编程的效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。这种特性使得高并发程序的运行效率得到了极大地提升。</p>
 <p>为什么要使用协程？</p>
 <ul>
-<li>轻量、高效</li>
-<li>简单、好用</li>
-<li>可以用同步的方式编写异步代码</li>
+<li>轻量、高效。</li>
+<li>简单、好用。</li>
+<li>可以用看起来同步的代码写出实质上异步的操作。（将后台任务，函数标记为 suspend，然后用 withoutcontent 切换线程。）<ul>
+<li>耗时函数自动后台，从而提高性能。</li>
+<li>线程的【自动切回】</li>
 </ul>
-<h2 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a><p class="m_more_title_style">协程的基本用法</p></h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>首先要添加依赖库：</p>
+</li>
+</ul>
+<p>Kotlin for Java 的协程并不属于广义的协程。是一个框架，线程框架，基于 Java 的线程框架，是上层封装，可以更方便的使用 Java 中的线程。（协程、Executor、RxJava。它们切线程，也是靠 Handler。）<br>不管是 Kotlin 还是 Groovy，不管上层怎么做，但最后都是基于 JVM，所以最后都是线程。<br>协程是一种在程序中处理并发任务的方案，也是这种方案的一个组件。</p>
+<p>并发；宏观性的概念。一起做，并且是一件事情，不一定是同时做的。<br>并行；微观。同一时间，同一时刻。<br>协程不存在线程，协程里没有并行任务，线程可以，多线程同时工作。<br>协程不需要在意并发和并行的问题和概念，但一些问题还是跑不掉。</p>
+<p>线程的问题，协程依然有，但这是线程的问题，不是协程的问题。<br>学协程的时候不用关注线程安全的问题，还有并发、并行的问题。</p>
+<p>活跃的线程是 GC Root，AsyncTask 除了持有外部引用时，更因为内部有活跃的线程，而 new OnCLickListener 没有，所以不会内存泄漏。</p>
+<p>协程泄露，本质就是一种线程泄漏，也就是一个内存泄漏。不用的协程要取消掉，通过 job.cancle()。Job 对象就是用来取消的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> scope = MainScope</span><br><span class="line"></span><br><span class="line">Scope.lauch&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Scope.cancle()</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="协程的基本用法"><a href="#协程的基本用法" class="headerlink" title="协程的基本用法"></a>协程的基本用法</h2><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>首先要添加依赖库：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">"org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.1"</span></span><br><span class="line"><span class="comment">// 此依赖库是 Android 项目才会用到的，纯 Kotlin 程序其实用不到。</span></span><br><span class="line">implementation <span class="string">"org.jetbrains.kotlinx:kotlinx-coroutines-android:1.1.1"</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="GlobalScope-launch-函数"><a href="#GlobalScope-launch-函数" class="headerlink" title="GlobalScope.launch 函数"></a>GlobalScope.launch 函数</h3><p>最简单的开启一个协程的方式：使用 GlobalScope.launch 函数，它可以创建一个协程的作用域。并且创建的永远是顶层协程，这一点和线程比较像，因为线程也没有层级这一说，永远是顶层的。</p>
@@ -324,6 +334,12 @@
 
 <h3 id="suspend-关键字"><a href="#suspend-关键字" class="headerlink" title="suspend 关键字"></a>suspend 关键字</h3><p>在 launch 函数中编写的代码是拥有协程作用域的，但是提取到一个单独的函数中就没有协程作用域了。</p>
 <p>这时可以使用 suspend 关键字，它可以将任意函数声明成挂起函数，而挂起函数之间都是可以相互调用的。</p>
+<p>suspend；并不是用来切线程的</p>
+<p>关键作用；标记，或者说提醒</p>
+<ul>
+<li>标记；线程切回时，切回到哪。</li>
+<li>提醒；提示需要特别对待，说明此函数是个耗时函数，需要在协程里面。</li>
+</ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">printDot</span><span class="params">()</span></span>&#123;</span><br><span class="line">    println(<span class="string">"."</span>)</span><br><span class="line">    delay(<span class="number">1000</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="coroutineScope-函数"><a href="#coroutineScope-函数" class="headerlink" title="coroutineScope 函数"></a>coroutineScope 函数</h3><p>但 suspend 关键字无法提供协程作用域，也就无法调用像 launch 函数。这时可使用 coroutineScope 函数，它也是一个挂起函数，因此可以在任何其他挂起函数中调用。它的特点是会继承外部的协程作用域并创建一个子作用域。</p>
@@ -334,7 +350,7 @@
 
 <p>但是，coroutineScope 函数只会阻塞当前协程，既不影响其它协程，也不影响任何线程，因此是不会造成任何性能上的问题的。而  runBlocking 函数由于会阻塞当前线程，而我们又恰好在主线程中调用它的话，那么就有可能会导致界面卡死的情况，所以不太推荐在实际项目中使用。</p>
 <hr>
-<h2 id="更多的作用域构造器"><a href="#更多的作用域构造器" class="headerlink" title="更多的作用域构造器"></a><p class="m_more_title_style">更多的作用域构造器</p></h2><p>上面学习了几种作用域构造器，它们都可以用于创建一个新的协程作用域。不过，GlobalScope.launch 和 runBlocking 函数是可以在任意地方调用的，coroutineScope 函数可以在协程作用域或挂起函数中调用，而 launch 函数只能在协程作用域中调用。</p>
+<h2 id="更多的作用域构造器"><a href="#更多的作用域构造器" class="headerlink" title="更多的作用域构造器"></a>更多的作用域构造器</h2><p>上面学习了几种作用域构造器，它们都可以用于创建一个新的协程作用域。不过，GlobalScope.launch 和 runBlocking 函数是可以在任意地方调用的，coroutineScope 函数可以在协程作用域或挂起函数中调用，而 launch 函数只能在协程作用域中调用。</p>
 <h3 id="Job-对象"><a href="#Job-对象" class="headerlink" title="Job 对象"></a>Job 对象</h3><p>其中，GlobalScope.launch 由于每次创建的都是顶层协程，一般也不太建议使用，因为它管理起来成本太高了，当 Activity 关闭时，需要逐个调用所有已创建协程的 cancel() 方法。除非非常明确就是要创建顶层函数。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取消协程的办法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 不管是 GlobalScope.launch 函数还是 launch 函数，它们都会返回一个 Job 对象。</span></span><br><span class="line">    <span class="keyword">val</span> job = GlobalScope.launch &#123; </span><br><span class="line">        <span class="comment">//处理具体逻辑</span></span><br><span class="line">    &#125;</span><br><span class="line">    job.cancel()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -363,7 +379,7 @@
 </ul>
 <p>事实上，以上所学的协程作用域构造器中，除了 coroutineScope 函数之外，其它函数都是可以指定这样一个线程参数的，只不过 withContext 函数是强制要求指定的。</p>
 <hr>
-<h2 id="简化回调的写法"><a href="#简化回调的写法" class="headerlink" title="简化回调的写法"></a><p class="m_more_title_style">简化回调的写法</p></h2><p>协程的主要用途是可以大幅度地提升并发编程的运行效率。但实际上，Kotlin 中的协程还可以对传统回调的写法进行优化，从而让代码变得更加简洁。</p>
+<h2 id="简化回调的写法"><a href="#简化回调的写法" class="headerlink" title="简化回调的写法"></a>简化回调的写法</h2><p>协程的主要用途是可以大幅度地提升并发编程的运行效率。但实际上，Kotlin 中的协程还可以对传统回调的写法进行优化，从而让代码变得更加简洁。</p>
 <p>简化 HttpURLConnection 网络请求的回调：</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 回调机制基本上是依靠匿名类来实现的，但这种写法通常比较繁琐，</span></span><br><span class="line"><span class="comment">* 比如下面的代码，有多少个地方发起请求，就需要编写多少次这样的匿名类实现。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">HttpUtil.sendHttpRequest(address, <span class="keyword">object</span> : HttpCallbackListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 得到服务器返回的具体内容</span></span><br><span class="line">            showResponse(response)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e: <span class="type">Exception</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 在这里对异常情况进行处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在过去，可能确实没什么更加简单的写法了。但在 Kotlin 中，可借助 suspendCoroutine 函数来继续简化。</span></span><br><span class="line"><span class="comment">* suspendCoroutine 函数必须在协程作用域或挂起函数中才能调用，它接收一个 Lambda 表达式参数，主要作用是将当* 前协程立即挂起，然后在一个普通的线程中执行 Lambda 表达式中的代码，Lambda 表达式的参数列表上会传入一个</span></span><br><span class="line"><span class="comment">* Continuation 参数，调用它的 resume() 或 resumeWithException() 可以让协程恢复执行，</span></span><br><span class="line"><span class="comment">* -----------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">* 定义一个挂起函数 request()</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">request</span><span class="params">(address:<span class="type">String</span>)</span></span>:String&#123;</span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine &#123; continuation -&gt;</span><br><span class="line">        HttpUtil.sendHttpRequest(address,<span class="keyword">object</span>:HttpCallbackListener&#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">                continuation.resume(response)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e: <span class="type">Exception</span>)</span></span> &#123;</span><br><span class="line">                continuation.resumeWithException(e)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取百度首页的响应数据</span></span><br><span class="line"><span class="comment"> * 也是一个挂起函数，因此当调用 request() 时，当前的协程就会被立刻挂起，然后一直等待网络请求成功或失败后，当前协程才能恢复运行。这样即使不使用回调的写法，也能获得异步网络请求的响应数据，而如果请求失败，则会直接进入 catch 语句当中。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getBaiduResponse</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> response = request(<span class="string">"https://www.baidu.com"</span>)</span><br><span class="line">        <span class="comment">// 对服务器相应的数据进行处理</span></span><br><span class="line">    &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -371,8 +387,15 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统写法</span></span><br><span class="line"><span class="keyword">val</span> appService = ServiceCreator.create&lt;AppService&gt;()</span><br><span class="line">appService.getAppData().enqueue(<span class="keyword">object</span> : Callback&lt;List&lt;AppBean&gt;&gt;&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, response: <span class="type">Response</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 得到服务器返回的数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 等价于上面的写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAppData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 对于 try catch，现在每次请求都要进行一次。</span></span><br><span class="line">    <span class="comment">// 也可以选择不处理，然后发生异常时会一层层向上抛出，直到被某一层的函数处理了位置，</span></span><br><span class="line">    <span class="comment">// 所以也可以在某一统一的入口函数中只进行一次 try catch，从而让代码变得更加精简。</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> appList = ServiceCreator.create&lt;AppService&gt;().getAppData().await()</span><br><span class="line">    &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义一个挂起函数 await()</span></span><br><span class="line"><span class="comment"> * 由于不同的 Service 接口返回的数据类型也不同，所以使用泛型的方式。</span></span><br><span class="line"><span class="comment"> * 给它声明了一个泛型 T，并将函数定义成了 Call&lt;T&gt; 的扩展函数，这样，</span></span><br><span class="line"><span class="comment"> * 所有返回值是 Call 类型的 Retrofit 网络请求接口就都可以直接调用此函数了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Call<span class="type">&lt;T&gt;</span>.<span class="title">await</span><span class="params">()</span></span>: T&#123;</span><br><span class="line">    <span class="comment">// 挂起当前协程，并且由于扩展函数的原因，现在拥有了 Call 对象的上下文，可直接调用 enqueue()。</span></span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine &#123; continuation -&gt;</span><br><span class="line">        enqueue(<span class="keyword">object</span> : Callback&lt;T&gt;&#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, response: <span class="type">Response</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">                <span class="keyword">val</span> body = response.body()</span><br><span class="line">                <span class="keyword">if</span> (body!=<span class="literal">null</span>)continuation.resume(body)</span><br><span class="line">                <span class="keyword">else</span> continuation.resumeWithException(RuntimeException(<span class="string">"response body is null"</span>))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">                continuation.resumeWithException(t)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>注：挂起函数只能在协程作用域或其他挂起函数中调用，使用起来会有局限性。但通过合理的项目架构设计，也可以轻松地将各种协程的代码应用到一个普通的项目当中。</p>
+<p>##示例</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Api</span></span>&#123;</span><br><span class="line">    <span class="meta">@GET(<span class="meta-string">"users/&#123;user&#125;/repos"</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">listRepos</span><span class="params">(<span class="meta">@Path(<span class="meta-string">"user"</span>)</span> user:<span class="type">String</span>)</span></span>: Call&lt;List&lt;Repo&gt;&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * suspend，是挂起函数的使用，会自动放到后台请求。</span></span><br><span class="line"><span class="comment">     * 因为会自动切回来，所以也就不需要使用 Call 回调了。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GET(<span class="meta-string">"users/&#123;user&#125;/repos"</span>)</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">listReposKt</span><span class="params">(<span class="meta">@Path(<span class="meta-string">"user"</span>)</span> user:<span class="type">String</span>)</span></span>: List&lt;Repo&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">        <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">            .baseUrl(<span class="string">"https://api.github.com/"</span>)</span><br><span class="line">            .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">            .build()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> api = retrofit.create(Api::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        api.listRepos("feiyeyuanye")</span></span><br><span class="line"><span class="comment">//            .enqueue(object : Callback&lt;List&lt;Repo&gt;?&gt;&#123;</span></span><br><span class="line"><span class="comment">//                override fun onFailure(call: Call&lt;List&lt;Repo&gt;?&gt;, t: Throwable) &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                override fun onResponse(call: Call&lt;List&lt;Repo&gt;?&gt;, response: Response&lt;List&lt;Repo&gt;?&gt;) &#123;</span></span><br><span class="line"><span class="comment">//                    // ViewBinding</span></span><br><span class="line"><span class="comment">//                    binding.textView.text = response.body()?.get(0)?.name</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//            &#125;)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 协程对 Retrofit 的支持。</span></span><br><span class="line">        GlobalScope.launch &#123;</span><br><span class="line">            <span class="comment">// 因为没有了回调，但需要处理错误的情况（没有 onFailure），所以用 try catch 来处理。</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> repos = api.listReposKt(<span class="string">"feiyeyuanye"</span>)  <span class="comment">// 挂起函数，会自动切回来。。后台</span></span><br><span class="line">                binding.textView.text = repos[<span class="number">0</span>].name            <span class="comment">// 前台</span></span><br><span class="line">            &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">                binding.textView.text = e.message</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <hr>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：</p>
 <p><a href="https://guolin.blog.csdn.net/article/details/105233078" target="_blank" rel="noopener external nofollow noreferrer">第一行代码(第3版)</a><br><a href="https://github.com/JetBrains/kotlin" target="_blank" rel="noopener external nofollow noreferrer">官方文档</a><br><a href="https://www.kotlincn.net/docs/reference/" target="_blank" rel="noopener external nofollow noreferrer">官方中文翻译站</a></p>
 <p><strong>传送门</strong>：<a href="https://github.com/feiyeyuanye/Preliminary-use-of-Kotlin" target="_blank" rel="noopener external nofollow noreferrer">GitHub</a></p>
 
@@ -521,14 +544,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -603,12 +626,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:51</span>
+    <span title="站点阅读时长">19:15</span>
 </div>
 
 

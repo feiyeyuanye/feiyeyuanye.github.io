@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2019-08-13T07:10:54.000Z">
-<meta property="article:modified_time" content="2021-03-31T02:21:50.381Z">
+<meta property="article:modified_time" content="2021-04-27T10:08:32.058Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="性能优化">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-31 10:21:50" itemprop="dateModified" datetime="2021-03-31T10:21:50+08:00">2021-03-31</time>
+                <time title="修改时间：2021-04-27 18:08:32" itemprop="dateModified" datetime="2021-04-27T18:08:32+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,14 +274,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>7.8k</span>
+              <span>8.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
+              <span>8 分钟</span>
             </span>
 
         </div>
@@ -296,12 +296,12 @@
         <p><img data-src="https://imgsw.cn/static/images/duolaameng.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
-<h2 id="运行内存"><a href="#运行内存" class="headerlink" title="运行内存"></a><p class="m_more_title_style">运行内存</p></h2><p>手机运行内存（RAM）其实相当于 PC 中的内存。是手机中作为 APP 运行过程中临时性数据暂时存储的内存介质。<br>但考虑到体积和功耗，手机不使用 PC 的 DDR 内存，而是 LPDDR RAM（低功耗双倍数据速率内存）。其中 LP 就是 Lower Power 低功耗的意思。<br>目前主流的运行内存有 LPDDR3、LPDDR4 以及 LPDDR4X。性能方面，高频好于低频。</p>
+<h2 id="运行内存"><a href="#运行内存" class="headerlink" title="运行内存"></a>运行内存</h2><p>手机运行内存（RAM）其实相当于 PC 中的内存。是手机中作为 APP 运行过程中临时性数据暂时存储的内存介质。<br>但考虑到体积和功耗，手机不使用 PC 的 DDR 内存，而是 LPDDR RAM（低功耗双倍数据速率内存）。其中 LP 就是 Lower Power 低功耗的意思。<br>目前主流的运行内存有 LPDDR3、LPDDR4 以及 LPDDR4X。性能方面，高频好于低频。</p>
 <p>手机内存不是越大越好，也跟使用的 LPDDR RAM 的类型有关。<br>并且，内存也不是个孤立的概念。它跟操作系统、应用生态这些因素都有关。</p>
 <hr>
-<h2 id="内存引发的问题"><a href="#内存引发的问题" class="headerlink" title="内存引发的问题"></a><p class="m_more_title_style">内存引发的问题</p></h2><p>1、异常：比如 OOM、内存分配失败、整体内存不足导致应用被杀死、设备重启等问题。<br>2、卡顿：比如 Java 内存不足会导致频繁 GC 造成卡顿。或是物理内存不足时系统会触发 low memory killer 机制，系统负载过高造成卡顿。</p>
+<h2 id="内存引发的问题"><a href="#内存引发的问题" class="headerlink" title="内存引发的问题"></a>内存引发的问题</h2><p>1、异常：比如 OOM、内存分配失败、整体内存不足导致应用被杀死、设备重启等问题。<br>2、卡顿：比如 Java 内存不足会导致频繁 GC 造成卡顿（GC 触发之后，所有的线程会暂停）。或是物理内存不足时系统会触发 low memory killer（低内存 killer） 机制，系统负载过高造成卡顿。</p>
 <hr>
-<h2 id="内存优化和架构设计时的两个误区"><a href="#内存优化和架构设计时的两个误区" class="headerlink" title="内存优化和架构设计时的两个误区"></a><p class="m_more_title_style">内存优化和架构设计时的两个误区</p></h2><p><strong>1、内存占用越少越好：</strong><br>应根据实际情况。当系统内存充足时，可多用一些获得更好的性能。当不足时，可以”用时分配，及时释放”。<br>Android Bitmap 内存分配的变化：</p>
+<h2 id="内存优化和架构设计时的两个误区"><a href="#内存优化和架构设计时的两个误区" class="headerlink" title="内存优化和架构设计时的两个误区"></a>内存优化和架构设计时的两个误区</h2><p><strong>1、内存占用越少越好：</strong><br>应根据实际情况。当系统内存充足时，可多用一些获得更好的性能。当不足时，可以”用时分配，及时释放”。<br>Android Bitmap 内存分配的变化：</p>
 <ul>
 <li><strong>Android 3.0 之前：</strong><br>Bitmap对象 放在 Java 堆，而像素数据放在 Native 内存中。如果不手动调用 recycle，Bitmap Native 内存的回收完全依赖 finalize 函数回调，而这个时机不太可控。</li>
 <li><strong>Android 3.0 ~ Android 7.0：</strong><br>Bitmap 对象和像素数据统一放到 Java 堆中，这样就算不调用 recycle，Bitmap 内存也会随着对象一起被回收。但 Bitmap 是内存消耗大户，而手机的最大 Java 堆存在限制，即使物理内存足够，依然会因 Java 内存不足导致 OOM。<br>Bitmap 放在 Java 堆的另外一个问题会引起大量的 GC，对系统内存也没有完全利用起来。</li>
@@ -309,7 +309,7 @@
 </ul>
 <p><strong>2、Native 内存不管用：</strong><br>即使在 Android 8.0 重新将 Bitmap 内存放回到 Native 中，也不意味着可以随心所欲的使用图片。<br>当系统物理内存不足时，lmk 会开始杀进程，从后台、桌面、服务、前台、直到系统重启。</p>
 <hr>
-<h2 id="测量方法"><a href="#测量方法" class="headerlink" title="测量方法"></a><p class="m_more_title_style">测量方法</p></h2><p>对于系统内存和应用内存的使用情况，可参考 Android Developer 中<a href="https://developer.android.com/studio/profile/investigate-ram?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">《调查 RAM 使用情况》</a>。</p>
+<h2 id="测量方法"><a href="#测量方法" class="headerlink" title="测量方法"></a>测量方法</h2><p>对于系统内存和应用内存的使用情况，可参考 Android Developer 中<a href="https://developer.android.com/studio/profile/investigate-ram?hl=zh-cn" target="_blank" rel="noopener external nofollow noreferrer">《调查 RAM 使用情况》</a>。</p>
 <p><strong>1、Java 内存分配：</strong><br>对于跟踪 Java 堆内存的使用情况，最常用的有 Allocation Tracker<a href="https://mp.weixin.qq.com/s/b_lFfL1mDrNVKj_VAcA2ZA?" target="_blank" rel="noopener external nofollow noreferrer">可参考《Android 内存申请分析》</a> 和 MAT 这两个工具。</p>
 <p><strong>2、Native 内存分配：</strong><br>Android 8.0 后，可根据这个<a href="https://github.com/google/sanitizers/wiki/AddressSanitizerOnAndroid" target="_blank" rel="noopener external nofollow noreferrer">指南</a>来使用 AddressSanitize 做内存泄漏检测。<br>关于 Native 内存分配工具，可参考 Android Developer 的一些相关文档<a href="https://source.android.com/devices/tech/debug/native-memory" target="_blank" rel="noopener external nofollow noreferrer">调试本地内存使用</a>。</p>
 <ul>
@@ -318,7 +318,7 @@
 </li>
 </ul>
 <hr>
-<h2 id="内存优化探讨"><a href="#内存优化探讨" class="headerlink" title="内存优化探讨"></a><p class="m_more_title_style">内存优化探讨</p></h2><p><strong>1、设备分级</strong><br>内存优化首先要根据设备环境来综合考虑。同时，在架构设计时需要做到以下几点：</p>
+<h2 id="内存优化探讨"><a href="#内存优化探讨" class="headerlink" title="内存优化探讨"></a>内存优化探讨</h2><p><strong>1、设备分级</strong><br>内存优化首先要根据设备环境来综合考虑。同时，在架构设计时需要做到以下几点：</p>
 <ul>
 <li>设备分级<br>使用 device-year-class 的策略对设备分级，对于低端机可关闭复杂的动画，或是某些功能，使用 565 格式图片，使用更小的缓存内存等。</li>
 <li>缓存管理<br>需要一套统一的缓存管理机制，可适当的使用内存。使用 onTrimMemory 回调，根据不同状态决定释放多少内存。</li>
@@ -350,7 +350,7 @@
 </ul>
 <p>开发过程中内存泄漏排查可以使用 Android Profiler 和 MAT 工具配合使用。</p>
 <hr>
-<h2 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a><p class="m_more_title_style">内存监控</p></h2><ol>
+<h2 id="内存监控"><a href="#内存监控" class="headerlink" title="内存监控"></a>内存监控</h2><ol>
 <li><strong>采集方式</strong><br>用户在前台时，可每五分钟采集一次 PSS、Java 堆、图片总内存。并按用户抽样，对其在一天内持续采集数据。</li>
 <li><strong>计算指标</strong><br>通过上面的数据，可计算出下面一些内存指标：<ul>
 <li>内存异常率<br>可反映出内存占用的异常情况。比如出现新的内存使用不当或是内存泄漏的场景。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * PSS 的值可通过 Debug.MemoryInfo 拿到</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">内存 UV 异常率 = PSS 超过 <span class="number">400</span>MB 的 UV / 采集 UV</span><br></pre></td></tr></table></figure></li>
@@ -359,15 +359,34 @@
 </ul>
 </li>
 <li><strong>GC 监控</strong><br>Android 6.0 后，可通过下面的方法拿到更精准的 GC 信息：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">﻿<span class="comment">// 运行的 GC 次数</span></span><br><span class="line">Debug.getRuntimeStat(<span class="string">"art.gc.gc-count"</span>);</span><br><span class="line"><span class="comment">// GC 使用的总耗时，单位是毫秒</span></span><br><span class="line">Debug.getRuntimeStat(<span class="string">"art.gc.gc-time"</span>);</span><br><span class="line"><span class="comment">// 阻塞式 GC 的次数</span></span><br><span class="line">Debug.getRuntimeStat(<span class="string">"art.gc.blocking-gc-count"</span>);</span><br><span class="line"><span class="comment">// 阻塞式 GC 的总耗时</span></span><br><span class="line">Debug.getRuntimeStat(<span class="string">"art.gc.blocking-gc-time"</span>);</span><br></pre></td></tr></table></figure>
-<h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a><p class="m_more_title_style">OOM</p></h2></li>
+<h2 id="OOM"><a href="#OOM" class="headerlink" title="OOM"></a>OOM</h2></li>
 </ol>
 <p>OOM（内存溢出）：</p>
-<p>是指内存占有量超过了VM所分配的最大值。(共享单车有10辆，可是却有11个人要用。则多出一人无资源可用)</p>
+<p>是指内存占有量超过了 VM 所分配的最大值。</p>
 <p>出现OOM的原因：</p>
 <p>1：加载的对象过大。</p>
 <p>2：相应资源过多，来不及释放。</p>
 <p>3：内存泄露没有得到及时解决。（个人理解。内存有限，却还一直被无用对象占有，可供使用的内存自然就少了）。</p>
 <p>在内存引用上做些处理，在内存中加载图片时直接在内存中处理，如边界压缩，动态回收内存，优化Dalvik虚拟机的堆内存分配，自定义堆内存大小等。</p>
+<p><strong>通过命令行获取内存情况</strong>：</p>
+<p>执行：adb shell</p>
+<p>查看瞬时进程：ps 或 ps -ef（Mac）</p>
+<p>打印对应进程的内存情况：dumpsys meminfo 包名</p>
+<ul>
+<li><p>Heap Size：总内存</p>
+</li>
+<li><p>Heap Alloc：已使用</p>
+</li>
+<li><p>Heap Free：还剩下</p>
+</li>
+</ul>
+<p><strong>通过代码来获取内存情况</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内存获取</span></span><br><span class="line">ActivityManager am = (ActivityManager) getSystemService(ACTIVITY_SERVICE);</span><br><span class="line"><span class="comment">// 最大内存</span></span><br><span class="line"><span class="keyword">int</span> max = am.getMemoryClass();</span><br><span class="line"><span class="comment">// 开启硬件加速后的最大内存</span></span><br><span class="line"><span class="keyword">int</span> large = am.getLargeMemoryClass();</span><br><span class="line"></span><br><span class="line">LogUtils.d(<span class="string">"max: "</span> + max + <span class="string">" large: "</span> + large); <span class="comment">// 单位是：兆（兆字节，MB）</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取运行时的内存</span></span><br><span class="line"><span class="keyword">float</span> total = Runtime.getRuntime().totalMemory() * <span class="number">1.0f</span> / (<span class="number">1024</span>*<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">float</span> free = Runtime.getRuntime().freeMemory() * <span class="number">1.0f</span> / (<span class="number">1024</span>*<span class="number">1024</span>);</span><br><span class="line"><span class="keyword">float</span> max = Runtime.getRuntime().maxMemory() * <span class="number">1.0f</span> / (<span class="number">1024</span>*<span class="number">1024</span>);</span><br><span class="line"></span><br><span class="line">LogUtils.d(<span class="string">"total: "</span>+ total+<span class="string">" free: "</span> + free + <span class="string">" max: "</span> + max);</span><br></pre></td></tr></table></figure>
+
+
+
 <p><strong>减少内存占用</strong></p>
 <p>可以从如下几个方面去展开说明:</p>
 <ol>
@@ -396,7 +415,7 @@
 <li>尽量采用静态内部类，可避免潜在的由于内部类而导致的内存泄漏</li>
 </ul>
 <hr>
-<h2 id="卡顿"><a href="#卡顿" class="headerlink" title="卡顿"></a><p class="m_more_title_style">卡顿</p></h2><p>卡顿的根本原因，第一个原理方面是绘制原理，另一个就是刷新原理。</p>
+<h2 id="卡顿"><a href="#卡顿" class="headerlink" title="卡顿"></a>卡顿</h2><p>卡顿的根本原因，第一个原理方面是绘制原理，另一个就是刷新原理。</p>
 <p><strong>绘制原理</strong>：</p>
 <p>Activity -&gt; onCreate：当 Activity 成功创建，并且调用 onCreate 生命周期的时候，会执行将 setContentView 的布局 ID 转换为 View 对象的一个过程。</p>
 <p>Activity -&gt; onResume：拿到转换后的 View Tree ,请求接收 VSYNC 垂直同步的消息，收到消息之后会执行 performTraversals 函数最后实行绘制。</p>
@@ -621,14 +640,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -703,12 +722,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:51</span>
+    <span title="站点阅读时长">19:15</span>
 </div>
 
 

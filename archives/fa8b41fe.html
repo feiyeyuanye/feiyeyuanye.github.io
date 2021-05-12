@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/%E7%BD%91%E7%BB%9C%E5%BB%B6%E6%97%B6%E8%BF%87%E7%A8%8B.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/%E8%A7%A3%E7%A0%81%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94.jpeg?imageView2/2/h/600">
 <meta property="article:published_time" content="2020-09-16T11:53:20.000Z">
-<meta property="article:modified_time" content="2020-10-02T01:29:17.300Z">
+<meta property="article:modified_time" content="2021-04-27T00:49:06.595Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="音视频">
 <meta name="twitter:card" content="summary">
@@ -242,7 +242,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-02 09:29:17" itemprop="dateModified" datetime="2020-10-02T09:29:17+08:00">2020-10-02</time>
+                <time title="修改时间：2021-04-27 08:49:06" itemprop="dateModified" datetime="2021-04-27T08:49:06+08:00">2021-04-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -367,12 +367,12 @@
 <p>2、压缩原理</p>
 <p>其核心思想就是去除冗余信息，如下所述。</p>
 <ul>
-<li>空间冗余。在很多图像数据中，像素间在行、列方向上都有很大的相关性，相邻像素的值比较接近或者完全相同，这种数据冗余叫做空间冗余。</li>
+<li>空间冗余。在很多图像数据中，像素间在行、列方向上都有很大的相关性，相邻像素的值比较接近或者完全相同，这种数据冗余叫做空间冗余。（相邻区域颜色相近区域）</li>
 <li>时间冗余。在视频图像序列中，相邻两帧图像数据有许多共同的地方，这种共同性被称为时间冗余，可采用运动补偿算法来去掉冗余。</li>
-<li>视觉冗余。视觉冗余度是相对于人眼的的视觉特性而言的，人类视觉系统对图像的敏感性是非均匀和非线性的，即人眼观察不到图像中的所有变化。</li>
+<li>视觉冗余。视觉冗余度是相对于人眼的的视觉特性而言的，人类视觉系统对图像的敏感性是非均匀和非线性的，即人眼观察不到图像中的所有变化。（去除人眼不敏感的）</li>
 <li>信息熵冗余。信息熵指一组数据所携带的信息量，信息熵冗余指数据所携带的信息量少于数据本身，从而反映出数据冗余。</li>
 <li>结构冗余。在有些图像的纹理区，图像的像素值存在着明显的分布模式。</li>
-<li>知识冗余。对许多图像的理解与某些先验知识有相当大的相关性。这类规则的结构可由先验知识和背景知识得到，此类冗余被称为知识冗余。</li>
+<li>知识冗余。对许多图像的理解与某些先验知识有相当大的相关性。这类规则的结构可由先验知识和背景知识得到，此类冗余被称为知识冗余。（去除基础知识）</li>
 </ul>
 <p>3、常用压缩编码方法分类</p>
 <img data-src="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
@@ -385,7 +385,7 @@
 <li>预测：通过帧内预测和帧间预测降低视频图像的空间冗余和时间冗余。</li>
 <li>变换：通过从时域到频域的变化，去除相邻数据之间的相关性，即去除空间冗余。</li>
 <li>量化：通过用更粗糙的数据表示精细的数据来降低编码的数据量，或者通过去除人眼不敏感的信息来降低编码数据量。</li>
-<li>熵编码：根据待编码数据的概率特性降低编码冗余。</li>
+<li>熵编码：根据待编码数据的概率特性降低编码冗余。（熵编码，11112222 = 8个字节，4142 =4 个字节。）</li>
 </ul>
 <h3 id="推流"><a href="#推流" class="headerlink" title="推流"></a>推流</h3><h4 id="推流协议"><a href="#推流协议" class="headerlink" title="推流协议"></a>推流协议</h4><p>1、RTMP（Real Time Messaging Protocol）：实时消息传输协议。该协议基于 TCP，是一个协议族，包括 RTMP 基本协议以及 RTMPT、RTMPS、RTMPE 等多个变种协议。RTMP 协议是一种被设计用来进行实时数据通信的网络协议，主要用在 Flash 平台和支持 RTMP 协议的流媒体/交互服务器之间进行音视频和数据通信。支持该协议的软件包括 Adobe Media Server、Ultrant Media Server、Red5 等。RTMP 是目前主流的流媒体传输协议，广泛应用于直播领域。</p>
 <p>优点</p>
@@ -654,14 +654,14 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives">
-          <span class="site-state-item-count">160</span>
+          <span class="site-state-item-count">161</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">18</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -736,12 +736,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">1.2m</span>
+    <span title="站点总字数">1.3m</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:51</span>
+    <span title="站点阅读时长">19:15</span>
 </div>
 
 
