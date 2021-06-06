@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="article:published_time" content="2020-07-24T00:55:21.000Z">
-<meta property="article:modified_time" content="2021-04-27T02:55:21.618Z">
+<meta property="article:modified_time" content="2021-06-05T02:59:42.302Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="Kotlin">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-27 10:55:21" itemprop="dateModified" datetime="2021-04-27T10:55:21+08:00">2021-04-27</time>
+                <time title="修改时间：2021-06-05 10:59:42" itemprop="dateModified" datetime="2021-06-05T10:59:42+08:00">2021-06-05</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -297,8 +297,28 @@
 
 <a id="more"></a>
 
-<p>协程，可以将它简单地理解成一种轻量级的线程，协程和线程属于一个层级的概念。要知道，之前所学习的线程是非常重量级的，需要依靠操作系统的调度才能实现不同线程之间的切换。而使用协程却可以仅在编程语言的层面就能实现不同协程之间的切换，从而大大提升了并发编程的运行效率。</p>
+<p>协程（Coroutines），可以将它简单地理解成一种轻量级的线程，协程和线程属于一个层级的概念。要知道，之前所学习的线程是非常重量级的，需要依靠操作系统的调度才能实现不同线程之间的切换。而使用协程却可以仅在编程语言的层面就能实现不同协程之间的切换，从而大大提升了并发编程的运行效率。</p>
 <p>协程允许我们在单线程模式下模拟多线程编程的效果，代码执行时的挂起与恢复完全是由编程语言来控制的，和操作系统无关。这种特性使得高并发程序的运行效率得到了极大地提升。</p>
+<p>处理异步的方式：</p>
+<ul>
+<li>线程：常用，简便。<ul>
+<li>资源消耗、数量受限、平台支持（JS 无线程）、调试使用不便。</li>
+</ul>
+</li>
+<li>回调：层次调用。<ul>
+<li>多重嵌套、错误处理麻烦。</li>
+</ul>
+</li>
+<li>Futures、Promise：</li>
+<li>Rx 响应式扩展：可观察流的设计思想，优雅便捷。<ul>
+<li>学习曲线、API、行为难估。</li>
+</ul>
+</li>
+<li>协程：易学、易用。<ul>
+<li>学习成本。（想用的好还是需要一定的学习）</li>
+</ul>
+</li>
+</ul>
 <p>为什么要使用协程？</p>
 <ul>
 <li>轻量、高效。</li>
@@ -631,7 +651,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:16</span>
+    <span title="站点阅读时长">19:17</span>
 </div>
 
 
