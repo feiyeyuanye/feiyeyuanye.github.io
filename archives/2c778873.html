@@ -30,7 +30,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imgsw.cn/static/images/zuorizhige.jpeg">
 <meta property="article:published_time" content="2020-05-26T01:03:49.000Z">
-<meta property="article:modified_time" content="2020-06-29T06:03:39.000Z">
+<meta property="article:modified_time" content="2021-06-20T13:38:15.605Z">
 <meta property="article:author" content="houren">
 <meta property="article:tag" content="服务端">
 <meta name="twitter:card" content="summary">
@@ -233,7 +233,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-06-29 14:03:39" itemprop="dateModified" datetime="2020-06-29T14:03:39+08:00">2020-06-29</time>
+                <time title="修改时间：2021-06-20 21:38:15" itemprop="dateModified" datetime="2021-06-20T21:38:15+08:00">2021-06-20</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,7 +274,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.6k</span>
+              <span>3.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -296,13 +296,13 @@
         <p><img data-src="https://imgsw.cn/static/images/zuorizhige.jpeg" class="m_more_content_bg_img"></img></p>
 <a id="more"></a>
 
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><Center style="color:rgb(195,176,145);">准备工作</Center></h2><p>使用的系统是：CentOS 7.4 64 位 + Apache + httpd</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>使用的系统是：CentOS 7.4 64 位 + Apache + httpd</p>
 <p>首先假设前期工作已经做好，包括证书的购买、下载、上传到服务器，hppd 的安装，Apache 开启 ssl 等。这些在网上有大量的文章，并且内容相似，没有什么异议，照做就好。</p>
 <p>简单的讲，证书在阿里云购买的一年免费版（ssl 证书，单域名，DV 类型。如果买错了付费版的，并且已签发，在短期内可申请吊销并退款），下载的 Apache 版，在服务器 /etc/httpd 下新建文件夹 ssl 并上传下载好的三个证书文件，hppd 使用默认的入口 “/var/www/html”，服务器防火墙已关闭，端口未被占用。</p>
 <p>软件使用的是 Termius（SSH） 和 Transmit（文件传输）。其实感觉阿里云自带的远程连接也还不错。</p>
 <p>直接到证书安装的过程，这个网上也算大同小异，弄了许久许久，都试过了一遍还是不行，最后才发现是因为没有添加安全组规则，所以大概很多操作有无均可，反正我只是想要那个绿色的小锁头，下面是我的配置。</p>
 <hr>
-<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a><Center style="color:rgb(195,176,145);">安装证书</Center></h2><p>在服务器中有两个关键的配置文件需要修改：</p>
+<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><p>在服务器中有两个关键的配置文件需要修改：</p>
 <ul>
 <li><p>/etc/httpd/conf/httpd.conf</p>
 </li>
@@ -322,12 +322,23 @@
 <p>如果不管怎么配置，始终都无法成功的话，可能就是需要开启安全组。</p>
 <p>进入阿里云，云服务器 ECS，实例列表，实例最后的操作项，选择更多，网络和安全组，安全组配置，配置规则，如果端口范围没有 443 的那很可能就是这个问题了，手动添加一条端口为 443 的。</p>
 <hr>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a><Center style="color:rgb(195,176,145);">其它</Center></h2><p>Http 默认使用的是 80 端口。Https 默认使用的是 443 端口。Chrome 可以在显示不安全那里单击，查看是否显示有证书项，有证书就是 Https，没有就是 Http，或者查看证书是否有效。我这里在 Chrome 用 Https 访问会显示有三项，证书（是否有效），Cookie，网站设置。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>Http 默认使用的是 80 端口。Https 默认使用的是 443 端口。Chrome 可以在显示不安全那里单击，查看是否显示有证书项，有证书就是 Https，没有就是 Http，或者查看证书是否有效。我这里在 Chrome 用 Https 访问会显示有三项，证书（是否有效），Cookie，网站设置。</p>
 <p>鉴于自己的博客是在 Github 和 Coding 双地部署的，某一天开始无法打开页面，提示无法与服务器建立安全连接，还以为是证书的问题，特意在阿里云买了款付费的证书，但没用到，幸好可以退款。大概是因为 Chrome 更改过某些政策的原因，导致 Coding 的证书失效了，所以暂时把域名导向 Coding 的关掉了，只使用 Github。</p>
 <p>为何买的付费证书没有用到，首先 Github 和 Coding 都提供强制 Https 连接，都提供免费的证书并且自己续期，最重要的是都无法上传个人的证书。</p>
 <p>如果已经弄好了证书，通过 https 访问成功，但还是显示不安全，原因多半是因为内部访问了不安全的资源，比如 http 的连接，或者图片等。可以通过检查（F12）来查看有哪些不安全资源（右上角黄色三角图标）。</p>
 <hr>
-<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><Center style="color:rgb(195,176,145);">链接</Center></h2><p><strong>参考资料</strong>：<br><a href="https://help.aliyun.com/document_detail/98727.html?spm=a2c4g.11186623.2.9.20b8625axSqEaA#concept-zsp-d1x-yfb" target="_blank" rel="noopener external nofollow noreferrer">阿里云文档</a><br><a href="https://blog.bbskali.cn/index.php/archives/172/" target="_blank" rel="noopener external nofollow noreferrer">提示了我配置安全组</a></p>
+<h2 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h2><p>为七牛云的图床更新 ssl 证书：</p>
+<p>1、阿里云购买 ssl 证书，并到相应域名解析验证。</p>
+<p>2、验证成功后，下载相应证书，比如 Apache。</p>
+<p>3、进入七牛云</p>
+<ul>
+<li><p>SSL 证书 -》 上传自有证书。</p>
+</li>
+<li><p>CDN -》域名管理 -》HTTPS 配置（修改配置）</p>
+</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：<br><a href="https://help.aliyun.com/document_detail/98727.html?spm=a2c4g.11186623.2.9.20b8625axSqEaA#concept-zsp-d1x-yfb" target="_blank" rel="noopener external nofollow noreferrer">阿里云文档</a><br><a href="https://blog.bbskali.cn/index.php/archives/172/" target="_blank" rel="noopener external nofollow noreferrer">提示了我配置安全组</a></p>
 
     </div>
 
@@ -459,7 +470,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装证书"><span class="nav-number">2.</span> <span class="nav-text">安装证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#httpd-conf"><span class="nav-number">2.1.</span> <span class="nav-text">httpd.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssl-conf"><span class="nav-number">2.2.</span> <span class="nav-text">ssl.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启服务"><span class="nav-number">2.3.</span> <span class="nav-text">重启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组"><span class="nav-number">2.4.</span> <span class="nav-text">安全组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接"><span class="nav-number">4.</span> <span class="nav-text">链接</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装证书"><span class="nav-number">2.</span> <span class="nav-text">安装证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#httpd-conf"><span class="nav-number">2.1.</span> <span class="nav-text">httpd.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssl-conf"><span class="nav-number">2.2.</span> <span class="nav-text">ssl.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重启服务"><span class="nav-number">2.3.</span> <span class="nav-text">重启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全组"><span class="nav-number">2.4.</span> <span class="nav-text">安全组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其它"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七牛云"><span class="nav-number">4.</span> <span class="nav-text">七牛云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -561,7 +572,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:17</span>
+    <span title="站点阅读时长">19:22</span>
 </div>
 
 
