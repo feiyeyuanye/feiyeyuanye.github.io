@@ -1257,7 +1257,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #b4ffe4;
+  background: #492e7a;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2661,7 +2661,7 @@ body:before {
 }
 .m_more_title_style,
 h2 {
-  color: #c3b091;
+  color: #445760;
   text-align: center;
 }
 .m_more_content_p_red {
@@ -2685,7 +2685,7 @@ h2 {
   cursor: pointer;
 }
 hr {
-  background-image: repeating-linear-gradient(-45deg, #c3b091, #c3b091 4px, transparent 4px, transparent 8px);
+  background-image: repeating-linear-gradient(-45deg, #445760, #445760 4px, transparent 4px, transparent 8px);
 }
 .post-body p a {
   color: #0593d3;
