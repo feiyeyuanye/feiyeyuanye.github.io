@@ -2,9 +2,11 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
+
+
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,97 +15,69 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/green/pace-theme-minimal.css">
-  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
 
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"jianghouren.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-  <meta property="og:type" content="article">
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
 <meta property="og:title" content="Android Activity">
 <meta property="og:url" content="https://jianghouren.com/archives/13eca542.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/activity_period.png">
-<meta property="og:image" content="https://imgsw.cn/static/images/android_%E4%BB%BB%E5%8A%A1%E6%A0%88%E8%BD%AC%E7%A7%BB.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_任务栈转移.jpeg?imageView2/2/h/600">
 <meta property="article:published_time" content="2019-03-25T09:00:57.000Z">
-<meta property="article:modified_time" content="2021-04-27T09:49:24.198Z">
+<meta property="article:modified_time" content="2021-04-27T09:49:24.000Z">
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="四大组件">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
 
+
 <link rel="canonical" href="https://jianghouren.com/archives/13eca542.html">
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
 
-  <title>Android Activity | 非也缘也 Blog</title>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.com/archives/13eca542.html","path":"archives/13eca542.html","title":"Android Activity"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android Activity | 非也缘也 Blog</title>
   
 
 
 
 
-
-
+<link rel="dns-prefetch" href="https://waline-1n0ilxniu-feiyeyuanye.vercel.app">
   <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
 
+  <main class="main">
     <header class="header" itemscope itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-container">
   <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
     </div>
   </div>
 
   <div class="site-meta">
 
     <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">非也缘也 Blog</h1>
-      <span class="logo-line-after"><i></i></span>
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">Hello World</p>
   </div>
@@ -117,39 +91,8 @@
 
 
 
-
 <nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-链接">
-
-    <a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a>
-
-  </li>
-        <li class="menu-item menu-item-体系">
-
-    <a href="/system/" rel="section"><i class="fa fa-calendar fa-fw"></i>体系</a>
-
-  </li>
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-链接"><a href="/link/" rel="section"><i class="fa fa-sitemap fa-fw"></i>链接</a></li><li class="menu-item menu-item-体系"><a href="/system/" rel="section"><i class="fa fa-calendar fa-fw"></i>体系</a></li>
       <li class="menu-item menu-item-search">
         <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
         </a>
@@ -160,23 +103,22 @@
 
 
   <div class="search-pop-overlay">
-    <div class="popup search-popup">
-        <div class="search-header">
+    <div class="popup search-popup"><div class="search-header">
   <span class="search-icon">
     <i class="fa fa-search"></i>
   </span>
   <div class="search-input-container">
-    <input autocomplete="off" autocapitalize="off"
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
            placeholder="搜索..." spellcheck="false"
            type="search" class="search-input">
   </div>
-  <span class="popup-btn-close">
+  <span class="popup-btn-close" role="button">
     <i class="fa fa-times-circle"></i>
   </span>
 </div>
-<div id="search-result">
-  <div id="no-result">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
   </div>
 </div>
 
@@ -184,107 +126,201 @@
   </div>
 
 </div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.1.</span> <span class="nav-text">正常情况下的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E5%B8%B8%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity%E4%B8%8EFragment%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%B3%E7%B3%BB"><span class="nav-number">1.3.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity%E4%B8%8Emenu%E5%88%9B%E5%BB%BA%E5%85%88%E5%90%8E%E9%A1%BA%E5%BA%8F"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与menu创建先后顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IntentFiler-%E7%9A%84%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-number">1.5.1.</span> <span class="nav-text">IntentFiler 的匹配规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E5%90%AF%E5%8A%A8-Activity"><span class="nav-number">1.6.</span> <span class="nav-text">后台启动 Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%88Kotlin%EF%BC%89"><span class="nav-number">1.7.</span> <span class="nav-text">示例（Kotlin）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">168</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">47</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
     </header>
 
     
-  <div class="back-to-top">
+  <div class="back-to-top" role="button" aria-label="返回顶部">
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
 
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
 
-          <div class="content post posts-expand">
-            
+    <div class="main-inner post posts-expand">
 
-    
+
+  
+
+
+<div class="post-block">
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/13eca542.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
       <meta itemprop="name" content="非也缘也">
-      <meta itemprop="description" content="不可描述">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
       <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android Activity | 非也缘也 Blog">
+      <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           Android Activity
         </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-03-25 17:00:57" itemprop="dateCreated datePublished" datetime="2019-03-25T17:00:57+08:00">2019-03-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-27 17:49:24" itemprop="dateModified" datetime="2021-04-27T17:49:24+08:00">2021-04-27</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
-                </span>
-            </span>
+      <time title="创建时间：2019-03-25 17:00:57" itemprop="dateCreated datePublished" datetime="2019-03-25T17:00:57+08:00">2019-03-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-27 17:49:24" itemprop="dateModified" datetime="2021-04-27T17:49:24+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
 
-          
-            <span id="/archives/13eca542.html" class="post-meta-item leancloud_visitors" data-flag-title="Android Activity" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
+  
   
   <span class="post-meta-item">
     
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/archives/13eca542.html#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/archives/13eca542.html" itemprop="commentCount"></span>
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/13eca542.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/13eca542.html" data-xid="/archives/13eca542.html" itemprop="commentCount"></span>
     </a>
   </span>
   
   
 
 
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>19k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>17 分钟</span>
-            </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
 
         </div>
       </header>
@@ -293,15 +329,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-
-      
-        <p><img data-src="https://imgsw.cn/static/images/你的名字.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
-<a id="more"></a>
+        <p><img src="https://imgsw.cn/static/images/你的名字.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
+<span id="more"></span>
 
 <h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a><p class="m_more_title_style">Activity</p></h2><p><strong>基本概念：</strong>Activity(活动)是Android四大组件之一，用于显示用户界面，和用户进行交互。<br><strong>生命周期：</strong></p>
-<img data-src="https://imgsw.cn/static/images/activity_period.png">
+<img src="https://imgsw.cn/static/images/activity_period.png">
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Activity 的状态：</span><br><span class="line"><span class="number">1</span>. 运行状态：当其位于栈顶时。</span><br><span class="line"><span class="number">2</span>. 暂停状态：当其不再处于栈顶，但仍然可见。（比如对话框形式的 Activity 并不会完全遮挡住下面的 Activity）</span><br><span class="line"><span class="number">3</span>. 停止状态：当其不再处于栈顶，并且完全不可见。</span><br><span class="line"><span class="number">4</span>. 销毁状态：当其从返回栈中移除。</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Activity 的状态：</span><br><span class="line"><span class="number">1.</span> 运行状态：当其位于栈顶时。</span><br><span class="line"><span class="number">2.</span> 暂停状态：当其不再处于栈顶，但仍然可见。（比如对话框形式的 Activity 并不会完全遮挡住下面的 Activity）</span><br><span class="line"><span class="number">3.</span> 停止状态：当其不再处于栈顶，并且完全不可见。</span><br><span class="line"><span class="number">4.</span> 销毁状态：当其从返回栈中移除。</span><br></pre></td></tr></table></figure>
 
 <h3 id="正常情况下的生命周期"><a href="#正常情况下的生命周期" class="headerlink" title="正常情况下的生命周期"></a>正常情况下的生命周期</h3><p><strong>指在有用户参与的情况下，Activity 所经过的生命周期的改变。</strong></p>
 <p>onCreate()-&gt;onStart()-&gt;onResume()-&gt;onPause()-&gt;onStop()-&gt;onDestory()</p>
@@ -367,7 +401,7 @@
 </ul>
 <p><strong>旧 Activity 先执行 onPause 方法，新 Activity 再执行 onResume 方法。</strong><br>在 ActivityStack 中的 resumeTopActivityInnerLocked 方法中，栈顶的 Activity 需先 onPause 后，新 Activity 才能启动。<br>最终，在 ActivityStackSupervisor 中的 realStartActivityLocked 方法会调用 app.thread.scheduleLaunchActivity()。<br>app.thread 的类型是 IApplication（它的具体实现是 ActivityThread 中的 ApplicationThread），所以，实际上调到了 ApplicationThread 的 scheduleLaunchActivity 方法，这个方法会调用 handleLaunchActivity 方法完成新 Activity 的启动三回调。</p>
 <h3 id="异常情况下的生命周期"><a href="#异常情况下的生命周期" class="headerlink" title="异常情况下的生命周期"></a>异常情况下的生命周期</h3><p><strong>指 Activity 被系统回收或者由于当前设备的 Configuration 发生改变从而导致 Activity 被销毁重建。</strong><br>Configuration 类专门用来描述 Android 设备的配置情况：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取实例对象</span></span><br><span class="line">Configuration config = getResources().getConfiguration();</span><br><span class="line"><span class="comment">// config.fontScale：字体的缩放因子</span></span><br><span class="line"><span class="comment">// config.keyboard：键盘类型</span></span><br><span class="line"><span class="comment">// config.mcc：国家码</span></span><br><span class="line"><span class="comment">// config.mnc：网络码</span></span><br><span class="line"><span class="comment">// config.locale：语言</span></span><br><span class="line"><span class="comment">// config.navigation：导航类型</span></span><br><span class="line"><span class="comment">// config.orientation：屏幕方向</span></span><br><span class="line"><span class="comment">// config.touchscreen：触摸方式</span></span><br><span class="line"><span class="comment">// config.keyboardHidden：键盘可用</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取实例对象</span></span><br><span class="line"><span class="type">Configuration</span> <span class="variable">config</span> <span class="operator">=</span> getResources().getConfiguration();</span><br><span class="line"><span class="comment">// config.fontScale：字体的缩放因子</span></span><br><span class="line"><span class="comment">// config.keyboard：键盘类型</span></span><br><span class="line"><span class="comment">// config.mcc：国家码</span></span><br><span class="line"><span class="comment">// config.mnc：网络码</span></span><br><span class="line"><span class="comment">// config.locale：语言</span></span><br><span class="line"><span class="comment">// config.navigation：导航类型</span></span><br><span class="line"><span class="comment">// config.orientation：屏幕方向</span></span><br><span class="line"><span class="comment">// config.touchscreen：触摸方式</span></span><br><span class="line"><span class="comment">// config.keyboardHidden：键盘可用</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>情况 1：资源相关的系统配置发生改变导致 Activity 被杀死并重新创建</strong></p>
 <p>当系统资源配置发生改变时，比如切换横竖屏，则Activity 会被销毁（默认情况下）并重新创建，同时由于是在异常情况下终止的，系统会调用 onSaveInstanceState（调用时机在 onStop 之前，和 onPause 没有既定的时序关系） 来保存当前 Activity 的状态。</p>
@@ -380,13 +414,13 @@
 <li>顶级容器是一个 ViewGroup，一般来说可能是 DecorView。</li>
 <li>最后顶级容器再去一一通知它的子元素来保存数据。</li>
 </ul>
-<p><strong>当系统配置发生改变后，如果不想重新创建 Activity：</strong><br>可在 AndroidMenifest.xml 中，给 Activity 指定 configChanges 属性。比如 android : configChanges = “orientation|vertical”。常用的值有：</p>
+<p><strong>当系统配置发生改变后，如果不想重新创建 Activity：</strong><br>可在 AndroidMenifest.xml 中，给 Activity 指定 configChanges 属性。比如 android : configChanges &#x3D; “orientation|vertical”。常用的值有：</p>
 <ul>
 <li>locale。设备本地位置发生改变，一般指切换了系统语言。</li>
 <li>orientation。屏幕方向发生改变，比如旋转了屏幕。<br>当 minSdkVersion 和 targetSdkVersion 有一个不低于 13。为了防止旋转屏幕时 Activity 重启，还要加上 screenSize。</li>
 <li>keyboardHidden。键盘的可访问性发生改变，比如用户调出了键盘。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 会调用这个方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConfigurationChanged</span><span class="params">(Configuration newConfig)</span> </span>&#123;</span><br><span class="line">   <span class="keyword">super</span>.onConfigurationChanged(newConfig);</span><br><span class="line">   Log.e(<span class="string">"TAG"</span>,<span class="string">"onConfigurationChanged，newOrientation："</span>+newConfig.orientation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 会调用这个方法</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onConfigurationChanged</span><span class="params">(Configuration newConfig)</span> &#123;</span><br><span class="line">   <span class="built_in">super</span>.onConfigurationChanged(newConfig);</span><br><span class="line">   Log.e(<span class="string">&quot;TAG&quot;</span>,<span class="string">&quot;onConfigurationChanged，newOrientation：&quot;</span>+newConfig.orientation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>情况 2：资源内存不足导致低优先级的 Activity 被杀死</strong><br>其数据存储和恢复过程和情况 1 完全一致。</p>
 <p>Activity 的优先级，从高到低：</p>
@@ -464,25 +498,21 @@
 <p>注：执行onNewIntent()—-&gt;onResart()——&gt;onStart()—–&gt;onResume()。</p>
 </li>
 <li><p>singleTask模式：栈内复用模式。一种单实例模式，如果栈内存在此activity（根据taskAffinity匹配），则会清除之上的activity，复用此activity，并调用onNewIntent()方法。（onPause–&gt;onNewIntent–&gt;onResume）<br>当启动此模式 Activity 时，系统会先寻找是否存在它想要的任务栈：</p>
-<ul>
+</li>
 <li><p>如不存在，就重新创建一个任务栈，然后创建它的实例后把它放到栈中。</p>
 </li>
 <li><p>如存在它需要的任务栈，并且栈中有它的实例存在，那么系统会把它调到栈顶（同时，默认具有 clearTop 效果）并调用它的 onNewIntent 方法，如果实例不存在，就创建它的实例并把它压入栈中。</p>
-</li>
-</ul>
 </li>
 <li><p>singleInstance模式：单实例模式。除了具有 singleTask 模式的所有特性外，此模式的 Activity 只能单独位于一个任务栈中，当它启动时，系统会创建一个新的任务栈给它。由于站内复用特性，后续的请求均不会创建新的activity实例。</p>
 </li>
 </ul>
 <p><strong>为 Activity 指定启动模式</strong></p>
 <ul>
-<li><strong>第一种方式：</strong>在 AndroidMenifest 中为 Activity 指定 launchMode 属性。<br><code>&lt;activity android:name=&quot;.standard.StandardActivity&quot; android:launchMode=&quot;standard|singleTop|singleTask|singleInstance&quot; &gt;</code></li>
+<li><strong>第一种方式：</strong>在 AndroidMenifest 中为 Activity 指定 launchMode 属性。<br><code>&lt;activity android:name=&quot;.standard.StandardActivity&quot; android:launchMode=&quot;standard|singleTop|singleTask|singleInstance&quot; &gt; </code></li>
 <li><strong>第二种方式：</strong>动态代码，通过 Intent 设置标志位。（intent.addFlags()）</li>
-<li><strong>两种方式的区别：</strong><ul>
+<li><strong>两种方式的区别：</strong></li>
 <li>第二种方式优先于第一种方式。</li>
 <li>限定范围不同。</li>
-</ul>
-</li>
 </ul>
 <p><strong>任务相关性：TaskAffinity 参数</strong></p>
 <p>通过设置不同的启动模式可以实现调配不同的 Task。但是 taskAffinity 在一定程度上也会影响任务栈的调配流程。此参数标识了一个 Activity 所需要的任务栈的名字，这个属性值不能和包名相同（每一个 Activity 都有一个 Affinity 属性，如果不在清单文件中指定，默认情况下，所需任务栈的名字为包名，比如初始的MainActivity，它的Task的名字就是包名）。在默认情况下，同一应用程序的所有的 Activity 都有着相同的 taskAffinity。Android 使用任务（task）来管理 Activity，一个任务就是一组存放在栈里的 Activity 的集合，这个栈也被称作返回栈（back task）。栈是一种后进先出的数据结构。</p>
@@ -493,7 +523,7 @@
 <p>它具有该模式 Activity 目前任务栈的名字，待启动 Activity 会运行在名字和 TaskAffinity 相同的任务栈中。（如果新启动 Activity 的 taskAffinity 和 栈 的 taskAffinity 相同则加入到该栈中，如果不同，就会创建新栈。）</p>
 <p><strong>2、taskAffinity 与 allowTaskReparenting 配合时</strong>：</p>
 <p>例子一：如果 allowTaskReparenting 属性为 true，A 应用启动 B 应用的一个 Activity C，C 会从 A 的任务栈转移到 B 的任务栈中，也就是说明 Activity 具有转移的能力。</p>
-<img data-src="https://imgsw.cn/static/images/android_任务栈转移.jpeg?imageView2/2/h/600">
+<img src="https://imgsw.cn/static/images/android_任务栈转移.jpeg?imageView2/2/h/600">
 <p>比如使用一款社交应用，这个应用的联系人详情界面提供了联系人的邮箱，当点击邮箱时会跳到发送邮件的界面。会把发送邮件界面放到社交应用中详情界面所在栈的栈顶。<br>当社交应用启动了发送邮件的 Activity，此时发送邮件的 Activity 是和社交应用处于同一个栈中的，并且这个栈位于前台。如果发送邮件的 Activity 的 allowTaskReparenting 设置为 true，此后 E-mail 应用所在的栈位于前台时，发送邮件的 Activity 会由社交应用的栈中转移到与它更亲近的邮件应用（taskAffinity 相同）所在的栈中。</p>
 <p>例子二：allowTaskReparenting 赋予 Activity 在各个 Task 中间转移的特性。一个在后台任务栈中的 Activity A，当有其他任务进入前台，并且 taskAffinity 与 A 相同，则会自动将 A 添加到当前启动的任务栈中。举一个生活中的场景：</p>
 <p>在某外卖 App 中下好订单后，跳转到支付宝进行支付。当在支付宝中支付成功之后，页面停留在支付宝支付成功页面。<br>按 Home 键，在主页面重新打开支付宝，页面上显示的并不是支付宝主页面，而是之前的支付成功页面。<br>再次进入外卖 App，可以发现支付宝成功页面已经消失。</p>
@@ -512,8 +542,8 @@
 </li>
 <li>可以看出，FirstC 被移动到与 ReparentActivity 处在一个任务栈中。此时 FirstC 位于栈顶位置，再次点击返回键，才会显示 ReparentActivity 页面。</li>
 </ul>
-<p>接下来通过系统源码来查看 taskAffinity 的应用（基于 Android 8.0 版本）。ActivityStackSupervisor 的 findTaskLocked 方法用于找到 Activity 最匹配的栈，最终会调用 ActivityStack 的 findTaskLocked 方法，这里只截取了和 taskAffinity 相关的部分：<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStack.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityStack.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">findTaskLocked</span><span class="params">(ActivityRecord target, FindTaskResult result)</span> </span>&#123;</span><br><span class="line">  ...</span><br><span class="line"><span class="comment">// 遍历 mTaskHistory 列表，列表的元素为 TaskRecord，它用于存储没有被销毁的栈。</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> taskNdx = mTaskHistory.size() - <span class="number">1</span>; taskNdx &gt;= <span class="number">0</span>; --taskNdx) &#123;</span><br><span class="line"><span class="comment">// 得到某一个栈的信息。</span></span><br><span class="line">        <span class="keyword">final</span> TaskRecord task = mTaskHistory.get(taskNdx);</span><br><span class="line">  ...</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!isDocument &amp;&amp; !taskIsDocument</span><br><span class="line">                &amp;&amp; result.r == <span class="keyword">null</span> &amp;&amp; task.rootAffinity != <span class="keyword">null</span>) &#123;</span><br><span class="line"><span class="comment">// 将栈的 rootAffinity（初始的 taskAffinity）和目标 Activity 的 taskAffinity 做对比，如果相同，则将  FindTaskResult 的 matchedByRootAffinity 属性设置为 true，说明找到了匹配的栈。</span></span><br><span class="line">            <span class="keyword">if</span> (task.rootAffinity.equals(target.taskAffinity)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (DEBUG_TASKS) Slog.d(TAG_TASKS, <span class="string">"Found matching affinity candidate!"</span>);</span><br><span class="line"></span><br><span class="line">                result.r = r;</span><br><span class="line">                result.matchedByRootAffinity = <span class="keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (DEBUG_TASKS) Slog.d(TAG_TASKS, <span class="string">"Not a match: "</span> + task);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来通过系统源码来查看 taskAffinity 的应用（基于 Android 8.0 版本）。ActivityStackSupervisor 的 findTaskLocked 方法用于找到 Activity 最匹配的栈，最终会调用 ActivityStack 的 findTaskLocked 方法，这里只截取了和 taskAffinity 相关的部分：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStack.java">ActivityStack.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">findTaskLocked</span><span class="params">(ActivityRecord target, FindTaskResult result)</span> &#123;</span><br><span class="line">  ...</span><br><span class="line"><span class="comment">// 遍历 mTaskHistory 列表，列表的元素为 TaskRecord，它用于存储没有被销毁的栈。</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">taskNdx</span> <span class="operator">=</span> mTaskHistory.size() - <span class="number">1</span>; taskNdx &gt;= <span class="number">0</span>; --taskNdx) &#123;</span><br><span class="line"><span class="comment">// 得到某一个栈的信息。</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">TaskRecord</span> <span class="variable">task</span> <span class="operator">=</span> mTaskHistory.get(taskNdx);</span><br><span class="line">  ...</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!isDocument &amp;&amp; !taskIsDocument</span><br><span class="line">                &amp;&amp; result.r == <span class="literal">null</span> &amp;&amp; task.rootAffinity != <span class="literal">null</span>) &#123;</span><br><span class="line"><span class="comment">// 将栈的 rootAffinity（初始的 taskAffinity）和目标 Activity 的 taskAffinity 做对比，如果相同，则将  FindTaskResult 的 matchedByRootAffinity 属性设置为 true，说明找到了匹配的栈。</span></span><br><span class="line">            <span class="keyword">if</span> (task.rootAffinity.equals(target.taskAffinity)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (DEBUG_TASKS) Slog.d(TAG_TASKS, <span class="string">&quot;Found matching affinity candidate!&quot;</span>);</span><br><span class="line"></span><br><span class="line">                result.r = r;</span><br><span class="line">                result.matchedByRootAffinity = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (DEBUG_TASKS) Slog.d(TAG_TASKS, <span class="string">&quot;Not a match: &quot;</span> + task);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>Intent 的 Flags</strong></p>
 <p>在 Intent 中定义了很多 FLAG，其中有几个 FLAG 也可以设定 Activity 的启动方式，如果 Launch Mode 和 FLAG 设定的 Activity 的启动方式有冲突，则以 FLAG 设定的为准。</p>
@@ -532,11 +562,11 @@
 <li>FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY：这个标志位通常不是由应用程序中的代码设置的，而是从历史列表中启动的（长按 Home 键调出）。</li>
 <li>FLAG_ACTIVITY_CLEAR_TASK：需要和 FLAG_ACTIVITY_NEW_TASK 一同使用才有效果，用于清除与启动的 Activity 相关栈的所有其他 Activity。</li>
 </ul>
-<p>接下来通过系统源码来查看 FLAG 的应用（基于 Android 8.0 版本）。首先，根 Activity 启动时会调用 AMS 的 startActivity 方法，经过层层调用会调用 ActivityStarter 的 startActivityUnchecked 方法：<a href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStarter.java" target="_blank" rel="noopener external nofollow noreferrer">ActivityStarter.java</a></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">startActivityUnchecked</span><span class="params">(<span class="keyword">final</span> ActivityRecord r, ActivityRecord sourceRecord,</span></span></span><br><span class="line"><span class="function"><span class="params">            IVoiceInteractionSession voiceSession, IVoiceInteractor voiceInteractor,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">int</span> startFlags, <span class="keyword">boolean</span> doResume, ActivityOptions options, TaskRecord inTask,</span></span></span><br><span class="line"><span class="function"><span class="params">            ActivityRecord[] outActivity)</span> </span>&#123;</span><br><span class="line"><span class="comment">// 初始化启动 Activity 的各种配置，在初始化前会重置各种配置再进行配置，这些配置包括 ActivityRecord、Intent、TaskRecord 和 LaunchFlags（Activity 启动的 FlAG）等。</span></span><br><span class="line">       setInitialState(r, options, inTask, doResume, startFlags, sourceRecord, voiceSession,voiceInteractor);</span><br><span class="line"><span class="comment">// 计算出 Activity 启动的 FLAG，并将计算的值赋值给 mLaunchFlags。</span></span><br><span class="line">       computeLaunchingTaskFlags();</span><br><span class="line">       computeSourceStack();</span><br><span class="line"><span class="comment">// 将计算出的 mLaunchFlags 设置给 Intent，达到设定 Activity 的启动方式的目的。</span></span><br><span class="line">       mIntent.setFlags(mLaunchFlags);</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来通过系统源码来查看 FLAG 的应用（基于 Android 8.0 版本）。首先，根 Activity 启动时会调用 AMS 的 startActivity 方法，经过层层调用会调用 ActivityStarter 的 startActivityUnchecked 方法：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStarter.java">ActivityStarter.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="type">int</span> <span class="title function_">startActivityUnchecked</span><span class="params">(<span class="keyword">final</span> ActivityRecord r, ActivityRecord sourceRecord,</span></span><br><span class="line"><span class="params">            IVoiceInteractionSession voiceSession, IVoiceInteractor voiceInteractor,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> startFlags, <span class="type">boolean</span> doResume, ActivityOptions options, TaskRecord inTask,</span></span><br><span class="line"><span class="params">            ActivityRecord[] outActivity)</span> &#123;</span><br><span class="line"><span class="comment">// 初始化启动 Activity 的各种配置，在初始化前会重置各种配置再进行配置，这些配置包括 ActivityRecord、Intent、TaskRecord 和 LaunchFlags（Activity 启动的 FlAG）等。</span></span><br><span class="line">       setInitialState(r, options, inTask, doResume, startFlags, sourceRecord, voiceSession,voiceInteractor);</span><br><span class="line"><span class="comment">// 计算出 Activity 启动的 FLAG，并将计算的值赋值给 mLaunchFlags。</span></span><br><span class="line">       computeLaunchingTaskFlags();</span><br><span class="line">       computeSourceStack();</span><br><span class="line"><span class="comment">// 将计算出的 mLaunchFlags 设置给 Intent，达到设定 Activity 的启动方式的目的。</span></span><br><span class="line">       mIntent.setFlags(mLaunchFlags);</span><br><span class="line">  ...</span><br><span class="line">&#125;     </span><br></pre></td></tr></table></figure>
 
 <p>接下来查看 computeLaunchingTaskFlags 方法,，计算启动的 FLAG 的逻辑比较复杂，这里只截取了一小部分：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">computeLaunchingTaskFlags</span><span class="params">()</span> </span>&#123;</span><br><span class="line"> ... </span><br><span class="line">   <span class="comment">// 当 TaskRecord 类型的 mInTask 为 null 时，说明 Activity 要加入的栈不存在，因此，这一小段代码主要解决的问题就是 Activity 要加入的栈不存在时如何计算出启动的 FLAG。</span></span><br><span class="line">   <span class="keyword">if</span> (mInTask == <span class="keyword">null</span>) &#123;</span><br><span class="line">     <span class="comment">// ActivityRecord 类型的 mSourceRecord 用于描述 “初始 Activity”。</span></span><br><span class="line">     <span class="comment">// 初始 Activity 是指：假设 ActivityA 启动了 ActivityB，那么 ActivityA 就是初始 Activity。</span></span><br><span class="line">       <span class="keyword">if</span> (mSourceRecord == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> ((mLaunchFlags &amp; FLAG_ACTIVITY_NEW_TASK) == <span class="number">0</span> &amp;&amp; mInTask == <span class="keyword">null</span>) &#123;</span><br><span class="line">               Slog.w(TAG, <span class="string">"startActivity called from non-Activity context; forcing "</span> +</span><br><span class="line">                       <span class="string">"Intent.FLAG_ACTIVITY_NEW_TASK for: "</span> + mIntent);</span><br><span class="line">             <span class="comment">// 创建一个新栈</span></span><br><span class="line">               mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mSourceRecord.launchMode == LAUNCH_SINGLE_INSTANCE) &#123;</span><br><span class="line">         <span class="comment">// 如果 “初始 Activity” 所在的栈只允许有一个 Activity 实例，则也需要创建一个新栈。</span></span><br><span class="line">           mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mLaunchSingleInstance || mLaunchSingleTask) &#123;</span><br><span class="line">         <span class="comment">// 如果 Launch Mode 设置了 singleTask 或 singleInstance，则也要创建一个新栈。</span></span><br><span class="line">           mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">computeLaunchingTaskFlags</span><span class="params">()</span> &#123;</span><br><span class="line"> ... </span><br><span class="line">   <span class="comment">// 当 TaskRecord 类型的 mInTask 为 null 时，说明 Activity 要加入的栈不存在，因此，这一小段代码主要解决的问题就是 Activity 要加入的栈不存在时如何计算出启动的 FLAG。</span></span><br><span class="line">   <span class="keyword">if</span> (mInTask == <span class="literal">null</span>) &#123;</span><br><span class="line">     <span class="comment">// ActivityRecord 类型的 mSourceRecord 用于描述 “初始 Activity”。</span></span><br><span class="line">     <span class="comment">// 初始 Activity 是指：假设 ActivityA 启动了 ActivityB，那么 ActivityA 就是初始 Activity。</span></span><br><span class="line">       <span class="keyword">if</span> (mSourceRecord == <span class="literal">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> ((mLaunchFlags &amp; FLAG_ACTIVITY_NEW_TASK) == <span class="number">0</span> &amp;&amp; mInTask == <span class="literal">null</span>) &#123;</span><br><span class="line">               Slog.w(TAG, <span class="string">&quot;startActivity called from non-Activity context; forcing &quot;</span> +</span><br><span class="line">                       <span class="string">&quot;Intent.FLAG_ACTIVITY_NEW_TASK for: &quot;</span> + mIntent);</span><br><span class="line">             <span class="comment">// 创建一个新栈</span></span><br><span class="line">               mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mSourceRecord.launchMode == LAUNCH_SINGLE_INSTANCE) &#123;</span><br><span class="line">         <span class="comment">// 如果 “初始 Activity” 所在的栈只允许有一个 Activity 实例，则也需要创建一个新栈。</span></span><br><span class="line">           mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">       &#125; <span class="keyword">else</span> <span class="keyword">if</span> (mLaunchSingleInstance || mLaunchSingleTask) &#123;</span><br><span class="line">         <span class="comment">// 如果 Launch Mode 设置了 singleTask 或 singleInstance，则也要创建一个新栈。</span></span><br><span class="line">           mLaunchFlags |= FLAG_ACTIVITY_NEW_TASK;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
 
 <hr>
 <h4 id="IntentFiler-的匹配规则"><a href="#IntentFiler-的匹配规则" class="headerlink" title="IntentFiler 的匹配规则"></a><p class="m_more_title_style">IntentFiler 的匹配规则</p></h4><p><strong>启动 Activity 分为两种：</strong></p>
@@ -548,16 +578,14 @@
 <ul>
 <li><strong>action</strong><br>要求 Intent 中的 action 必须有一个且必须和过滤规则中的其中一个 action 相同，并且区分大小写。</li>
 <li><strong>category</strong><br>可以不存在（会默认加上标记位），但如果有，每一个都要能够和过滤规则中一个 actegory 相同。</li>
-<li><strong>data</strong><br>如果过滤规则中定义了 data，那么 Intent 中也必须定义可匹配的 data。如果要指定完整的data，必须调用 setDataAndType(Uri.prase(file://abc),”text/plain”) 方法。<br>它由两部分组成：<ul>
+<li><strong>data</strong><br>如果过滤规则中定义了 data，那么 Intent 中也必须定义可匹配的 data。如果要指定完整的data，必须调用 setDataAndType(Uri.prase(file:&#x2F;&#x2F;abc),”text&#x2F;plain”) 方法。<br>它由两部分组成：</li>
 <li>mimeTyp。指媒体类型</li>
 <li>URI。默认值为 content 和 file。</li>
 </ul>
-</li>
-</ul>
 <h3 id="后台启动-Activity"><a href="#后台启动-Activity" class="headerlink" title="后台启动 Activity"></a>后台启动 Activity</h3><p>从 Android10（API 29）开始，Android 系统对后台进程启动 Activity 做了一定的限制。主要目的就是尽可能的避免当前前台用户的交互被打断，保证当前屏幕上展示的内容不受影响。解决办法：Android 官方建议我们使用通知来替代直接启动 Activity 操作：也就是当后台执行的任务执行完毕之后，并不会直接调用 startActivity 来启动新的界面，而是通过 NotificationManager 来发送 Notification 到状态栏。这样既不会影响当前使用的交互操作，用户也能及时获取后台任务的进展情况，后续的操作由用户自己决定。</p>
-<h3 id="示例（Kotlin）"><a href="#示例（Kotlin）" class="headerlink" title="示例（Kotlin）"></a>示例（Kotlin）</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 第一行代码第三版</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">BaseActivity</span></span>(), View.OnClickListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 'kotlin-android-extensions' 插件的作用，不必再 findViewById()。</span></span><br><span class="line">        <span class="comment">// 这个插件会根据布局文件中定义的控件 id 自动生成一个具有相同名称的变量。</span></span><br><span class="line"><span class="comment">//      android:textAllCaps="false" 取消默认的字母全部大写</span></span><br><span class="line">        btn_main.setOnClickListener &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这里使用了 Kotlin 的语法糖，实际上调用的是 editText.getText()</span></span><br><span class="line">            <span class="comment">// 不必特意记忆，直接输入 getText() 后，Android Studio 会自动给提示转换。</span></span><br><span class="line"><span class="comment">//            val inputext = editText.text.toString()</span></span><br><span class="line"><span class="comment">//            Toast.makeText(this,inputext,Toast.LENGTH_SHORT).show()</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 界面跳转，显式 Intent</span></span><br><span class="line">            <span class="keyword">val</span> <span class="keyword">data</span> = <span class="string">"Hello"</span></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, Main2Activity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>)</span></span><br><span class="line">            <span class="comment">// 传递参数</span></span><br><span class="line">            intent.putExtra(<span class="string">"extra_data"</span>,<span class="keyword">data</span>)</span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line">            <span class="comment">// 带返回值的跳转</span></span><br><span class="line">            startActivityForResult(intent,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 隐式启动</span></span><br><span class="line">            <span class="comment">// 只有&lt;action&gt;和&lt;category&gt;同时匹配才行</span></span><br><span class="line">            <span class="comment">// 但这里的&lt;category&gt;因为设置的为DEFAULT，所以只需匹配&lt;action&gt;即可，&lt;category&gt;会自动添加到Intent中。</span></span><br><span class="line"><span class="comment">//            val intent = Intent("com.example.activitytest.ACTION_START")</span></span><br><span class="line"><span class="comment">//            intent.addCategory("com.example.activitytest.MY_CATEGORY")</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 更多隐式 Intent 的用法</span></span><br><span class="line"><span class="comment">//            val intent = Intent(Intent.ACTION_VIEW)</span></span><br><span class="line"><span class="comment">//            // 通过 Uri.parse() 将网址字符串解析成一个 Uri 对象，再调用 Intent 的 setData() 将这个 Uri 对象传递进去。</span></span><br><span class="line"><span class="comment">//            intent.data = Uri.parse("https://www.baidu.com")</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//            val intent = Intent(Intent.ACTION_DIAL)</span></span><br><span class="line"><span class="comment">//            intent.data = Uri.parse("tel:1008611")</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        initListener()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initListener</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btn.setOnClickListener(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 不要忘记添加监听事件</span></span><br><span class="line">        <span class="keyword">when</span>(v?.id)&#123;</span><br><span class="line">            R.id.btn -&gt; &#123;</span><br><span class="line"><span class="comment">//                Main2Activity.actionStart(this,data)</span></span><br><span class="line">                Main2Activity.actionStart(<span class="keyword">this</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * requestCode：启动 Activity 时传入的请求码</span></span><br><span class="line"><span class="comment">     * resultCode：返回数据时传入的处理结果</span></span><br><span class="line"><span class="comment">     * data：携带着返回数据的 Intent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityResult</span><span class="params">(requestCode: <span class="type">Int</span>, resultCode: <span class="type">Int</span>, <span class="keyword">data</span>: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, <span class="keyword">data</span>)</span><br><span class="line">        <span class="comment">// 判断数据来源</span></span><br><span class="line">        <span class="keyword">when</span>(requestCode)&#123;</span><br><span class="line">            <span class="comment">// 判断处理结果是否成功</span></span><br><span class="line">            <span class="number">1</span> -&gt; <span class="keyword">if</span> (resultCode == Activity.RESULT_OK)&#123;</span><br><span class="line">                <span class="keyword">val</span> returnedData = <span class="keyword">data</span>?.getStringExtra(<span class="string">"data_return"</span>)</span><br><span class="line">                Log.d(<span class="string">"TAG_MainActivity"</span>,<span class="string">"return data is <span class="variable">$returnedData</span>"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="示例（Kotlin）"><a href="#示例（Kotlin）" class="headerlink" title="示例（Kotlin）"></a>示例（Kotlin）</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 第一行代码第三版</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">BaseActivity</span></span>(), View.OnClickListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// &#x27;kotlin-android-extensions&#x27; 插件的作用，不必再 findViewById()。</span></span><br><span class="line">        <span class="comment">// 这个插件会根据布局文件中定义的控件 id 自动生成一个具有相同名称的变量。</span></span><br><span class="line"><span class="comment">//      android:textAllCaps=&quot;false&quot; 取消默认的字母全部大写</span></span><br><span class="line">        btn_main.setOnClickListener &#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 这里使用了 Kotlin 的语法糖，实际上调用的是 editText.getText()</span></span><br><span class="line">            <span class="comment">// 不必特意记忆，直接输入 getText() 后，Android Studio 会自动给提示转换。</span></span><br><span class="line"><span class="comment">//            val inputext = editText.text.toString()</span></span><br><span class="line"><span class="comment">//            Toast.makeText(this,inputext,Toast.LENGTH_SHORT).show()</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 界面跳转，显式 Intent</span></span><br><span class="line">            <span class="keyword">val</span> <span class="keyword">data</span> = <span class="string">&quot;Hello&quot;</span></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, Main2Activity::<span class="keyword">class</span>.java)</span><br><span class="line">            <span class="comment">// 传递参数</span></span><br><span class="line">            intent.putExtra(<span class="string">&quot;extra_data&quot;</span>,<span class="keyword">data</span>)</span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line">            <span class="comment">// 带返回值的跳转</span></span><br><span class="line">            startActivityForResult(intent,<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 隐式启动</span></span><br><span class="line">            <span class="comment">// 只有&lt;action&gt;和&lt;category&gt;同时匹配才行</span></span><br><span class="line">            <span class="comment">// 但这里的&lt;category&gt;因为设置的为DEFAULT，所以只需匹配&lt;action&gt;即可，&lt;category&gt;会自动添加到Intent中。</span></span><br><span class="line"><span class="comment">//            val intent = Intent(&quot;com.example.activitytest.ACTION_START&quot;)</span></span><br><span class="line"><span class="comment">//            intent.addCategory(&quot;com.example.activitytest.MY_CATEGORY&quot;)</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 更多隐式 Intent 的用法</span></span><br><span class="line"><span class="comment">//            val intent = Intent(Intent.ACTION_VIEW)</span></span><br><span class="line"><span class="comment">//            // 通过 Uri.parse() 将网址字符串解析成一个 Uri 对象，再调用 Intent 的 setData() 将这个 Uri 对象传递进去。</span></span><br><span class="line"><span class="comment">//            intent.data = Uri.parse(&quot;https://www.baidu.com&quot;)</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//            val intent = Intent(Intent.ACTION_DIAL)</span></span><br><span class="line"><span class="comment">//            intent.data = Uri.parse(&quot;tel:1008611&quot;)</span></span><br><span class="line"><span class="comment">//            startActivity(intent)</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        initListener()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initListener</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btn.setOnClickListener(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 不要忘记添加监听事件</span></span><br><span class="line">        <span class="keyword">when</span>(v?.id)&#123;</span><br><span class="line">            R.id.btn -&gt; &#123;</span><br><span class="line"><span class="comment">//                Main2Activity.actionStart(this,data)</span></span><br><span class="line">                Main2Activity.actionStart(<span class="keyword">this</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * requestCode：启动 Activity 时传入的请求码</span></span><br><span class="line"><span class="comment">     * resultCode：返回数据时传入的处理结果</span></span><br><span class="line"><span class="comment">     * data：携带着返回数据的 Intent</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onActivityResult</span><span class="params">(requestCode: <span class="type">Int</span>, resultCode: <span class="type">Int</span>, <span class="keyword">data</span>: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onActivityResult(requestCode, resultCode, <span class="keyword">data</span>)</span><br><span class="line">        <span class="comment">// 判断数据来源</span></span><br><span class="line">        <span class="keyword">when</span>(requestCode)&#123;</span><br><span class="line">            <span class="comment">// 判断处理结果是否成功</span></span><br><span class="line">            <span class="number">1</span> -&gt; <span class="keyword">if</span> (resultCode == Activity.RESULT_OK)&#123;</span><br><span class="line">                <span class="keyword">val</span> returnedData = <span class="keyword">data</span>?.getStringExtra(<span class="string">&quot;data_return&quot;</span>)</span><br><span class="line">                Log.d(<span class="string">&quot;TAG_MainActivity&quot;</span>,<span class="string">&quot;return data is <span class="variable">$returnedData</span>&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main2Activity</span> : <span class="type">BaseActivity</span></span>(), View.OnClickListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main2)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">        initData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// intent 实际上调用的是父类的 getIntent()</span></span><br><span class="line">        <span class="keyword">val</span> extraData = intent.getStringExtra(<span class="string">"extra_data"</span>)</span><br><span class="line">        Log.d(<span class="string">"TAG_Main2Activity"</span>,<span class="string">"extra data is <span class="variable">$extraData</span>"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btn_main2.setOnClickListener(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (v?.id)&#123;</span><br><span class="line">            R.id.btn_main2 -&gt;&#123;</span><br><span class="line">                <span class="keyword">val</span> intent = Intent()</span><br><span class="line">                intent.putExtra(<span class="string">"data_return"</span>,<span class="string">"Hello MainActivity"</span>)</span><br><span class="line">                setResult(Activity.RESULT_OK,intent)</span><br><span class="line">                finish()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动 Activity 的最佳写法</span></span><br><span class="line"><span class="comment">     * companion object 语法结构：</span></span><br><span class="line"><span class="comment">     * Kotlin 规定，所有定义在此结构中的方法都可以使用类似于 Java 静态方法的形式调用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>,data1:<span class="type">String</span>,data2:<span class="type">String</span>)</span></span>&#123;</span><br><span class="line"><span class="comment">//            val intent = Intent(context,Main2Activity::class.java)</span></span><br><span class="line"><span class="comment">//            intent.putExtra("param1",data1)</span></span><br><span class="line"><span class="comment">//            intent.putExtra("param2",data2)</span></span><br><span class="line"><span class="comment">//            context.startActivity(intent)</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, Main2Activity::<span class="class"><span class="keyword">class</span>.<span class="title">java</span>).<span class="title">apply</span> </span>&#123;</span><br><span class="line">                putExtra(<span class="string">"param1"</span>,data1)</span><br><span class="line">                putExtra(<span class="string">"param2"</span>,data2)</span><br><span class="line">            &#125;</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent()</span><br><span class="line">        intent.putExtra(<span class="string">"data_return"</span>,<span class="string">"Hello MainActivity"</span>)</span><br><span class="line">        setResult(Activity.RESULT_OK,intent)</span><br><span class="line">        finish()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main2Activity</span> : <span class="type">BaseActivity</span></span>(), View.OnClickListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main2)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">        initData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// intent 实际上调用的是父类的 getIntent()</span></span><br><span class="line">        <span class="keyword">val</span> extraData = intent.getStringExtra(<span class="string">&quot;extra_data&quot;</span>)</span><br><span class="line">        Log.d(<span class="string">&quot;TAG_Main2Activity&quot;</span>,<span class="string">&quot;extra data is <span class="variable">$extraData</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btn_main2.setOnClickListener(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (v?.id)&#123;</span><br><span class="line">            R.id.btn_main2 -&gt;&#123;</span><br><span class="line">                <span class="keyword">val</span> intent = Intent()</span><br><span class="line">                intent.putExtra(<span class="string">&quot;data_return&quot;</span>,<span class="string">&quot;Hello MainActivity&quot;</span>)</span><br><span class="line">                setResult(Activity.RESULT_OK,intent)</span><br><span class="line">                finish()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 启动 Activity 的最佳写法</span></span><br><span class="line"><span class="comment">     * companion object 语法结构：</span></span><br><span class="line"><span class="comment">     * Kotlin 规定，所有定义在此结构中的方法都可以使用类似于 Java 静态方法的形式调用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>,data1:<span class="type">String</span>,data2:<span class="type">String</span>)</span></span>&#123;</span><br><span class="line"><span class="comment">//            val intent = Intent(context,Main2Activity::class.java)</span></span><br><span class="line"><span class="comment">//            intent.putExtra(&quot;param1&quot;,data1)</span></span><br><span class="line"><span class="comment">//            intent.putExtra(&quot;param2&quot;,data2)</span></span><br><span class="line"><span class="comment">//            context.startActivity(intent)</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, Main2Activity::<span class="keyword">class</span>.java).apply &#123;</span><br><span class="line">                putExtra(<span class="string">&quot;param1&quot;</span>,data1)</span><br><span class="line">                putExtra(<span class="string">&quot;param2&quot;</span>,data2)</span><br><span class="line">            &#125;</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onBackPressed</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intent = Intent()</span><br><span class="line">        intent.putExtra(<span class="string">&quot;data_return&quot;</span>,<span class="string">&quot;Hello MainActivity&quot;</span>)</span><br><span class="line">        setResult(Activity.RESULT_OK,intent)</span><br><span class="line">        finish()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Main3Activity</span> : <span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main3)</span><br><span class="line"></span><br><span class="line">        btn_main3.setOnClickListener&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 退出程序</span></span><br><span class="line">            ActivityCollector.finishAll()</span><br><span class="line">            <span class="comment">// 还可以在销毁所以 Activity 的代码后面再加上杀掉当前进程的代码，以保证程序完全退出</span></span><br><span class="line">            <span class="comment">// killProcess() 用于杀掉一个进程，它接收一个进程 id 参数，并且它只能用于杀掉当前进程，不能用于杀掉其它进程。</span></span><br><span class="line">            <span class="comment">// myPid() 获得当前进程的进程 id。</span></span><br><span class="line">            android.os.Process.killProcess(android.os.Process.myPid())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -569,19 +597,19 @@
 </ul>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 随时随地退出程序</span></span><br><span class="line"><span class="comment"> * 单例类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">object</span> ActivityCollector&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> activities = ArrayList&lt;Activity&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">addActivity</span><span class="params">(activity:<span class="type">Activity</span>)</span></span>&#123;</span><br><span class="line">        activities.add(activity)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">removeActivity</span><span class="params">(activity: <span class="type">Activity</span>)</span></span>&#123;</span><br><span class="line">        activities.remove(activity)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">finishAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (activity <span class="keyword">in</span> activities)&#123;</span><br><span class="line">            <span class="keyword">if</span> (!activity.isFinishing)&#123;</span><br><span class="line">                activity.finish()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        activities.clear()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- theme 对话框形式主题 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">".activity.Main3Activity"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">"@style/Theme.AppCompat.Dialog"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span> <span class="attr">tools:ignore</span>=<span class="string">"AppLinkUrlError"</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- tools:ignore="AppLinkUrlError"   忽略警告 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.VIEW"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">"https"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".activity.Main2Activity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 每个 Intent 中只能指定一个 action，但能指定多个 category。 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.ACTION_START"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.DEFAULT"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"com.example.activitytest.MY_CATEGORY"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".activity.MainActivity"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- theme 对话框形式主题 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.activity.Main3Activity&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:theme</span>=<span class="string">&quot;@style/Theme.AppCompat.Dialog&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span> <span class="attr">tools:ignore</span>=<span class="string">&quot;AppLinkUrlError&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- tools:ignore=&quot;AppLinkUrlError&quot;   忽略警告 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.VIEW&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">data</span> <span class="attr">android:scheme</span>=<span class="string">&quot;https&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.activity.Main2Activity&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 每个 Intent 中只能指定一个 action，但能指定多个 category。 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;com.example.activitytest.ACTION_START&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.DEFAULT&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;com.example.activitytest.MY_CATEGORY&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;.activity.MainActivity&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 
 
 <hr>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a href="https://blog.csdn.net/singwhatiwanna" target="_blank" rel="noopener external nofollow noreferrer">Android 开发艺术探索</a></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/singwhatiwanna">Android 开发艺术探索</a></p>
 
     </div>
 
     
     
     
-    
+
    <div>
      
        <div>
@@ -591,36 +619,36 @@
 </div>
      
    </div>
-        <div class="reward-container">
+
+    <footer class="post-footer">
+          <div class="reward-container">
   <div></div>
-  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
-    打赏
+  <button>
+    赞赏
   </button>
-  <div id="qr" style="display: none;">
-      
-      <div style="display: inline-block;">
-        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信支付">
-        <p>微信支付</p>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
       </div>
-      
-      <div style="display: inline-block;">
+      <div>
         <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
-        <p>支付宝</p>
+        <span>支付宝</span>
       </div>
 
   </div>
 </div>
 
-        
+          
 
-<div>
-<ul class="post-copyright">
+<div class="post-copyright">
+<ul>
   <li class="post-copyright-author">
-    <strong>本文作者： </strong>非也缘也
+      <strong>本文作者： </strong>非也缘也
   </li>
   <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="https://jianghouren.com/archives/13eca542.html" title="Android Activity">https://jianghouren.com/archives/13eca542.html</a>
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.com/archives/13eca542.html" title="Android Activity">https://jianghouren.com/archives/13eca542.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -628,315 +656,121 @@
 </ul>
 </div>
 
-
-      <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"><i class="fa fa-tag"></i> 四大组件</a>
+              <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"># 四大组件</a>
           </div>
 
         
 
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/archives/b05e1533.html" rel="prev" title="Android 屏幕适配">
-      <i class="fa fa-chevron-left"></i> Android 屏幕适配
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/archives/9d7816f1.html" rel="next" title="Android 五大布局">
-      Android 五大布局 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/b05e1533.html" rel="prev" title="Android 屏幕适配">
+                  <i class="fa fa-chevron-left"></i> Android 屏幕适配
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/9d7816f1.html" rel="next" title="Android 五大布局">
+                  Android 五大布局 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
   </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="valine-comments"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity"><span class="nav-number">1.</span> <span class="nav-text">Activity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#正常情况下的生命周期"><span class="nav-number">1.1.</span> <span class="nav-text">正常情况下的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常情况下的生命周期"><span class="nav-number">1.2.</span> <span class="nav-text">异常情况下的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity与Fragment生命周期关系"><span class="nav-number">1.3.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity与menu创建先后顺序"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与menu创建先后顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity的启动模式"><span class="nav-number">1.5.</span> <span class="nav-text">Activity的启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IntentFiler-的匹配规则"><span class="nav-number">1.5.1.</span> <span class="nav-text">IntentFiler 的匹配规则</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后台启动-Activity"><span class="nav-number">1.6.</span> <span class="nav-text">后台启动 Activity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例（Kotlin）"><span class="nav-number">1.7.</span> <span class="nav-text">示例（Kotlin）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="非也缘也"
-      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
-  <p class="site-author-name" itemprop="name">非也缘也</p>
-  <div class="site-description" itemprop="description">不可描述</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives">
-          <span class="site-state-item-count">168</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">18</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">47</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
 </div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://stackoverflow.com/users/11789259/%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;11789259&#x2F;%E9%9D%9E%E4%B9%9F%E7%BC%98%E4%B9%9F" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://gitee.com/feiyeyuanye" title="Gitee → https:&#x2F;&#x2F;gitee.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-instagram fa-fw"></i>Gitee</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
-        </li>
-        <li class="links-of-blogroll-item">
-          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
 
       <div class="skin_peeler diyclass" id="skin_peeler"></div>
       <div class="read_aloud diyclass" id="read_aloud"></div>
       <div class="audioImg diyclass" id="audioImg"></div>
       <audio id="audioMp3" controls="true" loop="loop"></audio>
       <script src="/js/my-diy.js"></script>
-    </main>
-   
-    <footer class="footer">
-      <div class="footer-inner">
-        
+  </main>
 
-        
+  <footer class="footer">
+    <div class="footer-inner">
+
 
 <div class="copyright">
-  
   &copy; 2019 – 
   <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">非也缘也</span>
-    <span class="post-meta-divider">|</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
+      <i class="fa fa-chart-line"></i>
     </span>
     <span title="站点总字数">1.3m</span>
-    <span class="post-meta-divider">|</span>
+  </span>
+  <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:38</span>
+    <span title="站点阅读时长">20:18</span>
+  </span>
 </div>
 
-
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
 
-	<span class="post-meta-item-icon">
+  	<span class="post-meta-item-icon">
 	      <i class="fa fa-user"></i>
-	</span>
-	<span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
-    	<span class="post-meta-divider">|</span>
-	<span class="post-meta-item-icon">
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
 	      <i class="fa fa-eye"></i>
-	</span>
- <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+  <script src="/js/third-party/pace.js"></script>
 
   
 
 
 
 
-        
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/pangu@4/dist/browser/pangu.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/muse.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-  
-<script src="/js/local-search.js"></script>
-
-
-
-
-
-
-
-
-
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-1n0ilxniu-feiyeyuanye.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/13eca542.html"}</script>
 <script>
-document.querySelectorAll('.pdfobject-container').forEach(element => {
-  let url = element.dataset.target;
-  let pdfOpenParams = {
-    navpanes : 0,
-    toolbar  : 0,
-    statusbar: 0,
-    pagemode : 'thumbs',
-    view     : 'FitH'
-  };
-  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
-  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
-
-  if (NexT.utils.supportsPDFs()) {
-    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
-  } else {
-    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
-  }
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
 });
 </script>
-
-
-
-
-  
-
-  
-
-
-<script>
-NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/valine@1/dist/Valine.min.js', () => {
-    var GUEST = ['nick', 'mail', 'link'];
-    var guest = 'nick,mail,link';
-    guest = guest.split(',').filter(item => {
-      return GUEST.includes(item);
-    });
-    new Valine({
-      el         : '#valine-comments',
-      verify     : false,
-      notify     : false,
-      appId      : 'kyqvexSwCDE659wSlwK6lXYP-gzGzoHsz',
-      appKey     : '93jN6kgGzhY5SFBSC4busiQO',
-      placeholder: "ヾﾉ≧∀≦)o来啊，快活啊!",
-      avatar     : 'mm',
-      meta       : guest,
-      pageSize   : '10' || 10,
-      visitor    : true,
-      lang       : '' || 'zh-cn',
-      path       : location.pathname,
-      recordIP   : false,
-      serverURLs : ''
-    });
-  }, window.Valine);
-});
-</script>
-
 
   <script async src="/js/cursor/fireworks.js"></script>
 
