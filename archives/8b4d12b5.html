@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
 
-
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -14,21 +15,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"v.jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="Android Binder原理（一）">
-<meta property="og:url" content="https://jianghouren.com/archives/8b4d12b5.html">
+<meta property="og:url" content="https://v.jianghouren.com/archives/8b4d12b5.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/nzNJUA.png?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/n5i5PP.png?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/uZgTgJ.png?imageView2/2/h/600">
@@ -44,14 +46,14 @@
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="通信机制">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta name="twitter:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 
 
-<link rel="canonical" href="https://jianghouren.com/archives/8b4d12b5.html">
+<link rel="canonical" href="https://v.jianghouren.com/archives/8b4d12b5.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.com/archives/8b4d12b5.html","path":"archives/8b4d12b5.html","title":"Android Binder原理（一）"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://v.jianghouren.com/archives/8b4d12b5.html","path":"archives/8b4d12b5.html","title":"Android Binder原理（一）"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Android Binder原理（一） | 非也缘也 Blog</title>
@@ -60,7 +62,7 @@
 
 
 
-<link rel="dns-prefetch" href="https://waline-1n0ilxniu-feiyeyuanye.vercel.app">
+<link rel="dns-prefetch" href="https://waline.jianghouren.com">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -232,6 +234,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -249,7 +252,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/8b4d12b5.html">
+    <link itemprop="mainEntityOfPage" href="https://v.jianghouren.com/archives/8b4d12b5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -312,6 +315,14 @@
   </span>
   
   
+    <span id="/archives/8b4d12b5.html" class="post-meta-item leancloud_visitors" data-flag-title="Android Binder原理（一）" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
 
 
     <span class="post-meta-item" title="本文字数">
@@ -337,7 +348,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <img src="https://imgsw.cn/static/images/wallhaven-j5mr6w_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/wallhaven-j5mr6w_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <span id="more"></span>
 
@@ -351,7 +362,7 @@
 <li>从 Android Framework 角度来说，是 ServiceManager 连接各种 Manager 和相应 ManagerService 的桥梁。</li>
 <li>从 Android 应用层来说，是客户端和服务端进行通信的媒介，当 bindService 时，服务端会返回一个包含了服务端业务调用的 Binder 对象，通过这个 Binder 对象，客户端就可以获取服务端提供的服务或者数据，这里的服务包括普通服务和基于 AIDL 的服务。</li>
 </ul>
-<img src="https://imgsw.cn/static/images/nzNJUA.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/nzNJUA.png?imageView2/2/h/600">
 
 <p>Binder通信的步骤如下所示。<br>1.Binder驱动在内核空间创建一个数据接收缓存区。<br>2.在内核空间开辟一块内核缓存区，建立内核缓存区和数据接收缓存区之间的映射关系，以及数据接收缓存区和接收进程用户空间地址的映射关系。<br>3.发送方进程通过copy_from_user()函数将数据拷贝 到内核中的内核缓存区，由于内核缓存区和接收进程的用户空间存在内存映射，因此也就相当于把数据发送到了接收进程的用户空间，这样便完成了一次进程间的通信。</p>
 <p>整个过程只使用了1次拷贝，不会因为不知道数据的大小而浪费空间或者时间，效率更高。</p>
@@ -379,14 +390,14 @@
 </ol>
 <p>上面只是列了一小部分，简单来说说，比如系统在启动时，SystemServer进程启动后会创建Binder线程池，目的是通过Binder，使得在SystemServer进程中的服务可以和其他进程进行通信了。再比如我们常说的AMS、PMS都是基于Binder来实现的，拿PMS来说，PMS运行在SystemServer进程，如果它想要和DefaultContainerService通信（是用于检查和复制可移动文件的系统服务），就需要通过Binder，因为DefaultContainerService运行在com.android.defcontainer进程。<br>还有一个比较常见的C&#x2F;S架构间通信的问题，Client端的MediaPlayer和Server端的MeidaPlayerService不是运行在一个进程中的，同样需要Binder来实现通信。</p>
 <p>可以说Binder机制是掌握系统底层原理的基石。根据Android系统的分层，Binder机制主要分为以下几个部分，其中Java Binder和Native Binder都是应用开发需要掌握的。Java Binder是需要借助Native Binder来工作的，因此需要先了解Native Binder，Native Binder架构的原型就是基于Binder通信的C&#x2F;S架构。</p>
-<img src="https://imgsw.cn/static/images/n5i5PP.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/n5i5PP.png?imageView2/2/h/600">
 
 <h2 id="ServiceManager中的Binder机制"><a href="#ServiceManager中的Binder机制" class="headerlink" title="ServiceManager中的Binder机制"></a><p class="m_more_title_style">ServiceManager中的Binder机制</p></h2><h3 id="基于Binder通信的C-x2F-S架构"><a href="#基于Binder通信的C-x2F-S架构" class="headerlink" title="基于Binder通信的C&#x2F;S架构"></a><strong>基于Binder通信的C&#x2F;S架构</strong></h3><p>在Android系统中，Binder进程间的通信的使用是很普遍的，比如MediaPlayer框架基于C&#x2F;S架构，并采用Binder来进行进程间通信，如下图所示。</p>
-<img src="https://imgsw.cn/static/images/uZgTgJ.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/uZgTgJ.png?imageView2/2/h/600">
 
 <p>从图中可以看出，除了常规C&#x2F;S架构的Client端和Server端，还包括了ServiceManager，它用于管理系统中的服务。<br>首先Server进程会注册一些Service到ServiceManager中，Client要使用某个Service，则需要先到ServiceManager查询Service的相关信息，然后根据Service的相关信息与Service所在的Server进程建立通信通路，这样Client就可以使用Service了。</p>
 <h3 id="MediaServer的main函数"><a href="#MediaServer的main函数" class="headerlink" title="MediaServer的main函数"></a><strong>MediaServer的main函数</strong></h3><p>Client、Server、ServiceManager三者的交互都是基于Binder通信的，那么任意两者的交互都可以说明Binder的通信的原理，可以说Native Binder的原理的核心就是ServiceManager的原理，为了更好的了解ServiceManager，这里拿MediaPlayer框架来举例，它也是学习多媒体时必须要掌握的知识点。MediaPlayer框架的简单框架图如下所示。</p>
-<img src="https://imgsw.cn/static/images/uMegMj.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/uMegMj.png?imageView2/2/h/600">
 
 <p>可以看到，MediaPlayer和MediaPlayerService是通过Binder来进行通信的，MediaPlayer是Client端，MediaPlayerService是Server端，MediaPlayerService是系统多媒体服务的一种，系统多媒体服务是由一个叫做MediaServer的服务进程提供的，它是一个可执行程序，在Android系统启动时，MediaServer也被启动，它的入口函数如下所示。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/9.0.0_r3/xref/frameworks/av/media/mediaserver/main_mediaserver.cpp">main_mediaserver.cpp</a></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc __unused, <span class="type">char</span> **argv __unused)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">signal</span>(SIGPIPE, SIG_IGN);</span><br><span class="line">    <span class="comment">// 获取ProcessState实例，在这一过程中会打开/dev/binder设备，并使用mmap为Binder驱动分配一个虚拟地址空间用来接收数据。</span></span><br><span class="line">    <span class="function">sp&lt;ProcessState&gt; <span class="title">proc</span><span class="params">(ProcessState::self())</span></span>;</span><br><span class="line">    <span class="comment">// 用来得到一个IServiceManager，通过这个IServiceManager，其他进程就可以和当前的ServiceManager进行交互，这里就用到了Binder通信。</span></span><br><span class="line">    <span class="function">sp&lt;IServiceManager&gt; <span class="title">sm</span><span class="params">(defaultServiceManager())</span></span>;</span><br><span class="line">    <span class="built_in">ALOGI</span>(<span class="string">&quot;ServiceManager: %p&quot;</span>, sm.<span class="built_in">get</span>());</span><br><span class="line">    <span class="built_in">InitializeIcuOrDie</span>();</span><br><span class="line">    <span class="comment">// 注册MediaPlayerService</span></span><br><span class="line">    MediaPlayerService::<span class="built_in">instantiate</span>();</span><br><span class="line">    ResourceManagerService::<span class="built_in">instantiate</span>();</span><br><span class="line">    <span class="built_in">registerExtensions</span>();</span><br><span class="line">    <span class="comment">// 启动Binder线程池</span></span><br><span class="line">    ProcessState::<span class="built_in">self</span>()-&gt;<span class="built_in">startThreadPool</span>();</span><br><span class="line">    <span class="comment">// 当前线程加入到线程池</span></span><br><span class="line">    IPCThreadState::<span class="built_in">self</span>()-&gt;<span class="built_in">joinThreadPool</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -432,7 +443,7 @@
 <p>BpInterface 继承了 BpRefBase，BpRefBase 的实现如下所示。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/9.0.0_r3/xref/frameworks/native/libs/binder/Binder.cpp">Binder.cpp</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BpRefBase::BpRefBase(const sp&lt;IBinder&gt;&amp; o)</span><br><span class="line">    : mRemote(o.get()), mRefs(NULL), mState(<span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    extendObjectLifetime(OBJECT_LIFETIME_WEAK);</span><br><span class="line"><span class="comment">// mRemote 是一个 IBinder* 指针，它最终的指向为 BpBinder，也就是说 BpServiceManager 的 mRemote 指向了 BpBinder。</span></span><br><span class="line"><span class="comment">// 那么 BpServiceManager 的作用也就知道了，就是它实现了 IServiceManager，并且通过 BpBinder来实现通信。</span></span><br><span class="line">    <span class="keyword">if</span> (mRemote) &#123;</span><br><span class="line">        mRemote-&gt;incStrong(<span class="built_in">this</span>);           <span class="comment">// Removed on first IncStrong().</span></span><br><span class="line">        mRefs = mRemote-&gt;createWeak(<span class="built_in">this</span>);  <span class="comment">// Held for our entire lifetime.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="IServiceManager家族"><a href="#IServiceManager家族" class="headerlink" title="IServiceManager家族"></a><strong>IServiceManager家族</strong></h4><img src="https://imgsw.cn/static/images/ufWhRI.png?imageView2/2/h/600">
+<h4 id="IServiceManager家族"><a href="#IServiceManager家族" class="headerlink" title="IServiceManager家族"></a><strong>IServiceManager家族</strong></h4><img data-src="https://imgsw.cn/static/images/ufWhRI.png?imageView2/2/h/600">
 
 <p>1.BpBinder和BBinder都和通信有关，它们都继承自IBinder。<br>2.BpServiceManager派生自IServiceManager，它们都和业务有关。<br>3.BpRefBase包含了mRemote，通过不断的派生，BpServiceManager也同样包含mRemote，它指向了BpBinder，通过BpBinder来实现通信。</p>
 <h3 id="小节"><a href="#小节" class="headerlink" title="小节"></a><strong>小节</strong></h3><p>本篇文章我们学到了Binder通信的C&#x2F;S架构，也知道了Native Binder的原理的核心其实就是ServiceManager的原理，为了讲解ServiceManager的原理，我们需要一个框架来举例，那就是MediaPlayer框架。在讲解MediaServer的入口函数时，我们遇到了三个问题，其中前两个问题相关的知识点ProcessState和IServiceManager都讲解到了，下一篇文章会讲解第三个问题，MediaPlayerService是如何注册的。</p>
@@ -470,7 +481,7 @@
 <li>IPCThreadState的waitForResponse函数主要做了两件事，一件事是通过ioctl函数操作mOut和mIn来与Binder驱动进行数据交互，另一件事是处理各种命令协议。</li>
 </ol>
 <h3 id="从进程角度说明MediaPlayerService是如何注册的"><a href="#从进程角度说明MediaPlayerService是如何注册的" class="headerlink" title="从进程角度说明MediaPlayerService是如何注册的"></a><strong>从进程角度说明MediaPlayerService是如何注册的</strong></h3><p>实际上MediaPlayerService的注册还涉及到了进程。</p>
-<img src="https://imgsw.cn/static/images/Ka0Dx0.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/Ka0Dx0.png?imageView2/2/h/600">
 
 <p>从图中看出是以C&#x2F;S架构为基础，addService是在MediaPlayerService进行的，它是Client端，用于请求添加系统服务。而Server端则是指的是ServiceManager，用于完成系统服务的添加。<br>Client端和Server端分别运行在两个进程中，通过向Binder来进行通信。更详细点描述，就是两端通过向Binder驱动发送命令协议来完成系统服务的添加。这其中命令协议非常多，过程也比较复杂，这里对命令协议进行了简化，只涉及到了四个命令协议，其中<br>BC_TRANSACTION和BR_TRANSACTION过程是一个完整的事务，BC_REPLY和BR<em>REPLY是一个完整的事务。<br>Client端和Server端向Binder驱动发送命令协议以BC开头，而Binder驱动向Client端和Server端返回的命令协议以BR</em>开头。</p>
 <p>步骤如下所示：<br>1.Client端向Binder驱动发送BC_TRANSACTION命令。<br>2.Binder驱动接收到请求后生成BR_TRANSACTION命令，唤醒Server端的线程后将BR_TRANSACTION命令发送给ServiceManager。<br>3.Server端中的服务注册完成后，生成BC_REPLY命令发送给Binder驱动。<br>4.Binder驱动生成BR_REPLY命令，唤醒Client端的线程后将BR_REPLY命令发送个Client端。</p>
@@ -535,10 +546,10 @@
 
 <p>系统服务的注册流程中，在Kernel Binder中会调用do_add_service函数，其内部会将包含服务名和handle值的svcinfo保存到svclist列表中。同样的，在获取服务的流程中，find_svc函数中会遍历svclist列表，根据服务名查找对应服务是否已经注册，如果已经注册就会返回对应的svcinfo，如果没有注册就返回NULL。</p>
 <h2 id="Java-Binder的初始化"><a href="#Java-Binder的初始化" class="headerlink" title="Java Binder的初始化"></a><p class="m_more_title_style">Java Binder的初始化</p></h2><p>此前都在介绍Native Binder和Kernel Binder的内容，它们的架构简单总结为下图。</p>
-<img src="https://imgsw.cn/static/images/MgRMbF.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/MgRMbF.png?imageView2/2/h/600">
 
 <p>在ServiceManager中的Binder机制中，知道BpBinder是Client端与Server交互的代理类，而BBinder则代表了Server端，那么上图就可以改为：</p>
-<img src="https://imgsw.cn/static/images/MgWuRI.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/MgWuRI.png?imageView2/2/h/600">
 
 <p>从上图可以看到，Native Binder实际是基于C&#x2F;S架构，Bpinder是Client端，BBinder是Server端，在ServiceManager的启动过程中，得知Native Binder通过ioctl函数和Binder驱动进行数据交互。</p>
 <p>Java Binder是需要借助Native Binder来进行工作的，因此Java Binder在设计上也是一个C&#x2F;S架构，可以说Java Binder是Native Binder的一个镜像，接下来看 Java Binder 是如何初始化的，即Java Binder的JNI注册。</p>
@@ -560,7 +571,7 @@
 <p>查看 register_android_os_Binder 函数，它做了如下三件事。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/jni/android_util_Binder.cpp">android_util_Binder.cpp</a></p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">register_android_os_Binder</span><span class="params">(JNIEnv* env)</span></span></span><br><span class="line"><span class="function"></span>&#123;   </span><br><span class="line">    <span class="comment">//注册Binder类</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">int_register_android_os_Binder</span>(env) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">//注册BinderInternal类        </span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">int_register_android_os_BinderInternal</span>(env) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    <span class="comment">//注册BinderProxy类          </span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">int_register_android_os_BinderProxy</span>(env) &lt; <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="https://imgsw.cn/static/images/MTmhzd.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/MTmhzd.png?imageView2/2/h/600">
 
 <p>它们是Java Binder关联类的一小部分，它们的关系如下。</p>
 <ul>
@@ -647,7 +658,7 @@
 <p>查看 execTransact 函数。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/9.0.0_r3/xref/frameworks/base/core/java/android/os/Binder.java">Binder.java</a></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">execTransact</span><span class="params">(<span class="type">int</span> code, <span class="type">long</span> dataObj, <span class="type">long</span> replyObj,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> flags)</span> &#123;</span><br><span class="line">...</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (tracingEnabled) &#123;</span><br><span class="line">                Trace.traceBegin(Trace.TRACE_TAG_ALWAYS, getClass().getName() + <span class="string">&quot;:&quot;</span> + code);</span><br><span class="line">            &#125;</span><br><span class="line"><span class="comment">// AMS实现了onTransact函数，从而完成业务实现。从这里可有看出，JavaBBinder并没有实现什么业务，当它接收到请求时，会调用Binder类的execTransact函数，execTransact函数内部又调用了onTransact函数，系统服务会重写onTransact函数来实现自身的业务功能。</span></span><br><span class="line">            res = onTransact(code, data, reply, flags);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (RemoteException|RuntimeException e) &#123;</span><br><span class="line">           ...</span><br><span class="line">        &#125;</span><br><span class="line">       ...</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="Java-Binder架构"><a href="#Java-Binder架构" class="headerlink" title="Java Binder架构"></a><strong>Java Binder架构</strong></h3><img src="https://imgsw.cn/static/images/Qud4yt.png?imageView2/2/h/600">
+<h3 id="Java-Binder架构"><a href="#Java-Binder架构" class="headerlink" title="Java Binder架构"></a><strong>Java Binder架构</strong></h3><img data-src="https://imgsw.cn/static/images/Qud4yt.png?imageView2/2/h/600">
 
 <p>Native Binder的部分在此前的文章已经讲过，这里主要来说说Java Binder部分，从图中可以看到：<br>1.Binder是服务端的代表，JavaBBinder继承BBinder，JavaBBinder通过mObject变量指向Binder。<br>2.BinderProxy是客户端的代表，ServiceManager的addService等方法会交由ServiceManagerProxy处理。<br>3.ServiceManagerProxy的成员变量mRemote指向BinderProxy对象，所以ServiceManagerProxy的addService等方法会交由BinderProxy来处理。<br>4.BinderProxy的成员变量mObject指向BpBinder对象，因此BinderProxy可以通过BpBinder和Binder驱动发送数据。</p>
 <hr>
@@ -664,17 +675,12 @@
     
     
 
-   <div>
-     
-       <div>
-   
-		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+    <footer class="post-footer"><div class="post-block">
 	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
 </div>
-     
-   </div>
 
-    <footer class="post-footer">
           <div class="reward-container">
   <div></div>
   <button>
@@ -702,7 +708,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://jianghouren.com/archives/8b4d12b5.html" title="Android Binder原理（一）">https://jianghouren.com/archives/8b4d12b5.html</a>
+      <a href="https://v.jianghouren.com/archives/8b4d12b5.html" title="Android Binder原理（一）">https://v.jianghouren.com/archives/8b4d12b5.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -772,9 +778,7 @@
     </span>
     <span title="站点阅读时长">20:18</span>
   </span>
-</div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div>
 <span class="post-meta-item">
 
@@ -797,7 +801,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
@@ -807,6 +815,7 @@
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
+  <script src="/js/third-party/fancybox.js"></script>
 
   <script src="/js/third-party/pace.js"></script>
 
@@ -815,7 +824,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-1n0ilxniu-feiyeyuanye.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/8b4d12b5.html"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline.jianghouren.com","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/8b4d12b5.html"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.waline.el).then(() => 

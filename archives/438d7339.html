@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
 
-
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -14,21 +15,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"v.jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="IPC 机制">
-<meta property="og:url" content="https://jianghouren.com/archives/438d7339.html">
+<meta property="og:url" content="https://v.jianghouren.com/archives/438d7339.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/njr0qU.png?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/nzlnaV.png?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/nzaypq.png?imageView2/2/h/600">
@@ -38,14 +40,14 @@
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="通信机制">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta name="twitter:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 
 
-<link rel="canonical" href="https://jianghouren.com/archives/438d7339.html">
+<link rel="canonical" href="https://v.jianghouren.com/archives/438d7339.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.com/archives/438d7339.html","path":"archives/438d7339.html","title":"IPC 机制"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://v.jianghouren.com/archives/438d7339.html","path":"archives/438d7339.html","title":"IPC 机制"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>IPC 机制 | 非也缘也 Blog</title>
@@ -54,7 +56,7 @@
 
 
 
-<link rel="dns-prefetch" href="https://waline-1n0ilxniu-feiyeyuanye.vercel.app">
+<link rel="dns-prefetch" href="https://waline.jianghouren.com">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -226,6 +228,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -243,7 +246,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/438d7339.html">
+    <link itemprop="mainEntityOfPage" href="https://v.jianghouren.com/archives/438d7339.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -306,6 +309,14 @@
   </span>
   
   
+    <span id="/archives/438d7339.html" class="post-meta-item leancloud_visitors" data-flag-title="IPC 机制" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
 
 
     <span class="post-meta-item" title="本文字数">
@@ -331,13 +342,13 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <img src="https://imgsw.cn/static/images/多罗罗.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/多罗罗.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <span id="more"></span>
 
 <h2 id="IPC-简介"><a href="#IPC-简介" class="headerlink" title="IPC 简介"></a><p class="m_more_title_style">IPC 简介</p></h2><p>IPC（Inter-Process Communication）的含义为进程间通信或者跨进程通信，是指两个进程之间进行数据交换的过程。在 Android 和 Linux 中都有各自的 IPC 机制。</p>
 <p>首先了解Liunx中的几个概念。</p>
-<img src="https://imgsw.cn/static/images/njr0qU.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/njr0qU.png?imageView2/2/h/600">
 
 <p><strong>内核空间和用户空间</strong><br>为了保护用户进程不能直接操作内核，保证内核的安全，操作系统从逻辑上将虚拟空间划分为用户空间（User space）和内核空间（Kernel space）。Linux 操作系统将最高的1GB字节供内核使用，称为内核空间，较低的3GB 字节供各进程使用，称为用户空间。</p>
 <p>内核空间是Linux内核的运行空间，用户空间是用户程序的运行空间。为了安全，它们是隔离的，即使用户的程序崩溃了，内核也不会受到影响。内核空间的数据是可以进程间共享的，而用户空间则不可以。比如在上图进程A的用户空间是不能和进程B的用户空间共享的。</p>
@@ -349,12 +360,12 @@
 <li>copy_to_user：将内核空间的数据拷贝到用户空间。</li>
 </ul>
 <p><strong>内存映射</strong><br>由于应用程序不能直接操作设备硬件地址，所以操作系统提供了一种机制：内存映射，把设备地址映射到进程虚拟内存区。<br>举个例子，如果用户空间需要读取磁盘的文件，如果不采用内存映射，那么就需要在内核空间建立一个页缓存，页缓存去拷贝磁盘上的文件，然后用户空间拷贝页缓存的文件，这就需要两次拷贝。<br>采用内存映射，如下图所示。</p>
-<img src="https://imgsw.cn/static/images/nzlnaV.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/nzlnaV.png?imageView2/2/h/600">
 
 <p>由于新建了虚拟内存区域，那么磁盘文件和虚拟内存区域就可以直接映射，少了一次拷贝。</p>
 <p>内存映射全名为Memory Map，在Linux中通过系统调用函数mmap来实现内存映射。将用户空间的一块内存区域映射到内核空间。映射关系建立后，用户对这块内存区域的修改可以直接反应到内核空间，反之亦然。内存映射能减少数据拷贝次数，实现用户空间和内核空间的高效互动。</p>
 <p>Linux的IPC通信原理：</p>
-<img src="https://imgsw.cn/static/images/nzaypq.png?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/nzaypq.png?imageView2/2/h/600">
 
 <p>内核程序在内核空间分配内存并开辟一块内核缓存区，发送进程通过copy_from_user函数将数据拷贝到到内核空间的缓冲区中。同样的，接收进程在接收数据时在自己的用户空间开辟一块内存缓存区，然后内核程序调用 copy_to_user() 函数将数据从内核缓存区拷贝到接收进程。这样数据发送进程和数据接收进程完成了一次数据传输，也就是一次进程间通信。</p>
 <p>Linux的IPC通信原理有两个问题：</p>
@@ -452,7 +463,7 @@
 <li>对于服务端来说，只需要一个 Service 就可以了，服务端提供一个 queryBinder 接口，这个接口能够根据业务模块的特征来返回相应的 Binder 对象给它们，不同的业务模块拿到所需的 Binder 对象后就可以进行远程方法调用了。</li>
 <li>由此可见，Binder 连接池的主要作用就是将每个业务模块的 Binder 请求统一转发到远程 Service 中去执行，从而避免了重复创建 Service 的过程。</li>
 </ul>
-<img src="https://imgsw.cn/static/images/android_binder_连接池.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_binder_连接池.jpeg?imageView2/2/h/600">
 
 
 
@@ -513,17 +524,12 @@
     
     
 
-   <div>
-     
-       <div>
-   
-		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+    <footer class="post-footer"><div class="post-block">
 	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
 </div>
-     
-   </div>
 
-    <footer class="post-footer">
           <div class="reward-container">
   <div></div>
   <button>
@@ -551,7 +557,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://jianghouren.com/archives/438d7339.html" title="IPC 机制">https://jianghouren.com/archives/438d7339.html</a>
+      <a href="https://v.jianghouren.com/archives/438d7339.html" title="IPC 机制">https://v.jianghouren.com/archives/438d7339.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -621,9 +627,7 @@
     </span>
     <span title="站点阅读时长">20:18</span>
   </span>
-</div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div>
 <span class="post-meta-item">
 
@@ -646,7 +650,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
@@ -656,6 +664,7 @@
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
+  <script src="/js/third-party/fancybox.js"></script>
 
   <script src="/js/third-party/pace.js"></script>
 
@@ -664,7 +673,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-1n0ilxniu-feiyeyuanye.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/438d7339.html"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline.jianghouren.com","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/438d7339.html"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.waline.el).then(() => 

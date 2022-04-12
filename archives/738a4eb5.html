@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
 
-
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -14,21 +15,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"v.jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="理解 ActivityManagerService">
-<meta property="og:url" content="https://jianghouren.com/archives/738a4eb5.html">
+<meta property="og:url" content="https://v.jianghouren.com/archives/738a4eb5.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/android_7_ams家族.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/android_amp和ams通信.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/android_8_ams家族.jpeg?imageView2/2/h/600">
@@ -40,14 +42,14 @@
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="Framework">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta name="twitter:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 
 
-<link rel="canonical" href="https://jianghouren.com/archives/738a4eb5.html">
+<link rel="canonical" href="https://v.jianghouren.com/archives/738a4eb5.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.com/archives/738a4eb5.html","path":"archives/738a4eb5.html","title":"理解 ActivityManagerService"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://v.jianghouren.com/archives/738a4eb5.html","path":"archives/738a4eb5.html","title":"理解 ActivityManagerService"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>理解 ActivityManagerService | 非也缘也 Blog</title>
@@ -56,7 +58,7 @@
 
 
 
-<link rel="dns-prefetch" href="https://waline-1n0ilxniu-feiyeyuanye.vercel.app">
+<link rel="dns-prefetch" href="https://waline.jianghouren.com">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -228,6 +230,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -245,7 +248,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/738a4eb5.html">
+    <link itemprop="mainEntityOfPage" href="https://v.jianghouren.com/archives/738a4eb5.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -308,6 +311,14 @@
   </span>
   
   
+    <span id="/archives/738a4eb5.html" class="post-meta-item leancloud_visitors" data-flag-title="理解 ActivityManagerService" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
 
 
     <span class="post-meta-item" title="本文字数">
@@ -333,7 +344,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <img src="https://imgsw.cn/static/images/wallhaven-96qy3w_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/wallhaven-96qy3w_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <span id="more"></span>
 
@@ -367,9 +378,9 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">startActivityAsUser</span><span class="params">(IApplicationThread caller, String callingPackage,</span></span><br><span class="line"><span class="params">        Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="type">int</span> requestCode,<span class="type">int</span> startFlags, ProfilerInfo profilerInfo, Bundle bOptions, <span class="type">int</span> userId)</span> &#123;</span><br><span class="line">    enforceNotIsolatedCaller(<span class="string">&quot;startActivity&quot;</span>);</span><br><span class="line">  </span><br><span class="line">    userId = mUserController.handleIncomingUser(Binder.getCallingPid(), Binder.getCallingUid(),userId, <span class="literal">false</span>, ALLOW_FULL_ONLY, <span class="string">&quot;startActivity&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Switch to user app stacks here.</span></span><br><span class="line">    <span class="keyword">return</span> mActivityStarter.startActivityMayWait(caller, -<span class="number">1</span>, callingPackage, intent,</span><br><span class="line">            resolvedType, <span class="literal">null</span>, <span class="literal">null</span>, resultTo, resultWho, requestCode, startFlags,</span><br><span class="line">            profilerInfo, <span class="literal">null</span>, <span class="literal">null</span>, bOptions, <span class="literal">false</span>, userId, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>总结：</p>
-<img src="https://imgsw.cn/static/images/android_7_ams家族.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_7_ams家族.jpeg?imageView2/2/h/600">
 
-<img src="https://imgsw.cn/static/images/android_amp和ams通信.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_amp和ams通信.jpeg?imageView2/2/h/600">
 
 <p>在 Activity 的启动过程中，提到了 AMP、AMN 和 AMS，它们共同组成了 AMS 家族的主要部分。</p>
 <p>AMP 是 AMN 的内部类，它们都实现了 IActivityManager 接口，这样它们就可以实现代理模式，具体来讲是远程代理：</p>
@@ -389,7 +400,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* IActivityManagerSingleton 是一个 Singleton 类。</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; IActivityManagerSingleton =</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Singleton</span>&lt;IActivityManager&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> IActivityManager <span class="title function_">create</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="comment">// 得到名为 “activity” 的 Service 引用（Context.ACTIVITY_SERVICE 的值为 “activity”），也就是 IBinder 类型的 AMS 引用。</span></span><br><span class="line">                <span class="keyword">final</span> <span class="type">IBinder</span> <span class="variable">b</span> <span class="operator">=</span> ServiceManager.getService(Context.ACTIVITY_SERVICE);</span><br><span class="line"><span class="comment">// 将上面的引用转换成 IActivityManager 类型的对象，这段代码采用的是 AIDL，IActivityManager.java 类是由 AIDL 工具在编译时自动生成的，IActivityManager.aidl 文件路径为 frameworks/base/core/java/android/app/IActivityManager.aidl。</span></span><br><span class="line"><span class="comment">// 要实现进程间通信，服务器端也就是 AMS 只需要继承 IActivityManager.Stub 类并实现相应的方法就可以了。</span></span><br><span class="line"><span class="comment">// 采用 AIDL 后就不需要使用 AMS 的代理类 AMP 了，因此 Android 8.0 去掉了 AMP，代替它的是 IActivityManager ，它是 AMS 在本地的代理。              </span></span><br><span class="line">                <span class="keyword">final</span> <span class="type">IActivityManager</span> <span class="variable">am</span> <span class="operator">=</span> IActivityManager.Stub.asInterface(b);</span><br><span class="line">                <span class="keyword">return</span> am;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
 
 <p>总结：</p>
-<img src="https://imgsw.cn/static/images/android_8_ams家族.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_8_ams家族.jpeg?imageView2/2/h/600">
 
 <p>对比 Android 7.0 的 AMS 家族，Android 8.0 的 AMS 家族要简单得多，ActivityManager 的 getService 方法会得到 IActivityManager，AMS 只需要继承 IActivityManager.Stub 类，就可以和 ActivityManager 实现进程间通信了。</p>
 <hr>
@@ -420,7 +431,7 @@
 <hr>
 <h2 id="AMS-重要的数据结构"><a href="#AMS-重要的数据结构" class="headerlink" title="AMS 重要的数据结构"></a><p class="m_more_title_style">AMS 重要的数据结构</p></h2><p>AMS 涉及了很多数据结构，接下来分析一下 ActivityRecord、TaskRecord 和 ActivityStack，它们和应用开发关联较大，是 Activity 任务栈模型的基础。</p>
 <h3 id="解析-ActivityRecord"><a href="#解析-ActivityRecord" class="headerlink" title="解析 ActivityRecord"></a>解析 ActivityRecord</h3><p>用来描述一个 Activity，内部记录了 Activity 的所有信息，是在启动 Activity 时被创建，具体是在 ActivityStarter 的 startActivity 方法中被创建的。</p>
-<img src="https://imgsw.cn/static/images/android_activityrecord.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_activityrecord.jpeg?imageView2/2/h/600">
 
 <p>ActivityRecord 内部存储了 Activity 的所有信息，包括 AMS 的引用、AndroidManifes 节点信息、Activity 状态、Activity 资源信息和 Activity 进程相关信息等，需要注意的是其中含有该 ActivityRecord 所在的 TaskRecord，这就将 ActivityRecord 和 TaskRecord 关联在一起，它们是 Activity 任务栈模型的重要成员。</p>
 <h3 id="解析-TaskRecord"><a href="#解析-TaskRecord" class="headerlink" title="解析 TaskRecord"></a>解析 TaskRecord</h3><p>用来描述一个 Activity 任务栈。TaskRecord 的部分重要成员变量如下：</p>
@@ -519,11 +530,11 @@
 <hr>
 <h2 id="Activity-栈管理"><a href="#Activity-栈管理" class="headerlink" title="Activity 栈管理"></a><p class="m_more_title_style">Activity 栈管理</p></h2><p>Activity 是放入在 Activity 任务栈中的，有了任务栈，系统和开发者就能够更好地应用和管理 Activity，来完成各种业务逻辑。</p>
 <h3 id="Activity-任务栈模型"><a href="#Activity-任务栈模型" class="headerlink" title="Activity 任务栈模型"></a>Activity 任务栈模型</h3><p>Activity 任务栈是由多种数据结构共同组合而成的，上面提到的 ActivityRecord、TaskRecord 和 ActivityStack 就是 Activity 任务栈模型的重要组成部分。</p>
-<img src="https://imgsw.cn/static/images/android_activity任务栈模型.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_activity任务栈模型.jpeg?imageView2/2/h/600">
 
 <p>ActivityRecord 用来记录一个 Activity 的所有信息，TaskRecord 中包含了一个或多个 ActivityRecord，TaskRecord 用来表示 Activity 的任务栈，用来管理栈中的 ActivityRecord，ActivityStack 又包含了一个或多个 TaskRecord，它是 TaskRecord 的管理者。</p>
 <p>Activity 栈管理就是建立在 Activity 任务栈模型之上的，有了栈管理，可以对应用程序进行操作，应用可以复用自身应用中以及其他应用的 Activity，节省了资源。比如使用一款社交应用，这个应用的联系人详情界面提供了联系人的邮箱，当点击邮箱时会跳到发送邮件的界面。</p>
-<img src="https://imgsw.cn/static/images/android_activity栈管理.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android_activity栈管理.jpeg?imageView2/2/h/600">
 
 <p>社交应用和系统 E-mail 中的 Activity 是处于不同应用程序进程的，而有了栈管理，就可以把发送邮件界面放到社交应用中详情界面所在栈的栈顶，来做到跨进程操作。为了更灵活地进行栈管理，Android 系统提供了很多配置，包括 Launch Mode、Intent 的 FLAG 和 taskAffinity 等。</p>
 <hr>
@@ -541,17 +552,12 @@
     
     
 
-   <div>
-     
-       <div>
-   
-		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+    <footer class="post-footer"><div class="post-block">
 	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
 </div>
-     
-   </div>
 
-    <footer class="post-footer">
           <div class="reward-container">
   <div></div>
   <button>
@@ -579,7 +585,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://jianghouren.com/archives/738a4eb5.html" title="理解 ActivityManagerService">https://jianghouren.com/archives/738a4eb5.html</a>
+      <a href="https://v.jianghouren.com/archives/738a4eb5.html" title="理解 ActivityManagerService">https://v.jianghouren.com/archives/738a4eb5.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -649,9 +655,7 @@
     </span>
     <span title="站点阅读时长">20:18</span>
   </span>
-</div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div>
 <span class="post-meta-item">
 
@@ -674,7 +678,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
@@ -684,6 +692,7 @@
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
+  <script src="/js/third-party/fancybox.js"></script>
 
   <script src="/js/third-party/pace.js"></script>
 
@@ -692,7 +701,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-1n0ilxniu-feiyeyuanye.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/738a4eb5.html"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline.jianghouren.com","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/738a4eb5.html"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.waline.el).then(() => 

@@ -6,7 +6,8 @@
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 5.4.2">
 
-
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -14,21 +15,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"v.jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":true,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="Android 直播技术基础知识">
-<meta property="og:url" content="https://jianghouren.com/archives/fa8b41fe.html">
+<meta property="og:url" content="https://v.jianghouren.com/archives/fa8b41fe.html">
 <meta property="og:site_name" content="非也缘也 Blog">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta property="og:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 <meta property="og:image" content="https://imgsw.cn/static/images/直播架构图.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/声音的采样和量化.jpeg?imageView2/2/h/600">
 <meta property="og:image" content="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
@@ -43,14 +45,14 @@
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="音视频">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://jianghouren.com/images/article_err_default.jpg">
+<meta name="twitter:image" content="https://v.jianghouren.com/images/article_err_default.jpg">
 
 
-<link rel="canonical" href="https://jianghouren.com/archives/fa8b41fe.html">
+<link rel="canonical" href="https://v.jianghouren.com/archives/fa8b41fe.html">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.com/archives/fa8b41fe.html","path":"archives/fa8b41fe.html","title":"Android 直播技术基础知识"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://v.jianghouren.com/archives/fa8b41fe.html","path":"archives/fa8b41fe.html","title":"Android 直播技术基础知识"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>Android 直播技术基础知识 | 非也缘也 Blog</title>
@@ -59,7 +61,7 @@
 
 
 
-<link rel="dns-prefetch" href="https://waline-1n0ilxniu-feiyeyuanye.vercel.app">
+<link rel="dns-prefetch" href="https://waline.jianghouren.com">
   <noscript>
     <link rel="stylesheet" href="/css/noscript.css">
   </noscript>
@@ -231,6 +233,7 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -248,7 +251,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://jianghouren.com/archives/fa8b41fe.html">
+    <link itemprop="mainEntityOfPage" href="https://v.jianghouren.com/archives/fa8b41fe.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
@@ -311,6 +314,14 @@
   </span>
   
   
+    <span id="/archives/fa8b41fe.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 直播技术基础知识" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
 
 
     <span class="post-meta-item" title="本文字数">
@@ -336,7 +347,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <img src="https://imgsw.cn/static/images/wallhaven-kwp2qq_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+        <img data-src="https://imgsw.cn/static/images/wallhaven-kwp2qq_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
 
 <span id="more"></span>
 
@@ -347,13 +358,13 @@
 <li>服务器端收到推流数据后，进行内容分发及中间转存处理。</li>
 <li>播放器进行拉流操作。</li>
 </ul>
-<img src="https://imgsw.cn/static/images/直播架构图.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/直播架构图.jpeg?imageView2/2/h/600">
 
 <h2 id="直播过程"><a href="#直播过程" class="headerlink" title="直播过程"></a><p class="m_more_title_style">直播过程</p></h2><p>主要涉及采集数据、渲染处理、编码数据、推流、CDN 分发、拉流、播放流数据等。</p>
 <h3 id="采集数据"><a href="#采集数据" class="headerlink" title="采集数据"></a>采集数据</h3><p>采集数据时从不同平台的设备中获取原始音视频数据，用于美颜或编码处理。数据采集涉及音频采集和图像采集。</p>
 <h4 id="采集内容"><a href="#采集内容" class="headerlink" title="采集内容"></a>采集内容</h4><p>1、音频采集</p>
 <p>音频数据既能与图像结合组成音视频数据，也支持单纯的音频数据输出（如电台）。音频的采集过程主要是通过设备设置采样率、采样数，将音频信号采集为 PCM 编码的原始数据，然后编码压缩成 MP3、AC3 等封装格式的数据分发出去。常见的音频封装格式有 MP3、AAC、OGG、WMA、Opus、FLAC、APE、M4A 和 AMR 等。</p>
-<img src="https://imgsw.cn/static/images/声音的采样和量化.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/声音的采样和量化.jpeg?imageView2/2/h/600">
 
 <p>音频采集和编码面临的主要挑战在于去噪、回声消除（AEC）、静音检测（VAD）和各种音效处理等。</p>
 <p>在音频采集阶段，参考的主要技术参数如下：</p>
@@ -409,10 +420,10 @@
 <li>知识冗余。对许多图像的理解与某些先验知识有相当大的相关性。这类规则的结构可由先验知识和背景知识得到，此类冗余被称为知识冗余。（去除基础知识）</li>
 </ul>
 <p>3、常用压缩编码方法分类</p>
-<img src="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
 
 <p>除了空间冗余和时间冗余的压缩，主要还有编码压缩和视觉压缩。下面是一个编码器主要的流程图。</p>
-<img src="https://imgsw.cn/static/images/帧编码过程.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/帧编码过程.jpeg?imageView2/2/h/600">
 
 <p>可以看到两个过程的主要区别就是第一步不相同，其实这两个流程也是结合在一起的，我们通常说的 I 帧和 P 帧就分别采用了帧内编码和帧间编码。</p>
 <ul>
@@ -434,7 +445,7 @@
 <li>Adobe 私有协议，Adobe 已经不再更新该协议。</li>
 </ul>
 <p>2、WebRTC（Web Real Time Communication）：网页即时通信，是一个支持 Web 浏览器进行实时语音对话或视频对话的 API。它于 2011 年 6 月 1 日开源，并在 Google、Mozilla、Opera 的支持下被纳入万维网联盟的 W3C 推荐标准。目前其主要应用于视频会议和连麦中。</p>
-<img src="https://imgsw.cn/static/images/webrtc协议分层图.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/webrtc协议分层图.jpeg?imageView2/2/h/600">
 
 <p>优点</p>
 <ul>
@@ -459,7 +470,7 @@
 <li>独立作战，无法和社区一起演进。</li>
 </ul>
 <h4 id="推流过程"><a href="#推流过程" class="headerlink" title="推流过程"></a>推流过程</h4><p>推流过程就是把编码后的数据打包并通过直播协议发送给流媒体服务器的过程。</p>
-<img src="https://imgsw.cn/static/images/android推流器过程.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/android推流器过程.jpeg?imageView2/2/h/600">
 
 <ul>
 <li>经过输出设备得到原始的采样数据—视频数据（YUV）和音频数据（PCM）。</li>
@@ -484,7 +495,7 @@
 <li>智能 DNS：是整个 CDN 技术的核心，它主要根据用户的来源，以及当前缓存服务器的负载情况等，将其访问请求指向离用户比较近且负载较小的缓存服务器。通过智能 DNS 解析，让用户访问同服务商、负载较小的服务器，可以缓解网络访问慢的情况，达到加速的作用。</li>
 <li>客户端：即发起访问的普通用户。对于直播来说，就是观众（客户端），例如手机客户端、PC 客户端。</li>
 </ul>
-<img src="https://imgsw.cn/static/images/cdn常用架构.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/cdn常用架构.jpeg?imageView2/2/h/600">
 
 <p>整个流程描述如下：</p>
 <ol>
@@ -500,7 +511,7 @@
 <h4 id="CDN-的缺点"><a href="#CDN-的缺点" class="headerlink" title="CDN 的缺点"></a>CDN 的缺点</h4><p>大概了解了 CDN 的技术原理后，在做直播选型时，还需要了解一个方案的优缺点。总的来说，CDN 主要有如下缺点。</p>
 <p>1、播放延时（网络延时）</p>
 <p>网络延时这里指的是从主播端采集到观众播放之间的时间差。这里不考虑主播端采集对视频进行编码的时间，以及观众端播放视频进行解码的时间，仅考虑网络传输中的延时。</p>
-<img src="https://imgsw.cn/static/images/网络延时过程.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/网络延时过程.jpeg?imageView2/2/h/600">
 
 <p>2、网络抖动</p>
 <p>指数据包的到达顺序、间隔等与发出时不一致。比如，发送 100 个数据包，每个包间隔 1s 发出。结果第 30 个包在传输过程中遇到网络拥塞，造成包 30 不是紧跟着包 29 到达的，而是延迟到包 90 后面才到达。在直播中，这种抖动的效果实际上跟丢包是一样的。因为你不能依照接收顺序把内容播放出来，所以这样会造成失真。网络抖动会造成播放延时相应地增大。如果网络中抖动得较大，会造成播放卡顿等现象。</p>
@@ -535,7 +546,7 @@
 <li>硬解码：推荐 Android 4.1.2（API 16）或以上版本使用硬解码，而 4.1.2 以下版本使用软解码。</li>
 <li>软解码：主要利用 CPU 执行大量运算来解码。虽然这样牺牲了功耗，但是在部分细节方面表现较优，且可控性强，兼容性也强，出错情况少，在硬解码无能为力的情况下，软解码也不失为一种不错的选择。</li>
 </ul>
-<img src="https://imgsw.cn/static/images/解码方式对比.jpeg?imageView2/2/h/600">
+<img data-src="https://imgsw.cn/static/images/解码方式对比.jpeg?imageView2/2/h/600">
 
 
 
@@ -549,17 +560,12 @@
     
     
 
-   <div>
-     
-       <div>
-   
-		<div style="text-align:center;color: #ccc;font-size:18px;">-------本文&nbsp;<i class="fa fa-paw"></i>&nbsp;结束-------</div>
+    <footer class="post-footer"><div class="post-block">
 	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
 </div>
-     
-   </div>
 
-    <footer class="post-footer">
           <div class="reward-container">
   <div></div>
   <button>
@@ -587,7 +593,7 @@
   </li>
   <li class="post-copyright-link">
       <strong>本文链接：</strong>
-      <a href="https://jianghouren.com/archives/fa8b41fe.html" title="Android 直播技术基础知识">https://jianghouren.com/archives/fa8b41fe.html</a>
+      <a href="https://v.jianghouren.com/archives/fa8b41fe.html" title="Android 直播技术基础知识">https://v.jianghouren.com/archives/fa8b41fe.html</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -657,9 +663,7 @@
     </span>
     <span title="站点阅读时长">20:18</span>
   </span>
-</div>
-
-<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div>
 <span class="post-meta-item">
 
@@ -682,7 +686,11 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 <script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
@@ -692,6 +700,7 @@
   <script src="/js/third-party/tags/pdf.js"></script>
 
 
+  <script src="/js/third-party/fancybox.js"></script>
 
   <script src="/js/third-party/pace.js"></script>
 
@@ -700,7 +709,7 @@
 
 
 
-<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-1n0ilxniu-feiyeyuanye.vercel.app","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":false,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/fa8b41fe.html"}</script>
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline.jianghouren.com","placeholder":"请文明评论呀","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/fa8b41fe.html"}</script>
 <script>
 document.addEventListener('page:loaded', () => {
   NexT.utils.loadComments(CONFIG.waline.el).then(() => 
