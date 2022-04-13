@@ -14,7 +14,9 @@ document.getElementById('read_cut').addEventListener('click', function() {
 
         main.style.display = 'block';
         footer.style.display = 'block';
-        live2d.style.display = 'block';
+        if (live2d) {
+            live2d.style.display = 'block';
+        }
 
         isReading = false;
     } else {
@@ -47,7 +49,9 @@ document.getElementById('read_cut').addEventListener('click', function() {
 
         main.style.display = 'none';
         footer.style.display = 'none';
-        live2d.style.display = 'none';
+        if (live2d) {
+            live2d.style.display = 'none';
+        }
 
         isReading = true;
     }
@@ -91,8 +95,6 @@ document.getElementById('skin_peeler').addEventListener('click', function() {
             postBlock[i].style.color = "";
         }
     };
-
-
 })
 
 // 朗读
