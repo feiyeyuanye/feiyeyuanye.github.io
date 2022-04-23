@@ -11,10 +11,12 @@
            if (ctrlKey && (keyCode == 83 || keyCode == 85 || keyCode == 73)) {
                e.preventDefault();
                return false;
-           } else if (ctrlKey && (keyCode == 83 || keyCode == 85 || keyCode == 67)) {
-               e.preventDefault();
-               return false;
-           } else if (keyCode && keyCode == 123) {
+           }
+           //     else if (ctrlKey && (keyCode == 83 || keyCode == 85 || keyCode == 67)) {
+           //        e.preventDefault();
+           //        return false;
+           //    } 
+           else if (keyCode && keyCode == 123) {
                return false;
            }
        }
