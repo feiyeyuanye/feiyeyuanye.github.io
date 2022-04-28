@@ -3026,7 +3026,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #099dff;
+  background: #96ffbd;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3072,6 +3072,13 @@ hr {
   -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
   -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
 }
+#readCut {
+  width: 100%;
+  position: absolute;
+  top: 0px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 .pagination {
   text-align: center;
   border-radius: 20px;
@@ -3111,7 +3118,7 @@ body:before {
 @media screen and (min-width: 768px) {
   body:before {
     background: url("/images/bg_body_default_pid_v.jpg") center 0 no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
   }
   .diyclass {
     right: 20px;
@@ -3120,7 +3127,7 @@ body:before {
 @media screen and (min-width: 992px) {
   body:before {
     background: url("/images/bg_body_default_pid_h.jpg") center 0 no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
   }
   .diyclass {
     right: 30px;
@@ -3129,7 +3136,7 @@ body:before {
 @media screen and (min-width: 1200px) {
   body:before {
     background: url("/images/bg_body_default_pc.jpg") center 0 no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
   }
   .diyclass {
     right: 30px;
@@ -3137,6 +3144,7 @@ body:before {
 }
 .header {
   background-color: rgba(255,255,255,0.5);
+  box-shadow: 1.5px 1.5px 3px 1.5px rgba(0,0,0,0.2);
 }
 .footer {
   background-color: rgba(255,255,255,0.5);
@@ -3241,6 +3249,9 @@ hr {
 }
 .next-links-table td {
   width: 33.33%;
+}
+.category-all-page .category-list-child {
+  padding-left: 25px;
 }
 @-moz-keyframes CDturn {
   from {

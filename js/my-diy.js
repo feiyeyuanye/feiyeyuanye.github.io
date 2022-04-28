@@ -45,9 +45,8 @@
            } else {
                //  切换为阅读模式
                var li = document.createElement("div");
-               li.style.width = '100%';
-               li.style.minHeight = '100%';
-               li.style.position = 'absolute';
+               li.id = 'readCut';
+               li.style.minHeight = "100vh";
                li.style.background = arr[index];
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
@@ -55,8 +54,6 @@
                } else {
                    li.style.color = "";
                }
-               li.style.top = '0px';
-               li.id = 'readCut';
                // 总结点的子节点数
                var t = pace.childNodes.length;
                // 给子节点设置内容
