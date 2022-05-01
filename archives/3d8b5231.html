@@ -22,7 +22,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
   <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
     <meta property="og:type" content="article">
 <meta property="og:title" content="Mac 本地服务器">
@@ -31,7 +31,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imgsw.cn/static/images/baisheyuanqi.jpg">
 <meta property="article:published_time" content="2020-06-23T05:35:55.000Z">
-<meta property="article:modified_time" content="2022-04-28T09:30:20.151Z">
+<meta property="article:modified_time" content="2022-04-30T07:53:21.605Z">
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="服务端">
 <meta name="twitter:card" content="summary">
@@ -163,13 +163,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">170</span>
+          <span class="site-state-item-count">175</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -282,7 +282,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-04-28 17:30:20" itemprop="dateModified" datetime="2022-04-28T17:30:20+08:00">2022-04-28</time>
+      <time title="修改时间：2022-04-30 15:53:21" itemprop="dateModified" datetime="2022-04-30T15:53:21+08:00">2022-04-30</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -391,10 +391,11 @@
 <p><strong>9、连接同一网络的手机，可以通过访问 Mac 的 ip 地址来测试。（Mac 可以通过到网络里查看 ip 地址）</strong></p>
 <hr>
 <h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>以前用 Windows 系统的指令，还没试过 Mac 下的效果，先记录：</p>
-<p><strong>查看本机 IP 地址：</strong><br>cmd-ipconfig-IPv4</p>
-<p><strong>更改 XAMPP 的端口号：</strong><br>软件右侧：Explorer–第二个文件夹：apache–第二个文件夹：conf–httpd.conf<br>修改两处：Listen（54行左右）和 ServerName localhost（222行左右）</p>
-<p><strong>访问其他 Http 地址时会出现，一直跳转到 127.0.0.1</strong></p>
+<p>1、<strong>查看本机 IP 地址：</strong><br>cmd-ipconfig-IPv4</p>
+<p>2、<strong>更改 XAMPP 的端口号：</strong><br>软件右侧：Explorer–第二个文件夹：apache–第二个文件夹：conf–httpd.conf<br>修改两处：Listen（54行左右）和 ServerName localhost（222行左右）</p>
+<p>3、<strong>访问其他 Http 地址时会出现，一直跳转到 127.0.0.1</strong></p>
 <p>代理的问题，可能是翻墙导致的（再翻一下看看）。</p>
+<p>4、两句命令： yum install epel-release yum install android-tools 直接安装adb成功</p>
 <hr>
 <h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：</p>
 <p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/p/713adb751223">iOS Mac本地搭建Apache服务器</a></p>

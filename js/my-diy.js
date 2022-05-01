@@ -50,7 +50,7 @@
                li.style.background = arr[index];
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
-                   li.style.color = "#d0d0d0";
+                   li.style.color = pref;
                } else {
                    li.style.color = "";
                }
@@ -79,7 +79,9 @@
 
 
        // 换肤
-       var arr = ["rgba(255, 255, 255, 0.8)", "rgb(199,237,204)", "#252d38"]
+       var arr = ["rgba(255, 255, 255, 0.8)", "rgb(199,237,204)", "#252d38"];
+       // 暗黑模式下的字体颜色
+       var pref = '#c4c6c9';
        var index = 0;
        var index1 = 0;
        document.getElementById('skin_peeler').addEventListener('click', function() {
@@ -96,7 +98,7 @@
                readCut.style.backgroundColor = arr[index];
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
-                   readCut.style.color = "#d0d0d0";
+                   readCut.style.color = pref;
                } else {
                    readCut.style.color = "";
                }
@@ -110,7 +112,7 @@
                postBlock[i].style.backgroundColor = arr[index];
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
-                   postBlock[i].style.color = "#d0d0d0";
+                   postBlock[i].style.color = pref;
                } else {
                    postBlock[i].style.color = "";
                }
