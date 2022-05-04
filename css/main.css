@@ -2981,7 +2981,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #ffffc7;
+  background: #ebff13;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3015,17 +3015,17 @@ hr {
   border-radius: 20px;
   padding: 6px 8px;
   background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
+  box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -webkit-box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -moz-box-shadow: 0 0 5px rgba(5,147,211,0.5);
 }
 .post-block {
   border-radius: 20px;
   padding: 20px 40px 20px 40px;
   background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
+  box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -webkit-box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -moz-box-shadow: 0 0 5px rgba(5,147,211,0.5);
 }
 #readCut {
   width: 100%;
@@ -3040,9 +3040,9 @@ hr {
   margin-top: 50px;
   padding: 8px 0px;
   background: rgba(255,255,255,0.8);
-  box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -webkit-box-shadow: 0 0 5px rgba(84,237,204,0.5);
-  -moz-box-shadow: 0 0 5px rgba(84,237,204,0.5);
+  box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -webkit-box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -moz-box-shadow: 0 0 5px rgba(5,147,211,0.5);
 }
 .posts-expand .post-block:not(:first-of-type) {
   margin-top: 30px;
@@ -3103,6 +3103,12 @@ body:before {
 }
 .footer {
   background-color: rgba(255,255,255,0.5);
+}
+.sidebar {
+  background-color: #252d38;
+  box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -webkit-box-shadow: 0 0 5px rgba(5,147,211,0.5);
+  -moz-box-shadow: 0 0 5px rgba(5,147,211,0.5);
 }
 .m_more_title_style,
 h2 {

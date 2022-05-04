@@ -47,7 +47,7 @@
                var li = document.createElement("div");
                li.id = 'readCut';
                li.style.minHeight = "100vh";
-               li.style.background = arr[index];
+               li.style.background = defaultpref;
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
                    li.style.color = pref;
@@ -83,19 +83,47 @@
        // 暗黑模式下的字体颜色
        var pref = '#c4c6c9';
        var index = 0;
-       var index1 = 0;
+
+       var postBlock = document.getElementsByClassName("post-block");
+       var prefIndex = localStorage.getItem("pref");
+       var defaultpref;
+       if (!prefIndex) {
+           //    console.log("prefIndex 为 null");
+           defaultpref = arr[index];
+       } else {
+           //    console.log("prefIndex 不为 null");
+           defaultpref = arr[prefIndex];
+           index = prefIndex;
+           prefcolor(defaultpref);
+       }
+
+       function prefcolor(str) {
+           // 第一次点击，切换到护眼主题。
+           // 第二点击，切换到暗黑主题。
+           // 第三次点击，切换到原主题。然后开始循环。
+           for (var i = 0; i < postBlock.length; i++) {
+               postBlock[i].style.backgroundColor = str;
+               if (index == 2) {
+                   // 暗黑模式，改变字体颜色。
+                   postBlock[i].style.color = pref;
+               } else {
+                   postBlock[i].style.color = "";
+               }
+           };
+       };
+
        document.getElementById('skin_peeler').addEventListener('click', function() {
            if (index != 2) {
                ++index;
            } else {
                index = 0;
            }
-           //  console.log(++index) // 1
-           //  console.log(index1++) // 0
+           defaultpref = arr[index];
+           //    console.log(defaultpref);
            var readCut = document.getElementById("readCut");
            if (readCut) {
                // readCut 存在，阅读模式
-               readCut.style.backgroundColor = arr[index];
+               readCut.style.backgroundColor = defaultpref;
                if (index == 2) {
                    // 暗黑模式，改变字体颜色。
                    readCut.style.color = pref;
@@ -104,19 +132,8 @@
                }
            }
            // readCut 不存在，普通模式
-           var postBlock = document.getElementsByClassName("post-block");
-           // 第一次点击，切换到护眼主题。
-           // 第二点击，切换到暗黑主题。
-           // 第三次点击，切换到原主题。然后开始循环。
-           for (var i = 0; i < postBlock.length; i++) {
-               postBlock[i].style.backgroundColor = arr[index];
-               if (index == 2) {
-                   // 暗黑模式，改变字体颜色。
-                   postBlock[i].style.color = pref;
-               } else {
-                   postBlock[i].style.color = "";
-               }
-           };
+           prefcolor(defaultpref);
+           localStorage.setItem("pref", index);
        })
 
        // 朗读
