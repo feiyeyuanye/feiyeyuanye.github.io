@@ -2981,7 +2981,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #2f702e;
+  background: #520344;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3031,8 +3031,6 @@ hr {
   width: 100%;
   position: absolute;
   top: 0px;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
 }
 .pagination {
   text-align: center;

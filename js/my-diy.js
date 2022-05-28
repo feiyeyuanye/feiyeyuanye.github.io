@@ -159,7 +159,7 @@
        audioMp3.style.display = 'none';
        var audioBoolean = false;
        audioImg.addEventListener('click', function() {
-           audioMp3.src = "https://blove7.cn/resource/musics/猛烈的雷阵雨.mp3"
+           audioMp3.src = "https://qiniu.imgsw.cn/music%2F%E7%8C%9B%E7%83%88%E7%9A%84%E9%9B%B7%E9%98%B5%E9%9B%A8.mp3"
            if (audioBoolean) {
                audioImg.style.animation = "";
                audioBoolean = false;
