@@ -2981,7 +2981,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #e5e7f1;
+  background: #16beff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3118,6 +3118,11 @@ h2 {
 }
 .m_more_content_bg_img {
   max-width: 100%;
+  max-height: auto;
+  border-radius: 20px;
+}
+.m_more_content_img {
+  max-width: auto;
   max-height: auto;
   border-radius: 20px;
 }
