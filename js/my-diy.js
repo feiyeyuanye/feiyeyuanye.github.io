@@ -159,7 +159,7 @@
        audioMp3.style.display = 'none';
        var audioBoolean = false;
        audioImg.addEventListener('click', function() {
-           audioMp3.src = "https://blove7.cn/musics/%E7%99%BD%E5%99%AA%E9%9F%B3.mp3"
+           audioMp3.src = "https://blove7.cn/resource/musics/%E7%99%BD%E5%99%AA%E9%9F%B3.mp3"
            if (audioBoolean) {
                audioImg.style.animation = "";
                audioBoolean = false;
