@@ -136,21 +136,26 @@
            localStorage.setItem("pref", index);
        })
 
-       // 朗读
-       var read_aloud = document.getElementById("read_aloud");
-       var boo = false;
-       read_aloud.addEventListener('click', function() {
-           var postBody = document.getElementsByClassName("post-body");
-           if (boo) {
-               speechSynthesis.cancel();
-               boo = false;
-           } else {
-               var str = postBody[0].innerText;
-               var ssu = new SpeechSynthesisUtterance(str);
-               speechSynthesis.speak(ssu);
-               boo = true;
-           }
-       });
+    // 文章列别切换为两列
+    if(postBlock.length > 3){
+                // 可以双列
+        var mainInner = document.getElementsByClassName("main-inner")[0]
+        var twoListStorage = localStorage.getItem("twolist");
+        if(twoListStorage == "main-inner-active"){
+            mainInner.classList.toggle(twoListStorage);
+        }
+    // console.log(twoListStorage);
+    var read_aloud = document.getElementById("read_aloud");
+    read_aloud.addEventListener('click', function() {
+        mainInner.classList.toggle("main-inner-active");
+        if(twoListStorage == ""){
+            twoListStorage = "main-inner-active";
+        }else {
+            twoListStorage = "";
+        }
+        localStorage.setItem("twolist", twoListStorage);
+    });
+    }
 
        // 音乐
        var audioMp3 = document.getElementById("audioMp3");
@@ -170,3 +175,5 @@
                audioMp3.play();
            }
        });
+
+

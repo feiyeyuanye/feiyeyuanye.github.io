@@ -1355,77 +1355,6 @@ pre code {
 .book-mark-link-fixed {
   top: -2px;
 }
-.github-corner :hover .octo-arm {
-  animation: octocat-wave 560ms ease-in-out;
-}
-.github-corner svg {
-  color: #fff;
-  fill: var(--theme-color);
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 5;
-}
-@media (max-width: 991px) {
-  .github-corner {
-    display: none;
-  }
-  .github-corner .github-corner:hover .octo-arm {
-    animation: none;
-  }
-  .github-corner .github-corner .octo-arm {
-    animation: octocat-wave 560ms ease-in-out;
-  }
-}
-@media (max-width: 767px) {
-  .github-corner svg {
-    top: inherit;
-  }
-}
-@-moz-keyframes octocat-wave {
-  0%, 100% {
-    transform: rotate(0);
-  }
-  20%, 60% {
-    transform: rotate(-25deg);
-  }
-  40%, 80% {
-    transform: rotate(10deg);
-  }
-}
-@-webkit-keyframes octocat-wave {
-  0%, 100% {
-    transform: rotate(0);
-  }
-  20%, 60% {
-    transform: rotate(-25deg);
-  }
-  40%, 80% {
-    transform: rotate(10deg);
-  }
-}
-@-o-keyframes octocat-wave {
-  0%, 100% {
-    transform: rotate(0);
-  }
-  20%, 60% {
-    transform: rotate(-25deg);
-  }
-  40%, 80% {
-    transform: rotate(10deg);
-  }
-}
-@keyframes octocat-wave {
-  0%, 100% {
-    transform: rotate(0);
-  }
-  20%, 60% {
-    transform: rotate(-25deg);
-  }
-  40%, 80% {
-    transform: rotate(10deg);
-  }
-}
 .sidebar-inner {
   color: #999;
   max-height: calc(100vh - 36px);
@@ -2364,39 +2293,6 @@ pre code {
     transform: rotateZ(-30deg);
   }
 }
-.followme {
-  color: #bbb;
-  padding: 1em 1.5em;
-  text-align: center;
-  background: var(--card-bg-color);
-  border-left: 3px solid #ff2a2a;
-  margin: 1em 0 0;
-}
-.followme .social-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.followme .social-list .social-item {
-  margin: 0.5em 2em;
-}
-@media (max-width: 991px) {
-  .followme .social-list .social-item {
-    margin: 0.5em 0.75em;
-  }
-}
-.followme .social-list .social-link {
-  border: 0;
-  display: inline-block;
-  text-align: center;
-}
-.followme .social-list .social-link .icon {
-  font-size: 1.75em;
-}
-.followme .social-list .social-link .label {
-  display: block;
-  font-size: 14px;
-}
 .category-all-page .category-all-title {
   text-align: center;
 }
@@ -2981,7 +2877,7 @@ hr {
   vertical-align: middle;
 }
 .links-of-author a::before {
-  background: #e230ff;
+  background: #ff5dd5;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3007,9 +2903,6 @@ hr {
 }
 .sub-menu .menu-item {
   display: inline-block;
-}
-.main-inner {
-  padding-top: 40px;
 }
 .comments {
   border-radius: 20px;
@@ -3042,10 +2935,22 @@ hr {
   -webkit-box-shadow: 0 0 5px rgba(5,147,211,0.5);
   -moz-box-shadow: 0 0 5px rgba(5,147,211,0.5);
 }
+.main-inner {
+  padding-top: 40px;
+}
+.main-inner-active {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 10px;
+}
+.pagination {
+  grid-column: 1/-1;
+}
 .posts-expand .post-block:not(:first-of-type) {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .post-block:first-of-type {
+  margin-top: 20px;
   padding-top: 20px;
 }
 .posts-expand .post-meta {
@@ -3175,7 +3080,7 @@ hr {
   bottom: 75px;
 }
 .read_aloud {
-  background: url("/images/readaloud.svg");
+  background: url("/images/twolist.svg");
   bottom: 105px;
 }
 .audioImg {
@@ -3201,18 +3106,6 @@ hr {
 .post-body .tabs ul.nav-tabs li.tab.active,
 .tabs-comment ul.nav-tabs li.tab.active {
   border-top-color: #0593d3;
-}
-.next-links-table tr {
-  background-color: rgba(255,236,236,0.6);
-}
-.next-links-table tr:nth-of-type(odd) {
-  background-color: rgba(241,241,233,0.6);
-}
-.next-links-table tr:nth-of-type(even) {
-  background-color: rgba(246,246,246,0.6);
-}
-.next-links-table td {
-  width: 33.33%;
 }
 .category-all-page .category-list-child {
   padding-left: 25px;
