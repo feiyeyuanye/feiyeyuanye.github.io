@@ -35,7 +35,7 @@
 <meta property="og:image" content="https://imgsw.cn/static/images/android_resources3.jpg?imageMogr2/rotate/-90">
 <meta property="og:image" content="https://imgsw.cn/static/images/android_resources4.jpg?imageMogr2/rotate/-90">
 <meta property="article:published_time" content="2019-07-23T22:54:13.000Z">
-<meta property="article:modified_time" content="2020-10-01T02:34:07.000Z">
+<meta property="article:modified_time" content="2022-09-03T04:06:57.665Z">
 <meta property="article:author" content="非也缘也">
 <meta property="article:tag" content="APK">
 <meta name="twitter:card" content="summary">
@@ -152,7 +152,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.</span> <span class="nav-text">模块优先级</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">打包时做了什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E7%BA%BF%E8%B7%AF%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">资源文件线路的处理过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Assets%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">Assets文件合并规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Manifest%E6%B8%85%E5%8D%95%E5%90%88%E5%B9%B6"><span class="nav-number">5.</span> <span class="nav-text">Manifest清单合并</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Manifest%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81"><span class="nav-number">6.</span> <span class="nav-text">Manifest合并冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XML%E8%B5%84%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">XML资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Aapt-overlay"><span class="nav-number">8.</span> <span class="nav-text">Aapt overlay</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%8F%8A%E5%8E%9F%E7%90%86%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">简述多渠道打包及原理和常用操作?</span></a></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.</span> <span class="nav-text">模块优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">打包时做了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E7%BA%BF%E8%B7%AF%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">资源文件线路的处理过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assets%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">Assets文件合并规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manifest%E6%B8%85%E5%8D%95%E5%90%88%E5%B9%B6"><span class="nav-number">5.</span> <span class="nav-text">Manifest清单合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manifest%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81"><span class="nav-number">6.</span> <span class="nav-text">Manifest合并冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E8%B5%84%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">XML资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aapt-overlay"><span class="nav-number">8.</span> <span class="nav-text">Aapt overlay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%8F%8A%E5%8E%9F%E7%90%86%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">简述多渠道打包及原理和常用操作?</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -167,7 +167,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">201</span>
+          <span class="site-state-item-count">200</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -281,7 +281,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-10-01 10:34:07" itemprop="dateModified" datetime="2020-10-01T10:34:07+08:00">2020-10-01</time>
+      <time title="修改时间：2022-09-03 12:06:57" itemprop="dateModified" datetime="2022-09-03T12:06:57+08:00">2022-09-03</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -324,14 +324,14 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>3.5k</span>
+      <span>3.9k</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
         <i class="far fa-clock"></i>
       </span>
       <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
+      <span>4 分钟</span>
     </span>
 </div>
 
@@ -346,7 +346,7 @@
 
 <span id="more"></span>
 
-<h1 id="模块优先级"><a href="#模块优先级" class="headerlink" title="模块优先级"></a><Center style="color:orange">模块优先级</Center></h1><p><strong>模块优先级：</strong></p>
+<h2 id="模块优先级"><a href="#模块优先级" class="headerlink" title="模块优先级"></a>模块优先级</h2><p><strong>模块优先级：</strong></p>
 <ul>
 <li>从根项目出发，优先级依次降低 。</li>
 <li>优先级和依赖顺序一致。（APP&gt;A&gt;B）</li>
@@ -356,7 +356,7 @@
 <p>图例：</p>
 <img data-src="https://imgsw.cn/static/images/android_resources.jpg">
 <hr>
-<h1 id="打包时做了什么"><a href="#打包时做了什么" class="headerlink" title="打包时做了什么"></a><Center style="color:orange">打包时做了什么</Center></h1><p>图例：</p>
+<h2 id="打包时做了什么"><a href="#打包时做了什么" class="headerlink" title="打包时做了什么"></a>打包时做了什么</h2><p>图例：</p>
 <img data-src="https://imgsw.cn/static/images/android_resources2.jpg">
 
 <p>Android 中，限制整个应用的方法数不能超过 65536，解决的方法有两种：</p>
@@ -365,14 +365,14 @@
 <li>动态加载（插件化技术）：<br>可直接加载一个 dex 形式的文件，将部分代码打包到一个单独的 dex 文件中（也可以是 dex 格式的 jar 或者 apk），并在程序运行时根据需要去动态加载 dex 中的类。<br>它的优势在于除了解决缓解方法数越界的问题，还可为程序提供按需加载的特性，同时还为应用按模块更新提供了可能性。</li>
 </ul>
 <hr>
-<h1 id="资源文件线路的处理过程"><a href="#资源文件线路的处理过程" class="headerlink" title="资源文件线路的处理过程"></a><Center style="color:orange">资源文件线路的处理过程</Center></h1><p>图例：</p>
+<h2 id="资源文件线路的处理过程"><a href="#资源文件线路的处理过程" class="headerlink" title="资源文件线路的处理过程"></a>资源文件线路的处理过程</h2><p>图例：</p>
 <img data-src="https://imgsw.cn/static/images/android_resources3.jpg?imageMogr2/rotate/-90">
 <hr>
-<h1 id="Assets文件合并规则"><a href="#Assets文件合并规则" class="headerlink" title="Assets文件合并规则"></a><Center style="color:orange">Assets文件合并规则</Center></h1><p><strong>合并规则：优先级高覆盖优先级低</strong><br>图例：</p>
+<h2 id="Assets文件合并规则"><a href="#Assets文件合并规则" class="headerlink" title="Assets文件合并规则"></a>Assets文件合并规则</h2><p><strong>合并规则：优先级高覆盖优先级低</strong><br>图例：</p>
 <img data-src="https://imgsw.cn/static/images/android_resources4.jpg?imageMogr2/rotate/-90">
 <p>Q1：本地有 assets 文件，打包 apk 中却找不到。<br>A1：新建 Assets 文件夹姿势不对。（以防无法识别，正确方法创建assets文件夹应是：New -&gt; Folder -&gt; Assets Folder）<br>A2：Gradle 文件中 aaptOptions 对 Assets 做限制。</p>
 <hr>
-<h1 id="Manifest清单合并"><a href="#Manifest清单合并" class="headerlink" title="Manifest清单合并"></a><Center style="color:orange">Manifest清单合并</Center></h1><p>Lowest priority - - - - - - - - - - - - - - - - - &gt;Highest priority<br>AndroidManifest.xml（library manifest）–(merge)–&gt;<br>AndroidManifest.xml（main manifest）–&gt;<br>AndroidManifest.xml（partial merge）–(merge)–&gt;<br>AndroidManifest.xml（build variant manifest）–&gt;<br>AndroidManifest.xml（final）</p>
+<h2 id="Manifest清单合并"><a href="#Manifest清单合并" class="headerlink" title="Manifest清单合并"></a>Manifest清单合并</h2><p>Lowest priority - - - - - - - - - - - - - - - - - &gt;Highest priority<br>AndroidManifest.xml（library manifest）–(merge)–&gt;<br>AndroidManifest.xml（main manifest）–&gt;<br>AndroidManifest.xml（partial merge）–(merge)–&gt;<br>AndroidManifest.xml（build variant manifest）–&gt;<br>AndroidManifest.xml（final）</p>
 <p><strong>Manifest清单合并：</strong></p>
 <ul>
 <li>清单优先级&amp;合并顺序：遵循整体优先级（高的合并低的）</li>
@@ -415,11 +415,16 @@
 </tbody></table>
 <p><strong>特殊标签：</strong><br>a：manifest 仅使用高优先级的属性（manifest本身，只使用创建打包apk的manifest，其它不要。）<br>b：uses-library，uses-feature [require] or 合并（类似&#x2F;&#x2F;，真假则为真。）<br>c：uses-adk minSdkVersion 使用较高值，targetSdkVersion 使用高优先级，并添加相应权限。<br>d：intent-filter 不匹配，直接合并。</p>
 <hr>
-<h1 id="Manifest合并冲突"><a href="#Manifest合并冲突" class="headerlink" title="Manifest合并冲突"></a><Center style="color:orange">Manifest合并冲突</Center></h1><p>xmlns:tools&#x3D;”<a target="_blank" rel="noopener external nofollow noreferrer" href="http://schemas.android.com/tools&quot;">http://schemas.android.com/tools&quot;</a><br>tools：Node节点标记（作用域为整个节点）<br>tools：selector选择器（当依赖库与自己的manifest冲突了，可以借此做处理。）<br>tools属性标记：replace，remove，strict（针对属性）<br>类似如果项目发布后，提示不支持最新版本，则有可能是项目依赖包定义的max版本太低，因为一般不定义max版本，则默认为向上无限兼容，一直支持最新版本，但依赖包定义了，则会使用依赖包的max版本。<br>tools:node&#x3D;”merge&#x2F;merge-only-attributes&#x2F;remove&#x2F;removeAll&#x2F;strict”<br>.merge：若没有冲突，则合并标签内的所有属性以及所有嵌套元素。<br>.merge-only-attributes：仅合并此标签内的属性，不合并嵌套元素。<br>.remove：删除此标签。<br>.removeAll：删除同一级别的相似标签。<br>.replace：替换低优先级清单内标签。<br>.strict：清单不匹配时会导致构建失败。<br>示例：</p>
+<h2 id="Manifest合并冲突"><a href="#Manifest合并冲突" class="headerlink" title="Manifest合并冲突"></a>Manifest合并冲突</h2><p>xmlns:tools&#x3D;”<a target="_blank" rel="noopener external nofollow noreferrer" href="http://schemas.android.com/tools&quot;">http://schemas.android.com/tools&quot;</a><br>tools：Node节点标记（作用域为整个节点）<br>tools：selector选择器（当依赖库与自己的manifest冲突了，可以借此做处理。）<br>tools属性标记：replace，remove，strict（针对属性）<br>类似如果项目发布后，提示不支持最新版本，则有可能是项目依赖包定义的max版本太低，因为一般不定义max版本，则默认为向上无限兼容，一直支持最新版本，但依赖包定义了，则会使用依赖包的max版本。<br>tools:node&#x3D;”merge&#x2F;merge-only-attributes&#x2F;remove&#x2F;removeAll&#x2F;strict”<br>.merge：若没有冲突，则合并标签内的所有属性以及所有嵌套元素。<br>.merge-only-attributes：仅合并此标签内的属性，不合并嵌套元素。<br>.remove：删除此标签。<br>.removeAll：删除同一级别的相似标签。<br>.replace：替换低优先级清单内标签。<br>.strict：清单不匹配时会导致构建失败。<br>示例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">&quot;.MergeActivity&quot;</span></span><br><span class="line">    tools:node=<span class="string">&quot;remove&quot;</span>&gt;  <span class="comment">// 合并时，删除此标签</span></span><br><span class="line">            </span><br><span class="line">&lt;/activity&gt;</span><br><span class="line">    </span><br><span class="line">tools:selector=<span class="string">&quot;lib1&quot;</span>  <span class="comment">// 指定导入库使用合并规则（偏见选择器）</span></span><br><span class="line">    </span><br><span class="line">&lt;permission android:name=<span class="string">&quot;permission1&quot;</span></span><br><span class="line">  tools:node=<span class="string">&quot;remove&quot;</span>  <span class="comment">// 需先定义一个合并规则</span></span><br><span class="line">  tools:selector=<span class="string">&quot;lib1&quot;</span>&gt;  <span class="comment">// 定义的规则只对此库生效</span></span><br><span class="line">    <span class="comment">// 如果属性来自第优先级库&quot;lib1&quot;的时候，使用规则remove.</span></span><br><span class="line">&lt;/permission&gt;</span><br></pre></td></tr></table></figure>
-<p>属性标记：针对属性使用规则<br>tools:remove&#x3D;”attr0,attr1,…”<br>在标签内移除指定属性，防止lib中引入非必要属性。<br>tools:replace&#x3D;”attr,…”<br>在标签内，指定属性使用高优先级清单中的值。<br>tools:strict&#x3D;”attr,…”<br>指定属性如果不匹配则编译失败<br>注：在左下角Text旁边的选项，可以通过不同颜色查看是哪个依赖包依赖进来的。</p>
+<p>属性标记：针对属性使用规则<br>tools:remove&#x3D;”attr0,attr1,…”<br>在标签内移除指定属性，防止lib中引入非必要属性。<br>tools:replace&#x3D;”attr,…”<br>在标签内，指定属性使用高优先级清单中的值。</p>
+<p>依赖库属性冲突解决利器 tools-replace：当项目中引用了其他库时，若第三方库中的组件属性与本地库发生了冲突，可以通过 <code>tools:replace</code> 解决，被 <code>tools:replace</code> 声明的组件会覆盖第三方库中的属性：</p>
+<p>示例：如组件化中，应用图标的设置，app 模块与其他模块的图标设置不一致，可在 app 模块中添加代码：</p>
+<figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">tools:replace</span>=<span class="string">&quot;android:icon,android:roundIcon&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    &lt;/<span class="attr">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>tools:strict&#x3D;”attr,…”<br>指定属性如果不匹配则编译失败<br>注：在左下角Text旁边的选项，可以通过不同颜色查看是哪个依赖包依赖进来的。</p>
 <hr>
-<h1 id="XML资源"><a href="#XML资源" class="headerlink" title="XML资源"></a><Center style="color:orange">XML资源</Center></h1><p>默认合并策略：高优先级覆盖低优先级。<br>appt 分配 ID，放入 resource.arsc 中。</p>
+<h2 id="XML资源"><a href="#XML资源" class="headerlink" title="XML资源"></a>XML资源</h2><p>默认合并策略：高优先级覆盖低优先级。<br>appt 分配 ID，放入 resource.arsc 中。</p>
 <p>libB strings.xml(key-&gt;B,key2-&gt;B1) – libA strings.xml(key-&gt;A) –&gt; main –&gt;<br>APK(key-&gt;A(keyA覆盖了keyB),key2-&gt;B1(key2没有冲突))</p>
 <p>当模块化时，会将定义的统一放在base库里面，但这样会导致优先级比较低，（因为大家都会引用，而优先级会使用最后一次的，也就是前面所说的重复依赖），这样当其它依赖库定义了相同文件时，则因为优先级的关系会覆盖掉，也就导致了类似于名称变成了demo，或者图标变成了绿机器人这些问题。<br>所以提倡，资源文件，谁用就放在哪里，放在它的module里面。<br>如果一定要有公共模块，则可以重命名，比如 icon 图标，可以在前加个名字。</p>
 <p>防止资源覆盖：<br>未雨绸缪，最好在项目开始时，就做划分，做好规划。</p>
@@ -429,12 +434,12 @@
 <li>使用tools防止冲突和覆盖。</li>
 </ul>
 <hr>
-<h1 id="Aapt-overlay"><a href="#Aapt-overlay" class="headerlink" title="Aapt overlay"></a><Center style="color:orange">Aapt overlay</Center></h1><p>假设冲突了，比如因为需要换个图标，或者换肤，一般是修改后，打个包，再换回来，但太麻烦，则可以使用 Aapt overlay，也就是添加指定重叠包。<br>比如在 main 下添加重叠包：main&#x2F;java,res,res1,res2<br>并且在build.gradle中添加：</p>
+<h2 id="Aapt-overlay"><a href="#Aapt-overlay" class="headerlink" title="Aapt overlay"></a>Aapt overlay</h2><p>假设冲突了，比如因为需要换个图标，或者换肤，一般是修改后，打个包，再换回来，但太麻烦，则可以使用 Aapt overlay，也就是添加指定重叠包。<br>比如在 main 下添加重叠包：main&#x2F;java,res,res1,res2<br>并且在build.gradle中添加：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">aaptOptions&#123;</span><br><span class="line">    <span class="comment">// -f,强行覆盖已存在文件。-s,resources文件。-A，assets文件</span></span><br><span class="line">    <span class="comment">// -M，manifest文件。</span></span><br><span class="line">    <span class="comment">// --auto-add-overlay，找不到相同值，则自动添加进去，以防值不同出错。</span></span><br><span class="line">    additionalParameters <span class="string">&#x27;-s&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;/Users/handsome/work/ResourceDemo/app/src/main/res2&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;-s&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;/Users/handsome/work/ResourceDemo/app/src/main/res1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;--auto-add-overlay&#x27;</span></span><br><span class="line">    <span class="comment">// 最终：res=res+overlay资源首次出现的新资源。</span></span><br><span class="line">    <span class="comment">// 比如上例，则先寻找是否有res2.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="简述多渠道打包及原理和常用操作"><a href="#简述多渠道打包及原理和常用操作" class="headerlink" title="简述多渠道打包及原理和常用操作?"></a>简述多渠道打包及原理和常用操作?</h1><p>针对每一个渠道(应用市场)都生成一个带有渠道标识的apk文件</p>
+<h2 id="简述多渠道打包及原理和常用操作"><a href="#简述多渠道打包及原理和常用操作" class="headerlink" title="简述多渠道打包及原理和常用操作?"></a>简述多渠道打包及原理和常用操作?</h2><p>针对每一个渠道(应用市场)都生成一个带有渠道标识的apk文件</p>
 <p>原理:用户下载启动应用,获取渠道标识,和设备的唯一标识,并上传到服务器里面,服务器这里就 会根据获取的记录,根据渠道号然后判断是否存在该服务器的表里面.(打标记,取标记,上传标记)</p>
 <p>1)友盟多渠道打包:在清单文件中定义一个占位符,在gradle脚本中替换占位符(会使用到Python)</p>
 <p>2)美团打包,在meta-data中创建一个空的文件,以文件名标识渠道,做一个解压与压缩的操作,速度会比较快</p>
