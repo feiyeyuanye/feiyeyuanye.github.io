@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="创建型设计模式">
+<meta property="og:url" content="https://jianghouren.cn/archives/9197097e.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-09-08T13:40:58.000Z">
+<meta property="article:modified_time" content="2021-07-10T01:35:52.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="设计模式">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/9197097e.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/9197097e.html","path":"archives/9197097e.html","title":"创建型设计模式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>创建型设计模式 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">单例模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A5%BF%E6%B1%89%E5%BC%8F"><span class="nav-number">1.1.</span> <span class="nav-text">饿汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%87%92%E6%B1%89%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">懒汉式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%8C%E9%87%8D%E6%A3%80%E6%9F%A5%E6%A8%A1%E5%BC%8F%EF%BC%88DCL%EF%BC%89"><span class="nav-number">1.3.</span> <span class="nav-text">双重检查模式（DCL）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">静态内部类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.5.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%99%BB%E8%AE%B0%E5%BC%8F%E5%8D%95%E4%BE%8B%EF%BC%88%E5%8F%AF%E5%BF%BD%E7%95%A5%EF%BC%89"><span class="nav-number">1.6.</span> <span class="nav-text">登记式单例（可忽略）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">3.</span> <span class="nav-text">简单工厂模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">4.</span> <span class="nav-text">工厂方法模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">建造者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/9197097e.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="创建型设计模式 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          创建型设计模式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-08 21:40:58" itemprop="dateCreated datePublished" datetime="2020-09-08T21:40:58+08:00">2020-09-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-07-10 09:35:52" itemprop="dateModified" datetime="2021-07-10T09:35:52+08:00">2021-07-10</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/9197097e.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/9197097e.html" data-xid="/archives/9197097e.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/9197097e.html" class="post-meta-item leancloud_visitors" data-flag-title="创建型设计模式" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>11 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/罪恶王冠.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>与对象创建有关，它包含单例模式、工厂方法模式、抽象工厂模式、建造者模式、原型模式。虽然简单工厂模式不是 Gof 提出的创建型设计模式，但是它对理解抽象工厂模式有帮助。</p>
+<hr>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p><strong>定义</strong>：</p>
+<p>保证一个类仅有一个实例，而且自行实例化，并提供一个访问它的全局访问点。（即是定义，也是本质。本质即是控制实例数量。）</p>
+<p>客户端（Client）通过单例类 Singleton 的 getInstance 方法来获取实例对象。</p>
+<p><strong>单例注意点：</strong></p>
+<ol>
+<li>构造函数私有</li>
+<li>含有一个该类的静态私有对象</li>
+<li>有一个静态的公有的函数用于创建或获取它本身的静态私有对象</li>
+<li>线程同步</li>
+</ol>
+<p><strong>线程安全</strong>：</p>
+<p>代码所在进程中存在多个线程同时运行，可能会同时运行一段代码，如果每次运行的结果和单线程一样，而且其它变量值也和预期一样，就是线程安全的。<br>或者说：一个类或程序所提供的接口对于线程来说是原子操作，或者多个线程之间的切换不会导致该接口的执行结果存在二义性，也就是说不用考虑同步问题，那就是线程安全的。</p>
+<p><strong>计算机中使用场景</strong>：</p>
+<p>线程池，缓存，日志对象，打印机，显卡的驱动程序对象等多少具有资源管理器的功能。</p>
+<p><strong>单例模式的使用场景</strong>：</p>
+<p>在一个系统中，要求一个类有且仅有一个对象，它的具体使用场景如下：</p>
+<ul>
+<li>整个项目需要一个共享访问点或共享数据。</li>
+<li>创建一个对象需要消耗的资源过多，比如访问 I&#x2F;O 或者数据库等资源。</li>
+<li>工具类对象。</li>
+</ul>
+<p>下面介绍几种形式的单例模式，至于选用则取决于项目本身情况：是否为复杂的并发环境，或者是否需要控制单例对象的资源消耗。</p>
+<h3 id="饿汉式"><a href="#饿汉式" class="headerlink" title="饿汉式"></a>饿汉式</h3><p>这种方式在类加载时就完成了初始化，所以类加载较慢，但获取对象的速度快。这种方式基于类加载机制，避免了多线程的同步问题。在类加载的时候就完成实例化，没有达到懒加载的效果。如果从始至终未使用过这个实例，则会造成内存的浪费。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 饿汉式</span></span><br><span class="line"><span class="comment"> * 空间换时间。</span></span><br><span class="line"><span class="comment"> * 线程安全的，因为虚拟机保证只会装载一次，装载类时不会发生并发。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类初始化时，已经自行实例化，</span></span><br><span class="line"><span class="comment">     * 范围是一个虚拟机的范围，因为装载类的功能是虚拟机。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">mSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 静态工厂方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="懒汉式"><a href="#懒汉式" class="headerlink" title="懒汉式"></a>懒汉式</h3><p>线程不安全的写法：声明了一个静态对象，在用户第一次调用时初始化。这虽然节约了资源，但第一次加载时需要实例化，反应稍慢一些，而且在多线程时不能正常工作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton mSingleton ;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mSingleton == <span class="literal">null</span>)&#123;</span><br><span class="line">            mSingleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>线程安全的写法：这种写法能够在多线程中很好地工作，但是每次调用 getInstance 方法时都需要进行同步。这会造成不必要的同步开销，而且大部分时候我们是用不到同步的。所以，不建议用这种模式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 懒汉式（线程安全）</span></span><br><span class="line"><span class="comment"> * 时间换空间</span></span><br><span class="line"><span class="comment"> * 有延迟加载和缓存的思想</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 第一次调用时，实例化自己</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton mSingleton ;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有化，避免在外部被实例化</span></span><br><span class="line"><span class="comment">     * （除了反射机制）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加锁保证线程安全，但会降低整个访问速度，</span></span><br><span class="line"><span class="comment">     * 而且每次都要判断，可用双重检查枷锁。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mSingleton == <span class="literal">null</span>)&#123;</span><br><span class="line">            mSingleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>饿汉式和懒汉式的区别</strong>：</p>
+<p>从名字来说，饿汉是类一旦加载，单例则初始化完成。而懒汉则比较懒，当调用getInstance时，才会去初始化实例。</p>
+<ul>
+<li>线程安全：<br>饿汉式天生线程安全的，可直接用于多线程而不会出问题。<br>懒汉式本身是非线程安全的，可以有几种写法，如静态内部类的方式，double-lock的方式。在资源加载和性能方面有些区别。</li>
+<li>资源加载和性能：<br>饿汉式在类创建同时就实例化一个静态对象出来，不管之后是否适用，都会占据一定内存。但相应，第一次调用更快，因为资源已经初始化。<br>懒汉式会延迟加载，第一次使用该单例时才会实例化对象出来。如果初始化时，做的工作比较多，性能上会有些延迟，之后和饿汉式一样。</li>
+</ul>
+<h3 id="双重检查模式（DCL）"><a href="#双重检查模式（DCL）" class="headerlink" title="双重检查模式（DCL）"></a>双重检查模式（DCL）</h3><p>这种写法在 getInstance 方法中对 Singleton 进行了两次判空，第一次是为了不必要的同步，第二次是在 Singleton 等于 null 的情况下才创建实例。在这里使用 volatile 会或多或少地影响性能，但考虑到程序的正确性，牺牲这点性能还是值得的。DCL 的优点是资源利用率高。第一次执行 getInstance 时单例对象才被实例化，效率高。其缺点是第一次加载时反应稍慢一些，在高并发环境下也有一定的缺陷。DCL 虽然在一定程度上解决了资源的消耗和多余的同步、线程安全等问题，但其还是在某些情况会出现失效的问题，也就是 DCL 失效。这里建议用静态内部类单例来替代 DCL。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * double-lock（双重检查加锁）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 做了两次 null 检查，确保只有第一次调用时才会做同步，</span></span><br><span class="line"><span class="comment"> * 既保证线程安全，又避免每次都同步的性能损耗。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * volatile：被它修饰的变量的值，将不会被本地线程缓存，</span></span><br><span class="line"><span class="comment">     * 所有对该变量的读写都直接操作共享内存的，</span></span><br><span class="line"><span class="comment">     * （读时会从主线程重新 copy，写时会同步到主线程去。）</span></span><br><span class="line"><span class="comment">     * 从而保证多个线程能正确的处理该变量。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> <span class="keyword">static</span> Singleton mSingleton;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 相比于直接锁住方法，这种缩小锁影响范围的方式更加高效。</span></span><br><span class="line"><span class="comment">     * 如锁方法，线程只能一个一个依次执行整个方法体，会造成大量阻塞时间，</span></span><br><span class="line"><span class="comment">     * 另外，之所以处理线程安全问题，只是因为在 getInstance() 方法前几次被并发执行时，</span></span><br><span class="line"><span class="comment">     * 可能会有多个 mSingleton == null 为 true 的结果，从而出现创建多个对象情况，</span></span><br><span class="line"><span class="comment">     * 而一旦有线程完成创建实例操作，不考虑其他修改方法情况下，</span></span><br><span class="line"><span class="comment">     * 对于 getInstance() 这种只读操作，其方法内部就不再存在线程安全问题，</span></span><br><span class="line"><span class="comment">     * 所以，如果已创建对象，完全可以线程并行执行 getInstance() 方法。</span></span><br><span class="line"><span class="comment">     * （创建对象同步执行，后异步执行。）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mSingleton == <span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 同步块</span></span><br><span class="line">            <span class="comment">// 如果实例不存在，加锁同步。</span></span><br><span class="line">            <span class="keyword">synchronized</span> (Singleton.class)&#123;</span><br><span class="line">                <span class="comment">// 为什么做两次判断</span></span><br><span class="line">                <span class="comment">// 因为高并发下，可能两个线程都通过了第一个if，</span></span><br><span class="line">                <span class="comment">// 若A先抢到锁，new了个对象，释放锁，</span></span><br><span class="line">                <span class="comment">// 然后B在抢到锁，B会再new一个对象。</span></span><br><span class="line">                <span class="keyword">if</span> (mSingleton == <span class="literal">null</span>)&#123;</span><br><span class="line">                    mSingleton = <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="静态内部类"><a href="#静态内部类" class="headerlink" title="静态内部类"></a>静态内部类</h3><p>第一次加载 Singleton 类时并不会初始化 mSingleton，只有第一次调用 getInstance 方法时虚拟机加载 SingletonHolder 并初始化 mSingleton。这样不仅能确保线程安全，也能保证 Singleton 类的唯一性。所以，推荐使用静态内部类单例模式。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 静态内部类</span></span><br><span class="line"><span class="comment"> * 更好一些，</span></span><br><span class="line"><span class="comment"> * 既实现了线程安全，又避免了同步带来的性能影响。</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 利用了 classloader 的机制来保证初始化 instance 时只有一个线程，</span></span><br><span class="line"><span class="comment"> * 所以也是线程安全的，同时没有性能损耗。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类级的内部类，也就是静态类的成员式内部类，</span></span><br><span class="line"><span class="comment">     * 该内部类的实例与外部类的实例没有绑定关系，</span></span><br><span class="line"><span class="comment">     * 而且只有被调用时才会装载，</span></span><br><span class="line"><span class="comment">     * 从而实现了延迟加载。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SingletonHolder</span>&#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 静态初始化器，由 JVM 来保证线程安全。</span></span><br><span class="line"><span class="comment">         * 内部类加载：</span></span><br><span class="line"><span class="comment">         * 无论是否是静态，在第一次使用时才会被加载，</span></span><br><span class="line"><span class="comment">         * 类加载时有一种机制叫缓存机制，</span></span><br><span class="line"><span class="comment">         * 第一次加载成功之后会被缓存起来，而且一般一个类不会加载多次。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Singleton</span> <span class="variable">mSingleton</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Singleton</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有化构造函数</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">Singleton</span><span class="params">()</span>&#123;&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title function_">getInstance</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> SingletonHolder.mSingleton;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>kotlin：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>() &#123;</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> instance = SingletonHolder.holder</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">object</span> SingletonHolder &#123;</span><br><span class="line">        <span class="keyword">val</span> holder= Singleton()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h3><p>枚举单例的优点就是简单，但是大部分应用开发很少用枚举，其可读性并不是很高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 枚举</span></span><br><span class="line"><span class="comment"> * 《高效Java第二版》，单元素的枚举类型为最佳方法。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span>  <span class="title class_">Singleton</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义了一个枚举的元素，</span></span><br><span class="line"><span class="comment">     * 它就代表了 Singleton 的一个实例。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    INSTANCE;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 示意方法，</span></span><br><span class="line"><span class="comment">     * 单例可以有自己的操作。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">whateverMethod</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 功能树立</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>默认枚举实例的创建是线程安全的，并且在任何情况下都是单例。在上面的几种单例模式实现中，有一种情况下其会重新创建对象，那就是反序列化：将一个单例实例对象写到磁盘再读回来，从而获得了一个实例。反序列化操作提供了 readResolve 方法，这个方法可以让开发人员控制对象的反序列化。在上述几个方法示例中，如果要杜绝单例对象被反序列化时重新生成对象，就必须加入如下方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Object <span class="title function_">readResolve</span><span class="params">()</span> <span class="keyword">throws</span> ObjectStreamException&#123;</span><br><span class="line">    <span class="keyword">return</span> singleton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="登记式单例（可忽略）"><a href="#登记式单例（可忽略）" class="headerlink" title="登记式单例（可忽略）"></a>登记式单例（可忽略）</h3><p>实际上维护了一组单例类实例，将这些实例存放再Map（登记薄）中，对于已经登记过的实例，Map则直接返回。否则，先登记，再返回。其实，内部实现还是饿汉式。</p>
+<hr>
+<h2 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h2><p>顾名思义，它会创建一些东西。确切地说，它会创建对象。工厂模式的用途是借助通用接口将逻辑与使用分开。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FileName: 面包</span></span><br><span class="line"><span class="comment"> * Profile: 通用接口</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Bread</span> &#123;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">name</span><span class="params">()</span>;</span><br><span class="line">    String <span class="title function_">calories</span><span class="params">()</span>;  <span class="comment">// 卡路里</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FileName: 法国棍子面包</span></span><br><span class="line"><span class="comment"> * Profile: 具体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Baguette</span> <span class="keyword">implements</span> <span class="title class_">Bread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">name</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Baguette&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">calories</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; : 65 kcal&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FileName: 小面包</span></span><br><span class="line"><span class="comment"> * Profile: 具体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Roll</span> <span class="keyword">implements</span> <span class="title class_">Bread</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">name</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Roll&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">calories</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot; : 75 kcal&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FileName: 不同种类的面包工厂</span></span><br><span class="line"><span class="comment"> * Profile: 工厂</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BreadFactory</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Bread <span class="title function_">getBread</span><span class="params">(String breadType)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (breadType == <span class="string">&quot;RAG&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Baguette</span>();</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (breadType == <span class="string">&quot;ROL&quot;</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Roll</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line"><span class="comment">//    private static final String TAG = &quot;tag&quot;;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> DEBUG_TAG = <span class="string">&quot;tag&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line"><span class="comment">//        BreadFactory breadFactory = new BreadFactory();</span></span><br><span class="line"><span class="comment">//        Bread bread = breadFactory.getBread(&quot;ROL&quot;);</span></span><br><span class="line"><span class="comment">//        Log.d(&quot;TAG&quot;,new StringBuilder()</span></span><br><span class="line"><span class="comment">//            .append(bread.name())</span></span><br><span class="line"><span class="comment">//            .append(bread.calories())</span></span><br><span class="line"><span class="comment">//            .toString());</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> breadFactory = BreadFactory()</span><br><span class="line">        <span class="keyword">val</span> breadROL = breadFactory.getBread(<span class="string">&quot;ROL&quot;</span>)</span><br><span class="line">        Log.e(</span><br><span class="line">            DEBUG_TAG, <span class="string">&quot;<span class="subst">$&#123;breadROL.name()&#125;</span><span class="subst">$&#123;breadROL.calories()&#125;</span>&quot;</span></span><br><span class="line">        )</span><br><span class="line">        Log.e(DEBUG_TAG, <span class="string">&quot;-----------------------------&quot;</span>)</span><br><span class="line">        <span class="keyword">val</span> breadRAG = breadFactory.getBread(<span class="string">&quot;RAG&quot;</span>)</span><br><span class="line">        Log.e(</span><br><span class="line">            DEBUG_TAG, <span class="string">&quot;<span class="subst">$&#123;breadRAG.name()&#125;</span><span class="subst">$&#123;breadRAG.calories()&#125;</span>&quot;</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line"><span class="comment">//        打印结果：</span></span><br><span class="line"><span class="comment">//        E/tag: Roll : 75 kcal</span></span><br><span class="line"><span class="comment">//        E/tag: -----------------------------</span></span><br><span class="line"><span class="comment">//        E/tag: Baguette : 65 kcal</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="简单工厂模式"><a href="#简单工厂模式" class="headerlink" title="简单工厂模式"></a>简单工厂模式</h2><p>又叫做静态工厂方法模式，属于创建型设计模式，但是并不属于 23 种 GoF 设计模式之一。</p>
+<p><strong>定义</strong>：这是由一个工厂对象决定创建出哪一种产品类的实例。</p>
+<p>在简单工厂模式中有如下角色：</p>
+<ul>
+<li>Factory：工厂类，这是简单工厂模式的核心，它负责实现创建所有实例的内部逻辑。工厂类的创建产品类的方法可以被外界直接调用，创建所需的产品对象。</li>
+<li>IProduct：抽象产品类，这是简单工厂模式所创建的所有对象的父类，它负责描述所有实例所共有的公共接口。</li>
+<li>Product：具体产品类，这是简单工厂模式的创建目标。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<p>用生产计算机来举例，假设有一个计算机的代工生厂商，它目前已经可以代工生产联想计算机了。随着业务的拓展，这个代工生厂商还要生产惠普和华硕的计算机。这样就需要用一个单独的类来专门生产计算机。</p>
+<p>抽象产品类：创建一个计算机的抽象产品类，其有一个抽象方法用于启动计算机。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Computer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 产品的抽象方法，由具体的产品类实现。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体产品类：创建各个品牌的计算机。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">LenovoComputer</span> <span class="keyword">extends</span> <span class="title class_">Computer</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;联想计算机启动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HpComputer</span> <span class="keyword">extends</span> <span class="title class_">Computer</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;惠普计算机启动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AsusComputer</span> <span class="keyword">extends</span> <span class="title class_">Computer</span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;华硕计算机启动&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>工厂类：它提供了一个静态方法 createComputer 用来生产计算机。只需要传入自己想生产的计算机的品牌，它就会实例化相应品牌的计算机对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ComputerFactory</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Computer <span class="title function_">createComputer</span><span class="params">(String type)</span>&#123;</span><br><span class="line">        <span class="type">Computer</span> <span class="variable">mComputer</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">switch</span> (type)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;lenovo&quot;</span>:</span><br><span class="line">                mComputer = <span class="keyword">new</span> <span class="title class_">LenovoComputer</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;hp&quot;</span>:</span><br><span class="line">                mComputer = <span class="keyword">new</span> <span class="title class_">HpComputer</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;ausu&quot;</span>:</span><br><span class="line">                mComputer = <span class="keyword">new</span> <span class="title class_">AsusComputer</span>();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> mComputer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用工厂类：传入 “hp” 生产出惠普计算机并调用该计算机对象的 start 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CreateComputer</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        ComputerFactory.createComputer(<span class="string">&quot;hp&quot;</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用场景和优缺点</strong></p>
+<ul>
+<li>使用场景：<ul>
+<li>工厂类负责创建的对象比较少。</li>
+<li>客户只需知道传入工厂类的参数，而无需关心创建对象的逻辑。</li>
+</ul>
+</li>
+<li>优点：使用户根据参数获得对应的类的实例，避免了直接实例化类，降低了耦合性。</li>
+<li>缺点：可实例化的类型在编译期间已经被确定。如果增加新类型，则需要修改工厂，这违背了开放封闭原则。简单工厂需要知道所有要生成的类型，其当子类过多或者子类层次过多时不适合使用。</li>
+</ul>
+<hr>
+<h2 id="工厂方法模式"><a href="#工厂方法模式" class="headerlink" title="工厂方法模式"></a>工厂方法模式</h2><p>定义：定义一个用于创建对象的接口，让子类决定实例化哪个类。工厂方法使一个类的实例化延迟到其子类。</p>
+<p>在工厂方法模式中有如下角色</p>
+<ul>
+<li>Product：抽象产品类</li>
+<li>ConcreteProduct：具体产品类，实现 Product 接口。</li>
+<li>Factory：抽象工厂类，该方法返回一个 Product 类型的对象。</li>
+<li>ConcreteFactory：具体工厂类，返回 ConcreteProduct 实例。</li>
+</ul>
+<p>示例</p>
+<p>工厂方法模式的抽象产品类与具体产品类的创建和简单工厂模式是一样的。</p>
+<p>创建抽象工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">ComputerFactory</span>&#123;</span><br><span class="line">  <span class="comment">// 用来生产想要的品牌的计算机</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> &lt;T <span class="keyword">extends</span> <span class="title class_">Computer</span>&gt; T <span class="title function_">createComputer</span><span class="params">(Class&lt;T&gt; clz)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>具体工厂</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 广达代工厂是一个具体的工厂，其继承抽象工厂，通过反射来生产不同厂家的计算机。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GDComputerFactory</span> <span class="keyword">extends</span> <span class="title class_">ComputerFactory</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T <span class="keyword">extends</span> <span class="title class_">Computer</span>&gt; T <span class="title function_">createComputer</span><span class="params">(Class&lt;T&gt; clz)</span> &#123;</span><br><span class="line">        <span class="type">Computer</span> <span class="variable">computer</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">className</span> <span class="operator">=</span> clz.getName();</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">// 通过反射来生产不同厂家的计算机</span></span><br><span class="line">            computer = (Computer) Class.forName(className).newInstance();</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> (T) computer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">client</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="comment">// 客户创建了 GDComputerFactory，并分别生产了各类品牌计算机。</span></span><br><span class="line">        <span class="type">ComputerFactory</span> <span class="variable">computerFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GDComputerFactory</span>();</span><br><span class="line">        <span class="type">LenovoComputer</span> <span class="variable">lenovoComputer</span> <span class="operator">=</span> computerFactory.createComputer(LenovoComputer.class);</span><br><span class="line">        lenovoComputer.start();</span><br><span class="line">        <span class="type">HpComputer</span> <span class="variable">hpComputer</span> <span class="operator">=</span> computerFactory.createComputer(HpComputer.class);</span><br><span class="line">        hpComputer.start();</span><br><span class="line">        <span class="type">AsusComputer</span> <span class="variable">asusComputer</span> <span class="operator">=</span> computerFactory.createComputer(AsusComputer.class);</span><br><span class="line">        asusComputer.start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>工厂方法与简单工厂</p>
+<p>对于简单工厂模式，其在工厂类中包含了必要的逻辑判断，根据不同的条件来动态实例化相关的类。对客户来说，这去除了与具体产品的依赖，但与此同时也带来一个问题，如果要增加产品，比如要生产苹果计算机，就需要在工厂类中添加一个 Case 分支条件，这违背了开放封闭原则，对修改也开放了。而工厂方法模式就没有违背这个开放封闭原则。如果需要生产苹果计算机，则无需修改工厂类，直接创建产品即可。</p>
+<hr>
+<h2 id="建造者模式"><a href="#建造者模式" class="headerlink" title="建造者模式"></a>建造者模式</h2><p>也被称为生成器模式，它是创建一个复杂对象的创建型模式，其将构建复杂对象的过程和它的部件解耦，使得构建过程和部件的表示分离开来。例如要 DIY 一台台式计算机，我们找到 DIY 商家，这时这台计算机的 CPU 、主板或者其它部件都是什么牌子、什么配置的，这些都可以根据需求来变化。对于这些部件的组装成计算机的过程是一样的，我们无需知道组装过程，只需要提供相关部件的牌子和配置就可以了。对于这种情况就可以采用建造者模式，将部件和组装过程分离，使得构建过程和部件都可以自由拓展，两者之间的耦合也降到最低。</p>
+<p>定义：将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+<p>在建造者模式中有如下角色：</p>
+<ul>
+<li>Director：导演类，负责安排已有模块的顺序，然后通知 Builder 开始建造。</li>
+<li>Builder：抽象 Builder 类，规范产品的组建，一般由子类实现。</li>
+<li>ConcreteBuilder：具体建造者，实现抽象 Builder 类定义的所有方法，并且返回一个组建好的对象。</li>
+<li>Product：产品类。</li>
+</ul>
+<p>示例：以 DIY 组装计算机的例子来实现</p>
+<p>创建产品类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 要组装一台计算机，计算机被抽象为 Computer 类，</span></span><br><span class="line"><span class="comment"> * 它有 3 个部件：CPU，主板和内存，</span></span><br><span class="line"><span class="comment"> * 并提供了 3 个方法分别用来设置它们。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Computer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String mCPU;</span><br><span class="line">    <span class="keyword">private</span> String mMainboard;</span><br><span class="line">    <span class="keyword">private</span> String mRam;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setmCPU</span><span class="params">(String mCPU)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mCPU = mCPU;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setmMainboard</span><span class="params">(String mMainboard)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mMainboard = mMainboard;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setmRam</span><span class="params">(String mRam)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mRam = mRam;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>创建 Builder 类规范产品的组建</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 商家组装计算机有一套组装方法的模板，就是一个抽象 Builder 类，</span></span><br><span class="line"><span class="comment"> * 里面提供了安装 CPU 、主板和内存的方法，以及组成计算机的 create 方法。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title class_">Builder</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">buildCPU</span><span class="params">(String cpu)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">buildMainboard</span><span class="params">(String mainboard)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">buildRam</span><span class="params">(String ram)</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> Computer <span class="title function_">create</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 商家实现了抽象的 Builder 类，MoonComputerBuilder 类用于组装计算机。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MoonComputerBuilder</span> <span class="keyword">extends</span> <span class="title class_">Builder</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Computer</span> <span class="variable">mComputer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Computer</span>();</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildCPU</span><span class="params">(String cpu)</span> &#123;</span><br><span class="line">        mComputer.setmCPU(cpu);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildMainboard</span><span class="params">(String mainboard)</span> &#123;</span><br><span class="line">        mComputer.setmMainboard(mainboard);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">buildRam</span><span class="params">(String ram)</span> &#123;</span><br><span class="line">        mComputer.setmRam(ram);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> Computer <span class="title function_">create</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> mComputer;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>用导演类来统一组装过程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 商家的导演类用来规范组装计算机的流程规范，</span></span><br><span class="line"><span class="comment"> * 先安装主板，再安装 CPU，最后安装内存并组装成计算机。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Director</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="type">Builder</span> <span class="variable">mBuild</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Director</span><span class="params">(Builder build)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mBuild = build;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Computer <span class="title function_">CreateComputer</span><span class="params">(String cpu,String mainboard,String ram)</span>&#123;</span><br><span class="line">        <span class="comment">// 规范建造流程</span></span><br><span class="line">        <span class="built_in">this</span>.mBuild.buildMainboard(mainboard);</span><br><span class="line">        <span class="built_in">this</span>.mBuild.buildCPU(cpu);</span><br><span class="line">        <span class="built_in">this</span>.mBuild.buildRam(ram);</span><br><span class="line">        <span class="keyword">return</span> mBuild.create();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>客户端调用导演类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 最后商家用导演类组装计算机。</span></span><br><span class="line"><span class="comment"> * 我们只需要提供自己想要的 CPU、主板和内存就可以了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CreateComputer</span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        <span class="type">Builder</span> <span class="variable">mBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MoonComputerBuilder</span>();</span><br><span class="line">        <span class="type">Director</span> <span class="variable">mDirector</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Director</span>(mBuilder);</span><br><span class="line">        <span class="comment">// 组装计算机</span></span><br><span class="line">        mDirector.CreateComputer(<span class="string">&quot;i7-6700&quot;</span>,<span class="string">&quot;华擎玩家至尊&quot;</span>,<span class="string">&quot;三星 DDR4&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用场景和优缺点</p>
+<ul>
+<li>使用场景：<ul>
+<li>当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时。</li>
+<li>相同的方法，不同的执行顺序，产生不同的事件结果时。</li>
+<li>多个部件或零件都可以被装配到一个对象中，但是产生的运行结果又不相同时。</li>
+<li>产品类非常复杂，或者产品类中的调用顺序不同而产生了不同的功能。</li>
+<li>在创建一些复杂的对象时，这些对象的内部组成构件间的建造顺序是稳定的，但是对象的内部组成构件面临着复杂的变化。</li>
+</ul>
+</li>
+<li>优点：<ul>
+<li>使用建造者模式可以使客户端不必知道产品内部组成的细节。</li>
+<li>具体的建造者类之间是相互独立的，容易扩展。</li>
+<li>由于具体的建造者是独立的，因此可以对建造过程逐步细化，而不对其它的模块产生任何影响。</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>产生多余的 Build 对象以及导演类。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/itachi85">Android 进阶之光</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/9197097e.html" title="创建型设计模式">https://jianghouren.cn/archives/9197097e.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/7fa03ba0.html" rel="prev" title="理解 WindowManagerService">
+                  <i class="fa fa-chevron-left"></i> 理解 WindowManagerService
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/c870133e.html" rel="next" title="结构型设计模式">
+                  结构型设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/9197097e.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

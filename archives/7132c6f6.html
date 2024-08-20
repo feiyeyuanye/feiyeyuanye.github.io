@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="JVM 基本原理(1)">
+<meta property="og:url" content="https://jianghouren.cn/archives/7132c6f6.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-10-28T07:54:34.000Z">
+<meta property="article:modified_time" content="2022-04-28T09:02:49.089Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="虚拟机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/7132c6f6.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/7132c6f6.html","path":"archives/7132c6f6.html","title":"JVM 基本原理(1)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>JVM 基本原理(1) | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E4%BB%A3%E7%A0%81%E6%98%AF%E6%80%8E%E4%B9%88%E8%BF%90%E8%A1%8C%E7%9A%84"><span class="nav-number">1.</span> <span class="nav-text">Java 代码是怎么运行的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88-Java-%E8%A6%81%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E9%87%8C%E8%BF%90%E8%A1%8C"><span class="nav-number">1.1.</span> <span class="nav-text">为什么 Java 要在虚拟机里运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-%E5%85%B7%E4%BD%93%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C-Java-%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84"><span class="nav-number">1.2.</span> <span class="nav-text">JVM 具体是怎样运行 Java 字节码的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-%E7%9A%84%E8%BF%90%E8%A1%8C%E6%95%88%E7%8E%87%E7%A9%B6%E7%AB%9F%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84"><span class="nav-number">1.3.</span> <span class="nav-text">JVM 的运行效率究竟是怎样的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">Java 的基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84-boolean-%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Java 虚拟机的 boolean 类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B-1"><span class="nav-number">2.2.</span> <span class="nav-text">Java 的基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">2.3.</span> <span class="nav-text">Java 基本类型的大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%98%AF%E5%A6%82%E4%BD%95%E5%8A%A0%E8%BD%BD-Java-%E7%B1%BB%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">Java 虚拟机是如何加载 Java 类的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM-%E6%98%AF%E5%A6%82%E4%BD%95%E6%89%A7%E8%A1%8C%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E7%9A%84"><span class="nav-number">4.</span> <span class="nav-text">JVM 是如何执行方法调用的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99"><span class="nav-number">4.1.</span> <span class="nav-text">重载与重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM-%E7%9A%84%E9%9D%99%E6%80%81%E7%BB%91%E5%AE%9A%E5%92%8C%E5%8A%A8%E6%80%81%E7%BB%91%E5%AE%9A"><span class="nav-number">4.2.</span> <span class="nav-text">JVM 的静态绑定和动态绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E6%8C%87%E4%BB%A4%E7%9A%84%E7%AC%A6%E5%8F%B7%E5%BC%95%E7%94%A8"><span class="nav-number">4.3.</span> <span class="nav-text">调用指令的符号引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8"><span class="nav-number">4.4.</span> <span class="nav-text">虚方法调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E8%A1%A8"><span class="nav-number">4.5.</span> <span class="nav-text">方法表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E8%81%94%E7%BC%93%E5%AD%98"><span class="nav-number">4.6.</span> <span class="nav-text">内联缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/7132c6f6.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="JVM 基本原理(1) | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM 基本原理(1)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-10-28 15:54:34" itemprop="dateCreated datePublished" datetime="2019-10-28T15:54:34+08:00">2019-10-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 17:02:49" itemprop="dateModified" datetime="2022-04-28T17:02:49+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/7132c6f6.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/7132c6f6.html" data-xid="/archives/7132c6f6.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/7132c6f6.html" class="post-meta-item leancloud_visitors" data-flag-title="JVM 基本原理(1)" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/天空之城.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="Java-代码是怎么运行的"><a href="#Java-代码是怎么运行的" class="headerlink" title="Java 代码是怎么运行的"></a><p class="m_more_title_style">Java 代码是怎么运行的</p></h2><p>Java 代码的多种运行方式：<br>可在开发工具中运行，可双击执行 jar 文件运行，可在命令行中运行，可在网页中运行。</p>
+<p>相较于 C++ 的直接将代码编译成 CPU 所能理解的的机器码（无需额外的运行时），Java 代码的执行则离不开 JRE（Java 运行时环境，仅包含运行 Java 程序的必须组件，如 Java 虚拟机以及 Java 核心类库等）。</p>
+<h3 id="为什么-Java-要在虚拟机里运行"><a href="#为什么-Java-要在虚拟机里运行" class="headerlink" title="为什么 Java 要在虚拟机里运行"></a>为什么 Java 要在虚拟机里运行</h3><p>因为 Java 的语法非常复杂，抽象程度也很高，所以直接在硬件上运行这种复杂的程序并不现实。<br>在运行 Java 程序之前，要对其进行一番转换，转换的思路如下：<br>设计一个面向 Java 语言特性的虚拟机，并通过编译器将 Java 程序转换成该虚拟机所能识别的指令序列，也称 Java 字节码（因为 Java 字节码指令的操作码(opcode)被固定为一个字节）。</p>
+<p>JVM 可由硬件实现，但更常见的是在现有平台上提供软件实现（意义在于，一旦一个程序被转换成 Java 字节码，那么它便可以在不同平台的虚拟机实现里运行，提供了可移植性）。</p>
+<p>虚拟机还带来了一个托管环境（Managed Runtime）。其能够代替我们处理一些代码中冗长而且容易出错的部分。其中最广为人知的当属自动内存管理与垃圾回收。<br>托管环境还提供了诸如数组越界、动态类型、安全权限等等的动态检测，使我们免于书写这些无关业务逻辑的代码。</p>
+<h3 id="JVM-具体是怎样运行-Java-字节码的"><a href="#JVM-具体是怎样运行-Java-字节码的" class="headerlink" title="JVM 具体是怎样运行 Java 字节码的"></a>JVM 具体是怎样运行 Java 字节码的</h3><p>从虚拟机视角来看，执行 Java 代码首先需要将它编译而成的 class 文件加载到 JVM 中。加载后的 Java 类会被存放于方法区（Method Area）中。实际运行时，虚拟机会执行方法区内的代码。<br>除了方法区，JVM 还在内存中划分出堆和栈来存储运行时数据，JVM 内存中的五个区域：</p>
+<ul>
+<li>方法区(线程共享)：</li>
+<li>堆(线程共享)：</li>
+<li>Java 方法栈(线程私有)：面向 Java 方法</li>
+<li>本地方法栈(线程私有)：面向本地方法（用 C++ 写的 native 方法）</li>
+<li>PC 寄存器(线程私有)：存放各个线程执行位置</li>
+</ul>
+<p>在运行过程中，每当调用进入一个 Java 方法，JVM 会在当前线程的 Java 方法栈中生成一个栈帧，用以存放局部变量以及字节码的操作数。这个栈帧的大小是提前计算好的，而且虚拟机不要求栈帧在内存空间里连续分布。</p>
+<p>在退出当前执行的方法时，不管是正常返回还是异常返回，JVM 均会弹出当前线程的当前栈帧，并将之舍弃。</p>
+<p>从硬件视角来看，Java 字节码无法直接执行。因此，JVM 需要将字节码翻译成机器码。<br>在 HotSpot 中，上述翻译过程有两种形式：</p>
+<ul>
+<li>解释执行：逐条将字节码翻译成机器码并执行<br>优势在于无需等待编译</li>
+<li>即时编译(Just-In-Time compilation，JIT)：将一个方法中包含的所有字节码编译成机器码后再执行<br>优势在于实际运行速度更快</li>
+</ul>
+<p>HotSpot 默认采用混合模式，综合两者优点。它会先解释执行字节码，而后将其中反复执行的热点代码，以方法为单位进行即时编译。</p>
+<h3 id="JVM-的运行效率究竟是怎样的"><a href="#JVM-的运行效率究竟是怎样的" class="headerlink" title="JVM 的运行效率究竟是怎样的"></a>JVM 的运行效率究竟是怎样的</h3><p>为了满足不同用户场景的需要，HotSpot 内置了多个即时编译器，用以在编译时间和生成代码的执行效率之间进行取舍：</p>
+<ul>
+<li>C1：又叫做 Client 编译器，面向的是对启动性能有要求的客户端 GUI 程序，采用的优化手段相对简单，因此编译时间较短。</li>
+<li>C2：又叫做 Server 编译器，面向的是对峰值性能有要求的服务器端程序，采用的优化手段相对复杂，因此编译时间较长，但同时生成代码的执行效率较高。</li>
+<li>Graal：</li>
+</ul>
+<p>从 Java 7 开始，HotSpot 默认采用分层编译的方式：热点方法首先会被 C1 编译，而后热点方法中的热点会进一步被 C2 编译。</p>
+<p>为了不干扰应用的正常运行，HotSpot 的即时编译是放在额外的编译线程中进行的。<br>HotSpot 会根据 CPU 的数量设置编译线程的数目，并且按 1:2 的比例配置给 C1 及 C2 编译器。</p>
+<p>在计算资源充足的情况下，字节码的解释执行和即时编译可同时进行。编译完成后的机器码会在下次调用该方法时启用，以替换原本的解释执行。</p>
+<hr>
+<h2 id="Java-的基本类型"><a href="#Java-的基本类型" class="headerlink" title="Java 的基本类型"></a><p class="m_more_title_style">Java 的基本类型</p></h2><p>Java 引进了八个基本类型，来支持数值计算。这么做的原因是使用基本类型能够在执行效率以及内存使用两方面提升软件性能。</p>
+<h3 id="Java-虚拟机的-boolean-类型"><a href="#Java-虚拟机的-boolean-类型" class="headerlink" title="Java 虚拟机的 boolean 类型"></a>Java 虚拟机的 boolean 类型</h3><p>在 Java 语言规范中，boolean 类型的值只有两种可能，它们分别用符号“true”和“false”来表示。显然，这两个符号是不能被虚拟机直接使用的。</p>
+<p>在 Java 虚拟机规范中，boolean 类型则被映射成 int 类型。具体来说，“true”被映射为整数 1，而“false”被映射为整数 0。这个编码规则约束了 Java 字节码的具体实现。</p>
+<p>Java 虚拟机规范同时也要求 Java 编译器遵守这个编码规则，并且用整数相关的字节码来实现逻辑运算，以及基于 boolean 类型的条件跳转。</p>
+<h3 id="Java-的基本类型-1"><a href="#Java-的基本类型-1" class="headerlink" title="Java 的基本类型"></a>Java 的基本类型</h3><p>除了上面提到的 boolean 类型外，Java 的基本类型还包括整数类型 byte、short、char、int 和 long，以及浮点类型 float 和 double。</p>
+<p>Java 的基本类型都有对应的值域和默认值。可以看到，byte、short、int、long、float 以及 double 的值域依次扩大，而且前面的值域被后面的值域所包含。因此，从前面的基本类型转换至后面的基本类型，无需强制转换。另外一点值得注意的是，尽管他们的默认值看起来不一样，但在内存中都是 0。</p>
+<p>在这些基本类型中，boolean 和 char 是唯二的无符号类型。在不考虑违反规范的情况下，boolean 类型的取值范围是 0 或者 1。char 类型的取值范围则是 [0, 65535]。通常我们可以认定 char 类型的值为非负数。这种特性十分有用，比如说作为数组索引等。</p>
+<p>Java 的浮点类型采用 IEEE 754 浮点数格式。以 float 为例，浮点类型通常有两个 0，+0.0F 以及 -0.0F。</p>
+<p>NaN 有一个有趣的特性：除了“!&#x3D;”始终返回 true 之外，所有其他比较结果都会返回 false。</p>
+<h3 id="Java-基本类型的大小"><a href="#Java-基本类型的大小" class="headerlink" title="Java 基本类型的大小"></a>Java 基本类型的大小</h3><p>供解释器使用的解释栈帧（interpreted frame）有两个主要的组成部分，分别是局部变量区，以及字节码的操作数栈。</p>
+<p>在 Java 虚拟机规范中，局部变量区等价于一个数组，并且可以用正整数来索引。<br>除 long 和 double 外（需用两个数组单元来存储），其他基本类型与引用类型在解释执行的方法栈帧中占用的大小是一致的（均占用一个数组单元。HotSpot 中，32 位占 4 字节，64 位占 8 字节），但它们在堆中占用的大小确不同（跟这些类型的值域相吻合。boolean、byte、short、char、int、long、float 和 double 依次为 1 字节、1 字节、2 字节、2 字节、4 字节、8 字节、4 字节和 8 字节）。原因主要是变长数组不好控制，所以就选择浪费一些空间，以便访问时直接通过下标来计算地址。</p>
+<p>在将 boolean、byte、char 以及 short 的值存入字段或者数组单元时，Java 虚拟机会进行掩码操作。在读取时，Java 虚拟机则会将其扩展为 int 类型（JVM 的算数运算几乎全部依赖于操作数栈。也就是说，需要将堆中的 boolean、byte、char 以及 short 加载到操作数栈上，而后将栈上的值当成 int 类型来运算）。</p>
+<hr>
+<h2 id="Java-虚拟机是如何加载-Java-类的"><a href="#Java-虚拟机是如何加载-Java-类的" class="headerlink" title="Java 虚拟机是如何加载 Java 类的"></a><p class="m_more_title_style">Java 虚拟机是如何加载 Java 类的</p></h2><p>Java 语言的类型可以分为两大类：基本类型（primitive types）和引用类型（reference types）；</p>
+<ul>
+<li>Java 的基本类型，它们是由 Java 虚拟机预先定义好的。</li>
+<li>Java 将引用类型细分为四种：类、接口、数组类和泛型参数。由于泛型参数会在编译过程中被擦除，因此 Java 虚拟机实际上只有前三种。在类、接口和数组类中，数组类是由 Java 虚拟机直接生成的，其他两种则有对应的字节流。</li>
+</ul>
+<p>说到字节流，最常见的形式要属由 Java 编译器生成的 class 文件。除此之外，我们也可以在程序内部直接生成，或者从网络中获取（例如网页中内嵌的小程序 Java applet）字节流。这些不同形式的字节流，都会被加载到 Java 虚拟机中，成为类或接口。</p>
+<p>Java 虚拟机将字节流转化为 Java 类的过程可分为加载、链接以及初始化三大步骤；</p>
+<ul>
+<li>加载是指查找字节流，并且据此创建类的过程。加载需要借助类加载器，在 Java 虚拟机中，类加载器使用了双亲委派模型，即接收到加载请求时，会先将请求转发给父类加载器。</li>
+<li>链接，是指将创建成的类合并至 Java 虚拟机中，使之能够执行的过程。链接还分验证、准备和解析三个阶段。其中，解析阶段为非必须的。</li>
+<li>初始化，则是为标记为常量值的字段赋值，以及执行 &lt; clinit &gt; 方法的过程。类的初始化仅会被执行一次，这个特性被用来实现单例的延迟初始化。</li>
+</ul>
+<hr>
+<h2 id="JVM-是如何执行方法调用的"><a href="#JVM-是如何执行方法调用的" class="headerlink" title="JVM 是如何执行方法调用的"></a><p class="m_more_title_style">JVM 是如何执行方法调用的</p></h2><h3 id="重载与重写"><a href="#重载与重写" class="headerlink" title="重载与重写"></a>重载与重写</h3><p>重载指的是方法名相同而参数类型不相同的方法之间的关系，重写指的是方法名相同并且参数类型也相同的方法之间的关系。</p>
+<p>Java 虚拟机识别方法的方式略有不同，除了方法名和参数类型之外，它还会考虑返回类型。</p>
+<p>重载的方法在编译过程中即可完成识别。具体到每一个方法调用，Java 编译器会根据所传入参数的声明类型（注意与实际类型区分）来选取重载方法。选取的过程共分为三个阶段：与是否考虑对基本类型自动装拆箱（auto-boxing，auto-unboxing），以及是否允许可变长参数的情况下选取重载方法；</p>
+<p>如果 Java 编译器在同一个阶段中找到了多个适配的方法，那么它会在其中选择一个最为贴切的，而决定贴切程度的一个关键就是形式参数类型的继承关系。</p>
+<p>除了同一个类中的方法，重载也可以作用于这个类所继承而来的方法。<br>也就是说，如果子类定义了与父类中非私有方法同名的方法，而且这两个方法的参数类型不同（如果参数类型相同，如果这两个方法都是静态的，那么子类中的方法隐藏了父类中的方法。如果这两个方法都不是静态的，且都不是私有的，那么子类的方法重写了父类中的方法），那么在子类中，这两个方法同样构成了重载。</p>
+<h3 id="JVM-的静态绑定和动态绑定"><a href="#JVM-的静态绑定和动态绑定" class="headerlink" title="JVM 的静态绑定和动态绑定"></a>JVM 的静态绑定和动态绑定</h3><p>Java 虚拟机识别方法的关键在于类名、方法名以及方法描述符（由方法的参数类型以及返回类型所构成）。</p>
+<p>在 Java 虚拟机中，静态绑定指的是在解析时便能够直接识别目标方法的情况，而动态绑定则指的是需要在运行过程中根据调用者的动态类型来识别目标方法的情况。由于 Java 编译器已经区分了重载的方法，因此可以认为 Java 虚拟机中不存在重载。</p>
+<h3 id="调用指令的符号引用"><a href="#调用指令的符号引用" class="headerlink" title="调用指令的符号引用"></a>调用指令的符号引用</h3><p>在 class 文件中，Java 编译器会用符号引用指代目标方法。在执行调用指令前，它所附带的符号引用需要被解析成实际引用。对于可以静态绑定的方法调用而言，实际引用为目标方法的指针。对于需要动态绑定的方法调用而言，实际引用为辅助动态绑定的信息。</p>
+<h3 id="虚方法调用"><a href="#虚方法调用" class="headerlink" title="虚方法调用"></a>虚方法调用</h3><p>虚方法调用包括 invokevirtual（Java 里所有非私有实例方法调用都会被编译成） 指令和 invokeinterface（接口方法调用都会被编译成） 指令。如果这两种指令所声明的目标方法被标记为 final，那么 Java 虚拟机会采用静态绑定。</p>
+<p>否则，Java 虚拟机将采用动态绑定，在运行过程中根据调用者的动态类型，来决定具体的目标方法。</p>
+<h3 id="方法表"><a href="#方法表" class="headerlink" title="方法表"></a>方法表</h3><p>Java 虚拟机的动态绑定是通过方法表这一数据结构来实现的。方法表中每一个重写方法的索引值，与父类方法表中被重写的方法的索引值一致。</p>
+<p>在解析虚方法调用时，Java 虚拟机会纪录下所声明的目标方法的索引值，并且在运行过程中根据这个索引值查找具体的目标方法。</p>
+<h3 id="内联缓存"><a href="#内联缓存" class="headerlink" title="内联缓存"></a>内联缓存</h3><p>Java 虚拟机中的即时编译器会使用内联缓存来加速动态绑定。Java 虚拟机所采用的单态内联缓存将纪录调用者的动态类型，以及它所对应的目标方法。</p>
+<p>当碰到新的调用者时，如果其动态类型与缓存中的类型匹配，则直接调用缓存的目标方法。</p>
+<p>否则，Java 虚拟机将该内联缓存劣化为超多态内联缓存，在今后的执行过程中直接使用方法表进行动态绑定。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://time.geekbang.org/column/intro/108">极客时间-深入拆解Java虚拟机</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/7132c6f6.html" title="JVM 基本原理(1)">https://jianghouren.cn/archives/7132c6f6.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"># 虚拟机</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/e4b9d37a.html" rel="prev" title="Android 主题颜色属性">
+                  <i class="fa fa-chevron-left"></i> Android 主题颜色属性
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/5a1f9535.html" rel="next" title="JVM 基本原理(2)">
+                  JVM 基本原理(2) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/7132c6f6.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

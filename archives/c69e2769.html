@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Java 虚拟机">
+<meta property="og:url" content="https://jianghouren.cn/archives/c69e2769.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-11-22T00:47:34.000Z">
+<meta property="article:modified_time" content="2022-04-28T06:52:04.473Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="虚拟机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/c69e2769.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/c69e2769.html","path":"archives/c69e2769.html","title":"Java 虚拟机"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java 虚拟机 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%AE%B6%E6%97%8F"><span class="nav-number">1.1.</span> <span class="nav-text">Java 虚拟机家族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%89%A7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">Java 虚拟机执行流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">Java 虚拟机结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.1.</span> <span class="nav-text">Class 文件格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.2.</span> <span class="nav-text">类的生命周期</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%AD%90%E7%B3%BB%E7%BB%9F"><span class="nav-number">2.3.</span> <span class="nav-text">类加载子系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.4.</span> <span class="nav-text">运行时数据区域</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">3.</span> <span class="nav-text">对象的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%A0%86%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="nav-number">4.</span> <span class="nav-text">对象的堆内存布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#oop-klass-%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">oop-klass 模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E6%A0%87%E8%AE%B0%E7%AE%97%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">垃圾标记算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8"><span class="nav-number">6.1.</span> <span class="nav-text">Java 中的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">引用计数法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95"><span class="nav-number">6.3.</span> <span class="nav-text">根搜索算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-%E5%AF%B9%E8%B1%A1%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%AD%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">7.</span> <span class="nav-text">Java 对象在虚拟机中的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">8.</span> <span class="nav-text">垃圾收集算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="nav-number">8.1.</span> <span class="nav-text">标记-清除算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="nav-number">8.2.</span> <span class="nav-text">复制算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AE%B0-%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95"><span class="nav-number">8.3.</span> <span class="nav-text">标记-压缩算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="nav-number">8.4.</span> <span class="nav-text">分代收集算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">9.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/c69e2769.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java 虚拟机 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 虚拟机
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-22 08:47:34" itemprop="dateCreated datePublished" datetime="2019-11-22T08:47:34+08:00">2019-11-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 14:52:04" itemprop="dateModified" datetime="2022-04-28T14:52:04+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/JVM/" itemprop="url" rel="index"><span itemprop="name">JVM</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/c69e2769.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/c69e2769.html" data-xid="/archives/c69e2769.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/c69e2769.html" class="post-meta-item leancloud_visitors" data-flag-title="Java 虚拟机" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/四月是你的谎言.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a><p class="m_more_title_style">概述</p></h2><p>JDK 包含了 Java 语言、Java 虚拟机和 Java API 类库三部分，是 Java 程序开发的最小环境。<br>JRE 包含了 Java API 中的 Java SE API 子集和 Java 虚拟机两部分，是 Java 程序运行的标准环境。</p>
+<h3 id="Java-虚拟机家族"><a href="#Java-虚拟机家族" class="headerlink" title="Java 虚拟机家族"></a>Java 虚拟机家族</h3><p>包括 HotSpot VM、J9 VM 和 Zing VM 等。</p>
+<h3 id="Java-虚拟机执行流程"><a href="#Java-虚拟机执行流程" class="headerlink" title="Java 虚拟机执行流程"></a>Java 虚拟机执行流程</h3><p>分为两大部分，编译时环境和运行时环境，当一个 Java 文件经过 Java 编译器编译后生成 Class 文件，这个文件由 Java 虚拟机处理。<br>Java 虚拟机与 Java 语言没有什么必然的联系，它只与特定的二进制文件：Class 文件有关。</p>
+<hr>
+<h2 id="Java-虚拟机结构"><a href="#Java-虚拟机结构" class="headerlink" title="Java 虚拟机结构"></a><p class="m_more_title_style">Java 虚拟机结构</p></h2><p>抽象的 JVM 结构包括：</p>
+<ul>
+<li>运行时数据区域：</li>
+<li>方法区：线程共享</li>
+<li>Java 堆：线程共享</li>
+<li>Java 虚拟机栈：线程私有</li>
+<li>本地方法栈：线程私有</li>
+<li>程序计数器：线程私有</li>
+<li>执行引擎：</li>
+<li>即时编译器：线程共享</li>
+<li>垃圾回收器：线程共享</li>
+<li>本地库接口：线程共享</li>
+<li>本地方法库：线程私有</li>
+<li>其中类加载子系统并不属于 JVM 的内部结构：线程私有</li>
+</ul>
+<h3 id="Class-文件格式"><a href="#Class-文件格式" class="headerlink" title="Class 文件格式"></a>Class 文件格式</h3><p>Java 文件被编译后生成 Class 文件，这种二进制格式文件不依赖于特定的硬件和操作系统。每一个 Class 文件中都对应着唯一的类或者接口的定义信息，但是类或接口并不一定定义在文件中，比如它们可通过类加载器来直接生成。</p>
+<h3 id="类的生命周期"><a href="#类的生命周期" class="headerlink" title="类的生命周期"></a>类的生命周期</h3><p>一个 Java 文件被加载到 Java 虚拟机内存中到从内存中卸载的过程，被称为类的生命周期。</p>
+<p>类的生命周期包括：加载、链接、初始化、使用和卸载。</p>
+<p>广义上类的加载包括：</p>
+<ul>
+<li>加载：查找并加载 Class 文件。</li>
+<li>根据特定名称查找类或接口类型的二进制字节流。(由类加载子系统完成)</li>
+<li>将这个二进制字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口。 </li>
+<li>链接：</li>
+<li>验证：确保被导入类型的正确性。</li>
+<li>准备：为类的静态字段分配字段，并用默认值初始化这些字段。</li>
+<li>解析：虚拟机将常量池内的符号引用替换为直接引用。</li>
+<li>初始化：将类变量初始化为正确初始值。</li>
+</ul>
+<h3 id="类加载子系统"><a href="#类加载子系统" class="headerlink" title="类加载子系统"></a>类加载子系统</h3><p>类加载子系统通过多种类加载器来查找和加载 Class 文件到 Java 虚拟机中，Java 虚拟机有两种类加载器：</p>
+<ul>
+<li>系统加载器：包括三种</li>
+<li>Bootstrap ClassLoader（引导类加载器）：用 C++ 代码实现，用于加载指定 JDK 核心类库。</li>
+<li>Extensions ClassLoader（拓展类加载器）：用于加载 Java 扩展类，提供除了系统类之外的额外功能。</li>
+<li>Application ClassLoader（应用程序类加载器）：又称作 System ClassLoader（系统类加载器），因为它可以通过 ClassLoader 的 getSystemClassLoader 方法获取到。</li>
+<li>自定义加载器：通过继承 java.lang.ClassLoader 类的方式来实现自己的类加载器。</li>
+</ul>
+<h3 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h3><ul>
+<li>程序计数器：又称 PC 寄存器，用以确保线程切换后能恢复到正确的执行位置。</li>
+<li>Java 虚拟机栈：生命周期与线程相同，其内存储线程中 Java 方法调用的状态，并且包含多个栈帧。</li>
+<li>本地方法栈：与 Java 虚拟机栈类似，用来支持 Native 方法的。</li>
+<li>Java 堆：用以存储对象实例并被垃圾收集器管理。</li>
+<li>方法区：用以存储已经被 jvm 加载的类的结构信息。</li>
+<li>运行时常量池：可理解为类或接口的常量池的运行时表现形式。（常量池指用来存放编译时期生成的字面量和符号引用）</li>
+</ul>
+<hr>
+<h2 id="对象的创建"><a href="#对象的创建" class="headerlink" title="对象的创建"></a><p class="m_more_title_style">对象的创建</p></h2><p>当虚拟机接收到一个 new 指令时，会有如下操作：</p>
+<ul>
+<li>判断对象对应的类是否加载、链接和初始化</li>
+<li>为对象分配内存</li>
+<li>处理并发安全问题</li>
+<li>初始化分配到的内存空间</li>
+<li>设置对象的对象头</li>
+<li>执行 init 方法进行初始化</li>
+</ul>
+<p>当虚拟机收到一个 new 指令时，首先会判断对象对应的类是否加载，链接和初始化，然后为对象分配内存并处理并发安全问题，然后初始化分配到的内存空间，为对象设置对象头，最后执行 init 方法进行初始化。</p>
+<p>类的加载过程，Person  p  &#x3D; new Person(); 为例进行说明。</p>
+<ul>
+<li><p>因为new用到了Person.class，所以会先找到Person.class文件，并加载到内存中;</p>
+</li>
+<li><p>执行该类中的static代码块，如果有的话，给Person.class类进行初始化;</p>
+</li>
+<li><p>在堆内存中开辟空间分配内存地址;</p>
+</li>
+<li><p>在堆内存中建立对象的特有属性，并进行默认初始化;</p>
+</li>
+<li><p>对属性进行显示初始化;</p>
+</li>
+<li><p>对对象进行构造代码块初始化;</p>
+</li>
+<li><p>对对象进行与之对应的构造函数进行初始化;</p>
+</li>
+<li><p>将内存地址付给栈内存中的 p 变量</p>
+</li>
+</ul>
+<p>首先查找并加载 person.class 文件，然后执行该类中的静态代码块，并初始化 person.class 类。然后在堆内存中开辟空间分配内存地址，再经过一系列的初始化过程（特有属性，构造代码块，构造函数），最后将内存地址付给栈内存中的 p 变量。</p>
+<hr>
+<h2 id="对象的堆内存布局"><a href="#对象的堆内存布局" class="headerlink" title="对象的堆内存布局"></a><p class="m_more_title_style">对象的堆内存布局</p></h2><p>以 HotSpot 虚拟机为例，分三个区域：</p>
+<ul>
+<li>对象头（Header）：包括两部分信息。</li>
+<li>Mark World：用于存储对象运行时的数据。</li>
+<li>元数据指针：用于指向方法区中目标类的元数据，通过它可以确定对象的具体类型。</li>
+<li>实例数据（Instance Data）：用于存储对象中的各种类型的字段信息（包括从父类继承来的）。</li>
+<li>对齐填充（padding）：不一定存在，起到了占位符的作用，没有特别的含义。</li>
+</ul>
+<p>以 HotSpot 为例，分三个区域。对象头，实例数据和对其填充。其中对象头包括两部分信息，Mark World 和元数据指针，Mark World 用来存储其运行时数据，元数据指针用来确定其具体类型，实例数据用来存储对象各种类型的字段信息，对其填充不一定存在，起到占位符的作用，没有实际意义。</p>
+<hr>
+<h2 id="oop-klass-模型"><a href="#oop-klass-模型" class="headerlink" title="oop-klass 模型"></a><p class="m_more_title_style">oop-klass 模型</p></h2><p>用来描述 Java 对象实例的一种模型，分为两个部分：</p>
+<ul>
+<li>OOP：指的是普通对象指针，用来表示对象的实例信息。</li>
+<li>klass：用来描述元数据。</li>
+</ul>
+<hr>
+<h2 id="垃圾标记算法"><a href="#垃圾标记算法" class="headerlink" title="垃圾标记算法"></a><p class="m_more_title_style">垃圾标记算法</p></h2><p>垃圾收集器，通常被称作 GC。其主要做了两个工作：</p>
+<ul>
+<li>内存的划分和分配</li>
+<li>对垃圾进行回收</li>
+</ul>
+<p>以我的理解简单的解释下，GC就是垃圾回收机制，分为检测垃圾和回收垃圾两步。</p>
+<p>检测垃圾两种方法：引用计数法（无法处理循环引用的问题）。可达性分析算法（重点看这个），可以想象为一个有向图，以根集对象为起始点，如果对象不可达，则是垃圾对象。（接下来为个人理解，不知是否正确）比如，java以main为入口，其中创建了两个对象A和B，则在堆内存中，给A对象实例和B对象实例分配内存，在栈内存中持有他们的引用变量。这时有向图为：mian-&gt;A(堆)-&gt;A(栈)，mian-&gt;B(堆)-&gt;B(栈)。将对象A赋值给对象B，即0bjectB&#x3D;objectA，则B的引用变量也指向了A(堆)，不再指向B(堆)。这时B(堆)则是自己孤零零的呆在堆内存中，没有引用变量指向他，也就意味着B(堆)和main是不通的（也就是不存在main入口到他的持续指向箭头），B(堆)就叫做对象不可达，可以被回收。</p>
+<p>为什么说长生命周期持有短生命周期的对象，会导致短生命周期对象无法释放。GC回收是通过对象是否可达来判断，然后长生命周期对象持有短生命周期的对象，就会导致对象一直是可达的。。以上面对象A和对象B为例，引用变量A和引用变量B都指向堆内存中的A对象实例，这时就有两个连通的线路；mian-&gt;A(堆)-&gt;A(栈)，mian-&gt;B(堆)-&gt;A(栈)。所以，即使A对象本身的生命周期走完了，可B对象的生命周期还没走完，依然还会保有对A对象实例的引用。即使第一条线路断开了，第二条还是连通的，则A对象还是可达的，无法被GC回收。</p>
+<h3 id="Java-中的引用"><a href="#Java-中的引用" class="headerlink" title="Java 中的引用"></a>Java 中的引用</h3><ul>
+<li>强引用：当新建一个对象时就创建了一个具有强引用的对象，即使 OOM 它也不会被 GC 回收。</li>
+<li>软引用：内存不够时，会回收这些对象的内存。</li>
+<li>弱引用：不管当前内存是否足够，只要被发现就会回收它的内存。</li>
+<li>虚引用：与没有任何引用一样，任何时候都可能被 GC 回收，但被回收时会收到一个系统通知。</li>
+</ul>
+<h3 id="引用计数法"><a href="#引用计数法" class="headerlink" title="引用计数法"></a>引用计数法</h3><p>其基本思想就是每个对象都有一个引用计数器，当对象在某处被引用时，它的引用计数器就加 1，引用失效就减 1。当值为 0，则该对象就不能被使用，变成了垃圾。</p>
+<p>它没有解决对象之间相互循环引用的问题。</p>
+<h3 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h3><p>其基本思想就是选定一些对象作为 GC Roots，并组成根对象集合，然后以这些 GC Roots 的对象作为起始点，向下搜索，如果目标对象到 GC Roots 是连接着的，就称该目标对象是可达的，如果目标对象不可达则说明目标对象是可以被回收的对象。</p>
+<p>垃圾标记算法有引用计数法和根搜索算法。引用计数法指每个对象都有一个引用计数器，引用成功加一，引用失败减一，当为零时，则成为了垃圾。但此算法不能解决对象循环引用的问题。所以可使用根搜索算法解决，又叫可达性分析算法，指可选用一些对象作为根节点，从根节点到引用对象如果是连接着的，就代表是可达状态，否则为不可达状态可被回收。</p>
+<hr>
+<h2 id="Java-对象在虚拟机中的生命周期"><a href="#Java-对象在虚拟机中的生命周期" class="headerlink" title="Java 对象在虚拟机中的生命周期"></a><p class="m_more_title_style">Java 对象在虚拟机中的生命周期</p></h2><p>在 Java 对象被类加载器加载到虚拟机中后，Java 对象在 JVM 中有 7 个阶段：</p>
+<ol>
+<li>创建阶段</li>
+<li>应用阶段</li>
+<li>不可见阶段</li>
+<li>不可达阶段</li>
+<li>收集阶段</li>
+<li>终结阶段</li>
+<li>对象空间重新分配阶段</li>
+</ol>
+<hr>
+<h2 id="垃圾收集算法"><a href="#垃圾收集算法" class="headerlink" title="垃圾收集算法"></a><p class="m_more_title_style">垃圾收集算法</p></h2><h3 id="标记-清除算法"><a href="#标记-清除算法" class="headerlink" title="标记-清除算法"></a>标记-清除算法</h3><p>它将垃圾收集分两个阶段：</p>
+<ul>
+<li>标记阶段：标记出可以回收的对象。</li>
+<li>清除阶段：回收被标记的对象所占用的空间。</li>
+</ul>
+<p>它主要有两个缺点：</p>
+<ul>
+<li>标记和清除的效率都不高</li>
+<li>容易产生大量不连续的内存碎片</li>
+</ul>
+<h3 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h3><p>为了解决标记-清除算法的效率不高的问题。其广泛应用于新生代中。</p>
+<p>它把内存空间划分为两个相等的区域，每次只使用其中一个区域。在垃圾收集时，遍历当前使用的区域，把存活对象复制到另一个区域中，最后将当前使用的区域的可回收的对象进行回收。</p>
+<h3 id="标记-压缩算法"><a href="#标记-压缩算法" class="headerlink" title="标记-压缩算法"></a>标记-压缩算法</h3><p>它被广发应用于老年代中，在标记可回收对象后将所有存活的对象压缩到内存的一端，使它们紧凑地排列在一起，然后对边界以外的内存进行回收，回收后，已用和未用的内存都各自一边。</p>
+<h3 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h3><p>Java 堆区基于分代的概念，分为：</p>
+<ul>
+<li><p>新生代：又细分为</p>
+<ul>
+<li><p>Eden 空间</p>
+</li>
+<li><p>From Survivor 空间</p>
+</li>
+<li><p>To Survivor 空间</p>
+</li>
+</ul>
+</li>
+<li><p>老年代</p>
+</li>
+</ul>
+<p><strong>分代收集</strong><br>根据 Java 堆区的空间划分，垃圾收集的类型分为两种：</p>
+<ul>
+<li>Minor Collection：新生代垃圾收集</li>
+<li>Full Collection（Major Collection）：老年代垃圾收集，通常情况下会伴随至少一次的 Minor Collection，它的收集频率较低，耗时较长。</li>
+</ul>
+<p>垃圾清除算法有标记清除，复制，标记压缩和分代收集算法。标记清除算法会将垃圾回收分为标记阶段和清除阶段，标记阶段会将可回收对象进行标记，而清除阶段则将被标记的对象所占空间进行回收。它的缺点是效率不高，并且会造成大量不连续的内存碎片。复制算法是将内存空间分为相等两份，每次使用其中的一份区域，垃圾收集时会将存活对象复制到另外一份空间中，并对此空间可回收对象进行回收，它被广泛应用于新生代中。标记压缩是将存活对象压缩到内存的一角，然后对边界外空间进行垃圾回收，它被广泛应用于老年代中。分代收集算法是指根据 java 堆的分代空间划分，然后对相应空间采取相应的垃圾清除算法。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/c69e2769.html" title="Java 虚拟机">https://jianghouren.cn/archives/c69e2769.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="tag"># 虚拟机</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/8b972da1.html" rel="prev" title="Android 面试题">
+                  <i class="fa fa-chevron-left"></i> Android 面试题
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/54430254.html" rel="next" title="Java 代码块与函数">
+                  Java 代码块与函数 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/c69e2769.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

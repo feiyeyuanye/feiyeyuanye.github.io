@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android Hybrid">
+<meta property="og:url" content="https://jianghouren.cn/archives/10410692.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/demo_line.jpg">
+<meta property="article:published_time" content="2019-04-18T09:38:55.000Z">
+<meta property="article:modified_time" content="2020-10-22T04:01:23.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="HyBrid">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/10410692.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/10410692.html","path":"archives/10410692.html","title":"Android Hybrid"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android Hybrid | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Java-%E5%92%8C-JS-%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Java 和 JS 相互调用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-%E8%B0%83%E7%94%A8-JavaScript"><span class="nav-number">1.1.</span> <span class="nav-text">Android 调用 JavaScript</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.1.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.1.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript%E8%B0%83%E7%94%A8Android"><span class="nav-number">1.2.</span> <span class="nav-text">JavaScript调用Android</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A5%E9%AA%A4-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android4-2%E4%BB%A5%E4%B8%8BWebView%E7%9A%84%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E"><span class="nav-number">1.3.</span> <span class="nav-text">Android4.2以下WebView的安全漏洞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSBridge"><span class="nav-number">1.4.</span> <span class="nav-text">JSBridge</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSBridge%E5%86%85%E9%83%A8%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%B6%E5%AE%9A"><span class="nav-number">1.4.1.</span> <span class="nav-text">JSBridge内部通信协议的制定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js%E5%B1%82%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.2.</span> <span class="nav-text">js层代码的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%B1%82%E4%BB%A3%E7%A0%81%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.4.3.</span> <span class="nav-text">Java层代码的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSBridge%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">JSBridge实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B-2"><span class="nav-number">2.1.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JS%E5%B1%82"><span class="nav-number">2.1.1.</span> <span class="nav-text">JS层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java%E5%B1%82"><span class="nav-number">2.1.2.</span> <span class="nav-text">Java层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%98%B2%E6%B7%B7%E6%B7%86"><span class="nav-number">2.2.</span> <span class="nav-text">防混淆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/10410692.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android Hybrid | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android Hybrid
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-04-18 17:38:55" itemprop="dateCreated datePublished" datetime="2019-04-18T17:38:55+08:00">2019-04-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-10-22 12:01:23" itemprop="dateModified" datetime="2020-10-22T12:01:23+08:00">2020-10-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/10410692.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/10410692.html" data-xid="/archives/10410692.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/10410692.html" class="post-meta-item leancloud_visitors" data-flag-title="Android Hybrid" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>15k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/学战都市.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+<p><strong>常见的App开发方式对比；</strong></p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Native App</td>
+<td>速度快，</br>用户体验好。</td>
+<td>无法跨平台，</br>升级麻烦，</br>开发成本高(跨平台)。</td>
+</tr>
+<tr>
+<td>Web App</td>
+<td>跨平台开发成本低，</br>版本升级方便。</td>
+<td>页面访问速度慢，</br>用户体验差。</td>
+</tr>
+<tr>
+<td>HyBrid App</td>
+<td>结合以上两种的优点，</br>未来发展的趋势。</td>
+<td></td>
+</tr>
+</tbody></table>
+<h1 id="Java-和-JS-相互调用"><a href="#Java-和-JS-相互调用" class="headerlink" title="Java 和 JS 相互调用"></a>Java 和 JS 相互调用</h1><h2 id="Android-调用-JavaScript"><a href="#Android-调用-JavaScript" class="headerlink" title="Android 调用 JavaScript"></a>Android 调用 JavaScript</h2><h3 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>设置WebView支持JS<br><code>webSettings.setJavaScriptEnabled(true);</code></li>
+<li>添加JS回调接口<br><code>webView.addJavascriptInterface(object,&quot;interfaceName&quot;);</code></li>
+<li>WebView加载网页，外部网页要添加网络权限<br><code>webView.loadUrl(&quot;file:///android_asset/index.html&quot;);</code></li>
+<li>WebView通过loadUrl方法调用JS方法<br><code>mWebView.loadUrl(&quot;javascript:actionFromNative()&quot;);</code></li>
+<li>object中接收JS函数的返回值</li>
+</ol>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight xml"><figcaption><span>activity_main.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Button</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/bt_text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">WebView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/wv_text&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight html"><figcaption><span>text.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">     <span class="keyword">function</span> <span class="title function_">showAlert</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(<span class="string">&quot;JS弹框&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">showAlert2</span>(<span class="params">params</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(params);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">     <span class="keyword">function</span> <span class="title function_">showAlert3</span>(<span class="params">params</span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(params);</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> result = <span class="string">&quot;返回值&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">JSInterface</span>.<span class="title function_">jsMethod</span>(result);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">     <span class="keyword">function</span> <span class="title function_">showAlert4</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">var</span> result = <span class="variable language_">window</span>.<span class="property">JSInterface</span>.<span class="title function_">callAndroid</span>();</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">alert</span>(result);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>MainActivity.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Button</span> <span class="variable">button</span> <span class="operator">=</span> findViewById(R.id.bt_text);</span><br><span class="line"><span class="keyword">final</span> <span class="type">WebView</span> <span class="variable">webView</span> <span class="operator">=</span> findViewById(R.id.wv_text);</span><br><span class="line">button.setOnClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnClickListener() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">        webView.getSettings().setJavaScriptEnabled(<span class="literal">true</span>);</span><br><span class="line">        webView.setWebViewClient(<span class="keyword">new</span> <span class="title class_">WebViewClient</span>());</span><br><span class="line">        webView.setWebChromeClient(<span class="keyword">new</span> <span class="title class_">WebChromeClient</span>());</span><br><span class="line">        webView.loadUrl(<span class="string">&quot;file:///android_asset/text.html&quot;</span>);</span><br><span class="line">        <span class="comment">// 无参无返回值</span></span><br><span class="line">        webView.loadUrl(<span class="string">&quot;javascript:showAlert()&quot;</span>);</span><br><span class="line">        <span class="comment">// 有参无返回值</span></span><br><span class="line">        webView.loadUrl(<span class="string">&quot;javascript:showAlert2(&#x27;hello word&#x27;)&quot;</span>);</span><br><span class="line">        <span class="comment">// 有参有返回值</span></span><br><span class="line">        webView.loadUrl(<span class="string">&quot;javascript:showAlert3(&#x27;hello word&#x27;)&quot;</span>);</span><br><span class="line">        webView.addJavascriptInterface(<span class="keyword">new</span> <span class="title class_">JSToJava</span>(MainActivity.<span class="built_in">this</span>),<span class="string">&quot;JSInterface&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>JSToJava.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JSToJava</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JSToJava</span><span class="params">(Context mContext)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mContext=mContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JavascriptInterface</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">jsMethod</span><span class="params">(String paramFromJS)</span>&#123;</span><br><span class="line">        Toast.makeText(mContext,paramFromJS,Toast.LENGTH_LONG).show();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@JavascriptInterface</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">callAndroid</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;返回值&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="JavaScript调用Android"><a href="#JavaScript调用Android" class="headerlink" title="JavaScript调用Android"></a>JavaScript调用Android</h2><h3 id="步骤-1"><a href="#步骤-1" class="headerlink" title="步骤"></a>步骤</h3><ol>
+<li>设置WebView支持JS<br><code>webSettings.setJavaScriptEnabled(true);</code></li>
+<li>添加JS回调接口<br><code>webView.addJavascriptInterface(object,&quot;interfaceName&quot;);</code></li>
+<li>WebView加载网页，外部网页要添加网络权限<br><code>webView.loadUrl(&quot;file:///android_asset/index.html&quot;);</code></li>
+<li>JS通过window对象调用Android函数<br>window.interfaceName.androidFunction();</li>
+</ol>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Button button = findViewById(R.id.bt_text);</span><br><span class="line">final WebView webView = findViewById(R.id.wv_text);</span><br><span class="line">button.setOnClickListener(new View.OnClickListener() &#123;</span><br><span class="line">    @Override</span><br><span class="line">    public void onClick(View view) &#123;</span><br><span class="line">        webView.getSettings().setJavaScriptEnabled(true);</span><br><span class="line">        webView.setWebViewClient(new WebViewClient());</span><br><span class="line">        webView.setWebChromeClient(new WebChromeClient());</span><br><span class="line">        webView.loadUrl(&quot;file:///android_asset/text.html&quot;);</span><br><span class="line">        // 有参有返回值</span><br><span class="line">        webView.loadUrl(&quot;javascript:showAlert4()&quot;);</span><br><span class="line">        webView.addJavascriptInterface(new JSToJava(MainActivity.this),&quot;JSInterface&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="Android4-2以下WebView的安全漏洞"><a href="#Android4-2以下WebView的安全漏洞" class="headerlink" title="Android4.2以下WebView的安全漏洞"></a>Android4.2以下WebView的安全漏洞</h2><p><strong>漏洞元凶；addJavascriptInterface（加载了一些外部不安全的网站）</strong><br><strong>漏洞描述；</strong></p>
+<ol>
+<li>向WebView注册了一个叫”InterfaceName”的对象</li>
+<li>JS中可以访问到”InterfaceName”对象</li>
+<li>JS中可以通过”getClass”方法获得该对象的类型类</li>
+<li>通过反射机制，得到该类的Runtime对象。</li>
+<li>调用静态方法执行系统命令</li>
+</ol>
+<p><strong>漏洞解决；</strong></p>
+<ul>
+<li>android4.2以上；@JavascriptInterface注解，说明只暴露此注解方法，而不是类。</li>
+<li>android4.2以下；自定义JS和Android的交互方式。</li>
+</ul>
+<h2 id="JSBridge"><a href="#JSBridge" class="headerlink" title="JSBridge"></a>JSBridge</h2><p><strong>JSBridge的实现原理–双向通道</strong></p>
+<p>Android调用JS方法（安全的，不用修改）<br>webview.loadUrl(“javascript:function()”);</p>
+<p>JS调用Android方法（因为安全漏洞，自定义方法）<br>一般通过拦截WebChromeClient的方法来实现；</p>
+<ul>
+<li>onJsAlert(警告框)</li>
+<li>onJsConfirm(确认框)</li>
+<li>onJsPrompt(提示框，一般使用这个方法)</li>
+</ul>
+<p><strong>示例</strong><br><strong>通过JS层弹出提示框，Android层监听方法，实现信息传递</strong></p>
+<figure class="highlight html"><figcaption><span>text.html</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">&quot;text/css&quot;</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">      <span class="selector-tag">button</span> &#123;</span></span><br><span class="line"><span class="language-css">       <span class="attribute">width</span>: <span class="number">100%</span>;</span></span><br><span class="line"><span class="language-css">       <span class="attribute">height</span>: <span class="number">20px</span>;</span></span><br><span class="line"><span class="language-css">       &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;promptAndSendMsg()&quot;</span> &gt;</span>button<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">promptAndSendMsg</span>(<span class="params"></span>)&#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="title function_">prompt</span>(<span class="string">&quot;来自JS的消息&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">    <span class="type">WebView</span> <span class="variable">webView</span> <span class="operator">=</span> findViewById(R.id.wv_text);</span><br><span class="line">    webView.getSettings().setJavaScriptEnabled(<span class="literal">true</span>);</span><br><span class="line">    webView.setWebViewClient(<span class="keyword">new</span> <span class="title class_">WebViewClient</span>());</span><br><span class="line">    webView.setWebChromeClient(<span class="keyword">new</span> <span class="title class_">WebChromeClient</span>()&#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onJsPrompt</span><span class="params">(WebView view, String url, String message, String defaultValue, JsPromptResult result)</span> &#123;</span><br><span class="line">            result.confirm(showMsg(message));</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    webView.loadUrl(<span class="string">&quot;file:///android_asset/text.html&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> String <span class="title function_">showMsg</span><span class="params">(String message)</span>&#123;</span><br><span class="line">    Toast.makeText(MainActivity.<span class="built_in">this</span>,message,Toast.LENGTH_SHORT).show();</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JSBridge内部通信协议的制定"><a href="#JSBridge内部通信协议的制定" class="headerlink" title="JSBridge内部通信协议的制定"></a>JSBridge内部通信协议的制定</h3><p><strong>JS向Android的通信协议</strong></p>
+<ol>
+<li>HTTP URL格式<br><a href="http://host:port/path?param=value" rel="external nofollow noreferrer">http://host:port/path?param=value</a><br>协议名称:&#x2F;&#x2F;主机IP地址:端口号&#x2F;路径?参数(键值对)</li>
+<li>初步协议格式<br>jsbridge:&#x2F;&#x2F;className:port&#x2F;methodName?jsonObj<br>自定义协议名称:&#x2F;&#x2F;java类名:端口号(用于接收Android回调的内容)&#x2F;类中具体的方法?参数(json格式)</li>
+<li>完整协议格式<br>jsbridge:&#x2F;&#x2F;className:callbackAddress&#x2F;methodName?jsonObj<br>自定义协议名称:&#x2F;&#x2F;java类名:Android执行结束后回调的地址&#x2F;类中具体的方法?参数(json格式)</li>
+<li>调用方式<br>js层代码定义函数JSBridge，调用Android层函数jsCallAndroid()<br>JSBridge.jsCallAndroid(className.methodName,params,callback);<br>JSBridge.jsCallAndroid(Android类.类方法名称,向Android传递的参数(json格式),回调地址);</li>
+</ol>
+<p><strong>Android向JS的通信协议</strong></p>
+<ol>
+<li>参数采用JSON格式</li>
+<li>调用方式<br>webView.loadUrl(“javascript:JSBridge.onMethodName(port,jsonObj);”);<br>webView.loadUrl(“javascript:JS层定义好的回调方法(告诉JS层回调函数位置,json格式的执行结果);”);</li>
+</ol>
+<p><strong>注；通常情况下，由JS层调用Android层函数，等Android层执行结束后，回调结果给JS层。</strong></p>
+<h3 id="js层代码的实现"><a href="#js层代码的实现" class="headerlink" title="js层代码的实现"></a>js层代码的实现</h3><p>一个js文件，是js层的实现。</p>
+<p>1.统一管理JS调用Android层函数<br>2.接收Android层执行的结果回调函数</p>
+<p>其中有两个核心函数</p>
+<ul>
+<li>function jsCallAndroid(obj,method,params,callback)<br>function jsCallAndroid(java类名，类方法，参数(json),回调函数)</li>
+</ul>
+<p> 1.保存callback函数<br> 2.根据参数组合出符合规则的URL<br> 3.通过window.prompt将URL传递给Android程序</p>
+<ul>
+<li>function onAndroidFinished(port,jsonObj)<br>function onAndroidFinished(回调函数地址，Android函数执行结果)</li>
+</ul>
+<p> 1.根据port取出对应callback函数<br> 2.将jsonObj参数传入callback函数并执行<br> 3.删除callback函数</p>
+<h3 id="Java层代码的实现"><a href="#Java层代码的实现" class="headerlink" title="Java层代码的实现"></a>Java层代码的实现</h3><ul>
+<li>暴露给JS的Java方法格式<br>public static void methodName(WebView webView,JSONObject jo,Callback callback)<br>公开的 静态的 void 方法名称 (WebView，JSON格式，回调函数)（参数必须满足这三个规则）</li>
+<li>Callback类<br>在Callback类中将Java方法的执行结果通知JS</li>
+<li>JSBridge类的功能设计</li>
+</ul>
+<p> 1.集中管理暴露给JS的类和方法<br> 2.根据JS传入的URl内容找到对应的Java类，并执行指定的Java方法。</p>
+<h1 id="JSBridge实例"><a href="#JSBridge实例" class="headerlink" title="JSBridge实例"></a>JSBridge实例</h1><p><strong>这里通过JSBridge的方式，来实现一个折线图效果。</strong><br>自己随便写个html也行。也可以关注下这两个图表库，这里选择的第一个。<br>因为主要是看JSBridge的使用方式，所以关于HightChart的使用就尽量忽略了。</p>
+<ul>
+<li>HightChart；<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.highcharts.com/">https://www.highcharts.com/</a></li>
+<li>Echart；<a target="_blank" rel="noopener external nofollow noreferrer" href="https://echarts.baidu.com/">https://echarts.baidu.com/</a></li>
+</ul>
+<p>效果图；</p>
+<img data-src="https://imgsw.cn/static/images/demo_line.jpg">
+
+<h2 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h2><figure class="highlight html"><figcaption><span>index.html部分代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">HTML</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;Content-Type&quot;</span> <span class="attr">content</span>=<span class="string">&quot;text/html; charset=utf-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;LineChartJS/JSBridge.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&quot;margin-left: 10px;margin-bottom: 10px;font-size: 12px;&quot;</span>&gt;</span>单位：元/个<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;containerStock&quot;</span>&gt;</span>折线图加载中...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><span class="language-handlebars"><span class="language-xml"></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">  window.onload=function()&#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    jsCallAndroid(&#x27;JSBridge&#x27;,&#x27;ShowToast&#x27;,&#123;&#x27;msg&#x27;:&#x27;0&#x27;&#125;,function(res)&#123;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="comment">&lt;!--msg；传递给java层的值--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="comment">&lt;!--function；回调方法--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">    <span class="comment">&lt;!--res为Android传过来的值(JSON)--&gt;</span></span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">      &#125;)</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars">  &#125;</span></span></span><br><span class="line"><span class="language-xml"><span class="language-handlebars"></span></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;com.example.xwxwaa.myapplication.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">WebView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/wv_linechart&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>部分代码</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Hybrid</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">Methods</span>.OnWebViewDataListener &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> WebView webView;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line"></span><br><span class="line">        webView = findViewById(R.id.wv_linechart);</span><br><span class="line">        firstView();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">firstView</span><span class="params">()</span>&#123;</span><br><span class="line">        webView.loadUrl(<span class="string">&quot;file:///android_asset/index.html&quot;</span>);</span><br><span class="line">        Methods methods=<span class="keyword">new</span> <span class="title class_">Methods</span>();</span><br><span class="line">        methods.setOnWebViewDataListener(<span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">// 调用注册方法，将java方法暴露出去。</span></span><br><span class="line">        JSBridge.register(<span class="string">&quot;JSBridge&quot;</span>, Methods.class);</span><br><span class="line">        <span class="comment">// 使用自定义的</span></span><br><span class="line">        webView.setWebChromeClient(<span class="keyword">new</span> <span class="title class_">JSBridgeChromeClient</span>());</span><br><span class="line">        webView.setWebViewClient(<span class="keyword">new</span> <span class="title class_">WebViewClient</span>());</span><br><span class="line">        webView.setOnLongClickListener(<span class="keyword">new</span> <span class="title class_">View</span>.OnLongClickListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onLongClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        WebSettings webSettings=webView.getSettings();</span><br><span class="line">        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);</span><br><span class="line">        webSettings.setLoadWithOverviewMode(<span class="literal">true</span>);</span><br><span class="line">        webSettings.setJavaScriptEnabled(<span class="literal">true</span>);</span><br><span class="line">        webSettings.setDisplayZoomControls(<span class="literal">false</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onWebViewDataListener</span><span class="params">(CallBack callBack)</span> &#123;</span><br><span class="line">        callBack.apply(jsonObject);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="JS层"><a href="#JS层" class="headerlink" title="JS层"></a>JS层</h3><figure class="highlight javascript"><figcaption><span>JSBridge.js</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> callbacks=<span class="keyword">new</span> <span class="title class_">Array</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">jsCallAndroid</span>(<span class="params">obj,method,params,callback</span>)&#123;</span><br><span class="line">  <span class="keyword">var</span> port=callbacks.<span class="property">length</span>;</span><br><span class="line">  callbacks[port]=callback;</span><br><span class="line">  <span class="keyword">var</span> url=<span class="string">&#x27;JSBridge://&#x27;</span>+obj+<span class="string">&quot;:&quot;</span>+port+<span class="string">&quot;/&quot;</span>+method+<span class="string">&quot;?&quot;</span>+<span class="title class_">JSON</span>.<span class="title function_">stringify</span>(params);</span><br><span class="line"><span class="comment">//  组合出符合规则的url，并传递给java层</span></span><br><span class="line">  <span class="title function_">prompt</span>(url);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">onAndroidFinished</span>(<span class="params">port,jsonObj</span>)&#123;</span><br><span class="line"><span class="comment">//  从callbacks中取出对应的回调函数</span></span><br><span class="line">  <span class="keyword">var</span> callback=callbacks[port];</span><br><span class="line">  <span class="title function_">callback</span>(jsonObj);</span><br><span class="line"><span class="comment">//  从callbacks中删除callback</span></span><br><span class="line">  <span class="keyword">delete</span> callback[port];</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="Java层"><a href="#Java层" class="headerlink" title="Java层"></a>Java层</h3><figure class="highlight java"><figcaption><span>暴露给JS的Java方法</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Methods</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 暴露给js的一个方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> v</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> param</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> callBack</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">ShowToast</span><span class="params">(WebView v, JSONObject param, CallBack callBack)</span>&#123;</span><br><span class="line">        <span class="comment">// 表示js层成功将消息传递给java层，同时java层执行了此方法，</span></span><br><span class="line">        <span class="comment">// 并且将执行结果告诉js层，让js层执行自己的回调函数。</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 将参数传化为一个字符串</span></span><br><span class="line">        String message=param.optString(<span class="string">&quot;msg&quot;</span>);</span><br><span class="line">        <span class="comment">// Toast.makeText(v.getContext(),message,Toast.LENGTH_SHORT).show();</span></span><br><span class="line">        <span class="keyword">if</span> (callBack!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">// 如果回调函数不为空，则调用js层的回调函数。</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="string">&quot;0&quot;</span>.equals(message))&#123;</span><br><span class="line">                <span class="comment">// 根据msg信息做区分，执行相应的回调函数。</span></span><br><span class="line">                onWebViewDataListener.onWebViewDataListener(callBack);</span><br><span class="line">             &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 回调</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> OnWebViewDataListener onWebViewDataListener;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OnWebViewDataListener</span> &#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">onWebViewDataListener</span><span class="params">(CallBack callBack)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOnWebViewDataListener</span><span class="params">(OnWebViewDataListener onWebViewDataListener)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.onWebViewDataListener = onWebViewDataListener;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>Callback类</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CallBack</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String mPort;</span><br><span class="line">    <span class="keyword">public</span> WebView mWebView;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将java代码执行后的结果，告诉js层，让js执行自己的回调函数。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> webView WebView</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> port 回调函数在js层中存储的地址</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CallBack</span><span class="params">(WebView webView, String port)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.mWebView= webView;</span><br><span class="line">        <span class="built_in">this</span>.mPort=port;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * java层执行这个回调函数，通知js层执行自己的回调函数。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jsonObject JSONObject</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">apply</span><span class="params">(JSONObject jsonObject)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (mWebView!=<span class="literal">null</span>)&#123;</span><br><span class="line">            <span class="comment">//               js层的代码  定义好的回调方法     地址         值</span></span><br><span class="line">            mWebView.loadUrl(<span class="string">&quot;javascript:onAndroidFinished(&#x27;&quot;</span>+mPort+<span class="string">&quot;&#x27;,&quot;</span>+ String.valueOf(jsonObject)+<span class="string">&quot;)&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><figcaption><span>JSBridge类</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JSBridge</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用于存放所有暴露给JS层的类，和满足规则的方法。</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> Map&lt;String,HashMap&lt;String,Method&gt;&gt; exposeMethods=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注册方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> exposeName 类名</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> myClass 类</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">register</span><span class="params">(String exposeName, Class&lt;?&gt; myClass)</span>&#123;</span><br><span class="line">       <span class="keyword">if</span> (!exposeMethods.containsKey(exposeName))&#123;</span><br><span class="line">           <span class="comment">// 将所有验证过后的方法，放入表中。</span></span><br><span class="line">           exposeMethods.put(exposeName,getAllMethod(myClass));</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取一个类中，所有满足规则的方法。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> injectedCls 类</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 通过验证的方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;String,Method&gt; <span class="title function_">getAllMethod</span><span class="params">(Class injectedCls)</span>&#123;</span><br><span class="line">       HashMap&lt;String,Method&gt; methodHashMap=<span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">       <span class="comment">// 保存类中，所有声明过的方法。</span></span><br><span class="line">       Method[] methods=injectedCls.getDeclaredMethods();</span><br><span class="line">       <span class="comment">// 遍历上面的数组</span></span><br><span class="line">       <span class="keyword">for</span> (Method method:methods)&#123;</span><br><span class="line">           <span class="comment">// 过滤规则</span></span><br><span class="line">           <span class="comment">// 1.方法必须为public</span></span><br><span class="line">           <span class="comment">// 2.方法必须为static</span></span><br><span class="line">           <span class="comment">// 3.name不为空</span></span><br><span class="line">           <span class="keyword">if</span> (method.getModifiers()!=(Modifier.PUBLIC| Modifier.STATIC)||method.getName()==<span class="literal">null</span>)&#123;</span><br><span class="line">               <span class="comment">// 如果不满足，则不继续后面的步骤。</span></span><br><span class="line">               <span class="keyword">continue</span>;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">// 保存方法中的所有参数</span></span><br><span class="line">           Class[] paramters=method.getParameterTypes();</span><br><span class="line">           <span class="comment">// 过滤规则</span></span><br><span class="line">           <span class="comment">// 1.参数不为空</span></span><br><span class="line">           <span class="comment">// 2.参数的个数为，3个。</span></span><br><span class="line">           <span class="keyword">if</span> (paramters!=<span class="literal">null</span>&amp;&amp;paramters.length == <span class="number">3</span>)&#123;</span><br><span class="line">               <span class="comment">// 过滤规则</span></span><br><span class="line">               <span class="comment">// 1.第一个参数为WebView</span></span><br><span class="line">               <span class="comment">// 2.第二个参数为JSONObject</span></span><br><span class="line">               <span class="comment">// 3.第三个参数为回调函数</span></span><br><span class="line">               <span class="keyword">if</span> (paramters[<span class="number">0</span>] == WebView.class&amp;&amp;paramters[<span class="number">1</span>]== JSONObject.class&amp;&amp;paramters[<span class="number">2</span>] == CallBack.class)&#123;</span><br><span class="line">                   <span class="comment">// 参数类型符合</span></span><br><span class="line">                   methodHashMap.put(method.getName(),method);</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="comment">// 返回值</span></span><br><span class="line">       <span class="keyword">return</span> methodHashMap;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据传入的Url，找到相应的类，相应的Java方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> webView WebView</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> urlString Url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">callJava</span><span class="params">(WebView webView, String urlString)</span>&#123;</span><br><span class="line">        <span class="comment">// 解析Url（类名。。方法名。。参数。。回调函数）</span></span><br><span class="line">       String className;</span><br><span class="line">       String methodName;</span><br><span class="line">       String param;</span><br><span class="line">       String port;</span><br><span class="line">       <span class="keyword">if</span> (!urlString.equals(<span class="string">&quot;&quot;</span>)&amp;&amp;urlString!=<span class="literal">null</span>&amp;&amp;urlString.startsWith(<span class="string">&quot;JSBridge&quot;</span>))&#123;</span><br><span class="line">           <span class="comment">// 转成Uri</span></span><br><span class="line">           Uri uri= Uri.parse(urlString);</span><br><span class="line">           className=uri.getHost();</span><br><span class="line">           methodName=uri.getPath().replace(<span class="string">&quot;/&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">           param=uri.getQuery();</span><br><span class="line">           port=uri.getPort()+<span class="string">&quot;&quot;</span>;</span><br><span class="line">           <span class="comment">//  Log.e(&quot;TAG&quot;,&quot;uri;&quot;+uri+&quot;  className;&quot;+className+&quot;  methodName;&quot;+methodName+&quot;  param;&quot;+param+&quot;  port;&quot;+port);</span></span><br><span class="line">           <span class="comment">//  如果类在表中</span></span><br><span class="line">           <span class="keyword">if</span> (exposeMethods.containsKey(className))&#123;</span><br><span class="line">               <span class="comment">// 获取类中方法</span></span><br><span class="line">               HashMap&lt;String,Method&gt; methodHashMap=exposeMethods.get(className);</span><br><span class="line">               <span class="keyword">if</span> (methodHashMap!=<span class="literal">null</span>&amp;&amp;methodHashMap.size()!=<span class="number">0</span>&amp;&amp;methodHashMap.containsKey(methodName))&#123;</span><br><span class="line">                   <span class="comment">// 要寻找的方法，存在于表中。</span></span><br><span class="line">                   <span class="comment">// 获取该方法</span></span><br><span class="line">                   Method method=methodHashMap.get(methodName);</span><br><span class="line">                   <span class="keyword">if</span> (method!=<span class="literal">null</span>)&#123;</span><br><span class="line">                       <span class="comment">// 方法不为空，则执行它。</span></span><br><span class="line">                       <span class="keyword">try</span> &#123;</span><br><span class="line">                           method.invoke(<span class="literal">null</span>, webView, <span class="keyword">new</span> <span class="title class_">JSONObject</span>(param), <span class="keyword">new</span> <span class="title class_">CallBack</span>(webView,port));</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125; <span class="keyword">catch</span> (JSONException e) &#123;</span><br><span class="line">                           e.printStackTrace();</span><br><span class="line">                       &#125;</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义的ChromeClient</span></span><br><span class="line"><span class="comment"> * Created by xwxwaa on 2018/7/27.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JSBridgeChromeClient</span> <span class="keyword">extends</span> <span class="title class_">WebChromeClient</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 截取js层传上来的url消息，执行相应的java方法。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> view</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> message</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> defaultValue</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> result</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onJsPrompt</span><span class="params">(WebView view, String url, String message, String defaultValue, JsPromptResult result)</span> &#123;</span><br><span class="line">        <span class="comment">// 执行自己的方法</span></span><br><span class="line">        result.confirm(JSBridge.callJava(view,message));</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="防混淆"><a href="#防混淆" class="headerlink" title="防混淆"></a>防混淆</h2><p>注意；如果开启了代码混淆，要做防混淆。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">buildTypes &#123;</span><br><span class="line">    release &#123;</span><br><span class="line">        minifyEnabled true</span><br><span class="line">        proguardFiles getDefaultProguardFile(&#x27;proguard-android.txt&#x27;), &#x27;proguard-rules.pro&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#解决混合开发，无法与js交互的问题</span><br><span class="line">-keepclassmembers class com.example.xwxwaa.myapplication.JSBridge.Methods &#123;</span><br><span class="line">  public *;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h1><p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/HybridDemo" title="demo">GitHub</a></p>
+<details class="m_more_content_details">
+  <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+      <li>chrome  英  [krəʊm]   美  [kroʊm]</li>
+      <li>client  英  [ˈklaɪənt]   美  [ˈklaɪənt]</li>
+  </ul>
+</details>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/10410692.html" title="Android Hybrid">https://jianghouren.cn/archives/10410692.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/HyBrid/" rel="tag"># HyBrid</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/4e1a4955.html" rel="prev" title="Android 自定义 View 三步骤">
+                  <i class="fa fa-chevron-left"></i> Android 自定义 View 三步骤
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/8a250496.html" rel="next" title="Android MVP 模式">
+                  Android MVP 模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/10410692.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

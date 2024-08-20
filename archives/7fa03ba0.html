@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="理解 WindowManagerService">
+<meta property="og:url" content="https://jianghouren.cn/archives/7fa03ba0.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/wms的职责.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/三个线程之间的关系.jpeg?imageView2/2/h/600">
+<meta property="article:published_time" content="2020-09-07T02:28:44.000Z">
+<meta property="article:modified_time" content="2020-09-18T12:59:45.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Framework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/7fa03ba0.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/7fa03ba0.html","path":"archives/7fa03ba0.html","title":"理解 WindowManagerService"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>理解 WindowManagerService | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#WMS-%E7%9A%84%E8%81%8C%E8%B4%A3"><span class="nav-number">1.</span> <span class="nav-text">WMS 的职责</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86"><span class="nav-number">1.1.</span> <span class="nav-text">窗口管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AA%97%E5%8F%A3%E5%8A%A8%E7%94%BB"><span class="nav-number">1.2.</span> <span class="nav-text">窗口动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%B8%AD%E8%BD%AC%E7%AB%99"><span class="nav-number">1.3.</span> <span class="nav-text">输入系统的中转站</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Surface-%E7%AE%A1%E7%90%86"><span class="nav-number">1.4.</span> <span class="nav-text">Surface 管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WMS-%E7%9A%84%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">WMS 的创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-%E7%9A%84%E6%B7%BB%E5%8A%A0%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">Window 的添加过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Window-%E7%9A%84%E5%88%A0%E9%99%A4%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">Window 的删除过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/7fa03ba0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="理解 WindowManagerService | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          理解 WindowManagerService
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-07 10:28:44" itemprop="dateCreated datePublished" datetime="2020-09-07T10:28:44+08:00">2020-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-18 20:59:45" itemprop="dateModified" datetime="2020-09-18T20:59:45+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/7fa03ba0.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/7fa03ba0.html" data-xid="/archives/7fa03ba0.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/7fa03ba0.html" class="post-meta-item leancloud_visitors" data-flag-title="理解 WindowManagerService" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>25k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>23 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-ym1wp7_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="WMS-的职责"><a href="#WMS-的职责" class="headerlink" title="WMS 的职责"></a><p class="m_more_title_style">WMS 的职责</p></h2><p>WMS 是 Android 中重要的服务，它是 WindowManager 的管理者，除此之外，它还有很多重要的职责，每个职责都会涉及重要且复杂的系统。</p>
+<h3 id="窗口管理"><a href="#窗口管理" class="headerlink" title="窗口管理"></a>窗口管理</h3><p>WMS 是窗口的管理者，它负责窗口的启动、添加和删除，另外窗口的大小和层级也是由 WMS 进行管理的。窗口管理的核心成员有 DisplayContent、WindowToken 和 WindowState。</p>
+<h3 id="窗口动画"><a href="#窗口动画" class="headerlink" title="窗口动画"></a>窗口动画</h3><p>窗口间进行切换时，使用窗口动画可以显得更炫一些，窗口动画由 WMS 的动画子系统来负责，动画子系统的管理者为 WindowAnimator。</p>
+<h3 id="输入系统的中转站"><a href="#输入系统的中转站" class="headerlink" title="输入系统的中转站"></a>输入系统的中转站</h3><p>通过对窗口的触摸从而产生触摸事件，InputManagerService（IMS）会对触摸事件进行处理，它会寻找一个最合适的窗口来处理触摸反馈信息，WMS 是窗口的管理者，它作为输入系统的中转站再合适不过了。</p>
+<h3 id="Surface-管理"><a href="#Surface-管理" class="headerlink" title="Surface 管理"></a>Surface 管理</h3><p>窗口并不具备绘制的能力，因此每个窗口都需要有一块 Surface 来供自己绘制，为每个窗口分配 Surface 是由 WMS 来完成的。</p>
+<img data-src="https://imgsw.cn/static/images/wms的职责.jpeg?imageView2/2/h/600">
+
+<p>从 WMS 的职责可以看出 WMS 很复杂，与它关联的有窗口管理、</p>
+<p>窗口动画、输入系统和 Surface，它们每一个都是重要且复杂的系统，本章只介绍其中的窗口管理，因为它和应用开发的关联比较紧密。</p>
+<hr>
+<h2 id="WMS-的创建过程"><a href="#WMS-的创建过程" class="headerlink" title="WMS 的创建过程"></a><p class="m_more_title_style">WMS 的创建过程</p></h2><p>WMS 是在 SystemServer 进程中创建的，先查看 SystemServer 的 main 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/java/com/android/server/SystemServer.java">SystemServer.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  <span class="comment">// 调用了 SystemServer 的 run 方法。</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">SystemServer</span>().run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      ...</span><br><span class="line">        <span class="comment">// 创建消息 Looper</span></span><br><span class="line">        Looper.prepareMainLooper();</span><br><span class="line">      <span class="comment">// 加载了动态库 libandroid_servers.so</span></span><br><span class="line">        System.loadLibrary(<span class="string">&quot;android_servers&quot;</span>);</span><br><span class="line">        performPendingShutdown();</span><br><span class="line">      <span class="comment">// 创建系统的 Context。</span></span><br><span class="line">        createSystemContext();</span><br><span class="line">      <span class="comment">// 创建 SystemServiceManager。它会对系统的服务进行创建、启动和生命周期管理。</span></span><br><span class="line">        mSystemServiceManager = <span class="keyword">new</span> <span class="title class_">SystemServiceManager</span>(mSystemContext);</span><br><span class="line">        mSystemServiceManager.setRuntimeRestarted(mRuntimeRestart);</span><br><span class="line">        LocalServices.addService(SystemServiceManager.class, mSystemServiceManager);</span><br><span class="line">        SystemServerInitThreadPool.get();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        traceEnd();  </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        traceBeginAndSlog(<span class="string">&quot;StartServices&quot;</span>);</span><br><span class="line">      <span class="comment">// 官方将系统服务分为 3 种类型，这些服务的父类都是 SystemService。</span></span><br><span class="line">      <span class="comment">// 启动引导服务，此方法中用 SystemServiceManager 启动了 ActivityManagerService、PowerManagerService、PackageManagerService 等服务。</span></span><br><span class="line">        startBootstrapServices();</span><br><span class="line">      <span class="comment">// 启动核心服务，此方法中启动了 DropBoxManagerService、BatteryService、UsageStatsService 和 WebViewUpdateService。</span></span><br><span class="line">        startCoreServices();</span><br><span class="line">      <span class="comment">// 其它服务是一些非紧要和不需要立即启动的服务。</span></span><br><span class="line">      <span class="comment">// 启动其它服务，此方法中启动了 CameraService、AlarmManagerService、VrManagerService 等服务。</span></span><br><span class="line">        startOtherServices();</span><br><span class="line">        SystemServerInitThreadPool.shutdown();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        Slog.e(<span class="string">&quot;System&quot;</span>, <span class="string">&quot;******************************************&quot;</span>);</span><br><span class="line">        Slog.e(<span class="string">&quot;System&quot;</span>, <span class="string">&quot;************ Failure starting system services&quot;</span>, ex);</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        traceEnd();</span><br><span class="line">    &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WMS 就是其他服务的一种，查看 startOtherServices 方法中是如何启动 WMS 的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 此方法用于启动其他服务，其他服务大概有 100 个左右，这里只列出了 WMS 以及和它相关的 IMS 的启动逻辑，剩余的* 其他服务的启动逻辑也都大同小异。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">startOtherServices</span><span class="params">()</span> &#123;</span><br><span class="line">   ...</span><br><span class="line">        traceBeginAndSlog(<span class="string">&quot;InitWatchdog&quot;</span>);</span><br><span class="line">  <span class="comment">// 得到 Watchdog 的实例。（Watchdog 用来监控系统的一些关键服务的运行状况。）</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">Watchdog</span> <span class="variable">watchdog</span> <span class="operator">=</span> Watchdog.getInstance();</span><br><span class="line">  <span class="comment">// 对 Watchdog 进行初始化。</span></span><br><span class="line">        watchdog.init(context, mActivityManagerService);</span><br><span class="line">        traceEnd();</span><br><span class="line"></span><br><span class="line">        traceBeginAndSlog(<span class="string">&quot;StartInputManagerService&quot;</span>);</span><br><span class="line">  <span class="comment">// 创建了 IMS，并赋值给 IMS 类型的 inputManager 对象。</span></span><br><span class="line">        inputManager = <span class="keyword">new</span> <span class="title class_">InputManagerService</span>(context);</span><br><span class="line">        traceEnd();</span><br><span class="line"></span><br><span class="line">        traceBeginAndSlog(<span class="string">&quot;StartWindowManagerService&quot;</span>);</span><br><span class="line">        ConcurrentUtils.waitForFutureNoInterrupt(mSensorServiceStart, START_SENSOR_SERVICE);</span><br><span class="line">       mSensorServiceStart = <span class="literal">null</span>;</span><br><span class="line">  <span class="comment">// 执行了 WMS 的 main 方法，其内部会创建 WMS。参数包含了 IMS 引用，因为 WMS 是输入事件的中转站。</span></span><br><span class="line">  <span class="comment">// 可见，WMS 的 main 方法运行在 SystemServer 的 run 方法中，也就是说运行在 “system_server” 线程中。</span></span><br><span class="line">       wm = WindowManagerService.main(context, inputManager,</span><br><span class="line">               mFactoryTestMode != FactoryTest.FACTORY_TEST_LOW_LEVEL,</span><br><span class="line">               !mFirstBoot, mOnlyCore, <span class="keyword">new</span> <span class="title class_">PhoneWindowManager</span>());</span><br><span class="line">  <span class="comment">// 将 WMS 注册到 ServiceManager 中。这样如果某个客户端想要使用 WMS，就需要先去 ServiceManager 中查询信息，然后根据信息与 WMS 所在的进程建立通信通路，客户端就可以使用 WMS 了。</span></span><br><span class="line">       ServiceManager.addService(Context.WINDOW_SERVICE, wm);</span><br><span class="line">  <span class="comment">// 将 IMS 注册到 ServiceManager 中。</span></span><br><span class="line">       ServiceManager.addService(Context.INPUT_SERVICE, inputManager);</span><br><span class="line">       traceEnd();</span><br><span class="line">   ...</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">     <span class="comment">// 初始化屏幕显示信息。</span></span><br><span class="line">       wm.displayReady();</span><br><span class="line">   &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">       reportWtf(<span class="string">&quot;making display ready&quot;</span>, e);</span><br><span class="line">   &#125;</span><br><span class="line">  ...</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 用来通知 WMS，系统的初始化工作已经完成，其内部调用了 WindowManagerPolicy 的 systemReady 方法</span></span><br><span class="line">        wm.systemReady();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable e) &#123;</span><br><span class="line">        reportWtf(<span class="string">&quot;making Window Manager Service ready&quot;</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 WMS 的 main 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java">WindowManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> WindowManagerService <span class="title function_">main</span><span class="params">(<span class="keyword">final</span> Context context, <span class="keyword">final</span> InputManagerService im,</span></span><br><span class="line"><span class="params">        <span class="keyword">final</span> <span class="type">boolean</span> haveInputMethods, <span class="keyword">final</span> <span class="type">boolean</span> showBootMsgs, <span class="keyword">final</span> <span class="type">boolean</span> onlyCore,</span></span><br><span class="line"><span class="params">         WindowManagerPolicy policy)</span> &#123;</span><br><span class="line">  <span class="comment">// DisplayThread 是一个单例的前台线程，这个线程用来处理需要低延时显示的相关操作，并只能由 WindowManager、DisplayManager 和 InputManager 实时执行快速操作。</span></span><br><span class="line">     DisplayThread.getHandler().runWithScissors(() -&gt; <span class="comment">// Lambda 表达式（Runnable 的 run 方法）</span></span><br><span class="line">              <span class="comment">// 创建了 WMS 的实例。这个过程是运行在 Runnbale 的 run 方法中，而 Runnable 则传到了 DisplayThread 对应 Handler 的 runWithScissors 方法中，说明 WMS 的创建是运行在 android.display 线程中的。                                 </span></span><br><span class="line">             sInstance = <span class="keyword">new</span> <span class="title class_">WindowManagerService</span>(context, im, haveInputMethods,                  showBootMsgs,onlyCore, policy), <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> sInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 Handler 的 runWithScissors 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/os/Handler.java">Handler.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">boolean</span> <span class="title function_">runWithScissors</span><span class="params">(<span class="keyword">final</span> Runnable r, <span class="type">long</span> timeout)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (r == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;runnable must not be null&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (timeout &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;timeout must be non-negative&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 根据每个线程只有一个 Looper 的原理来判断当前的线程（system_server 线程）是否是 Handler 所指向的线程（android.display 线程），如果是则直接执行 Runnable 的 run 方法，如果不是则调用 BlockingRunnable 的 postAndWait 方法，并将当前线程的 Runnable 作为参数传进去.</span></span><br><span class="line">    <span class="keyword">if</span> (Looper.myLooper() == mLooper) &#123;</span><br><span class="line">        r.run();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// BlockingRunnable 是 Handler 的内部类。</span></span><br><span class="line">    <span class="type">BlockingRunnable</span> <span class="variable">br</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BlockingRunnable</span>(r);</span><br><span class="line">    <span class="keyword">return</span> br.postAndWait(<span class="built_in">this</span>, timeout);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">BlockingRunnable</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Runnable mTask;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">boolean</span> mDone;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">BlockingRunnable</span><span class="params">(Runnable task)</span> &#123;</span><br><span class="line">        mTask = task;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">//注释1： 执行了传入的 Runnable 的 run 方法（运行在 android.display 线程），执行完毕后在 finally 代码块中将 mDone 设置为 true，并调用 notifyAll() 唤醒处于等待状态的线程，这样就不会继续调用注释 2 处的 wait()。</span></span><br><span class="line">            mTask.run();</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">                mDone = <span class="literal">true</span>;</span><br><span class="line">                notifyAll();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">postAndWait</span><span class="params">(Handler handler, <span class="type">long</span> timeout)</span> &#123;</span><br><span class="line"><span class="comment">//  将当前的 BlockingRunnable 添加到 Handler 的任务队列中。已知传入的 timeout 为 0。    </span></span><br><span class="line">        <span class="keyword">if</span> (!handler.post(<span class="built_in">this</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (timeout &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="type">long</span> <span class="variable">expirationTime</span> <span class="operator">=</span> SystemClock.uptimeMillis() + timeout;</span><br><span class="line">                <span class="keyword">while</span> (!mDone) &#123;</span><br><span class="line">                    <span class="type">long</span> <span class="variable">delay</span> <span class="operator">=</span> expirationTime - SystemClock.uptimeMillis();</span><br><span class="line">                    <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">// timeout</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        wait(delay);</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">while</span> (!mDone) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">//注释2： 如果 mDone 为 false，会一直调用 wait() 使得当前线程（system_server 线程）进入等待状态，等待的线程为 注释 1 处。</span></span><br><span class="line"><span class="comment">// 可知，system_server 线程等待的就是 android.display 线程，一直到 android.display 线程执行完毕再执行 system_server 线程，这是因为 android.display 线程内部执行了 WMS 的创建，而 WMS 的创建优先级要更高。                      </span></span><br><span class="line">                        wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>WMS 的创建就到这里。最后查看 WMS 的构造方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java">WindowManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="title function_">WindowManagerService</span><span class="params">(Context context, InputManagerService inputManager,</span></span><br><span class="line"><span class="params">        <span class="type">boolean</span> haveInputMethods, <span class="type">boolean</span> showBootMsgs, <span class="type">boolean</span> onlyCore,</span></span><br><span class="line"><span class="params">        WindowManagerPolicy policy)</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="comment">// 用来保存传进来的 IMS，这样 WMS 就持有了 IMS 的引用。</span></span><br><span class="line">     mInputManager = inputManager; </span><br><span class="line">  ...</span><br><span class="line">     mDisplayManager = (DisplayManager)context.getSystemService(Context.DISPLAY_SERVICE);</span><br><span class="line">  <span class="comment">// 通过 DisplayManager 的 getDisplays() 得到 Display 数组（每个显示设备都有一个 Display 实例），接着遍历 Display 数组。</span></span><br><span class="line">     mDisplays = mDisplayManager.getDisplays();</span><br><span class="line">     <span class="keyword">for</span> (Display display : mDisplays) &#123;</span><br><span class="line">       <span class="comment">// 将 Display 封装成 DisplayContent，DisplayContent 用来描述一块屏幕。</span></span><br><span class="line">         createDisplayContentLocked(display);</span><br><span class="line">     &#125;</span><br><span class="line">  ...</span><br><span class="line">    <span class="comment">// 得到 AMS 的实例，并赋值给 mActivityManager，这样 WMS 就持有了 AMS 的引用。</span></span><br><span class="line">     mActivityManager = ActivityManager.getService();</span><br><span class="line">  ...</span><br><span class="line">    <span class="comment">// 创建了 WindowAnimator，它用于管理所有的窗口动画。</span></span><br><span class="line">     mAnimator = <span class="keyword">new</span> <span class="title class_">WindowAnimator</span>(<span class="built_in">this</span>);</span><br><span class="line">     mAllowTheaterModeWakeFromLayout = context.getResources().getBoolean(</span><br><span class="line">             com.android.internal.R.bool.config_allowTheaterModeWakeFromWindowLayout);</span><br><span class="line">    LocalServices.addService(WindowManagerInternal.class, <span class="keyword">new</span> <span class="title class_">LocalService</span>());</span><br><span class="line">    <span class="comment">// 初始化了窗口管理策略的接口类 WindowManagerPolicy（WMP），它用来定义一个窗口策略所要遵循的通用规范。</span></span><br><span class="line">    initPolicy();</span><br><span class="line">    <span class="comment">// 将自身也就是 WMS 通过 addMonitor 方法添加到 Watchdog 中，Watchdog 用来监控系统的一些关键服务的运行状况（比如传入的 WMS 的运行状况），这些被监控的服务都会实现 Watchdog.Monitor 接口。Watchdog 每分钟都会对被监控的系统服务进行检查，如果被监控的系统服务出现了死锁，则会杀死 Watchdog 所在的进程，也就是 SystemServer 进程。</span></span><br><span class="line">    Watchdog.getInstance().addMonitor(<span class="built_in">this</span>);</span><br><span class="line"> ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">initPolicy</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// 和 WMS 的 main 方法的实现类似。</span></span><br><span class="line">    UiThread.getHandler().runWithScissors(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            WindowManagerPolicyThread.set(Thread.currentThread(), Looper.myLooper());</span><br><span class="line">          <span class="comment">// 执行了 WMP 的 init 方法，WMP 是一个接口，init 方法具体在 PhoneWindowManager（PWM） 中实现。PWM 的 init 方法运行在 android.ui 线程中，它的优先级要高于 initPolicy 方法所在的 android.display 线程，因此 android.display 线程要等 PWM 的 init 方法执行完毕后，处于等待状态的 android.display 线程才会被唤醒从而继续执行下面的代码。</span></span><br><span class="line">            mPolicy.init(mContext, WindowManagerService.<span class="built_in">this</span>, WindowManagerService.<span class="built_in">this</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<img data-src="https://imgsw.cn/static/images/三个线程之间的关系.jpeg?imageView2/2/h/600">
+
+<p>三个线程之间的关系分为三个步骤来实现：</p>
+<ul>
+<li>首先在 system_server 线程中执行了 SystemServer 的 startOtherService 方法，在 startOtherService 方法中会调用 WMS 的 main 方法，main 方法会创建 WMS，创建的过程在 android.display 线程中实现，创建 WMS 的优先级更高，因此 system_server 线程要等 WMS 创建完成后，处于等待状态的 system_server 线程才会被唤醒从而继续执行下面的代码。</li>
+<li>在 WMS 的构造方法中会调用 WMS 的 initPolicy 方法，此方法又会调用 PWM 的 init 方法，PWM 的 init 方法在 android.ui 线程中运行，它的优先级要高于 android.display 线程，因为 android.display 线程要等 PWM 的 init 方法执行完毕后，处于等待状态的 android.display  线程才会被唤醒从而继续执行下面的代码。</li>
+<li>PWM 的 init 方法执行完毕后，android.display 线程就完成 WMS 的创建，等待 system_server 线程被唤醒后继续执行 WMS 的 main 方法后的代码逻辑，比如 WMS 的 displayReady 方法用来初始化屏幕显示信息。</li>
+</ul>
+<hr>
+<p>##<p class="m_more_title_style">WMS 的重要成员</p></p>
+<p>WMS 的部分成员变量如下：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java">WindowManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// WMP 类型变量。WMP 是窗口管理策略的接口类，用来定义一个窗口策略索要遵循的通用规范，并提供了 WindowManager 所有的特定的 UI 行为。它的具体实现类为 PhoneWindowManager，这个实现类在 WMS 创建时被创建。WMP 允许定制窗口层级和特殊窗口类型以及关键的调度和布局。</span></span><br><span class="line"><span class="keyword">final</span> WindowManagerPolicy mPolicy;</span><br><span class="line"><span class="keyword">final</span> IActivityManager mActivityManager;</span><br><span class="line"><span class="keyword">final</span> ActivityManagerInternal mAmInternal;</span><br><span class="line"><span class="keyword">final</span> AppOpsManager mAppOps;</span><br><span class="line"><span class="keyword">final</span> DisplaySettings mDisplaySettings;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// mSessions 是 ArraySet 类型的变量，元素类型为 Session，它主要用于进程间通信，其它的应用程序进程想要和 WMS 进程进行通信就需要经过 Session，并且每个应用程序进程都会对应一个 Session，WMS 保存这些 Session 用来记录所有向 WMS 提出窗口管理服务的客户端。  </span></span><br><span class="line"><span class="keyword">final</span> ArraySet&lt;Session&gt; mSessions = <span class="keyword">new</span> <span class="title class_">ArraySet</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 用来保存 WMS 中各种窗口的集合。WindowHashMap 继承了 HashMap，它限制了 HashMap 的 key 值的类型为 IBinder，value 值的类型为 WindowState。WindowState 用于保存窗口的信息，在 WMS 中它用来描述一个窗口。</span></span><br><span class="line"><span class="keyword">final</span> <span class="type">WindowHashMap</span> <span class="variable">mWindowMap</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">WindowHashMap</span>();</span><br><span class="line"><span class="comment">// AppWindowToken 是 WindowToken 的子类。WindowToken 主要有两个作用：</span></span><br><span class="line"><span class="comment">//  - 可以理解为窗口令牌，当应用程序想要向 WMS 申请新创建一个窗口，则需要向 WMS 出示有效的 WindowToken。AppWindowToken 作为其子类，主要用来描述应用程序的 WindowToken 结构，应用程序中每个 Activity 都对应一个 AppWindowToken。</span></span><br><span class="line"><span class="comment">//  - WindowToken 会将同一个组件（比如同一个 Activity）的窗口（WindowState）集合在一起，方便管理。</span></span><br><span class="line"><span class="comment">// mFinishedStarting 就是用于存储已经完成启动的应用程序窗口（比如 Activity）的 AppWindowToken 的列表。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;AppWindowToken&gt; mFinishedStarting = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 存储了已经完成窗口绘制并且不需要展示任何已保存 surface 的应用程序窗口的 AppWindowToken。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;AppWindowToken&gt; mFinishedEarlyAnim = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 存储了等待更换的应用程序窗口的 AppWindowToken，如果更换不及时，旧窗口就需要被处理。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;AppWindowToken&gt; mWindowReplacementTimeouts = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 用来存储正在调整大小的窗口的列表。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;WindowState&gt; mResizingWindows = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 是在内存耗尽时设置的，里面存有需要强制删除的窗口。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;WindowState&gt; mPendingRemove = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">WindowState[] mPendingRemoveTmp = <span class="keyword">new</span> <span class="title class_">WindowState</span>[<span class="number">20</span>];</span><br><span class="line"><span class="comment">// 里面存有需要被销毁的 surface。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;WindowState&gt; mDestroySurface = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="comment">// 里面存有窗口需要保存的等待销毁的 surface。</span></span><br><span class="line"><span class="comment">// 保存 surface 的意义在于，当窗口经历 Surface 变化时，窗口需要一直保持旧 Surface，直到新 Surface 的第一帧绘制完成。</span></span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;WindowState&gt; mDestroyPreservedSurface = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">ArrayList&lt;WindowState&gt; mLosingFocus = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"><span class="keyword">final</span> ArrayList&lt;WindowState&gt; mForceRemoves = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">ArrayList&lt;WindowState&gt; mWaitingForDrawn = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 系统的 Handler 类，用于将任务加入到主线程的消息队列中，这样代码逻辑就会在主线程中执行。  </span></span><br><span class="line"><span class="keyword">final</span> <span class="type">H</span> <span class="variable">mH</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">H</span>();</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 输入系统的管理者。</span></span><br><span class="line"><span class="keyword">final</span> InputManagerService mInputManager;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 用于管理窗口的动画以及特效动画。 </span></span><br><span class="line"><span class="keyword">final</span> WindowAnimator mAnimator;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Window-的添加过程"><a href="#Window-的添加过程" class="headerlink" title="Window 的添加过程"></a><p class="m_more_title_style">Window 的添加过程</p></h2><p>Window 的操作分为两大部分，WindowManager 处理部分和 WMS 处理部分，接下来看 WMS 处理部分。无论是系统窗口还是 Activity，它们的 Window 的添加过程都会调用 WMS 的 addWindow 方法：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java">WindowManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* WMS 的 addView 方法返回的是 addView 的各种状态，比如添加 Window 成功，无效的 display 等，这些状态被定义在 WindowManagerGlobal 中。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">addWindow</span><span class="params">(Session session, IWindow client, <span class="type">int</span> seq,</span></span><br><span class="line"><span class="params">        WindowManager.LayoutParams attrs, <span class="type">int</span> viewVisibility, <span class="type">int</span> displayId,</span></span><br><span class="line"><span class="params">        Rect outContentInsets, Rect outStableInsets, Rect outOutsets,</span></span><br><span class="line"><span class="params">        InputChannel outInputChannel)</span> &#123;</span><br><span class="line">  </span><br><span class="line">    <span class="type">int</span>[] appOp = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">1</span>];</span><br><span class="line">  <span class="comment">// 根据 Window 的属性，调用 WMP 的 checkAddPermission 方法来检查权限，具体在 PhoneWindowManager 的 checkAddPermission 方法中实现，如果没有权限则不会执行后续的代码逻辑。</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">res</span> <span class="operator">=</span> mPolicy.checkAddPermission(attrs, appOp);</span><br><span class="line">    <span class="keyword">if</span> (res != WindowManagerGlobal.ADD_OKAY) &#123;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;  </span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">synchronized</span>(mWindowMap) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!mDisplayReady) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Display has not been initialialized&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 通过 displayId 来获取窗口要添加到哪个 DisplayContent 上，如果没有找到 DisplayContent，则返回 WindowManagerGlobal.ADD_INVALID_DISPLAY 这一状态。(DisplayContent 用来描述一块屏幕)</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">DisplayContent</span> <span class="variable">displayContent</span> <span class="operator">=</span> mRoot.getDisplayContentOrCreate(displayId);</span><br><span class="line">         <span class="keyword">if</span> (displayContent == <span class="literal">null</span>) &#123;</span><br><span class="line">             Slog.w(TAG_WM, <span class="string">&quot;Attempted to add window to a display that does not exist: &quot;</span></span><br><span class="line">                     + displayId + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">             <span class="keyword">return</span> WindowManagerGlobal.ADD_INVALID_DISPLAY;</span><br><span class="line">         &#125;  </span><br><span class="line">         ...</span><br><span class="line">          <span class="comment">// type 代表一个窗口的类型，它的数值介于 FIRST_SUB_WINDOW 和 LAST_SUB_WINDOW 之间（1000~1999），这个数值定义在 WindowManager 中，说明这个窗口是一个子窗口。</span></span><br><span class="line">         <span class="keyword">if</span> (type &gt;= FIRST_SUB_WINDOW &amp;&amp; type &lt;= LAST_SUB_WINDOW) &#123;</span><br><span class="line">           <span class="comment">// attrs.token 是 IBinder 类型的对象，windowForClientLocked 方法内部会根据 attrs.token 作为 key 值从 mWindowMap 中得到该子窗口的父窗口。接着父窗口进行判断，如果父窗口为 null 或者 type 的取值范围不正确则会返回错误的状态。</span></span><br><span class="line">             parentWindow = windowForClientLocked(<span class="literal">null</span>, attrs.token, <span class="literal">false</span>);</span><br><span class="line">             <span class="keyword">if</span> (parentWindow == <span class="literal">null</span>) &#123;</span><br><span class="line">                 Slog.w(TAG_WM, <span class="string">&quot;Attempted to add window with token that is not a window: &quot;</span></span><br><span class="line">                      + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_SUBWINDOW_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (parentWindow.mAttrs.type &gt;= FIRST_SUB_WINDOW</span><br><span class="line">                    &amp;&amp; parentWindow.mAttrs.type &lt;= LAST_SUB_WINDOW) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add window with token that is a sub-window: &quot;</span></span><br><span class="line">                        + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_SUBWINDOW_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ...</span><br><span class="line">        <span class="type">AppWindowToken</span> <span class="variable">atoken</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">boolean</span> <span class="variable">hasParent</span> <span class="operator">=</span> parentWindow != <span class="literal">null</span>;</span><br><span class="line">      <span class="comment">// 通过 DisplayContent 的 getWindowToken 方法得到 WindowToken。</span></span><br><span class="line">        <span class="type">WindowToken</span> <span class="variable">token</span> <span class="operator">=</span> displayContent.getWindowToken(</span><br><span class="line">                hasParent ? parentWindow.mAttrs.token : attrs.token);</span><br><span class="line">      <span class="comment">// 如果有父窗口就将父窗口的 type 值赋值给 rootType，如果没有将当前窗口的 type 值赋值给 rootType。</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">rootType</span> <span class="operator">=</span> hasParent ? parentWindow.mAttrs.type : type;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">addToastWindowRequiresToken</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (token == <span class="literal">null</span>) &#123;</span><br><span class="line"> <span class="comment">// 当 rootType 等于 TYPE_INPUT_METHOD 或 TYPE_WALLPAPER 等值时，则返回状态值 WindowManagerGlobal.ADD_BAD_APP_TOKEN ，说明此时是不允许 WindowToken 为 null 的。         </span></span><br><span class="line">            <span class="keyword">if</span> (rootType &gt;= FIRST_APPLICATION_WINDOW &amp;&amp; rootType &lt;= LAST_APPLICATION_WINDOW) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add application window with unknown token &quot;</span></span><br><span class="line">                      + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (rootType == TYPE_INPUT_METHOD) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add input method window with unknown token &quot;</span></span><br><span class="line">                      + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (rootType == TYPE_VOICE_INTERACTION) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add voice interaction window with unknown token &quot;</span></span><br><span class="line">                      + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (rootType == TYPE_WALLPAPER) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add wallpaper window with unknown token &quot;</span></span><br><span class="line">                      + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">            ...</span><br><span class="line">            <span class="keyword">if</span> (type == TYPE_TOAST) &#123;</span><br><span class="line">                <span class="keyword">if</span> (doesAddToastWindowRequireToken(attrs.packageName, callingUid,</span><br><span class="line">                        parentWindow)) &#123;</span><br><span class="line">                    Slog.w(TAG_WM, <span class="string">&quot;Attempted to add a toast window with unknown token &quot;</span></span><br><span class="line">                            + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                    <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">IBinder</span> <span class="variable">binder</span> <span class="operator">=</span> attrs.token != <span class="literal">null</span> ? attrs.token : client.asBinder();</span><br><span class="line"><span class="comment">// 通过多次条件筛选，然后在此处隐式创建 WindowToken，这说明当我们添加窗口时可以不向 WMS 提供 WindowToken，前提是 rootType 和 type 的值不为前面条件判断筛选的值。</span></span><br><span class="line"><span class="comment">// 参数 false 是用来区分 WindowToken 隐式或显式创建的。false 代表隐式创建。          </span></span><br><span class="line">            token = <span class="keyword">new</span> <span class="title class_">WindowToken</span>(<span class="built_in">this</span>, binder, type, <span class="literal">false</span>, displayContent,</span><br><span class="line">                    session.mCanAddInternalSystemWindow);</span><br><span class="line"><span class="comment">// 接下来在 WindowToken 不为 null 的情况下，根据 rootType 和 type 的值进行判断。 </span></span><br><span class="line">          <span class="comment">// 比如此处判断如果窗口为应用程序窗口。</span></span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rootType &gt;= FIRST_APPLICATION_WINDOW &amp;&amp; rootType &lt;= LAST_APPLICATION_WINDOW) &#123;</span><br><span class="line">          <span class="comment">// 将 WindowToken 转换为专门针对应用程序窗口的 AppWindowToken，然后根据 AppWindowToken 的值进行后续的判断。</span></span><br><span class="line">            atoken = token.asAppWindowToken();</span><br><span class="line">            <span class="keyword">if</span> (atoken == <span class="literal">null</span>) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add window with non-application token &quot;</span></span><br><span class="line">                      + token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_NOT_APP_TOKEN;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (atoken.removed) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add window with exiting application token &quot;</span></span><br><span class="line">                      + token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> WindowManagerGlobal.ADD_APP_EXITING;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (rootType == TYPE_INPUT_METHOD) &#123;</span><br><span class="line">            <span class="keyword">if</span> (token.windowType != TYPE_INPUT_METHOD) &#123;</span><br><span class="line">                Slog.w(TAG_WM, <span class="string">&quot;Attempted to add input method window with bad token &quot;</span></span><br><span class="line">                        + attrs.token + <span class="string">&quot;.  Aborting.&quot;</span>);</span><br><span class="line">                  <span class="keyword">return</span> WindowManagerGlobal.ADD_BAD_APP_TOKEN;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ...     </span><br><span class="line">  <span class="comment">// 创建 WindowState，它存有窗口的所有的状态信息，在 WMS 中它代表一个窗口。  </span></span><br><span class="line">  <span class="comment">// 参数中，this 指的是 WMS，client 指的是 IWindow，IWindow 会将 WMS 中窗口管理的操作回调给 ViewRootImpl，token 指的是 WindowToken。        </span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">WindowState</span> <span class="variable">win</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">WindowState</span>(<span class="built_in">this</span>, session, client, token, parentWindow,</span><br><span class="line">                appOp[<span class="number">0</span>], seq, attrs, viewVisibility, session.mUid,</span><br><span class="line">                session.mCanAddInternalSystemWindow);</span><br><span class="line">  <span class="comment">// 判断请求添加窗口的客户端是否已经死亡。</span></span><br><span class="line">        <span class="keyword">if</span> (win.mDeathRecipient == <span class="literal">null</span>) &#123;</span><br><span class="line">            Slog.w(TAG_WM, <span class="string">&quot;Adding window client &quot;</span> + client.asBinder()</span><br><span class="line">                    + <span class="string">&quot; that is dead, aborting.&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> WindowManagerGlobal.ADD_APP_EXITING;</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="comment">// 窗口的 DisplayContent 是否为 null。</span></span><br><span class="line">        <span class="keyword">if</span> (win.getDisplayContent() == <span class="literal">null</span>) &#123;</span><br><span class="line">            Slog.w(TAG_WM, <span class="string">&quot;Adding window to Display that has been removed.&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> WindowManagerGlobal.ADD_INVALID_DISPLAY;</span><br><span class="line">        &#125;</span><br><span class="line">  <span class="comment">// 调用了 WMP 的 adjustWindowParamsLw 方法，该方法在 PhoneWindowManager 中实现，此方法会根据窗口的 type 对窗口的 LayoutParams 的一些成员变量进行修改。</span></span><br><span class="line">        mPolicy.adjustWindowParamsLw(win.mAttrs);</span><br><span class="line">        win.setShowToOwnerOnlyLocked(mPolicy.checkShowToOwnerOnly(attrs));</span><br><span class="line">  <span class="comment">// 调用了 WMP 的 prepareAddWindowLw 方法，用于准备将窗口添加到系统中。</span></span><br><span class="line">        res = mPolicy.prepareAddWindowLw(win, attrs);</span><br><span class="line">        ...</span><br><span class="line">        win.attach();</span><br><span class="line">  <span class="comment">//  将 WindowState 添加到 mWindowMap 中。</span></span><br><span class="line">        mWindowMap.put(client.asBinder(), win);</span><br><span class="line">        <span class="keyword">if</span> (win.mAppOp != AppOpsManager.OP_NONE) &#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">startOpResult</span> <span class="operator">=</span> mAppOps.startOpNoThrow(win.mAppOp, win.getOwningUid(),</span><br><span class="line">                    win.getOwningPackage());</span><br><span class="line">            <span class="keyword">if</span> ((startOpResult != AppOpsManager.MODE_ALLOWED) &amp;&amp;</span><br><span class="line">                    (startOpResult != AppOpsManager.MODE_DEFAULT)) &#123;</span><br><span class="line">                win.setAppOpVisibilityLw(<span class="literal">false</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">AppWindowToken</span> <span class="variable">aToken</span> <span class="operator">=</span> token.asAppWindowToken();</span><br><span class="line">        <span class="keyword">if</span> (type == TYPE_APPLICATION_STARTING &amp;&amp; aToken != <span class="literal">null</span>) &#123;</span><br><span class="line">            aToken.startingWindow = win;</span><br><span class="line">            <span class="keyword">if</span> (DEBUG_STARTING_WINDOW) Slog.v (TAG_WM, <span class="string">&quot;addWindow: &quot;</span> + aToken</span><br><span class="line">                    + <span class="string">&quot; startingWindow=&quot;</span> + win);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">imMayMove</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">   <span class="comment">// 将 WindowState 添加到该 WindowState 对应的 WIndowToken 中（实际是保存在 WindowToken 的父类 WindowContainer 中），这样 WindowToken 就包含了同一个组件的 WindowState。   </span></span><br><span class="line">        win.mToken.addWindow(win);</span><br><span class="line">        <span class="keyword">if</span> (type == TYPE_INPUT_METHOD) &#123;</span><br><span class="line">            win.mGivenInsetsPending = <span class="literal">true</span>;</span><br><span class="line">            setInputMethodWindowLocked(win);</span><br><span class="line">            imMayMove = <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (type == TYPE_INPUT_METHOD_DIALOG) &#123;</span><br><span class="line">            displayContent.computeImeTarget(<span class="literal">true</span> <span class="comment">/* updateImeTarget */</span>);</span><br><span class="line">            imMayMove = <span class="literal">false</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (type == TYPE_WALLPAPER) &#123;</span><br><span class="line">                displayContent.mWallpaperController.clearLastWallpaperTimeoutTime();</span><br><span class="line">                displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((attrs.flags&amp;FLAG_SHOW_WALLPAPER) != <span class="number">0</span>) &#123;</span><br><span class="line">                displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (displayContent.mWallpaperController.isBelowWallpaperTarget(win)) &#123;</span><br><span class="line">                displayContent.pendingLayoutChanges |= FINISH_LAYOUT_REDO_WALLPAPER;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;      </span><br><span class="line">    ...          </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>addView 方法总结：主要做了如下 4 件事</p>
+<ul>
+<li>对所要添加的窗口进行检查，如果窗口不满足一些条件，就不会再执行下面的代码逻辑。</li>
+<li>WindowToken 相关的处理，比如有的窗口类型需要提供 WindowToken，没有提供的话就不会执行下面的代码逻辑，有的窗口类型则需要由 WMS 隐式创建 WindowToken。</li>
+<li>WindowState 的创建和相关处理，将 WindowToken 和 WindowState 相关联。</li>
+<li>创建和配置 DisplayContent，完成窗口添加到系统前的准备工作。</li>
+</ul>
+<hr>
+<h2 id="Window-的删除过程"><a href="#Window-的删除过程" class="headerlink" title="Window 的删除过程"></a><p class="m_more_title_style">Window 的删除过程</p></h2><p>为了表述的更易于理解，下面将要删除的 Window（View）简称为 V。从 WindowManagerGlobal 的 removeView 方法开始查看。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/view/WindowManagerGlobal.java">WindowManagerGlobal.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">removeView</span><span class="params">(View view, <span class="type">boolean</span> immediate)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (view == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>(<span class="string">&quot;view must not be null&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line">      <span class="comment">// 找到 V 在 View 列表的索引。</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> findViewLocked(view, <span class="literal">true</span>);</span><br><span class="line">        <span class="type">View</span> <span class="variable">curView</span> <span class="operator">=</span> mRoots.get(index).getView();</span><br><span class="line">      <span class="comment">// 调用了 removeViewLocked 方法，并将索引传进去。</span></span><br><span class="line">        removeViewLocked(index, immediate);</span><br><span class="line">        <span class="keyword">if</span> (curView == view) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Calling with view &quot;</span> + view</span><br><span class="line">                + <span class="string">&quot; but the ViewAncestor is attached to &quot;</span> + curView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeViewLocked</span><span class="params">(<span class="type">int</span> index, <span class="type">boolean</span> immediate)</span> &#123;</span><br><span class="line">  <span class="comment">// 根据传入的索引在 ViewRootImpl 列表中获得 V 的 ViewRootImpl。</span></span><br><span class="line">    <span class="type">ViewRootImpl</span> <span class="variable">root</span> <span class="operator">=</span> mRoots.get(index);</span><br><span class="line">    <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> root.getView();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (view != <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 得到 InputMethodManager 实例。</span></span><br><span class="line">        <span class="type">InputMethodManager</span> <span class="variable">imm</span> <span class="operator">=</span> InputMethodManager.getInstance();</span><br><span class="line">        <span class="keyword">if</span> (imm != <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="comment">// 调用 InputMethodManager 的 windowDismissed 方法来结束 V 的输入法相关的逻辑。</span></span><br><span class="line">            imm.windowDismissed(mViews.get(index).getWindowToken());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 调用 ViewRootImpl 的 die 方法。</span></span><br><span class="line">    <span class="type">boolean</span> <span class="variable">deferred</span> <span class="operator">=</span> root.die(immediate);</span><br><span class="line">    <span class="keyword">if</span> (view != <span class="literal">null</span>) &#123;</span><br><span class="line">        view.assignParent(<span class="literal">null</span>);</span><br><span class="line">        <span class="keyword">if</span> (deferred) &#123;</span><br><span class="line">            mDyingViews.add(view);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 ViewRootImpl 的 die 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/view/ViewRootImpl.java">ViewRootImpl.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">boolean</span> <span class="title function_">die</span><span class="params">(<span class="type">boolean</span> immediate)</span> &#123;</span><br><span class="line">  <span class="comment">// die 方法需要立即执行并且此时 ViewRootImpl 不再执行 performTraversals 方法。（mIsInTraversal 在执行 ViewRootImpl 的 performTraversals 方法时会被设置为 true，在 performTraversals 方法执行完时被设置为 false。）</span></span><br><span class="line">    <span class="keyword">if</span> (immediate &amp;&amp; !mIsInTraversal) &#123;</span><br><span class="line">      <span class="comment">// immediate 为 true（需要立即执行），并且 mIsInTraversal 值为 false。</span></span><br><span class="line">        doDie();</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!mIsDrawing) &#123;</span><br><span class="line">        destroyHardwareRenderer();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        Log.e(mTag, <span class="string">&quot;Attempting to destroy the window while drawing!\n&quot;</span> +</span><br><span class="line">                <span class="string">&quot;  window=&quot;</span> + <span class="built_in">this</span> + <span class="string">&quot;, title=&quot;</span> + mWindowAttributes.getTitle());</span><br><span class="line">    &#125;</span><br><span class="line">    mHandler.sendEmptyMessage(MSG_DIE);</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">doDie</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// 检查执行 doDie 方法的线程的正确性。此方法内部会判断执行 doDie 方法线程是否是创建 V 的原始线程，如果不是就会抛出异常，这是因为只有创建 V 的原始线程才能够操作 V。</span></span><br><span class="line">    checkThread();</span><br><span class="line">    <span class="keyword">if</span> (LOCAL_LOGV) Log.v(mTag, <span class="string">&quot;DIE in &quot;</span> + <span class="built_in">this</span> + <span class="string">&quot; of &quot;</span> + mSurface);</span><br><span class="line">    <span class="keyword">synchronized</span> (<span class="built_in">this</span>) &#123;</span><br><span class="line">      <span class="comment">// 防止 doDie 方法被重复调用。</span></span><br><span class="line">        <span class="keyword">if</span> (mRemoved) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 防止 doDie 方法被重复调用。</span></span><br><span class="line">        mRemoved = <span class="literal">true</span>;</span><br><span class="line">      <span class="comment">// 如果 V 有子 View。</span></span><br><span class="line">        <span class="keyword">if</span> (mAdded) &#123;</span><br><span class="line">          <span class="comment">// 销毁 View。</span></span><br><span class="line">            dispatchDetachedFromWindow();</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 如果 V 有子 View 并且不是第一次被添加，就会执行后面的代码逻辑。</span></span><br><span class="line">        <span class="keyword">if</span> (mAdded &amp;&amp; !mFirst) &#123;</span><br><span class="line">            destroyHardwareRenderer();</span><br><span class="line">            <span class="keyword">if</span> (mView != <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">viewVisibility</span> <span class="operator">=</span> mView.getVisibility();</span><br><span class="line">                <span class="type">boolean</span> <span class="variable">viewVisibilityChanged</span> <span class="operator">=</span> mViewVisibility != viewVisibility;</span><br><span class="line">                <span class="keyword">if</span> (mWindowAttributesChanged || viewVisibilityChanged) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        <span class="keyword">if</span> ((relayoutWindow(mWindowAttributes, viewVisibility, <span class="literal">false</span>)</span><br><span class="line">                                &amp; WindowManagerGlobal.RELAYOUT_RES_FIRST_TIME) != <span class="number">0</span>) &#123;</span><br><span class="line">                            mWindowSession.finishDrawing(mWindow);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                mSurface.release();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        mAdded = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 执行了 WindowManagerGlobal 的 doRemoveView 方法。</span></span><br><span class="line">    WindowManagerGlobal.getInstance().doRemoveView(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 WindowManagerGlobal 的 doRemoveView 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/view/WindowManagerGlobal.java">WindowManagerGlobal.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">doRemoveView</span><span class="params">(ViewRootImpl root)</span> &#123;</span><br><span class="line">        <span class="comment">// 在 WindowManagerGlobal 中维护了和 Window 操作相关的三个列表，doRemoveView 方法会从这三个列表中清除 V 对应的元素。</span></span><br><span class="line">    <span class="keyword">synchronized</span> (mLock) &#123;</span><br><span class="line"><span class="comment">// 找到 V 对应的 ViewRootImpl 在 ViewRootImpl 列表中的索引，接着根据这个索引从 ViewRootImpl 列表、布局参数列表和 View 列表中删除与 V 对应的元素。</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> mRoots.indexOf(root);</span><br><span class="line">        <span class="keyword">if</span> (index &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">            mRoots.remove(index);</span><br><span class="line">            mParams.remove(index);</span><br><span class="line">            <span class="keyword">final</span> <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> mViews.remove(index);</span><br><span class="line">            mDyingViews.remove(view);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (ThreadedRenderer.sTrimForeground &amp;&amp; ThreadedRenderer.isAvailable()) &#123;</span><br><span class="line">        doTrimForeground();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 ViewRootImpl 的 doDie 方法中的 dispatchDetachedFromWindow 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/view/ViewRootImpl.java">ViewRootImpl.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">dispatchDetachedFromWindow</span><span class="params">()</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 调用了 IWindowSession 的 remove 方法，IWindowSession 在 Server 端的实现为 Session。</span></span><br><span class="line">        mWindowSession.remove(mWindow);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">    &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 Session 的 remove 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/Session.java">Session.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">(IWindow window)</span> &#123;</span><br><span class="line">    mService.removeWindow(<span class="built_in">this</span>, window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着查看 WMS 的 removeWindow 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowManagerService.java">WindowManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="title function_">removeWindow</span><span class="params">(Session session, IWindow client)</span> &#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(mWindowMap) &#123;</span><br><span class="line">      <span class="comment">// 获取 Window 对应的 WindowState，WindowState 用于保存窗口的信息，在 WMS 中它用来描述一个窗口。</span></span><br><span class="line">        <span class="type">WindowState</span> <span class="variable">win</span> <span class="operator">=</span> windowForClientLocked(session, client, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (win == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 调用了 WindowState 的 removeIfPossible 方法。</span></span><br><span class="line">        win.removeIfPossible();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>查看 WindowState 的 removeIfPossible 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/wm/WindowState.java">WindowState.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeIfPossible</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>.removeIfPossible();</span><br><span class="line">    removeIfPossible(<span class="literal">false</span> <span class="comment">/*keepVisibleDeadWindow*/</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">removeIfPossible</span><span class="params">(<span class="type">boolean</span> keepVisibleDeadWindow)</span> &#123;</span><br><span class="line">  <span class="comment">// 条件判断过滤，满足其中一个条件就会 return，推迟删除操作。比如 V 正在运行一个动画，这时就得推迟删除操作，直到动画完成。</span></span><br><span class="line">   ... </span><br><span class="line">  <span class="comment">// 满足这些条件判断过滤后会执行此方法。   </span></span><br><span class="line">    removeImmediately();</span><br><span class="line">    <span class="keyword">if</span> (wasVisible &amp;&amp; mService.updateOrientationFromAppTokensLocked(<span class="literal">false</span>, displayId)) &#123;</span><br><span class="line">        mService.mH.obtainMessage(SEND_NEW_CONFIGURATION, displayId).sendToTarget();</span><br><span class="line">    &#125;</span><br><span class="line">    mService.updateFocusedWindowLocked(UPDATE_FOCUS_NORMAL, <span class="literal">true</span> <span class="comment">/*updateInputWindows*/</span>);</span><br><span class="line">    Binder.restoreCallingIdentity(origId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">void</span> <span class="title function_">removeImmediately</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="built_in">super</span>.removeImmediately();</span><br><span class="line"><span class="comment">// mRemoved 为 ture 意味着正在执行删除 Window 操作。</span></span><br><span class="line"><span class="comment">// 防止重复删除操作。</span></span><br><span class="line">    <span class="keyword">if</span> (mRemoved) &#123;</span><br><span class="line">        <span class="keyword">if</span> (DEBUG_ADD_REMOVE) Slog.v(TAG_WM,</span><br><span class="line">                <span class="string">&quot;WS.removeImmediately: &quot;</span> + <span class="built_in">this</span> + <span class="string">&quot; Already removed...&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 防止重复删除操作。</span></span><br><span class="line">    mRemoved = <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"><span class="comment">//  如果当前要删除的 Window 是 StatusBar 或者 NavigationBar 就会将这个 Window 从对应的控制器中删除。     </span></span><br><span class="line">    mPolicy.removeWindowLw(<span class="built_in">this</span>);</span><br><span class="line">    disposeInputChannel();</span><br><span class="line">    mWinAnimator.destroyDeferredSurfaceLocked();</span><br><span class="line">    mWinAnimator.destroySurfaceLocked();</span><br><span class="line"><span class="comment">// 将 V 对应的 Session 从 WMS 的 ArraySet&lt;Session&gt; mSession 中删除并清除 Session 对应的 SurfaceSession 资源（SurfaceSession 是 SurfaceFlinger 的一个连接，通过这个连接可以创建 1 个或者多个 Surface 并渲染到屏幕上。）    </span></span><br><span class="line">    mSession.windowRemovedLocked();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        mClient.asBinder().unlinkToDeath(mDeathRecipient, <span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RuntimeException e) &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 调用了 WMS 的 postWindowRemoveCleanupLocked 方法用于对 V 进行一些集中的清理工作。</span></span><br><span class="line">    mService.postWindowRemoveCleanupLocked(<span class="built_in">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Window 的删除过程可以简单地总结为以下 4 点：</p>
+<ul>
+<li>检查删除线程的正确性，如果不正确就抛出异常。</li>
+<li>从 ViewRootImpl 列表、布局参数列表和 View 列表中删除与 V 对应的元素。</li>
+<li>判断是否可以直接执行删除操作，如果不能就推迟删除操作。</li>
+<li>执行删除操作，清理和释放与 V 相关的一切资源。</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p>注：基于 Android 8.0 版本源码</p>
+<p><strong>参考资料：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+<details class="m_more_content_details">
+  <summary>单词音标：</summary>
+
+
+
+</details>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/7fa03ba0.html" title="理解 WindowManagerService">https://jianghouren.cn/archives/7fa03ba0.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/738a4eb5.html" rel="prev" title="理解 ActivityManagerService">
+                  <i class="fa fa-chevron-left"></i> 理解 ActivityManagerService
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/9197097e.html" rel="next" title="创建型设计模式">
+                  创建型设计模式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/7fa03ba0.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

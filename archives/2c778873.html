@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="ssl 证书配置">
+<meta property="og:url" content="https://jianghouren.cn/archives/2c778873.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/zuorizhige.jpeg">
+<meta property="article:published_time" content="2020-05-26T01:03:49.000Z">
+<meta property="article:modified_time" content="2021-11-01T05:30:34.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="服务端">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/zuorizhige.jpeg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/2c778873.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/2c778873.html","path":"archives/2c778873.html","title":"ssl 证书配置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>ssl 证书配置 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6"><span class="nav-number">2.</span> <span class="nav-text">安装证书</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#httpd-conf"><span class="nav-number">2.1.</span> <span class="nav-text">httpd.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ssl-conf"><span class="nav-number">2.2.</span> <span class="nav-text">ssl.conf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AF%E6%9C%8D%E5%8A%A1"><span class="nav-number">2.3.</span> <span class="nav-text">重启服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%BB%84"><span class="nav-number">2.4.</span> <span class="nav-text">安全组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E5%AE%83"><span class="nav-number">3.</span> <span class="nav-text">其它</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%83%E7%89%9B%E4%BA%91"><span class="nav-number">4.</span> <span class="nav-text">七牛云</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/2c778873.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="ssl 证书配置 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ssl 证书配置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-26 09:03:49" itemprop="dateCreated datePublished" datetime="2020-05-26T09:03:49+08:00">2020-05-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-11-01 13:30:34" itemprop="dateModified" datetime="2021-11-01T13:30:34+08:00">2021-11-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">服务端</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/2c778873.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/2c778873.html" data-xid="/archives/2c778873.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/2c778873.html" class="post-meta-item leancloud_visitors" data-flag-title="ssl 证书配置" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://imgsw.cn/static/images/zuorizhige.jpeg" class="m_more_content_bg_img"></img></p>
+<span id="more"></span>
+
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p>使用的系统是：CentOS 7.4 64 位 + Apache + httpd</p>
+<p>首先假设前期工作已经做好，包括证书的购买、下载、上传到服务器，hppd 的安装，Apache 开启 ssl 等。这些在网上有大量的文章，并且内容相似，没有什么异议，照做就好。</p>
+<p>简单的讲，证书在阿里云购买的一年免费版（ssl 证书，单域名，DV 类型。如果买错了付费版的，并且已签发，在短期内可申请吊销并退款），下载的 Apache 版，在服务器 &#x2F;etc&#x2F;httpd 下新建文件夹 ssl 并上传下载好的三个证书文件，hppd 使用默认的入口 “&#x2F;var&#x2F;www&#x2F;html”，服务器防火墙已关闭，端口未被占用。</p>
+<p>软件使用的是 Termius（SSH） 和 Transmit（文件传输）。其实感觉阿里云自带的远程连接也还不错。</p>
+<p>直接到证书安装的过程，这个网上也算大同小异，弄了许久许久，都试过了一遍还是不行，最后才发现是因为没有添加安全组规则，所以大概很多操作有无均可，反正我只是想要那个绿色的小锁头，下面是我的配置。</p>
+<hr>
+<h2 id="安装证书"><a href="#安装证书" class="headerlink" title="安装证书"></a>安装证书</h2><p>在服务器中有两个关键的配置文件需要修改：</p>
+<ul>
+<li><p>&#x2F;etc&#x2F;httpd&#x2F;conf&#x2F;httpd.conf</p>
+</li>
+<li><p>&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;ssl.conf</p>
+</li>
+</ul>
+<h3 id="httpd-conf"><a href="#httpd-conf" class="headerlink" title="httpd.conf"></a>httpd.conf</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 95 行左右，找到 ServerName 修改如下</span></span><br><span class="line"><span class="comment">// 将 # 删掉，后面改成自己的域名</span></span><br><span class="line"><span class="comment">// 改它是为了避免重启 Apache 服务时出错</span></span><br><span class="line">ServerName www.blove7.cn:<span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用于重定向，强制 https 访问</span></span><br><span class="line"><span class="comment">// 我的文件中没找到 &lt;VirtualHost *:80&gt;，所以我直接添加了。</span></span><br><span class="line">&lt;VirtualHost *:<span class="number">80</span>&gt; </span><br><span class="line"> RewriteEngine on</span><br><span class="line"> RewriteCond %&#123;SERVER_PORT&#125; !^<span class="number">443</span>$</span><br><span class="line"> RewriteRule ^(.*)$ https:<span class="comment">//%&#123;SERVER_NAME&#125;$1 [L,R]</span></span><br><span class="line">&lt;/VirtualHost&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ssl-conf"><a href="#ssl-conf" class="headerlink" title="ssl.conf"></a>ssl.conf</h3><p>文件不存在，需要先<strong>安装mode_ssl.so模块（启用SSL功能）</strong>：yum install -y mod_ssl</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在 56 行左右找到 &lt;VirtualHost _default_:443&gt; </span></span><br><span class="line">&lt;VirtualHost _default_:<span class="number">443</span>&gt; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 修改下面这两处，删除 #。</span></span><br><span class="line"><span class="comment">// &quot;/var/www/html&quot; 是我的默认入口。</span></span><br><span class="line">DocumentRoot <span class="string">&quot;/var/www/html&quot;</span></span><br><span class="line"><span class="comment">// 修改为自己的域名</span></span><br><span class="line">ServerName www.blove7.cn:<span class="number">443</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//修改下面这些配置，主要每项前面不能有 #。</span></span><br><span class="line"><span class="comment">// on 代表开启 SSl 服务</span></span><br><span class="line">SSLEngine on</span><br><span class="line"></span><br><span class="line">SSLProtocol all -SSLv2 -SSLv3</span><br><span class="line"><span class="comment">// 注意有两个 SSLCipherSuite，一个被注释掉了，一个没注释。</span></span><br><span class="line">SSLCipherSuite HIGH:!RC4:!MD5:!aNULL:!eNULL:!NULL:!DH:!EDH:!EXP:+MEDIUM</span><br><span class="line">SSLHonorCipherOrder on </span><br><span class="line"></span><br><span class="line"><span class="comment">// 三个证书的配置，简单的识别就是</span></span><br><span class="line"><span class="comment">// 第一个用 _public.crt，第二个用 .key，第三个用 _chain.crt。</span></span><br><span class="line">SSLCertificateFile /etc/httpd/ssl/blove7_public.crt</span><br><span class="line"></span><br><span class="line">SSLCertificateKeyFile /etc/httpd/ssl/blove7.key</span><br><span class="line"></span><br><span class="line">SSLCertificateChainFile /etc/httpd/ssl/blove7_chain.crt</span><br><span class="line"></span><br><span class="line">&lt;/VirtualHost&gt;  </span><br></pre></td></tr></table></figure>
+
+<h3 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h3><p>最后重启服务，就可以用 https 来测试下自己的域名了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">// 重启服务</span><br><span class="line"><span class="selector-attr">[root@iz2zefvvd0aq2yy6ufvtlbz ~]</span># systemctl restart httpd<span class="selector-class">.service</span></span><br><span class="line">// 查看状态，太多的信息也看不懂，我只是注意小圆点为绿色，并且最后两行中间没有夹杂其他内容。</span><br><span class="line"><span class="selector-attr">[root@iz2zefvvd0aq2yy6ufvtlbz ~]</span># systemctl status httpd</span><br><span class="line">// 如果小圆点是红色的，就代表出错了</span><br><span class="line">● httpd<span class="selector-class">.service</span> - The Apache HTTP Server</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/httpd.service; disabled; vendor preset: disabled)</span><br><span class="line">   Active: active (running) since Mon <span class="number">2020</span>-<span class="number">05</span>-<span class="number">25</span> <span class="number">23</span>:<span class="number">50</span>:<span class="number">54</span> CST; <span class="number">17</span>h ago</span><br><span class="line">     Docs: man:<span class="built_in">httpd</span>(<span class="number">8</span>)</span><br><span class="line">           man:<span class="built_in">apachectl</span>(<span class="number">8</span>)</span><br><span class="line">  Process: <span class="number">5152</span> ExecStop=/bin/kill -WINCH $&#123;MAINPID&#125; (<span class="selector-tag">code</span>=exited, status=<span class="number">0</span>/SUCCESS)</span><br><span class="line"> <span class="selector-tag">Main</span> PID: <span class="number">5157</span> (httpd)</span><br><span class="line">   Status: <span class="string">&quot;Total requests: 110; Current requests/sec: 0; Current traffic:   0 B/sec&quot;</span></span><br><span class="line">   CGroup: /system.slice/httpd.service</span><br><span class="line">           ├─<span class="number">5157</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5159</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5160</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5161</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5164</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5165</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5167</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5168</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">5169</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           ├─<span class="number">6085</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line">           └─<span class="number">6086</span> /usr/sbin/httpd -DFOREGROUND</span><br><span class="line"></span><br><span class="line">// 显示这两行就代表没问题</span><br><span class="line">May <span class="number">25</span> <span class="number">23</span>:<span class="number">50</span>:<span class="number">54</span> iz2zefvvd0aq2yy6ufvtlbz systemd[<span class="number">1</span>]: Starting The Apache HTTP Server...</span><br><span class="line">May <span class="number">25</span> <span class="number">23</span>:<span class="number">50</span>:<span class="number">54</span> iz2zefvvd0aq2yy6ufvtlbz systemd[<span class="number">1</span>]: Started The Apache HTTP Server.</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 查看防火墙状态</span><br><span class="line"><span class="selector-attr">[root@iz2zefvvd0aq2yy6ufvtlbz ~]</span># systemctl status firewalld<span class="selector-class">.service</span></span><br><span class="line">● firewalld<span class="selector-class">.service</span> - firewalld - dynamic firewall daemon</span><br><span class="line">   Loaded: loaded (/usr/lib/systemd/system/firewalld.service; disabled; vendor preset: enabled)</span><br><span class="line">   Active: inactive (dead)</span><br><span class="line">     Docs: man:<span class="built_in">firewalld</span>(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="安全组"><a href="#安全组" class="headerlink" title="安全组"></a>安全组</h3><p>就是这个问题困住了我很久，因为绝大部分的文章都没有提到这个问题。</p>
+<p>如果不管怎么配置，始终都无法成功的话，可能就是需要开启安全组。</p>
+<p>进入阿里云，云服务器 ECS，实例列表，实例最后的操作项，选择更多，网络和安全组，安全组配置，配置规则，如果端口范围没有 443 的那很可能就是这个问题了，手动添加一条端口为 443 的。</p>
+<hr>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>Http 默认使用的是 80 端口。Https 默认使用的是 443 端口。Chrome 可以在显示不安全那里单击，查看是否显示有证书项，有证书就是 Https，没有就是 Http，或者查看证书是否有效。我这里在 Chrome 用 Https 访问会显示有三项，证书（是否有效），Cookie，网站设置。</p>
+<p>鉴于自己的博客是在 Github 和 Coding 双地部署的，某一天开始无法打开页面，提示无法与服务器建立安全连接，还以为是证书的问题，特意在阿里云买了款付费的证书，但没用到，幸好可以退款。大概是因为 Chrome 更改过某些政策的原因，导致 Coding 的证书失效了，所以暂时把域名导向 Coding 的关掉了，只使用 Github。</p>
+<p>为何买的付费证书没有用到，首先 Github 和 Coding 都提供强制 Https 连接，都提供免费的证书并且自己续期，最重要的是都无法上传个人的证书。</p>
+<p>如果已经弄好了证书，通过 https 访问成功，但还是显示不安全，原因多半是因为内部访问了不安全的资源，比如 http 的连接，或者图片等。可以通过检查（F12）来查看有哪些不安全资源（右上角黄色三角图标）。</p>
+<hr>
+<h2 id="七牛云"><a href="#七牛云" class="headerlink" title="七牛云"></a>七牛云</h2><p>为七牛云的图床更新 ssl 证书：</p>
+<p>1、阿里云购买 ssl 证书，并到相应域名解析验证。</p>
+<p>2、验证成功后，下载相应证书，比如 Apache。</p>
+<p>3、进入七牛云</p>
+<ul>
+<li><p>SSL 证书 -》 上传自有证书。</p>
+</li>
+<li><p>CDN -》域名管理 -》HTTPS 配置（修改配置）</p>
+</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://help.aliyun.com/document_detail/98727.html?spm=a2c4g.11186623.2.9.20b8625axSqEaA#concept-zsp-d1x-yfb">阿里云文档</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.bbskali.cn/index.php/archives/172/">提示了我配置安全组</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/2c778873.html" title="ssl 证书配置">https://jianghouren.cn/archives/2c778873.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF/" rel="tag"># 服务端</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/9e663e1d.html" rel="prev" title="Android 项目结构">
+                  <i class="fa fa-chevron-left"></i> Android 项目结构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/4e5d699d.html" rel="next" title="HTML 页面显示 md 文件">
+                  HTML 页面显示 md 文件 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/2c778873.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

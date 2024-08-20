@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Git 版本控制工具">
+<meta property="og:url" content="https://jianghouren.cn/archives/15f503f8.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-07-01T12:01:20.000Z">
+<meta property="article:modified_time" content="2021-06-06T11:57:37.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="工具配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/15f503f8.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/15f503f8.html","path":"archives/15f503f8.html","title":"Git 版本控制工具"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Git 版本控制工具 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">Git 使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%BA%AB%E4%BB%BD"><span class="nav-number">1.1.</span> <span class="nav-text">配置身份</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%BB%93%E5%BA%93"><span class="nav-number">1.2.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%BD%E7%95%A5%E6%96%87%E4%BB%B6"><span class="nav-number">1.3.</span> <span class="nav-text">忽略文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">1.4.</span> <span class="nav-text">提交本地代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E4%BF%AE%E6%94%B9%E5%86%85%E5%AE%B9"><span class="nav-number">1.5.</span> <span class="nav-text">查看修改内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%A4%E9%94%80%E6%9C%AA%E6%8F%90%E4%BA%A4%E7%9A%84%E4%BF%AE%E6%94%B9"><span class="nav-number">1.6.</span> <span class="nav-text">撤销未提交的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95"><span class="nav-number">1.7.</span> <span class="nav-text">查看提交记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E6%94%AF%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">分支的用法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E%E8%BF%9C%E7%A8%8B%E7%89%88%E6%9C%AC%E5%BA%93%E5%8D%8F%E4%BD%9C"><span class="nav-number">1.9.</span> <span class="nav-text">与远程版本库协作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%E5%88%B0-GitHub-%E4%B8%8A"><span class="nav-number">1.10.</span> <span class="nav-text">将代码托管到 GitHub 上</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-GitHub-%E4%BB%93%E5%BA%93%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF-%E9%82%AE%E7%AE%B1"><span class="nav-number">2.</span> <span class="nav-text">修改 GitHub 仓库提交信息(邮箱)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%97%AD-less-%E7%95%8C%E9%9D%A2"><span class="nav-number">3.</span> <span class="nav-text">关闭 less 界面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sourcetree-%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">Sourcetree 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/15f503f8.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Git 版本控制工具 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Git 版本控制工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-01 20:01:20" itemprop="dateCreated datePublished" datetime="2020-07-01T20:01:20+08:00">2020-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-06-06 19:57:37" itemprop="dateModified" datetime="2021-06-06T19:57:37+08:00">2021-06-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" itemprop="url" rel="index"><span itemprop="name">工具配置</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/15f503f8.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/15f503f8.html" data-xid="/archives/15f503f8.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/15f503f8.html" class="post-meta-item leancloud_visitors" data-flag-title="Git 版本控制工具" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>11k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>10 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/樱桃小丸子.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="Git-使用"><a href="#Git-使用" class="headerlink" title="Git 使用"></a>Git 使用</h2><h3 id="配置身份"><a href="#配置身份" class="headerlink" title="配置身份"></a>配置身份</h3><p>更改全局用户名和邮箱：</p>
+<p>git config –global user.name “你的名字”</p>
+<p>git config –global user.email “你的邮箱”</p>
+<p>更改此库的用户名和邮箱</p>
+<p>git config user.name “你的名字”</p>
+<p>git config user.email “你的邮箱”</p>
+<p>查询用户名和邮箱</p>
+<p>git config user.name</p>
+<p>git config user.email</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查询用户名和邮箱</span></span><br><span class="line">jianghouren@localhost ~ % git config user.name</span><br><span class="line">jianghouren@localhost ~ % git config user.email</span><br></pre></td></tr></table></figure>
+
+<h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><p>仓库（repository）是用于保存版本管理所需信息的地方，所有本地提交的代码都会被提交到代码仓库中，如果有需要还可以推送到远程仓库中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// cd 到项目目录下</span></span><br><span class="line">jianghouren@localhost ~ % cd EspressoApplication</span><br><span class="line"><span class="comment">// 创建代码仓库</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git init</span><br><span class="line"><span class="comment">// 仓库创建完成后，会在项目的根目下生成一个隐藏的 .git 目录，它就是用来记录本地所有的 Git 操作。</span></span><br><span class="line"><span class="comment">// 如果想删除本地仓库，只需要删除这个目录就行了。</span></span><br><span class="line">Initialized empty Git repository in /Users/jianghouren/EspressoApplication/.git/</span><br><span class="line"><span class="comment">// 通过命令查看</span></span><br><span class="line">jianghouren@localhost EspressoApplication % ls -al</span><br><span class="line">total <span class="number">72</span></span><br><span class="line">drwxr-xr-x  <span class="number">15</span> jianghouren  staff   <span class="number">480</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">12</span> .</span><br><span class="line">drwxr-xr-x+ <span class="number">47</span> jianghouren  staff  <span class="number">1504</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> ..</span><br><span class="line">drwxr-xr-x   <span class="number">9</span> jianghouren  staff   <span class="number">288</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">12</span> .git</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff   <span class="number">208</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> .gitignore</span><br><span class="line">drwxr-xr-x   <span class="number">5</span> jianghouren  staff   <span class="number">160</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> .gradle</span><br><span class="line">drwxr-xr-x  <span class="number">12</span> jianghouren  staff   <span class="number">384</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> .idea</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff   <span class="number">952</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> EspressoApplication.iml</span><br><span class="line">drwxr-xr-x   <span class="number">9</span> jianghouren  staff   <span class="number">288</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> app</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff   <span class="number">558</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> build.gradle</span><br><span class="line">drwxr-xr-x   <span class="number">3</span> jianghouren  staff    <span class="number">96</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> gradle</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff  <span class="number">1073</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> gradle.properties</span><br><span class="line">-rwxr--r--   <span class="number">1</span> jianghouren  staff  <span class="number">5296</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> gradlew</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff  <span class="number">2260</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> gradlew.bat</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff   <span class="number">441</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> local.properties</span><br><span class="line">-rw-r--r--   <span class="number">1</span> jianghouren  staff    <span class="number">54</span>  <span class="number">7</span>  <span class="number">1</span> <span class="number">20</span>:<span class="number">10</span> settings.gradle</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<h3 id="忽略文件"><a href="#忽略文件" class="headerlink" title="忽略文件"></a>忽略文件</h3><p>对项目的两个 .gitignore 文件进行配置（根目录下一个，app 模块下一个）。并且，其中指定的文件或目录是可以使用 “ * ” 通配符的。比如想忽略测试文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/build</span><br><span class="line"></span><br><span class="line">/src/test</span><br><span class="line">/src/androidTest</span><br></pre></td></tr></table></figure>
+
+<h3 id="提交本地代码"><a href="#提交本地代码" class="headerlink" title="提交本地代码"></a>提交本地代码</h3><p>add 用于把想要提交的代码添加进来，commit 则是真正执行提交操作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加单个文件</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git add build.gradle</span><br><span class="line"><span class="comment">// 添加整个目录</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git add app</span><br><span class="line"><span class="comment">// 添加所有文件</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git add .</span><br><span class="line"><span class="comment">// 进行提交（通过 -m 参数加上提交的描述信息，没有描述信息的提交被认为是不合法的。） </span></span><br><span class="line">jianghouren@localhost EspressoApplication % git commit -m <span class="string">&quot;First commit.&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="查看修改内容"><a href="#查看修改内容" class="headerlink" title="查看修改内容"></a>查看修改内容</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看修改的内容</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> file:   .idea/vcs.xml</span><br><span class="line"></span><br><span class="line">Changes <span class="keyword">not</span> staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory)</span><br><span class="line">  </span><br><span class="line"><span class="comment">// 提示这个文件发生了更改</span></span><br><span class="line">  modified:   app/.gitignore</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 查看所有文件更改的具体内容</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git diff</span><br><span class="line">diff --git a/app/.gitignore b/app/.gitignore</span><br><span class="line">index <span class="number">796b</span>96d.<span class="number">.346</span>a6ac <span class="number">100644</span></span><br><span class="line">--- a/app/.gitignore</span><br><span class="line">+++ b/app/.gitignore</span><br><span class="line">@@ <span class="number">-1</span> +<span class="number">1</span>,<span class="number">3</span> @@</span><br><span class="line"> /build</span><br><span class="line">+/src/test</span><br><span class="line">+/src/androidTest</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 查看某个文件修改的内容，后面加上完整的文件路径（）。</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git diff app/.gitignore</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<h3 id="撤销未提交的修改"><a href="#撤销未提交的修改" class="headerlink" title="撤销未提交的修改"></a>撤销未提交的修改</h3><p>只适用于那些还没有执行过 add 命令的文件</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 撤销还未提交的代码</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git checkout app/.gitignore</span><br><span class="line">Updated <span class="number">1</span> path from the index</span><br><span class="line"><span class="comment">// 检查一下</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> file:   .idea/vcs.xml</span><br><span class="line"></span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<p>对于已添加的文件，应该先对其取消添加，然后才可以撤回提交。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 测试</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git add .</span><br><span class="line">jianghouren@localhost EspressoApplication % git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> file:   .idea/vcs.xml</span><br><span class="line">  modified:   app/.gitignore</span><br><span class="line">  modified:   app/src/main/java/com/example/espressoapplication/MainActivity.java</span><br><span class="line"></span><br><span class="line">jianghouren@localhost EspressoApplication % git checkout app/.gitignore</span><br><span class="line">Updated <span class="number">0</span> paths from the index</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br><span class="line">    </span><br><span class="line"><span class="comment">// 取消添加</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git reset HEAD app/.gitignore</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M  app/.gitignore</span><br><span class="line"><span class="comment">// 查看状态</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">new</span> file:   .idea/vcs.xml</span><br><span class="line">  modified:   app/src/main/java/com/example/espressoapplication/MainActivity.java</span><br><span class="line"></span><br><span class="line">Changes <span class="keyword">not</span> staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory)</span><br><span class="line"></span><br><span class="line">  modified:   app/.gitignore</span><br><span class="line"><span class="comment">// 撤回提交</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git checkout app/.gitignore</span><br><span class="line">Updated <span class="number">1</span> path from the index</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<h3 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h3><p>使用 git log 命令来查看。还可以通过 git log “记录的 id”，或者 git log -1，来查看最近几次的提交。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">jianghouren@localhost EspressoApplication % git log</span><br><span class="line">commit <span class="number">6b</span>16d74628f10bb80736039ae881567e1415b574 (HEAD -&gt; master)</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">21</span>:<span class="number">19</span>:<span class="number">01</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    Add log.</span><br><span class="line"></span><br><span class="line">commit <span class="number">67b</span>6e205d7183d51406d1bf75fb248829f8a2692</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">20</span>:<span class="number">35</span>:<span class="number">02</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    First commit.</span><br><span class="line">jianghouren@localhost EspressoApplication % git log <span class="number">6b</span>16d74628f10bb80736039ae881567e1415b574</span><br><span class="line">commit <span class="number">6b</span>16d74628f10bb80736039ae881567e1415b574 (HEAD -&gt; master)</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">21</span>:<span class="number">19</span>:<span class="number">01</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    Add log.</span><br><span class="line"></span><br><span class="line">commit <span class="number">67b</span>6e205d7183d51406d1bf75fb248829f8a2692</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">20</span>:<span class="number">35</span>:<span class="number">02</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    First commit.</span><br><span class="line">jianghouren@localhost EspressoApplication % git log <span class="number">-1</span></span><br><span class="line">commit <span class="number">6b</span>16d74628f10bb80736039ae881567e1415b574 (HEAD -&gt; master)</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">21</span>:<span class="number">19</span>:<span class="number">01</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    Add log.</span><br><span class="line">jianghouren@localhost EspressoApplication % git log <span class="number">-2</span></span><br><span class="line">commit <span class="number">6b</span>16d74628f10bb80736039ae881567e1415b574 (HEAD -&gt; master)</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">21</span>:<span class="number">19</span>:<span class="number">01</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    Add log.</span><br><span class="line"></span><br><span class="line">commit <span class="number">67b</span>6e205d7183d51406d1bf75fb248829f8a2692</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">20</span>:<span class="number">35</span>:<span class="number">02</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    First commit.</span><br><span class="line">jianghouren@localhost EspressoApplication % git log <span class="number">67b</span>6e205d7183d51406d1bf75fb248829f8a2692</span><br><span class="line">commit <span class="number">67b</span>6e205d7183d51406d1bf75fb248829f8a2692</span><br><span class="line">Author: feiyeyuanye &lt;<span class="number">199302212</span>@qq.com&gt;</span><br><span class="line">Date:   Wed Jul <span class="number">1</span> <span class="number">20</span>:<span class="number">35</span>:<span class="number">02</span> <span class="number">2020</span> +<span class="number">0800</span></span><br><span class="line"></span><br><span class="line">    First commit.</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<h3 id="分支的用法"><a href="#分支的用法" class="headerlink" title="分支的用法"></a>分支的用法</h3><p>这里因为缺乏多人开发的经验，暂存疑惑：</p>
+<ul>
+<li>多人开发：个人创建分支 –&gt; 合并到主干线上 ？</li>
+<li>独立开发：主干线上开发 –&gt; 发布版本时创建分支 ？</li>
+</ul>
+<p>比如项目在发布 1.0 版本时建立一个分支，然后在主干线上继续开发 1.1 版本功能。当在 1.0 版本上发觉任何 bug 时，就在分支上进行修改，然后发布新的 1.0 版本，并记得将修改后的代码合并到主干线上。这样的话，不仅可以轻松解决 1.0 版本存在的 bug，而且保证了主干线上的代码也已经修复了这些 bug，当 1.1 版本发布时，就不会有同样的 bug 存在了。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 查看有哪些分支</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git branch</span><br><span class="line">* master</span><br><span class="line"><span class="comment">// 创建分支</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git branch version1<span class="number">.0</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git branch</span><br><span class="line">* master</span><br><span class="line">  version1<span class="number">.0</span></span><br><span class="line"><span class="comment">// 切换分支</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git checkout version1<span class="number">.0</span></span><br><span class="line">Switched to branch <span class="string">&#x27;version1.0&#x27;</span></span><br><span class="line"><span class="comment">// * 代表代码切换到了 version1.0 分支上了</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git branch</span><br><span class="line">  master</span><br><span class="line">* version1<span class="number">.0</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git checkout master</span><br><span class="line">Switched to branch <span class="string">&#x27;master&#x27;</span></span><br><span class="line"><span class="comment">// 将 version1.0 分支上修改并提交的内容合并到 master 分支上</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git merge version1<span class="number">.0</span></span><br><span class="line">Already up to date.</span><br><span class="line"><span class="comment">// 删除分支</span></span><br><span class="line">jianghouren@localhost EspressoApplication % git branch -D version1<span class="number">.0</span></span><br><span class="line">Deleted branch version1<span class="number">.0</span> (was <span class="number">6b</span>16d74).</span><br><span class="line">jianghouren@localhost EspressoApplication % git branch</span><br><span class="line">* master</span><br><span class="line">jianghouren@localhost EspressoApplication %</span><br></pre></td></tr></table></figure>
+
+<h3 id="与远程版本库协作"><a href="#与远程版本库协作" class="headerlink" title="与远程版本库协作"></a>与远程版本库协作</h3><p>要养成经常从版本库中获取最新代码的习惯，避免经常出现冲突。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将远程版本库的代码下载到本地（不管是 github，还是其他，注意配置 ssh，否则 git clone 无效。）</span></span><br><span class="line">jianghouren@localhost ~ % git clone git@github.com:feiyeyuanye/Preliminary-use-of-Kotlin.git</span><br><span class="line">Cloning into <span class="string">&#x27;Preliminary-use-of-Kotlin&#x27;</span>...</span><br><span class="line">remote: Enumerating objects: <span class="number">211</span>, done.</span><br><span class="line">remote: Counting objects: <span class="number">100</span>% (<span class="number">211</span>/<span class="number">211</span>), done.</span><br><span class="line">remote: Compressing objects: <span class="number">100</span>% (<span class="number">136</span>/<span class="number">136</span>), done.</span><br><span class="line">remote: Total <span class="number">211</span> (delta <span class="number">61</span>), reused <span class="number">188</span> (delta <span class="number">38</span>), pack-reused <span class="number">0</span></span><br><span class="line">Receiving objects: <span class="number">100</span>% (<span class="number">211</span>/<span class="number">211</span>), <span class="number">156.74</span> KiB | <span class="number">8.00</span> KiB/s, done.</span><br><span class="line">Resolving deltas: <span class="number">100</span>% (<span class="number">61</span>/<span class="number">61</span>), done.</span><br><span class="line"><span class="comment">// 切换到项目目录</span></span><br><span class="line">jianghouren@localhost ~ % cd Preliminary-use-of-Kotlin</span><br><span class="line"><span class="comment">// 将本地修改的内容同步到远程版本库上</span></span><br><span class="line"><span class="comment">// origin 部分指定的是远程版本库的 Git 地址，master 部分指定的是同步到哪一个分支</span></span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin % git push origin master</span><br><span class="line">Everything up-to-date</span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin %</span><br></pre></td></tr></table></figure>
+
+<p>将远程版本库上的修改同步到本地。Git 提供了两种命令来完成：fetch 和 pull。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">jianghouren@localhost ~ % cd Preliminary-use-of-Kotlin</span><br><span class="line"><span class="comment">// 同步下来的代码并不会合并到任何分支上，而是会存放到一个 origin/master 分支上。</span></span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin % git fetch origin master</span><br><span class="line">From github.com:feiyeyuanye/Preliminary-use-of-Kotlin</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line"><span class="comment">// 通过 diff 命令查看远程版本库上修改了哪些东西</span></span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin % git diff origin/master</span><br><span class="line"><span class="comment">// 将 origin/master 分支上的修改合并到主分支上</span></span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin % git merge origin/master</span><br><span class="line">Already up to date.</span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin %</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pull 命令则是相当于将 fetch 和 merge 这两个命令放在一起执行了，</span></span><br><span class="line"><span class="comment">// 它可以从远程版本库上获取最新的代码并且合并到本地。</span></span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin % git pull origin master</span><br><span class="line">From github.com:feiyeyuanye/Preliminary-use-of-Kotlin</span><br><span class="line"> * branch            master     -&gt; FETCH_HEAD</span><br><span class="line">Already up to date.</span><br><span class="line">jianghouren@localhost Preliminary-use-of-Kotlin %</span><br></pre></td></tr></table></figure>
+
+<p>示例：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git add .</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git</span><br><span class="line">  <span class="comment">// 添加所有文件</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git add .</span><br><span class="line">  <span class="comment">// 提交</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git commit -m <span class="string">&quot;update&quot;</span></span><br><span class="line">  <span class="comment">// 查看修改的内容</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git status</span><br><span class="line">  <span class="comment">// 拉取</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git pull </span><br><span class="line">  <span class="comment">// 推送</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git push origin master</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git status</span><br><span class="line"> <span class="comment">// 查看有哪些分支</span></span><br><span class="line">jianghouren@jianghourendeMacBook-Pro androidsolo % git branch</span><br></pre></td></tr></table></figure>
+
+<h3 id="将代码托管到-GitHub-上"><a href="#将代码托管到-GitHub-上" class="headerlink" title="将代码托管到 GitHub 上"></a>将代码托管到 GitHub 上</h3><ol>
+<li>GitHub 上创建版本库，并复制版本库的 Git 地址。<ul>
+<li>为版本库命名</li>
+<li>添加描述信息</li>
+<li>勾选 “Initialize this repository with a README”</li>
+<li>添加一个 Android 项目类型的 .gitignore 文件</li>
+<li>使用 Apache License 2.0 来作为项目的开源协议</li>
+</ul>
+</li>
+<li>本地新建项目文件夹，cd 切换到此文件夹目录下，并 clone 远程版本库到本地。</li>
+<li>将此目录下的文件全部复制粘贴到上一层目录中，这样就能将整个工程目录添加到版本控制中去了。注意，.git 是一个隐藏目录，复制时千万不要漏掉。另外，上一层目录中也有一个 .gitignore 文件，直接将其覆盖即可。复制完后可将该目录删除。</li>
+<li>接下来将项目中现有的文件提交到 GitHub 上面。<ol>
+<li>git add。先将所有文件添加到版本控制中。</li>
+<li>git commit -m “First commit.”。在本地执行提交操作。</li>
+<li>ls -al （可查看目录结构）</li>
+<li>git push origin master。将提交的内容同步到远程版本库。</li>
+</ol>
+</li>
+<li>最后一步时，GitHub 可能会要求输入用户名和密码来进行身份效验，这里输入注册时填入的用户名和密码就可以了。</li>
+<li>在 GitHub 上刷新一下项目版本库的主页，就可以看到提交的文件了。</li>
+</ol>
+<hr>
+<h2 id="修改-GitHub-仓库提交信息-邮箱"><a href="#修改-GitHub-仓库提交信息-邮箱" class="headerlink" title="修改 GitHub 仓库提交信息(邮箱)"></a>修改 GitHub 仓库提交信息(邮箱)</h2><p>修改了 GitHub 的邮箱后，导致提交信息记录（绿色的小格子）消失。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.dazhuanlan.com/2020/03/01/5e5aa51db0750/">https://www.dazhuanlan.com/2020/03/01/5e5aa51db0750/</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en/github/using-git/changing-author-info">https://docs.github.com/en/github/using-git/changing-author-info</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi?rq=1">https://stackoverflow.com/questions/750172/how-to-change-the-author-and-committer-name-and-e-mail-of-multiple-commits-in-gi?rq=1</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://stackoverflow.com/questions/39631983/github-invalid-author-email-commits-no-contribution-activity">https://stackoverflow.com/questions/39631983/github-invalid-author-email-commits-no-contribution-activity</a></p>
+<p>将项目 clone 下来后，执行脚本修改：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh（这是注释，执行命令时要删除。）</span><br><span class="line"></span><br><span class="line">git filter-branch --env-filter &#x27;</span><br><span class="line"></span><br><span class="line">OLD_EMAIL=<span class="string">&quot;your-old-email@example.com&quot;</span></span><br><span class="line">CORRECT_NAME=<span class="string">&quot;&quot;</span></span><br><span class="line">CORRECT_EMAIL=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;$GIT_COMMITTER_EMAIL&quot;</span> = <span class="string">&quot;$OLD_EMAIL&quot;</span> ]</span><br><span class="line">then</span><br><span class="line">    <span class="keyword">export</span> GIT_COMMITTER_NAME=<span class="string">&quot;$CORRECT_NAME&quot;</span></span><br><span class="line">    <span class="keyword">export</span> GIT_COMMITTER_EMAIL=<span class="string">&quot;$CORRECT_EMAIL&quot;</span></span><br><span class="line">fi</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;$GIT_AUTHOR_EMAIL&quot;</span> = <span class="string">&quot;$OLD_EMAIL&quot;</span> ]</span><br><span class="line">then</span><br><span class="line">    <span class="keyword">export</span> GIT_AUTHOR_NAME=<span class="string">&quot;$CORRECT_NAME&quot;</span></span><br><span class="line">    <span class="keyword">export</span> GIT_AUTHOR_EMAIL=<span class="string">&quot;$CORRECT_EMAIL&quot;</span></span><br><span class="line">fi</span><br><span class="line"><span class="string">&#x27; --tag-name-filter cat -- --branches --tags</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="关闭-less-界面"><a href="#关闭-less-界面" class="headerlink" title="关闭 less 界面"></a><p class="m_more_title_style">关闭 less 界面</p></h2><p>按 q 关闭 less 界面。</p>
+<p>按 Ctrl+Z 关闭 vim 界面？下次遇到了再试。</p>
+<hr>
+<h2 id="Sourcetree-使用"><a href="#Sourcetree-使用" class="headerlink" title="Sourcetree 使用"></a><p class="m_more_title_style">Sourcetree 使用</p></h2><p>添加本地代码到 GitHub：</p>
+<ul>
+<li><p>在 GitHub 上创建一个新的仓库。</p>
+</li>
+<li><p>Sourcetree 上选择新建 -&gt; 添加已存在的本地仓库。</p>
+</li>
+<li><p>创建成功后点击右上角的设置，选择远程仓库并添加地址。</p>
+</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.liaoxuefeng.com/wiki/896043488029600">廖雪峰学git</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://docs.github.com/en">GitHub 文件</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/15f503f8.html" title="Git 版本控制工具">https://jianghouren.cn/archives/15f503f8.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" rel="tag"># 工具配置</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/d9ef4533.html" rel="prev" title="Android 测试">
+                  <i class="fa fa-chevron-left"></i> Android 测试
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/2b7768c3.html" rel="next" title="Dalvik 和 ART">
+                  Dalvik 和 ART <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/15f503f8.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

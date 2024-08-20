@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="View 的工作原理">
+<meta property="og:url" content="https://jianghouren.cn/archives/e44f5800.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-09-21T02:18:23.000Z">
+<meta property="article:modified_time" content="2020-06-29T06:06:46.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="View">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/e44f5800.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/e44f5800.html","path":"archives/e44f5800.html","title":"View 的工作原理"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>View 的工作原理 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9D%E8%AF%86-ViewRoot-%E5%92%8C-DecorView"><span class="nav-number">1.</span> <span class="nav-text">初识 ViewRoot 和 DecorView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ViewRoot"><span class="nav-number">1.1.</span> <span class="nav-text">ViewRoot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DecorView"><span class="nav-number">1.2.</span> <span class="nav-text">DecorView</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%A7%A3-MeasureSpec"><span class="nav-number">2.</span> <span class="nav-text">理解 MeasureSpec</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MeasureSpec"><span class="nav-number">2.1.</span> <span class="nav-text">MeasureSpec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MeasureSpec-%E5%92%8C-LayoutParams-%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">2.2.</span> <span class="nav-text">MeasureSpec 和 LayoutParams 的对应关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#View-%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">View 的工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#measure-%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.1.</span> <span class="nav-text">measure 过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#layout-%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.2.</span> <span class="nav-text">layout 过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#draw-%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.3.</span> <span class="nav-text">draw 过程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-View"><span class="nav-number">3.</span> <span class="nav-text">自定义 View</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-View-%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">3.1.</span> <span class="nav-text">自定义 View 的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-View-%E9%A1%BB%E7%9F%A5"><span class="nav-number">3.2.</span> <span class="nav-text">自定义 View 须知</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-View-%E7%A4%BA%E4%BE%8B"><span class="nav-number">3.3.</span> <span class="nav-text">自定义 View 示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/e44f5800.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="View 的工作原理 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          View 的工作原理
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-21 10:18:23" itemprop="dateCreated datePublished" datetime="2019-09-21T10:18:23+08:00">2019-09-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-06-29 14:06:46" itemprop="dateModified" datetime="2020-06-29T14:06:46+08:00">2020-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/e44f5800.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/e44f5800.html" data-xid="/archives/e44f5800.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/e44f5800.html" class="post-meta-item leancloud_visitors" data-flag-title="View 的工作原理" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/妖精的尾巴.jpeg"  onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="初识-ViewRoot-和-DecorView"><a href="#初识-ViewRoot-和-DecorView" class="headerlink" title="初识 ViewRoot 和 DecorView"></a><p class="m_more_title_style">初识 ViewRoot 和 DecorView</p></h2><h3 id="ViewRoot"><a href="#ViewRoot" class="headerlink" title="ViewRoot"></a>ViewRoot</h3><p>ViewRoot 对应于 ViewRootImpl 类，它是连接 WindowManager 和 DecorView 的纽带。<br>在 ActivityThread 中，当 Activity 对象被创建完毕后，会将 DecorView 添加到 Window 中，同时会创建 ViewRootImpl 对象并将其和 DecorView 建立关联。</p>
+<p>View 的三大流程均是通过它来完成的</p>
+<ul>
+<li><strong>Measure</strong>：测量 View 的宽&#x2F;高<br>可通过 getMeasuredWidth 和 getMeasuredHeight 获取 View 测量后的宽&#x2F;高。</li>
+<li><strong>Layout</strong>：确定 View 在父容器中的放置位置<br>可通过 getTop 等方法获取四个顶点的位置。<br>可通过 getWidth 和 getHeight 方法获取 View 的最终宽&#x2F;高。</li>
+<li><strong>Draw</strong>：将 View 绘制在屏幕上<br>此方法完成后 View 的内容才能呈现在屏幕上。</li>
+</ul>
+<p>View 绘制流程由 ViewRoot 的 performTraversals 方法开始 –&gt; performMeasure –&gt; measure –&gt; onMeasure –&gt; 对所有子元素进行 measure 过程 –&gt; 接着由子元素重复这个过程，直到 View 树的遍历。其它两个流程类似，只不过 performDraw 的传递过程在 draw 方法中通过 dispatchDraw 来实现的。</p>
+<h3 id="DecorView"><a href="#DecorView" class="headerlink" title="DecorView"></a>DecorView</h3><p>顶级 View，其实是一个 FrameLayout，一般内部包含一个竖直方向的 LinearLayout（两部分，上面标题栏，下面内容栏。具体情况和版本与主题有关）。<br>在 Activity 中通过 setContentView 设置的布局就是被加到内容栏（id 为 content 的 FrameLayout）中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 content</span></span><br><span class="line"><span class="type">ViewGroup</span> <span class="variable">content</span> <span class="operator">=</span> findViewById(android.R.id.content);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取我们设置的 View</span></span><br><span class="line">content.getChildAt(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="理解-MeasureSpec"><a href="#理解-MeasureSpec" class="headerlink" title="理解 MeasureSpec"></a><p class="m_more_title_style">理解 MeasureSpec</p></h2><h3 id="MeasureSpec"><a href="#MeasureSpec" class="headerlink" title="MeasureSpec"></a>MeasureSpec</h3><p>它代表一个 32 位 int 值，高 2 位代表 SpecMode（测量模式），低 30 位代表 SpecSize（在某种测量模式下的规格大小）。<br>SpecMode 有三类：</p>
+<ul>
+<li>UNSPECIFIED<br>父容器不会 View 有任何限制，一般用于系统内部，表示一种测量的状态，多次 Measure 的情形，一般不需要关注此模式。</li>
+<li>EXACTLY<br>父容器已经检测出 View 所需的精确大小，这时 View 的最终大小就是 SpecSize 所指定的值。<br>它对应于 LayoutParams 中的 match_parent 和具体数值这两种模式。</li>
+<li>AT_MOST<br>父容器指定一个可用大小即 SpecSize，View 的大小不能大于这个值，具体什么值要看不同 View 的具体实现。<br>它对应于 LayoutParams 中的 wrap_content。</li>
+</ul>
+<h3 id="MeasureSpec-和-LayoutParams-的对应关系"><a href="#MeasureSpec-和-LayoutParams-的对应关系" class="headerlink" title="MeasureSpec 和 LayoutParams 的对应关系"></a>MeasureSpec 和 LayoutParams 的对应关系</h3><p>对于 DecorView，其 MeasureSpec 由窗口的尺寸和其自身的 LayoutParams 来共同决定。<br>DecorView 的 MeasureSpec 产生过程，遵守如下规则：</p>
+<ul>
+<li>LayoutParams.MATCH_PARENT：精确模式，大小就是窗口的大小。</li>
+<li>LayoutParams.WRAP_CONTENT：最大模式，大小不定，但是不能超过窗口的大小。</li>
+<li>固定大小（比如 100dp）：精确模式，大小为 LayoutParams 中指定的大小。</li>
+</ul>
+<p>对于普通 View，其 MeasureSpec 由父容器的 MeasureSpec 和自身的 LayoutParams 来共同决定的。</p>
+<ul>
+<li>当 View 采用固定宽&#x2F;高时：不管父容器的 MeasureSpec 是什么，View 的 MeasureSpec 都是精确模式并且其大小遵循 LayoutParams 中的大小。</li>
+<li>当 View 的宽&#x2F;高是 match_parent 时：如果父容器的模式是精准模式，那 View 也是精准模式并且其大小是父容器的剩余空间，如果父容器是最大模式，那 View 也是最大模式并且其大小不会超过父容器的剩余空间。</li>
+<li>当 View 的宽&#x2F;高是 wrap_content 时：不管父容器的模式是什么，View 的模式总是最大化并且大小不能超过父容器的剩余空间。</li>
+</ul>
+<h3 id="View-的工作流程"><a href="#View-的工作流程" class="headerlink" title="View 的工作流程"></a>View 的工作流程</h3><h4 id="measure-过程"><a href="#measure-过程" class="headerlink" title="measure 过程"></a>measure 过程</h4><p><strong>View 的 measure 过程</strong><br>由其 measure 方法（final 类型）完成，measure 会去调用 onMeasure 方法。<br>onMeausre –&gt; 通过 setMeasuredDimension 设置 View 宽&#x2F;高的测量值 –&gt; 其参数为 getDefaultSize() –&gt; 其内部会对三种模式进行赋值。</p>
+<ul>
+<li>UNSPECIFIED<br>View 宽&#x2F;高为第一个参数也就是 getSuggestedMinimumWidth() 和 getSuggestedMinimumHeight() 的返回值。<br>关于 getSuggestedMinimumWidth() ，如果 View 没有设置背景，则返回 android:minWidth 值，默认为 0，如果设置了背景，则返回 android:minWidth 和背景的最小宽度中的最大值。</li>
+<li>另外两种才需要关注<br>View 的宽高由 specSize 决定。<br>直接继承 View 的自定义控件需重写 onMeasure() 并设置 wrap_content 时的自身大小，否则在布局中使用 wrap_content（specMode 是 AT_MOST 模式） 就相当于使用 match_parent。</li>
+</ul>
+<p><strong>ViewGroup 的 measure 过程</strong><br>除了自己的 measure 过程外，还会遍历调用所有子元素的 measure 方法（通过 measureChild()）。<br>measureChild() –&gt; 取出子元素 LayoutParams –&gt; 通过 getChildMeasureSpec 创建子元素的 MeasureSpec –&gt;将其传递给 View 的 measure() 进行测量</p>
+<p>某些情况下，系统可能需要多次 measure 才能确定最终宽&#x2F;高，这种情况下得到的值可能不准确。建议在 onLayout() 中获宽&#x2F;高取值。</p>
+<p>启动三回调中均无法正确得到某个 View 的宽&#x2F;高信息，因为 View 的 measure 过程和 Activity 的生命周期方法不是同步执行的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 四种方式实现</span></span><br><span class="line"><span class="comment"> * 获取 View 的宽/高信息</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span>  &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> TextView tv;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_main);</span><br><span class="line">        tv = findViewById(R.id.tv);</span><br><span class="line"></span><br><span class="line">        log(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        measure();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一：此方法表示 View 已初始化完毕</span></span><br><span class="line"><span class="comment">     * 当 Activity 的窗口得到和失去焦点时均会被调用一次</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onWindowFocusChanged</span><span class="params">(<span class="type">boolean</span> hasFocus)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onWindowFocusChanged(hasFocus);</span><br><span class="line">        <span class="keyword">if</span> (hasFocus)&#123;</span><br><span class="line">            log(<span class="string">&quot;onWindowFocusChanged:&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onStart</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onStart();</span><br><span class="line">        <span class="comment">// 二：通过 post 可将一个 runnable 投递到消息队列的尾部，</span></span><br><span class="line">        <span class="comment">// 然后等待 Looper 调用此 runnable 时，View 已经初始化好了。</span></span><br><span class="line">        tv.post(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                log(<span class="string">&quot;post:&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 三：</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">ViewTreeObserver</span> <span class="variable">observer</span> <span class="operator">=</span> tv.getViewTreeObserver();</span><br><span class="line">        <span class="comment">// 此接口，当 View 树的状态发生改变或者 View 树内部的 View 的可见性发生改变时，会被调用。</span></span><br><span class="line">        <span class="comment">// 伴随 View 树的状态改变等，会被调用多次。</span></span><br><span class="line">        observer.addOnGlobalLayoutListener(<span class="keyword">new</span> <span class="title class_">ViewTreeObserver</span>.OnGlobalLayoutListener() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onGlobalLayout</span><span class="params">()</span> &#123;</span><br><span class="line">                tv.getViewTreeObserver().removeGlobalOnLayoutListener(<span class="built_in">this</span>);</span><br><span class="line">                log(<span class="string">&quot;ViewTreeObserver:&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 四：通过手动对 View 进行 measure 来得到宽/高</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">measure</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// wrap_content</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">widthMeasureSpec</span> <span class="operator">=</span> View.MeasureSpec.makeMeasureSpec((<span class="number">1</span> &lt;&lt; <span class="number">30</span>)-<span class="number">1</span>, View.MeasureSpec.AT_MOST);</span><br><span class="line">        <span class="type">int</span> <span class="variable">heightMeasureSpec</span> <span class="operator">=</span> View.MeasureSpec.makeMeasureSpec((<span class="number">1</span> &lt;&lt; <span class="number">30</span>)-<span class="number">1</span>, View.MeasureSpec.AT_MOST);</span><br><span class="line">        tv.measure(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line">        log(<span class="string">&quot;measure:&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 具体的数值（dp/px）</span></span><br><span class="line"><span class="comment">//        int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(100, View.MeasureSpec.EXACTLY);</span></span><br><span class="line"><span class="comment">//        int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(100, View.MeasureSpec.EXACTLY);</span></span><br><span class="line"><span class="comment">//        tv.measure(widthMeasureSpec,heightMeasureSpec);</span></span><br><span class="line"><span class="comment">//        log(&quot;measure:&quot;);</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// match_parent</span></span><br><span class="line">        <span class="comment">// 直接放弃，无法得知 parentSize 大小</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">log</span><span class="params">(String str)</span>&#123;</span><br><span class="line">        Log.e(<span class="string">&quot;TAG&quot;</span>,str+<span class="string">&quot; &quot;</span>+tv.getMeasuredWidth()+<span class="string">&quot; &quot;</span>+tv.getMeasuredHeight());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="layout-过程"><a href="#layout-过程" class="headerlink" title="layout 过程"></a>layout 过程</h4><p>它的作用是 ViewGroup 用来确定子元素的位置，在 onLayout() 中遍历所有子元素并调用其 layout()，在 layout() 会先通过 setFrame() 设置 View 的四个顶点位置，接着会调用 onLayout()。<br>layout() 确定本身位置，而 onLayout() 确定所有子元素位置。</p>
+<h4 id="draw-过程"><a href="#draw-过程" class="headerlink" title="draw 过程"></a>draw 过程</h4><p><strong>View 的绘制过程：</strong></p>
+<ul>
+<li><strong>绘制背景</strong>：background.draw(canvas)</li>
+<li><strong>绘制自己</strong>：onDraw(canvas)</li>
+<li><strong>绘制</strong>：children：dispatchDraw(canvas)<br>会遍历所有子元素的 draw()</li>
+<li><strong>绘制装饰</strong>：onDrawScrollBars(canvas)</li>
+</ul>
+<p>当一个 View 不需绘制任何内容，可通过 setWillNotDraw(boolean willNotDraw) 设置这个标记位为 true，系统会进行相应的优化。<br>默认，View 没启用这个标记位，而 ViewGroup 启动。</p>
+<hr>
+<h2 id="自定义-View"><a href="#自定义-View" class="headerlink" title="自定义 View"></a><p class="m_more_title_style">自定义 View</p></h2><h3 id="自定义-View-的分类"><a href="#自定义-View-的分类" class="headerlink" title="自定义 View 的分类"></a>自定义 View 的分类</h3><ul>
+<li>继承 View 重写 onDraw()<br>主要用于实现一些不规则效果。并且要自己支持 wrap_content 和 padding。</li>
+<li>继承 ViewGroup 派生特殊的 Layout<br>主要用于实现自定义的布局。需要合适的处理 ViewGroup 和子元素的测量、布局这两个过程。</li>
+<li>继承特定 View （比如 TextView）<br>一般用于扩展某种已有的 View 功能。这种不需自己支持 wrap_content 和 padding 等。</li>
+<li>继承特定 ViewGroup（比如 LinearLayout）<br>这种方法不需自己处理 ViewGroup 的测量和布局两个过程。它与方法 2 的区别在于，后者更接近 View 的底层。</li>
+</ul>
+<h3 id="自定义-View-须知"><a href="#自定义-View-须知" class="headerlink" title="自定义 View 须知"></a>自定义 View 须知</h3><ul>
+<li>让 View 支持 wrap_content</li>
+<li>如有必要，让 View 支持 padding</li>
+<li>尽量不要在 View 中使用 Handler</li>
+<li>及时停止 View 中的线程和动画</li>
+<li>处理好滑动冲突</li>
+</ul>
+<h3 id="自定义-View-示例"><a href="#自定义-View-示例" class="headerlink" title="自定义 View 示例"></a>自定义 View 示例</h3><p>1、继承 View 重写 onDraw()</p>
+<figure class="highlight xml"><figcaption><span>attrs.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">declare-styleable</span> <span class="attr">name</span>=<span class="string">&quot;CircleView&quot;</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--reference：资源id。dimension：尺寸--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">attr</span> <span class="attr">name</span>=<span class="string">&quot;circle_color&quot;</span> <span class="attr">format</span>=<span class="string">&quot;color&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">declare-styleable</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><figcaption><span>activity_main.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">com.example.myapplication.CircleView</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:background</span>=<span class="string">&quot;#000000&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_margin</span>=<span class="string">&quot;20dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:padding</span>=<span class="string">&quot;10dp&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">app:circle_color</span>=<span class="string">&quot;@android:color/holo_green_light&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 绘制一个圆</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CircleView</span> <span class="keyword">extends</span> <span class="title class_">View</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">mColor</span> <span class="operator">=</span> Color.RED;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Paint</span> <span class="variable">mPaint</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Paint</span>(Paint.ANTI_ALIAS_FLAG);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CircleView</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CircleView</span><span class="params">(Context context, <span class="meta">@Nullable</span> AttributeSet attrs)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(context,attrs,<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析自定义属性的值，并做处理</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">CircleView</span><span class="params">(Context context, <span class="meta">@Nullable</span> AttributeSet attrs, <span class="type">int</span> defStyleAttr)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        <span class="comment">// 加载自定义属性集合</span></span><br><span class="line">        TypedArray a= context.obtainStyledAttributes(attrs,R.styleable.CircleView);</span><br><span class="line">        <span class="comment">// 解析属性</span></span><br><span class="line">        mColor = a.getColor(R.styleable.CircleView_circle_color,Color.RED);</span><br><span class="line">        <span class="comment">// 释放资源</span></span><br><span class="line">        a.recycle();</span><br><span class="line">        init();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        mPaint.setColor(mColor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在 onMeasure() 处理 wrap_content 问题</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onMeasure</span><span class="params">(<span class="type">int</span> widthMeasureSpec, <span class="type">int</span> heightMeasureSpec)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">widthSpecMode</span> <span class="operator">=</span> MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">heightSpecMode</span> <span class="operator">=</span> MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">widthSpecSize</span> <span class="operator">=</span> MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">heightSpecSize</span> <span class="operator">=</span> MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果为 wrap_content，那给个默认值。</span></span><br><span class="line">        <span class="keyword">if</span> (widthSpecMode == MeasureSpec.AT_MOST &amp;&amp; heightSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            setMeasuredDimension(<span class="number">200</span>,<span class="number">200</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (widthSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            setMeasuredDimension(<span class="number">200</span>,heightSpecSize);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (heightSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            setMeasuredDimension(widthSpecSize,<span class="number">200</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在 onDraw() 中处理 padding 问题</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDraw</span><span class="params">(Canvas canvas)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onDraw(canvas);</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">paddingLeft</span> <span class="operator">=</span> getPaddingLeft();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">paddingRight</span> <span class="operator">=</span> getPaddingRight();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">paddingTop</span> <span class="operator">=</span> getPaddingTop();</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">paddingBottom</span> <span class="operator">=</span> getPaddingBottom();</span><br><span class="line"></span><br><span class="line">        <span class="type">int</span> <span class="variable">width</span> <span class="operator">=</span> getWidth()-paddingLeft - paddingRight;</span><br><span class="line">        <span class="type">int</span> <span class="variable">height</span> <span class="operator">=</span> getHeight() - paddingTop - paddingBottom;</span><br><span class="line">        <span class="type">int</span> <span class="variable">radius</span> <span class="operator">=</span> Math.min(width,height)/<span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 绘制一个圆</span></span><br><span class="line">        canvas.drawCircle(paddingLeft+width/<span class="number">2</span>,paddingTop+height/<span class="number">2</span>,radius,mPaint);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、继承 ViewGroup 派生特殊的 Layout</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HorizontalScrollViewEx</span> <span class="keyword">extends</span> <span class="title class_">ViewGroup</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">TAG</span> <span class="operator">=</span> <span class="string">&quot;HorizontalScrollViewEx&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mChildrenSize;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mChildWidth;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> mChildIndex;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 分别记录上次滑动的坐标</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">mLastX</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">mLastY</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">mLastXIntercept</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> <span class="variable">mLastYIntercept</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Scroller mScroller;</span><br><span class="line">    <span class="keyword">private</span> VelocityTracker mVelocityTracker;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HorizontalScrollViewEx</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (mScroller == <span class="literal">null</span>)&#123;</span><br><span class="line">            mScroller = <span class="keyword">new</span> <span class="title class_">Scroller</span>(getContext());</span><br><span class="line">            mVelocityTracker = VelocityTracker.obtain();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HorizontalScrollViewEx</span><span class="params">(Context context, AttributeSet attrs)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">HorizontalScrollViewEx</span><span class="params">(Context context, AttributeSet attrs, <span class="type">int</span> defStyleAttr)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context, attrs, defStyleAttr);</span><br><span class="line">        init();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">intercepted</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> (<span class="type">int</span>) ev.getX();</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> (<span class="type">int</span>) ev.getY();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (ev.getAction())&#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                intercepted = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">if</span> (!mScroller.isFinished())&#123;</span><br><span class="line">                    mScroller.abortAnimation();</span><br><span class="line">                    intercepted = <span class="literal">true</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">                <span class="type">int</span> <span class="variable">deltaX</span> <span class="operator">=</span> x - mLastXIntercept;</span><br><span class="line">                <span class="type">int</span> <span class="variable">deltaY</span> <span class="operator">=</span> y - mLastYIntercept;</span><br><span class="line">                <span class="keyword">if</span> (Math.abs(deltaX) &gt; Math.abs(deltaY))&#123;</span><br><span class="line">                    intercepted = <span class="literal">true</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    intercepted = <span class="literal">false</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">                intercepted = <span class="literal">false</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">default</span>:</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Log.e(TAG,<span class="string">&quot;intercepted = &quot;</span>+intercepted);</span><br><span class="line">        mLastX = x;</span><br><span class="line">        mLastY = y;</span><br><span class="line">        mLastXIntercept = x;</span><br><span class="line">        mLastYIntercept = y;</span><br><span class="line">        <span class="keyword">return</span> intercepted;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onTouchEvent</span><span class="params">(MotionEvent ev)</span> &#123;</span><br><span class="line">        mVelocityTracker.addMovement(ev);</span><br><span class="line">        <span class="type">int</span> <span class="variable">x</span> <span class="operator">=</span> (<span class="type">int</span>) ev.getX();</span><br><span class="line">        <span class="type">int</span> <span class="variable">y</span> <span class="operator">=</span> (<span class="type">int</span>) ev.getY();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> (ev.getAction())&#123;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_DOWN:</span><br><span class="line">                <span class="keyword">if</span> (!mScroller.isFinished())&#123;</span><br><span class="line">                    mScroller.abortAnimation();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_MOVE:</span><br><span class="line">                <span class="type">int</span> <span class="variable">deltaX</span> <span class="operator">=</span> x - mLastX;</span><br><span class="line">                <span class="type">int</span> <span class="variable">deltaY</span> <span class="operator">=</span> y - mLastY;</span><br><span class="line">                scrollBy(-deltaX,<span class="number">0</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> MotionEvent.ACTION_UP:</span><br><span class="line">                <span class="type">int</span> <span class="variable">scrollX</span> <span class="operator">=</span> getScrollX();</span><br><span class="line">                mVelocityTracker.computeCurrentVelocity(<span class="number">1000</span>);</span><br><span class="line">                <span class="type">float</span> <span class="variable">xVelocity</span> <span class="operator">=</span> mVelocityTracker.getXVelocity();</span><br><span class="line">                <span class="keyword">if</span> (Math.abs(xVelocity) &gt;= <span class="number">50</span>)&#123;</span><br><span class="line">                    mChildIndex = xVelocity &gt; <span class="number">0</span> ? mChildIndex - <span class="number">1</span> : mChildIndex + <span class="number">1</span>;</span><br><span class="line">                &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                    mChildIndex = (scrollX + mChildWidth / <span class="number">2</span>) / mChildWidth;</span><br><span class="line">                &#125;</span><br><span class="line">                mChildIndex = Math.max(<span class="number">0</span>,Math.min(mChildIndex,mChildrenSize - <span class="number">1</span>));</span><br><span class="line">                <span class="type">int</span> <span class="variable">dx</span> <span class="operator">=</span> mChildIndex * mChildWidth - scrollX;</span><br><span class="line">                smoothScrollBy(dx,<span class="number">0</span>);</span><br><span class="line">                mVelocityTracker.clear();</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mLastX = x;</span><br><span class="line">        mLastY = y;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onMeasure</span><span class="params">(<span class="type">int</span> widthMeasureSpec, <span class="type">int</span> heightMeasureSpec)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onMeasure(widthMeasureSpec, heightMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">measureWidth</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="type">int</span> <span class="variable">measureHeight</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="comment">// 得到子元素个数</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childCount</span> <span class="operator">=</span> getChildCount();</span><br><span class="line">        measureChildren(widthMeasureSpec,heightMeasureSpec);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 这里测量宽/高时，没有考虑到它的 padding 和 子元素的 margin。</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">widthSpecSize</span> <span class="operator">=</span> MeasureSpec.getSize(widthMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">widthSpecMode</span> <span class="operator">=</span> MeasureSpec.getMode(widthMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">heightSpecSize</span> <span class="operator">=</span> MeasureSpec.getSize(heightMeasureSpec);</span><br><span class="line">        <span class="type">int</span> <span class="variable">heightSpecMode</span> <span class="operator">=</span> MeasureSpec.getMode(heightMeasureSpec);</span><br><span class="line">        <span class="comment">// 是否有子元素</span></span><br><span class="line">        <span class="keyword">if</span> (childCount == <span class="number">0</span>)&#123;</span><br><span class="line">            <span class="comment">// 没有子元素，就把自己宽高设为 0.</span></span><br><span class="line">            <span class="comment">// 正确做法，应该是根据 LayoutParams 中的宽/高做相应处理。</span></span><br><span class="line">            setMeasuredDimension(<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (widthSpecMode == MeasureSpec.AT_MOST &amp;&amp; heightSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            <span class="keyword">final</span> <span class="type">View</span> <span class="variable">childView</span> <span class="operator">=</span> getChildAt(<span class="number">0</span>);</span><br><span class="line">            measureWidth = childView.getMeasuredWidth() * childCount;</span><br><span class="line">            measureHeight = childView.getMeasuredHeight();</span><br><span class="line">            setMeasuredDimension(measureWidth,measureHeight);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (heightSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            <span class="comment">// 高度为第一个子元素的高度</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">View</span> <span class="variable">childView</span> <span class="operator">=</span> getChildAt(<span class="number">0</span>);</span><br><span class="line">            measureHeight = childView.getMeasuredHeight();</span><br><span class="line">            setMeasuredDimension(widthSpecSize,measureHeight);</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (widthSpecMode == MeasureSpec.AT_MOST)&#123;</span><br><span class="line">            <span class="comment">// 宽度为所有子元素的宽度之和</span></span><br><span class="line">            <span class="keyword">final</span> <span class="type">View</span> <span class="variable">childView</span> <span class="operator">=</span> getChildAt(<span class="number">0</span>);</span><br><span class="line">            measureWidth = childView.getMeasuredWidth() * childCount;</span><br><span class="line">            setMeasuredDimension(measureWidth,heightSpecSize);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onLayout</span><span class="params">(<span class="type">boolean</span> changed, <span class="type">int</span> l, <span class="type">int</span> t, <span class="type">int</span> r, <span class="type">int</span> b)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">childLeft</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childCount</span> <span class="operator">=</span> getChildCount();</span><br><span class="line">        mChildrenSize = childCount;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 遍历子元素</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; childCount; i++) &#123;</span><br><span class="line">            <span class="keyword">final</span>  <span class="type">View</span> <span class="variable">childView</span> <span class="operator">=</span> getChildAt(i);</span><br><span class="line">            <span class="keyword">if</span> (childView.getVisibility() != View.GONE)&#123;</span><br><span class="line">                <span class="keyword">final</span> <span class="type">int</span> <span class="variable">childWidth</span> <span class="operator">=</span> childView.getMeasuredWidth();</span><br><span class="line">                mChildWidth = childWidth;</span><br><span class="line">                <span class="comment">// 类似 LinearLayout ，从左向右放置子元素。</span></span><br><span class="line">                <span class="comment">// 这里没考虑自身的 padding 和子元素 margin</span></span><br><span class="line">                childView.layout(childLeft,<span class="number">0</span>,childLeft + childWidth,childView.getMeasuredHeight());</span><br><span class="line">                childLeft += childWidth;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">smoothScrollBy</span><span class="params">(<span class="type">int</span> dx,<span class="type">int</span> dy)</span>&#123;</span><br><span class="line">        mScroller.startScroll(getScrollX(),<span class="number">0</span>,dx,<span class="number">0</span>,<span class="number">500</span>);</span><br><span class="line">        invalidate();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">computeScroll</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (mScroller.computeScrollOffset())&#123;</span><br><span class="line">            scrollTo(mScroller.getCurrX(),mScroller.getCurrY());</span><br><span class="line">            postInvalidate();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDetachedFromWindow</span><span class="params">()</span> &#123;</span><br><span class="line">        mVelocityTracker.recycle();</span><br><span class="line">        <span class="built_in">super</span>.onDetachedFromWindow();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><p class="m_more_title_style">链接</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/singwhatiwanna">Android 开发艺术探索</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/e44f5800.html" title="View 的工作原理">https://jianghouren.cn/archives/e44f5800.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/View/" rel="tag"># View</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/c9829065.html" rel="prev" title="View 的事件体系">
+                  <i class="fa fa-chevron-left"></i> View 的事件体系
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/d6d7f1f6.html" rel="next" title="理解 RemoteViews">
+                  理解 RemoteViews <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/e44f5800.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

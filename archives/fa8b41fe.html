@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 直播技术基础知识">
+<meta property="og:url" content="https://jianghouren.cn/archives/fa8b41fe.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/直播架构图.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/声音的采样和量化.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/帧编码过程.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/webrtc协议分层图.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android推流器过程.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/cdn常用架构.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/网络延时过程.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/解码方式对比.jpeg?imageView2/2/h/600">
+<meta property="article:published_time" content="2020-09-16T11:53:20.000Z">
+<meta property="article:modified_time" content="2021-04-27T00:49:06.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/fa8b41fe.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/fa8b41fe.html","path":"archives/fa8b41fe.html","title":"Android 直播技术基础知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 直播技术基础知识 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%92%AD%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">直播原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%92%AD%E6%9E%B6%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">直播架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%B4%E6%92%AD%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">直播过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%87%E9%9B%86%E6%95%B0%E6%8D%AE"><span class="nav-number">3.1.</span> <span class="nav-text">采集数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E9%9B%86%E5%86%85%E5%AE%B9"><span class="nav-number">3.1.1.</span> <span class="nav-text">采集内容</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%87%87%E6%A0%B7%E6%BA%90"><span class="nav-number">3.1.2.</span> <span class="nav-text">采样源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%B2%E6%9F%93%E5%A4%84%E7%90%86"><span class="nav-number">3.2.</span> <span class="nav-text">渲染处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E6%95%B0%E6%8D%AE"><span class="nav-number">3.3.</span> <span class="nav-text">编码数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E6%B5%81"><span class="nav-number">3.4.</span> <span class="nav-text">推流</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E6%B5%81%E5%8D%8F%E8%AE%AE"><span class="nav-number">3.4.1.</span> <span class="nav-text">推流协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E6%B5%81%E8%BF%87%E7%A8%8B"><span class="nav-number">3.4.2.</span> <span class="nav-text">推流过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E6%B5%81%E4%BC%98%E5%8C%96"><span class="nav-number">3.4.3.</span> <span class="nav-text">推流优化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CDN-%E5%88%86%E5%8F%91"><span class="nav-number">3.5.</span> <span class="nav-text">CDN 分发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CDN-%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86"><span class="nav-number">3.5.1.</span> <span class="nav-text">CDN 技术原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CDN-%E7%9A%84%E5%B8%B8%E7%94%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">3.5.2.</span> <span class="nav-text">CDN 的常用架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CDN-%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">3.5.3.</span> <span class="nav-text">CDN 的缺点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%89%E6%B5%81"><span class="nav-number">3.6.</span> <span class="nav-text">拉流</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%92%AD%E6%94%BE%E6%B5%81%E6%95%B0%E6%8D%AE"><span class="nav-number">3.7.</span> <span class="nav-text">播放流数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/fa8b41fe.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 直播技术基础知识 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 直播技术基础知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-16 19:53:20" itemprop="dateCreated datePublished" datetime="2020-09-16T19:53:20+08:00">2020-09-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-27 08:49:06" itemprop="dateModified" datetime="2021-04-27T08:49:06+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/fa8b41fe.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/fa8b41fe.html" data-xid="/archives/fa8b41fe.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/fa8b41fe.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 直播技术基础知识" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-kwp2qq_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="直播原理"><a href="#直播原理" class="headerlink" title="直播原理"></a><p class="m_more_title_style">直播原理</p></h2><p>通过计算机上的音视频输入设备或者手机端摄像头和麦克风实时录制的音视频流，编好码后通过直播协议将数据包实时发送给服务器端，服务器端通过流媒体协议把实时流分发出去，其他终端通过直播协议实时请求数据包，并进行解码播放。</p>
+<h2 id="直播架构"><a href="#直播架构" class="headerlink" title="直播架构"></a><p class="m_more_title_style">直播架构</p></h2><p>主播架构主要分 3 块：这其中不只是播放音视频，还可以做一些实时美颜和滤镜效果。</p>
+<ul>
+<li>采集数据推流过程，包括对数据流编码，通过流媒体协议传输到服务器上。</li>
+<li>服务器端收到推流数据后，进行内容分发及中间转存处理。</li>
+<li>播放器进行拉流操作。</li>
+</ul>
+<img data-src="https://imgsw.cn/static/images/直播架构图.jpeg?imageView2/2/h/600">
+
+<h2 id="直播过程"><a href="#直播过程" class="headerlink" title="直播过程"></a><p class="m_more_title_style">直播过程</p></h2><p>主要涉及采集数据、渲染处理、编码数据、推流、CDN 分发、拉流、播放流数据等。</p>
+<h3 id="采集数据"><a href="#采集数据" class="headerlink" title="采集数据"></a>采集数据</h3><p>采集数据时从不同平台的设备中获取原始音视频数据，用于美颜或编码处理。数据采集涉及音频采集和图像采集。</p>
+<h4 id="采集内容"><a href="#采集内容" class="headerlink" title="采集内容"></a>采集内容</h4><p>1、音频采集</p>
+<p>音频数据既能与图像结合组成音视频数据，也支持单纯的音频数据输出（如电台）。音频的采集过程主要是通过设备设置采样率、采样数，将音频信号采集为 PCM 编码的原始数据，然后编码压缩成 MP3、AC3 等封装格式的数据分发出去。常见的音频封装格式有 MP3、AAC、OGG、WMA、Opus、FLAC、APE、M4A 和 AMR 等。</p>
+<img data-src="https://imgsw.cn/static/images/声音的采样和量化.jpeg?imageView2/2/h/600">
+
+<p>音频采集和编码面临的主要挑战在于去噪、回声消除（AEC）、静音检测（VAD）和各种音效处理等。</p>
+<p>在音频采集阶段，参考的主要技术参数如下：</p>
+<ul>
+<li>采样率（Samplerate）：采样率越高，数据量越大，音质越好。需要注意的是，并不是采样率越高，效果越好，不同声音效果的采样率有一定的阈值。</li>
+<li>位宽：表示一次能传递的数据宽度。就像公路的车道宽度有双向四车道、双向六车道等，车道越多一次能通过的汽车就越多，位宽越大，一次性能处理的数据就越多。音频采样过程中常用的位宽值有 8 位或者 16 位。</li>
+<li>声道数（Channel）：指声音在录制或播放时在不同空间位置采集或回放的相互独立的音频信号，声道数是声音录制时的音源数量或回放时相应的扬声器数量。声道数为 1 和 2 分别被称为单声道和双声道，是比较常见的声道参数。</li>
+</ul>
+<p>2、图像采集</p>
+<p>图像采集就是通过摄像头或者可以采集图像的设备，获取一段时间内的图像内容。如手机摄像头采集的 NV21（一种 YUV 格式）格式数据，然后经过编码压缩成 H.264 等格式的数据，随后可以编码成不同的封装格式（如 FLV）传递或者直接通过流媒体协议（如 RTMP 协议）传递到服务器端。</p>
+<p>在图像采集阶段，参考的主要技术参数如下：</p>
+<ul>
+<li>图像格式：通常采用 YUV 格式存储原始数据信息，其中包含用 8 位表示的黑白图像灰度值，以及可由 RGB 共 3 种色彩组成的彩色图像。</li>
+<li>传输通道：指数据在传输时所利用的媒介，包括获取模块、数据类型模块及传输模块。比如可以使用 TCP 传输或者 UDP 传输。</li>
+<li>分辨率：代表图像中存储的信息量，指每英寸图像内有多少个像素，图像分辨率的表达方式为 ”水平像素数 X 垂直像素数“。</li>
+<li>采样频率（采样率）：指每秒从连续信号中提取并组成离散信号的采样个数，如采样 720 像素视频，还是 540 像素视频，不同的采样个数对应的分辨率不一样，文件大小也不一样。</li>
+<li>fps：指画面每秒传输的帧数，通俗地将就是动画或视频的画面数。直播一般设置为 15~20fps。</li>
+</ul>
+<p>在实际开发中，常常要调整以上的一些参数，如 fps、分辨率，以获得不错的直播效果。</p>
+<h4 id="采样源"><a href="#采样源" class="headerlink" title="采样源"></a>采样源</h4><p>1、摄像头采集</p>
+<p>对于视频内容，主要通过摄像头和专业摄像机进行采集。</p>
+<p>2、屏幕录制</p>
+<p>一般可调用 Android 系统的 API 来捕捉屏幕进行录制。在一些音视频会议中，常常使用开源的桌面推流工具 OBS 进行屏幕录制和推流（使用时可将采集的内容分为图像和音频。图像的采集源包含摄像头、屏幕录制或者本地的视频文件，甚至其他需要重新定义和实现的采集源。音频的采集源包含麦克风、系统声音或者本地音频文件，当然也可以为它定义别的采集源。这样设计最大的好处在于，可以以轻量的设计方式支持丰富的采集源，而采集源的具体实现也可以交给使用者）。</p>
+<h3 id="渲染处理"><a href="#渲染处理" class="headerlink" title="渲染处理"></a>渲染处理</h3><p>这里所说的渲染处理，主要是对相机中采集来的数据进行二次处理。市面上比较好的美颜厂商有商汤、FaceUnity 等，而自己做美颜封装，可用的开源库主要是 GPUImage。</p>
+<p>美颜的基本概念：通过一定的算法对原始图像数据进行二次处理并强化图像效果，不限于去掉不协调区域、边缘检测等。</p>
+<p>GPU 工作原理：GPU 指图像运算工作的微处理器，GPU 主要利用显卡对图像的顶点坐标，通过图元组配，进行光栅化、顶点着色、片元着色等一系列管线操作。</p>
+<p>OpenGL ES（Open Graphics Library for Embedded System，开源嵌入式系统图形处理框架）：一套图形与硬件的接口，用于把处理好的图像显示到屏幕上。</p>
+<p>GPUImage：是一个基于 OpenGL ES 2.0 图像和视频处理的跨平台框架，提供了各种各样的图像处理滤镜，支持相机和摄像头的实时滤镜，内置 120 多种滤镜效果，并且能够自定义图像滤镜。</p>
+<p>滤镜处理的原理：就是把静态图像或者视频的每一帧进行图形变换后显示出来。它的本质是像素点的坐标和颜色变化。</p>
+<p>GPUImage 处理画面的原理如下：</p>
+<p>GPUImage 采用链式方式处理画面，通过 addTarget 函数为链条添加每个环节的对象，处理完一个 target，就会把上一个环节处理好的图像数据传递给下一个 target 去处理，这被称为 GPUImage 处理链。比如，墨镜原理，从外界传来光线，会经过墨镜过滤，再传给眼睛，这样就能感受到大白天也会乌黑一片了。</p>
+<p>一般的 target 可分为两类，一种是中间环节的 target，一般是各种滤镜，即 GPUImageFilter 或者其子类，另一种是最终环节的 target，GPUImageView，用于显示到屏幕上，或者是 GPUImageMovieWriter，写成视频文件。</p>
+<p>GPUImage 处理主要分为 3 个环节，即 Source（视频、图像源） -&gt; filter（滤镜）-&gt; final target（处理后的视频、图像）。</p>
+<p>GPUImage 的 Source 都继承自 GPUImageOutput 的子类，作为 GPUImage 的数据源，就好比外界的光线，作为眼睛的输出源。Source 包括如下几种：</p>
+<ul>
+<li>GPUImageVideoCamera：用于实时拍摄视频。</li>
+<li>GPUImageStillCamera：用于实时拍摄照片。</li>
+<li>GPUImagePicture：用于处理已经拍摄好的图像，比如 png、jpg 文件。</li>
+<li>GPUImageMovie：用于处理已经拍摄好的视频，比如 mp4 文件。</li>
+</ul>
+<p>GPUImage 的 filter 一般是 GPUImageFilter 类或者其子类，这个类继承自 GPUImageOutput ，并且遵守 GPUImageInput 协议，这样既能流进又能流出。这就好比墨镜，光线经过墨镜的处理，最终进入我们的眼睛。</p>
+<p>GPUImage 的 final target 一般是 GPUImageView、GPUImageMovieWriter，这就好比我们的眼睛，最终输入目标。</p>
+<h3 id="编码数据"><a href="#编码数据" class="headerlink" title="编码数据"></a>编码数据</h3><p>1、视频编码的意义</p>
+<p>视频编码指的是通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。这里要重点考虑的是压缩，如当一个普通文件太大时，可以用一些压缩工具压缩后传输，以提高效率。视频压缩也是一样的，采集到的视频数据一般较大，经过 H.264 编码压缩后，体积就会减小很多，这样在传输过程中可以节省很多网络宽带资源。</p>
+<p>2、压缩原理</p>
+<p>其核心思想就是去除冗余信息，如下所述。</p>
+<ul>
+<li>空间冗余。在很多图像数据中，像素间在行、列方向上都有很大的相关性，相邻像素的值比较接近或者完全相同，这种数据冗余叫做空间冗余。（相邻区域颜色相近区域）</li>
+<li>时间冗余。在视频图像序列中，相邻两帧图像数据有许多共同的地方，这种共同性被称为时间冗余，可采用运动补偿算法来去掉冗余。</li>
+<li>视觉冗余。视觉冗余度是相对于人眼的的视觉特性而言的，人类视觉系统对图像的敏感性是非均匀和非线性的，即人眼观察不到图像中的所有变化。（去除人眼不敏感的）</li>
+<li>信息熵冗余。信息熵指一组数据所携带的信息量，信息熵冗余指数据所携带的信息量少于数据本身，从而反映出数据冗余。</li>
+<li>结构冗余。在有些图像的纹理区，图像的像素值存在着明显的分布模式。</li>
+<li>知识冗余。对许多图像的理解与某些先验知识有相当大的相关性。这类规则的结构可由先验知识和背景知识得到，此类冗余被称为知识冗余。（去除基础知识）</li>
+</ul>
+<p>3、常用压缩编码方法分类</p>
+<img data-src="https://imgsw.cn/static/images/常用压缩编码方法分类.jpeg?imageView2/2/h/600">
+
+<p>除了空间冗余和时间冗余的压缩，主要还有编码压缩和视觉压缩。下面是一个编码器主要的流程图。</p>
+<img data-src="https://imgsw.cn/static/images/帧编码过程.jpeg?imageView2/2/h/600">
+
+<p>可以看到两个过程的主要区别就是第一步不相同，其实这两个流程也是结合在一起的，我们通常说的 I 帧和 P 帧就分别采用了帧内编码和帧间编码。</p>
+<ul>
+<li>预测：通过帧内预测和帧间预测降低视频图像的空间冗余和时间冗余。</li>
+<li>变换：通过从时域到频域的变化，去除相邻数据之间的相关性，即去除空间冗余。</li>
+<li>量化：通过用更粗糙的数据表示精细的数据来降低编码的数据量，或者通过去除人眼不敏感的信息来降低编码数据量。</li>
+<li>熵编码：根据待编码数据的概率特性降低编码冗余。（熵编码，11112222 &#x3D; 8个字节，4142 &#x3D;4 个字节。）</li>
+</ul>
+<h3 id="推流"><a href="#推流" class="headerlink" title="推流"></a>推流</h3><h4 id="推流协议"><a href="#推流协议" class="headerlink" title="推流协议"></a>推流协议</h4><p>1、RTMP（Real Time Messaging Protocol）：实时消息传输协议。该协议基于 TCP，是一个协议族，包括 RTMP 基本协议以及 RTMPT、RTMPS、RTMPE 等多个变种协议。RTMP 协议是一种被设计用来进行实时数据通信的网络协议，主要用在 Flash 平台和支持 RTMP 协议的流媒体&#x2F;交互服务器之间进行音视频和数据通信。支持该协议的软件包括 Adobe Media Server、Ultrant Media Server、Red5 等。RTMP 是目前主流的流媒体传输协议，广泛应用于直播领域。</p>
+<p>优点</p>
+<ul>
+<li>对 CDN 友好，主流的 CDN 厂商都支持该协议。</li>
+<li>协议简单，在各平台上实现容易。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>基于 TCP，传输成本高，在弱网环境丢包率高的情况下问题明显。</li>
+<li>不支持浏览器推送。</li>
+<li>Adobe 私有协议，Adobe 已经不再更新该协议。</li>
+</ul>
+<p>2、WebRTC（Web Real Time Communication）：网页即时通信，是一个支持 Web 浏览器进行实时语音对话或视频对话的 API。它于 2011 年 6 月 1 日开源，并在 Google、Mozilla、Opera 的支持下被纳入万维网联盟的 W3C 推荐标准。目前其主要应用于视频会议和连麦中。</p>
+<img data-src="https://imgsw.cn/static/images/webrtc协议分层图.jpeg?imageView2/2/h/600">
+
+<p>优点</p>
+<ul>
+<li>W3C 标准，主流浏览器支持程度高。</li>
+<li>Google 在背后支撑，并针对各平台有参考实现。</li>
+<li>底层基于 SRTP 和 UDP，在弱网情况下优化空间大。</li>
+<li>可以实现点对点通信，通信双方延时低。</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>ICE、STUN、TURN 等传统 CDN 没有提供类似的服务。</li>
+</ul>
+<p>3、基于 UDP 的私有协议：有些直播应用会使用 UDP 作为底层协议开发自己的私有协议。由于 UDP 在弱网环境下的优势，因此通过一些定制化的调优可以达到比较好的弱网优化效果，但同样因为其是私有协议，故势必有现实问题。</p>
+<p>优点</p>
+<ul>
+<li>有更多的空间进行定制化优化</li>
+</ul>
+<p>缺点</p>
+<ul>
+<li>开发成本高。</li>
+<li>对 CDN 不友好，需要自建 CDN 或者和 CDN 达成协议。</li>
+<li>独立作战，无法和社区一起演进。</li>
+</ul>
+<h4 id="推流过程"><a href="#推流过程" class="headerlink" title="推流过程"></a>推流过程</h4><p>推流过程就是把编码后的数据打包并通过直播协议发送给流媒体服务器的过程。</p>
+<img data-src="https://imgsw.cn/static/images/android推流器过程.jpeg?imageView2/2/h/600">
+
+<ul>
+<li>经过输出设备得到原始的采样数据—视频数据（YUV）和音频数据（PCM）。</li>
+<li>使用硬编码（MediaCodec）或软编码（FFmpeg）来编码压缩音视频数据。</li>
+<li>分别得到已编码的 H.264 视频数据和 AAC 音频数据。</li>
+<li>将已编码的音视频数据封装成不同的视频封装格式的数据文件（如 FLV、TS、MPEG-TS）。</li>
+<li>使用 HLS 协议的时候加上这一步（HLS 分段生成策略及 m3u8 索引文件。</li>
+<li>通过流媒体协议上传到服务器。</li>
+<li>服务器通过相关协议对内容进行分发。</li>
+</ul>
+<h4 id="推流优化"><a href="#推流优化" class="headerlink" title="推流优化"></a>推流优化</h4><p>在推流过程中经常会遭遇网络不好、断流的情况，所以需要一定的策略。在推流端 ping 视频中心地址，测试是否有丢包现象。同时在网络抖动时，需要动态调整一些参数以便推流。在网络断后重连时，需要重新优先发送音频数据，保证用户能听到声音。视频数据随后到达，使观众看到画面变化，并逐步回归到音视频同步。</p>
+<h3 id="CDN-分发"><a href="#CDN-分发" class="headerlink" title="CDN 分发"></a>CDN 分发</h3><h4 id="CDN-技术原理"><a href="#CDN-技术原理" class="headerlink" title="CDN 技术原理"></a>CDN 技术原理</h4><p>CDN（Content Delivery Network）：内容分发网络，是一个策略性部署的整体系统，主要用来解决由于网络宽带小、用户访问量大、网点分布不均匀等造成的用户访问网站速度慢的问题。这中间会有很多 CDN 节点，简单一点理解就相当于让计算机选择最优网络。具体实现是，通过在现有的网络中增加一层新的网络架构，将网站内容发布到离用户最近的网络节点上。这样用户可以就近获取所需的内容，解决之前的网络拥塞、访问延时高的问题，提高用户体验。</p>
+<p>CDN 分发过程：Web 服务器 -&gt; 某个 CDN 节点 -&gt; 客户端</p>
+<p>在 CDN 直播中，对不同流媒体所使用的的节点和协议做了区分，使得网络拥塞和访问延时减少，带宽得到良好的控制等。在 CDN 直播中常用的流媒体协议包括 RTMP、HLS、HTTP-FLV 等。</p>
+<p>直播推流到 CDN 后，不同协议的分发过程：主播（RTMP）-&gt; 某个 CDN 节点 -&gt; 观众（RTMP、HLS、HTTP-FLV 等）</p>
+<p>RTMP（Real Time Messaging Protocol）基于 TCP 协议，是由 Adobe 公司为 Flash 播放器和服务器之间进行音视频传输开发的开放协议。HLS（HTTP Live Streaming）基于 HTTP 协议，是 Apple 公司开放的音视频传输协议。HTTP-FLV 则将 RTMP 封装在 HTTP 协议之上，可以更好地穿透防火墙等。</p>
+<h4 id="CDN-的常用架构"><a href="#CDN-的常用架构" class="headerlink" title="CDN 的常用架构"></a>CDN 的常用架构</h4><p>CDN 架构比较复杂，而且不同的 CDN 厂商也在对其架构进行不断的优化，所以对这些架构不能统一而论。这里只对一些基本的架构进行简单的剖析。</p>
+<p>CDN 主要包含源站、缓存服务器、智能 DNS、客户端等几个主要组成部分。</p>
+<ul>
+<li>源站：指发布内容的原始站点。添加、删除和更改网站的文件都是在源站上进行的，另外缓存服务器所抓取的对象也全部来自源站。对于直播来说，源站为主播客户端。</li>
+<li>缓存服务器：是直接提供给用户访问的站点资源，由一台或数台服务器组成。当用户发起访问时，其访问请求被智能 DNS 定位到离他较近的缓存服务器。如果用户所请求的内容刚好在缓存里面，则直接把内容返还给用户，如果访问所需的内容没有被缓存，则缓存服务器向邻近的缓存服务器或直接向源站抓取内容，然后返还给用户。</li>
+<li>智能 DNS：是整个 CDN 技术的核心，它主要根据用户的来源，以及当前缓存服务器的负载情况等，将其访问请求指向离用户比较近且负载较小的缓存服务器。通过智能 DNS 解析，让用户访问同服务商、负载较小的服务器，可以缓解网络访问慢的情况，达到加速的作用。</li>
+<li>客户端：即发起访问的普通用户。对于直播来说，就是观众（客户端），例如手机客户端、PC 客户端。</li>
+</ul>
+<img data-src="https://imgsw.cn/static/images/cdn常用架构.jpeg?imageView2/2/h/600">
+
+<p>整个流程描述如下：</p>
+<ol>
+<li>主播开始进行直播，向智能 DNS 发送解析请求。</li>
+<li>智能 DNS 返回最优 CDN 节点的 IP 地址。</li>
+<li>主播端采集音视频数据，发送给 CDN 节点，CDN 节点进行缓存等处理。</li>
+<li>观众要观看这个主播的视频，向智能 DNS 发送解析请求。</li>
+<li>智能 DNS 返回最优 CDN 节点的 IP 地址。</li>
+<li>观众向 CDN 节点请求音视频数据。</li>
+<li>CDN 节点同步其他节点的音视频数据。</li>
+<li>CDN 节点将音视频数据发送给观众。</li>
+</ol>
+<h4 id="CDN-的缺点"><a href="#CDN-的缺点" class="headerlink" title="CDN 的缺点"></a>CDN 的缺点</h4><p>大概了解了 CDN 的技术原理后，在做直播选型时，还需要了解一个方案的优缺点。总的来说，CDN 主要有如下缺点。</p>
+<p>1、播放延时（网络延时）</p>
+<p>网络延时这里指的是从主播端采集到观众播放之间的时间差。这里不考虑主播端采集对视频进行编码的时间，以及观众端播放视频进行解码的时间，仅考虑网络传输中的延时。</p>
+<img data-src="https://imgsw.cn/static/images/网络延时过程.jpeg?imageView2/2/h/600">
+
+<p>2、网络抖动</p>
+<p>指数据包的到达顺序、间隔等与发出时不一致。比如，发送 100 个数据包，每个包间隔 1s 发出。结果第 30 个包在传输过程中遇到网络拥塞，造成包 30 不是紧跟着包 29 到达的，而是延迟到包 90 后面才到达。在直播中，这种抖动的效果实际上跟丢包是一样的。因为你不能依照接收顺序把内容播放出来，所以这样会造成失真。网络抖动会造成播放延时相应地增大。如果网络中抖动得较大，会造成播放卡顿等现象。</p>
+<p>3、网络丢包</p>
+<p>CDN 直播中用到的 RTMP、HLS、HTTP-FLV 等协议都建立在 TCP 协议的基础之上。TCP 的一个很重要的特性是可靠性，即不会发生数据丢失的问题。为了保证可靠性，TCP 在传输过程中有三次握手。首先客户端会向服务端发送连接请求，服务端同意后，客户端会确认这次连接，这就是三次握手。接着，客户端开始发送数据，每次发送一批数据，得到服务器端的 ”收到“ 确认后，继续发送下一批。TCP 协议为了保证数据传到目的地，会有自动重传机制。如果传输中发生了丢包，没有收到对方端发出的 ”收到“ 信号，那么就会自动重传丢失的包，一直到超时。</p>
+<p>由于互联网的网络状况是变化着的，加之主播端的网络状况是无法控制的，因此当网络中的丢包率开始升高时，重传会导致延时不断增大，甚至导致不断尝试重连等情况，这样不能有效缓存，在严重的情况下甚至会导致观众端无法观看视频。</p>
+<h3 id="拉流"><a href="#拉流" class="headerlink" title="拉流"></a>拉流</h3><p>根据协议类型（如 RTMP、RTP、RTSP、HTTP 等），与服务器建立连接并接收数据。</p>
+<ol>
+<li>解析二进制数据，从中找到相关流信息。</li>
+<li>根据不同的封装格式（如 FLV、TS）解复用。</li>
+<li>分别得到已编码的 H.264 视频数据和 AAC 音频数据。</li>
+<li>使用硬解码（MediaCodec）或软解码（FFmpeg）来解压音视频数据。</li>
+<li>经过解码后得到原始的视频数据（YUV）和音频数据（PCM）。</li>
+<li>因为音频和视频解码是分开的，所以在解码后，需要做音视频同步。通常有一些音视频同步算法。如在 FFmpeg 中，以音频作为参考时钟，视频用于比较当前时钟和音频时钟的差值，如果快了，就需要增大延时，以便下一帧显示得晚些，如果慢了，就需要减少延时，加快显示下一帧。</li>
+<li>最后把同步的音频数据发送到耳机或外放设备上播放，将视频数据发送到屏幕上显示。</li>
+</ol>
+<p>了解了播放器的播放流程后，可以优化首帧显示时间。从第二点入手，通过预设解码器类型，省去探测文件类型的时间。从第五点入手，缩小视频数据探测范围，同时也意味着减少了需要下载的数据量，特别是在网络不好的时候，较少下载的数据量能为启动播放节省大量的时间，在检测到 I 帧数据后就立马返回并进入播放解码环节。</p>
+<h3 id="播放流数据"><a href="#播放流数据" class="headerlink" title="播放流数据"></a>播放流数据</h3><p>播放流数据，一般涉及几个过程。</p>
+<ul>
+<li>首先进行 access 操作，也就是获取数据流。</li>
+<li>然后进行 demux 操作，也就是解复用，将数据流分离成音频流和视频流。</li>
+<li>接着将音频流送入音频解码器，将视频流送入视频解码器。</li>
+<li>最后进行音视频同步并输出。</li>
+</ul>
+<p>通常直接使用第三方播放器，仅仅了解 API 调用就行，其他的则交由播放内核去做。如在 Android 上使用 MediaPlayer，常规使用方式如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">startPlayUri</span><span class="params">(Uri uri)</span>&#123;</span><br><span class="line">    <span class="type">MediaPlayer</span> <span class="variable">mediaPlayer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MediaPlayer</span>();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        mediaPlayer.setDataSource(mContext,uri);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalArgumentException e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (SecurityException e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (IllegalStateException e)&#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;<span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    mediaPlayer.setOnPreparedListener(mPreparedListener);</span><br><span class="line">    mediaPlayer.setOnVideoSizeChangedListener(mVideoSizeChangedListener);</span><br><span class="line">    mediaPlayer.setOnErrorListener(mErrorListener);</span><br><span class="line">    mediaPlayer.setOnCompletionListener(mCompletionListener);</span><br><span class="line">    mediaPlayer.prepareAsync();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本上第三方播放器（如 VLC、IjkPlayer）对外提供的接口都是从 Android 的 MediaPlayer 接口扩展来的。对于应用来说，只要把 URL 发送给播放器并调用 prepareAsync 函数，然后等待 onPrepared 回调成功后，就可以调用 start 函数起播了。</p>
+<p>关于软硬解码的选择。</p>
+<p>考虑到 Android 平台的各种兼容性问题，需要根据不同手机的解码能力来进行硬解码和软解码的选择。这里也介绍一些经验，但根本问题是，没有一个通用方案能最优适配所有操作系统和机型。</p>
+<ul>
+<li>硬解码：推荐 Android 4.1.2（API 16）或以上版本使用硬解码，而 4.1.2 以下版本使用软解码。</li>
+<li>软解码：主要利用 CPU 执行大量运算来解码。虽然这样牺牲了功耗，但是在部分细节方面表现较优，且可控性强，兼容性也强，出错情况少，在硬解码无能为力的情况下，软解码也不失为一种不错的选择。</li>
+</ul>
+<img data-src="https://imgsw.cn/static/images/解码方式对比.jpeg?imageView2/2/h/600">
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/hejjunlin/article/details/83304678?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param">Android 音视频开发</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/fa8b41fe.html" title="Android 直播技术基础知识">https://jianghouren.cn/archives/fa8b41fe.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/8b4d12b5.html" rel="prev" title="Android Binder原理（一）">
+                  <i class="fa fa-chevron-left"></i> Android Binder原理（一）
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/37c9c675.html" rel="next" title="Android SharedPreferences">
+                  Android SharedPreferences <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/fa8b41fe.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

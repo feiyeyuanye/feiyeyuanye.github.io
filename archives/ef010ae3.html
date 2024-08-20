@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 动画">
+<meta property="og:url" content="https://jianghouren.cn/archives/ef010ae3.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-05-16T03:37:26.000Z">
+<meta property="article:modified_time" content="2021-02-02T14:25:23.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="动画">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/ef010ae3.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/ef010ae3.html","path":"archives/ef010ae3.html","title":"Android 动画"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 动画 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E6%8F%92%E5%80%BC%E5%99%A8%EF%BC%88TimeInterpolator%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">时间插值器（TimeInterpolator）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E4%BC%B0%E5%80%BC%E5%99%A8%EF%BC%88TypeEvaluator%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">类型估值器（TypeEvaluator）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E7%94%BB%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">使用动画的注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/ef010ae3.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 动画 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 动画
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-16 11:37:26" itemprop="dateCreated datePublished" datetime="2019-05-16T11:37:26+08:00">2019-05-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-02-02 22:25:23" itemprop="dateModified" datetime="2021-02-02T22:25:23+08:00">2021-02-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/ef010ae3.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/ef010ae3.html" data-xid="/archives/ef010ae3.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/ef010ae3.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 动画" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://imgsw.cn/static/images/灵能百分百.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
+<span id="more"></span>
+
+<h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a><p class="m_more_title_style">概述</p></h1><p>动画的本质，其实就是把内容的两个状态平滑的过度，而不是直接切换。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过不断平移</span></span><br><span class="line"><span class="comment"> * 来实现动画效果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="type">float</span> <span class="variable">newTranslationX</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">translationX</span><span class="params">(View view)</span>&#123;</span><br><span class="line">    <span class="type">Runnable</span> <span class="variable">runnable</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">            <span class="comment">// 每次向右移动5像素，100次就是500像素。</span></span><br><span class="line">            newTranslationX += <span class="number">5</span> ;</span><br><span class="line">            img.setTranslationX(newTranslationX);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span><span class="number">0</span>;i&lt;<span class="number">100</span>;i++)&#123;</span><br><span class="line">        <span class="comment">// 每10毫秒改变一次位置，f反复100次。</span></span><br><span class="line">        img.postDelayed(runnable,i*<span class="number">10</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Android 系统也提供了；</strong></p>
+<ul>
+<li><strong>View 动画</strong>；<br>只能用于  View。并且动画改变的只是 View 的显示，但没改变 View 的响应区域。<br>提供了四种类型的补间动画；<ul>
+<li>AlphaAnimation（透明度动画）</li>
+<li>RotateAnimation（旋转动画）</li>
+<li>ScaleAnimation（缩放动画）</li>
+<li>TranslateAnimation（平移动画）</li>
+<li>动画集合类（AnimationSet）；可将多个补间动画以组合的形式显示出来。</li>
+</ul>
+</li>
+<li><strong>属性动画</strong>；<br>于 Android 3.0 (API级别11)开始添加了属性动画。可以对任意对象的属性进行动画而不仅仅是 View，动画默认时间间隔 300ms，默认帧率 10ms&#x2F;帧。<br>提供了动画集合类（AnimatorSet），可将多个属性动画以组合的形式显示出来。<br>通过不断得更新 View 的属性，让它表现出动画效果，只要满足两个条件：<br>1、object 必须要提供 setXxx 方法，如果动画的时候没有传递初始值，那么还要提供 getXxx 方法，因为系统要去拿 xxx 属性的初始值（就是通过反射技术来获取和执行属性的 get 和 set 方法。如果这条不满足，程序直接 Crash）。<br>2、object的 setXxx 对属性 xxx 所做的改变必须能够通过某种方法反映出来，比如会带来ui的改变啥的（如果这条不满足，动画无效果但不会Crash）。<br>解决办法：<br>1、如有权限，给对象加上 set&#x2F;get 方法。<br>2、用一个类来包装原始对象，间接为其提供 get&#x2F;set 方法。<br>3、采用 ValueAnimator，监听动画过程，自己实现属性的改变。</li>
+<li><strong>逐帧动画</strong>；<br>可加载 Drawable 资源并逐帧的显示它们（一系列不同的图像按顺序显示）</li>
+</ul>
+<hr>
+<h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a><p class="m_more_title_style">预备知识</p></h1><h2 id="时间插值器（TimeInterpolator）"><a href="#时间插值器（TimeInterpolator）" class="headerlink" title="时间插值器（TimeInterpolator）"></a>时间插值器（TimeInterpolator）</h2><p><strong>根据时间流逝的百分比(完成度)计算出动画进度的百分比(完成度)</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">set</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    // 设置动画效果,时间插值器</span></span><br><span class="line"><span class="tag">    <span class="attr">android:interpolator</span>=<span class="string">&quot;@android:anim/accelerate_interpolator&quot;</span></span></span><br><span class="line"><span class="tag">    // 设置下面的控件（<span class="attr">scale</span>，<span class="attr">alpha</span>）共享一个<span class="attr">Interpolator</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:shareInterpolator</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">set</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>对于补间动画(Tween Animation)；<br>例如在 TranslateAnimation 类中计算出动画开始的关键帧与将要显示的帧之间的差异。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 查看源码</span></span><br><span class="line"><span class="comment">* 计算出动画开始的关键帧与将要显示的帧之间的差异</span></span><br><span class="line"><span class="comment">* 并根据帧之间的差异绘制出将要显示的帧，以此类推从而形成动画的效果。</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">applyTransformation</span><span class="params">(<span class="type">float</span> interpolatedTime, Transformation t)</span> &#123;</span><br><span class="line">    <span class="comment">// interpolatedTime 通过时间插值器获取的动画进度的百分比</span></span><br><span class="line">    <span class="type">float</span> <span class="variable">dx</span> <span class="operator">=</span> mFromXDelta;</span><br><span class="line">    <span class="type">float</span> <span class="variable">dy</span> <span class="operator">=</span> mFromYDelta;</span><br><span class="line">    <span class="keyword">if</span> (mFromXDelta != mToXDelta) &#123;</span><br><span class="line">        dx = mFromXDelta + ((mToXDelta - mFromXDelta) * interpolatedTime);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (mFromYDelta != mToYDelta) &#123;</span><br><span class="line">        dy = mFromYDelta + ((mToYDelta - mFromYDelta) * interpolatedTime);</span><br><span class="line">    &#125;</span><br><span class="line">    t.getMatrix().setTranslate(dx, dy);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>对于属性动画；<br>即属性值改变的百分比</li>
+<li><a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/reference/android/view/animation/AccelerateDecelerateInterpolator">常用的时间插值器</a></li>
+<li>AccelerateDecelerateInterpolator；@android:anim&#x2F;accelerate_decelerate_interpolator<br> 在动画开始与结束的地方速率改变比较慢，在中间的时候加速</li>
+<li>AccelerateInterpolator；@android:anim&#x2F;accelerate_interpolator<br> 动画加速进行</li>
+<li>AnticipateInterpolator；@android:anim&#x2F;anticipate_interpolator<br> 先退后再加速前进</li>
+<li>AnticipateOvershootInterpolator；@android:anim&#x2F;anticipate_overshoot_interpolator<br> 先退后再加速前进，超出终点后再回终点</li>
+<li>BounceInterpolator；@android:anim&#x2F;bounce_interpolator<br> 最后阶段弹球效果</li>
+<li>CycleInterpolator；@android:anim&#x2F;cycle_interpolator<br> 动画循环播放特定的次数，速率改变沿着正弦曲线</li>
+<li>DecelerateInterpolator；@android:anim&#x2F;decelerate_interpolator<br> 减速动画</li>
+<li>LinearInterpolator；@android:anim&#x2F;linear_interpolator<br> 匀速动画</li>
+<li>OvershootInterpolator；@android:anim&#x2F;overshoot_interpolator<br> 快速完成动画，超出终点再回到终点</li>
+<li>PathInterpolator(support v4)：用来定制出任何想要的速度模型。定制的方式是使用一个 Path 对象来绘制出想要的动画完成度 &#x2F; 时间完成度曲线。 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">viewAnimate</span><span class="params">(View view)</span>&#123;</span><br><span class="line">      <span class="type">ViewPropertyAnimator</span> <span class="variable">vpa</span> <span class="operator">=</span> img.animate();</span><br><span class="line">vpa.translationX(-<span class="number">300</span>);</span><br><span class="line">      <span class="type">Path</span> <span class="variable">interpolatorPath</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Path</span>();</span><br><span class="line">      <span class="comment">// 先以「动画完成度 : 时间完成度 = 1 : 1」的速度匀速运行 25%</span></span><br><span class="line">      interpolatorPath.lineTo(<span class="number">0.25f</span>, <span class="number">0.25f</span>);</span><br><span class="line">      <span class="comment">// 然后瞬间跳跃到 150% 的动画完成度</span></span><br><span class="line">      interpolatorPath.moveTo(<span class="number">0.25f</span>, <span class="number">1.5f</span>);</span><br><span class="line">      <span class="comment">// 再匀速倒车，返回到目标点</span></span><br><span class="line">      interpolatorPath.lineTo(<span class="number">1</span>, <span class="number">1</span>);</span><br><span class="line">      vpa.setInterpolator(PathInterpolatorCompat.create(interpolatorPath));</span><br><span class="line">      vpa.setDuration(<span class="number">2000</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></li>
+<li>Android5.0(API 21)引入了三个新的模型(support v4)：</li>
+</ul>
+<p> <strong>1.FastOutLinearInInterpolator：持续加速</strong><br> 与AccelerateInterpolator类似，只不过 FastOutLinearInInterpolator（贝塞尔曲线公式）的初始阶段加速度比 AccelerateInterpolator（指数曲线公式）要快一些。但AccelerateInterpolator还可以在构造方法中调节变速系数。所以，使用起来没区别。<br> <strong>2.FastOutSlowInInterpolator：先加速在减速</strong><br> FastOutSlowInInterpolator（贝塞尔曲线）的前期加速度（加速或减速都会更迅速）要比 AccelerateDecelerateInterpolator（正弦 &#x2F; 余弦曲线）快得多。<br> <strong>3.LinearOutSlowInInterpolator：持续减速</strong><br> LinearOutSlowInInterpolator 的初始速度比 DecelerateInterpolator 更高。</p>
+<h2 id="类型估值器（TypeEvaluator）"><a href="#类型估值器（TypeEvaluator）" class="headerlink" title="类型估值器（TypeEvaluator）"></a>类型估值器（TypeEvaluator）</h2><p>它是针对属性动画框架的，而 View 动画是不需要的。<br>它的作用是根据属性值改变的百分比计算出改变后的属性值。<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/reference/android/animation/ArgbEvaluator">系统内置的一些估值器，用来操作不同类型的属性</a>；</p>
+<ul>
+<li>ArgbEvaluator；针对Color属性，渐变色效果<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 颜色渐变</span></span><br><span class="line"><span class="type">ObjectAnimator</span> <span class="variable">animator</span> <span class="operator">=</span> ObjectAnimator.ofInt(view, <span class="string">&quot;colors&quot;</span>, <span class="number">0xffff0000</span>, <span class="number">0xff00ff00</span>);  </span><br><span class="line"><span class="comment">// 按照ARGB规则来变化，而不是按照一个整形int。</span></span><br><span class="line">animator.setEvaluator(<span class="keyword">new</span> <span class="title class_">ArgbEvaluator</span>());  </span><br><span class="line">animator.start();  </span><br><span class="line"></span><br><span class="line"><span class="comment">// 在 Android 5.0（API 21）加入了新的方法 ofArgb()</span></span><br><span class="line"><span class="comment">// 所以如果 minSdk 大于或者等于 21 ，可以直接用下面这种方式</span></span><br><span class="line"><span class="type">ObjectAnimator</span> <span class="variable">animator</span> <span class="operator">=</span> ObjectAnimator.ofArgb(view, <span class="string">&quot;color&quot;</span>, <span class="number">0xffff0000</span>, <span class="number">0xff00ff00</span>);  </span><br><span class="line">animator.start();  </span><br></pre></td></tr></table></figure></li>
+<li>IntEvaluator；针对整型属性，以整型的形式从初始值 - 结束值 进行过渡</li>
+<li>FloatEvaluator；针对浮点型属性，返回Float类型属性改变</li>
+<li>IntArrayEvaluator；</li>
+<li>FloatArrayEvaluator；</li>
+<li>PointFEvaluator；minSdk 大于或者等于 21</li>
+<li>RectEvaluator；</li>
+<li>TypeEvaluator；自定义TypeEvaluator<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 使用自定义的 HslEvaluator</span></span><br><span class="line"><span class="comment">**/</span> </span><br><span class="line"><span class="comment">// 因为argb的方式，是计算机的方式，对人的感官而言是不直观的</span></span><br><span class="line"><span class="comment">// 可以选择HSV(色相(Hue)，饱和度(Saturation)，明度(Value)),</span></span><br><span class="line"><span class="comment">// 或者HSL(色相(Hue)，饱和度(Saturation)，亮度(Lightness))。</span></span><br><span class="line"><span class="type">ObjectAnimator</span> <span class="variable">animator1</span> <span class="operator">=</span> ObjectAnimator.ofInt(circleViewArgb, <span class="string">&quot;colors&quot;</span>, <span class="number">0xff00ff00</span>);</span><br><span class="line">animator1.setEvaluator(<span class="keyword">new</span> <span class="title class_">HsvEvaluator</span>());</span><br><span class="line">animator1.setDuration(<span class="number">5000</span>);</span><br><span class="line">animator1.start();</span><br><span class="line">animator1.addListener(<span class="keyword">new</span> <span class="title class_">AnimatorListenerAdapter</span>() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onAnimationEnd</span><span class="params">(Animator animation)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onAnimationEnd(animation);</span><br><span class="line">        circleViewArgb.postDelayed(<span class="keyword">new</span> <span class="title class_">Runnable</span>() &#123;</span><br><span class="line">            Override</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">                 circleViewArgb.setColors(Color.RED);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,<span class="number">500</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">        </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 使用ofObject()</span></span><br><span class="line"><span class="comment">* 对不限定类型的属性做动画</span></span><br><span class="line"><span class="comment">**/</span> </span><br><span class="line"><span class="comment">// PointFEvaluator 这个类，所以 minSdk 大于或者等于 21 可以直接用，不用自己写了。</span></span><br><span class="line"><span class="type">ObjectAnimator</span> <span class="variable">animator2</span> <span class="operator">=</span> ObjectAnimator.ofObject(ofObjectView, <span class="string">&quot;position&quot;</span>,</span><br><span class="line">   <span class="keyword">new</span> <span class="title class_">PointFEvaluator</span>(), <span class="keyword">new</span> <span class="title class_">PointF</span>(<span class="number">0</span>, <span class="number">0</span>), <span class="keyword">new</span> <span class="title class_">PointF</span>(<span class="number">1</span>, <span class="number">1</span>));</span><br><span class="line">animator2.setInterpolator(<span class="keyword">new</span> <span class="title class_">LinearInterpolator</span>());</span><br><span class="line">animator2.setDuration(<span class="number">2000</span>);</span><br><span class="line">animator2.start();        </span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h1 id="使用动画的注意事项"><a href="#使用动画的注意事项" class="headerlink" title="使用动画的注意事项"></a><p class="m_more_title_style">使用动画的注意事项</p></h1><ul>
+<li>OOM 问题</li>
+<li>内存泄漏</li>
+<li>兼容性问题</li>
+<li>View 动画的问题</li>
+<li>不要使用 px</li>
+<li>动画元素的交互</li>
+<li>硬件加速</li>
+</ul>
+<hr>
+<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h1><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/p/b117c974deaf">View动画和属性动画</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://hencoder.com/ui-1-6/">HenCoder属性动画</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/singwhatiwanna/article/details/17841165">属性动画深入分析</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/singwhatiwanna">Android 开发艺术探索</a></p>
+<p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/AnimDemo">GitHub</a></p>
+<p><strong>欢迎关注微信公众号：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blove7.cn/qrcode/">非也缘也</a></strong></p>
+<details class="m_more_content_details">
+  <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+      <li>scale  英  [skeɪl] 美  [skeɪl]</li>
+      <li>rotate  英  [rəʊˈteɪt] 美  [ˈroʊteɪt]</li>
+      <li>initialize  英  [ɪˈnɪʃəlaɪz] 美  [ɪˈnɪʃəlaɪz]</li>
+      <li>Alpha ['ælfə]</li>
+      <li>apply  英  [əˈplaɪ] 美  [əˈplaɪ]</li>
+      <li>transformation  英  [ˌtrænsfəˈmeɪʃn] 美  [ˌtrænsfərˈmeɪʃn]</li>
+      <li>controller  英  [kənˈtrəʊlə(r)] 美  [kənˈtroʊlər]</li>
+      <li>translate  英  [trænzˈleɪt; trænsˈleɪt] 美  [trænzˈleɪt,trænsˈleɪt]</li>
+  </ul>
+</details>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/ef010ae3.html" title="Android 动画">https://jianghouren.cn/archives/ef010ae3.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E7%94%BB/" rel="tag"># 动画</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/55632dfe.html" rel="prev" title="Android-组件化">
+                  <i class="fa fa-chevron-left"></i> Android-组件化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/9b6664a3.html" rel="next" title="Android 手势检测">
+                  Android 手势检测 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/ef010ae3.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

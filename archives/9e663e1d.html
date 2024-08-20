@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 项目结构">
+<meta property="og:url" content="https://jianghouren.cn/archives/9e663e1d.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/shenzhita.jpeg">
+<meta property="article:published_time" content="2020-05-24T22:37:12.000Z">
+<meta property="article:modified_time" content="2020-06-29T06:04:02.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/shenzhita.jpeg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/9e663e1d.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/9e663e1d.html","path":"archives/9e663e1d.html","title":"Android 项目结构"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 项目结构 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">Android 项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#app-%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">app 目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#build-gradle-%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">build.gradle 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">4.</span> <span class="nav-text">链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/9e663e1d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 项目结构 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 项目结构
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-25 06:37:12" itemprop="dateCreated datePublished" datetime="2020-05-25T06:37:12+08:00">2020-05-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-06-29 14:04:02" itemprop="dateModified" datetime="2020-06-29T14:04:02+08:00">2020-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/9e663e1d.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/9e663e1d.html" data-xid="/archives/9e663e1d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/9e663e1d.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 项目结构" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://imgsw.cn/static/images/shenzhita.jpeg" class="m_more_content_bg_img"></img></p>
+<span id="more"></span>
+
+<h2 id="Android-项目结构"><a href="#Android-项目结构" class="headerlink" title="Android 项目结构"></a><Center style="color:rgb(195,176,145);">Android 项目结构</Center></h2><ul>
+<li><strong>.gradle 和 .idea 目录</strong>：AS 自动生成的一些文件，无须关心。</li>
+<li><strong>app 目录</strong>：存放项目中的代码和资源等，开发工作的主要目录。</li>
+<li><strong>build 目录</strong>：主要包含了一些在编译时自动生成的文件，也不必过多关心。</li>
+<li><strong>gradle 目录</strong>：包含了 gradle wrapper 的配置文件，使用 gradle wrapper 的方式不需要提前将 gradle 下载好，而是会根据本地的缓存情况决定是否需要联网下载 gradle。AS 默认是启动 gradle wrapper 方式的，如果需要更改成离线模式，可以点击 AS 导航栏 -&gt; File -&gt; Settings -&gt; Build，Execution，Deployment -&gt; Gradle，进行配置更改。</li>
+<li><strong>.gitignore 文件</strong>：用来将指定的目录或文件排除在版本控制之外的。</li>
+<li><strong>build.gradle 文件</strong>：项目全局的 gradle 构建脚本。</li>
+<li><strong>gradle.properties 文件</strong>：全局的 gradle 配置文件，在这里配置的属性将会影响到项目中所有的 gradle 编译脚本。</li>
+<li><strong>gradlew 和 gradlew.bat 文件</strong>：用来在命令行界面中执行 gradle 命令的，前者是在 Linux 或 Mac 系统中使用的，或者是在 Windows 系统中使用的。</li>
+<li><strong>项目名称.iml 文件</strong>：.iml 文件是所有 IntelliJ IDEA 项目都会自动生成的一个文件（AS 是基于 IntelliJ IDEA  开发的），用于标识这是一个 IntelliJ IDEA  项目。不需要修改它的任何内容。</li>
+<li><strong>local.properties 文件</strong>：用于指定本机中的 Android SDK 路径。</li>
+<li><strong>settings.gradle 文件</strong>：用于指定项目中所有引入的模块。</li>
+</ul>
+<hr>
+<h2 id="app-目录结构"><a href="#app-目录结构" class="headerlink" title="app 目录结构"></a><Center style="color:rgb(195,176,145);">app 目录结构</Center></h2><ul>
+<li><strong>build 目录</strong>：包含了一些在编译时自动生成的文件。</li>
+<li><strong>libs 目录</strong>：存放项目中使用到的第三方 jar 包，并会自动添加到项目的构建路径里。</li>
+<li><strong>androidTest 目录</strong>：用于编写 Android Test 测试用例的，可对项目进行一些自动化测试。</li>
+<li><strong>java 目录</strong>：用于存放代码，包括 Java 和 Kotlin。</li>
+<li><strong>res 目录</strong>：存放各种资源。两种方式引用它们：代码中 R.string.name，XML 中 @string&#x2F;name。其中 string 可替换为相应资源。</li>
+<li><strong>drawable 目录</strong>：目前最主流设备分辨率是 drawable-xxhdpi 目录，图片放这就行。</li>
+<li><strong>mipmap 目录</strong>：存放应用图标。</li>
+<li><strong>layout 目录</strong>：存放布局文件。</li>
+<li><strong>values 目录</strong>：存放字符串、样式、颜色等配置的。</li>
+<li><strong>AndroidManifest.xml 文件</strong>：整个 Android 项目的配置文件。</li>
+<li><strong>test 目录</strong>：用来编写 Unit Test 测试用例的，是对项目进行自动化测试的另一种方式。</li>
+<li><strong>.gitignore 文件</strong>：用于将 app 模块内指定的目录或文件排除在版本控制之外。</li>
+<li><strong>app.iml 文件</strong>：IntelliJ IDEA 项目自动生成的文件，无须理会。</li>
+<li><strong>build.gradle 文件</strong>：这是 app 模块的 gradle 构建脚本，这个文件中会指定很多项目构建相关的配置。</li>
+<li><strong>proguard-rules.pro 文件</strong>：用于指定项目代码的混淆规则。</li>
+</ul>
+<hr>
+<h2 id="build-gradle-文件"><a href="#build-gradle-文件" class="headerlink" title="build.gradle 文件"></a><Center style="color:rgb(195,176,145);">build.gradle 文件</Center></h2><p>AS 采用 Gradle 来构建项目。Gradle 是一个非常先进的项目构建工具，它使用了一种基于 Groovy 的领域特定语言（DSL）来进行项目设置，摒弃了传统基于 XML （如 Ant 和 Maven）的各种烦琐配置。</p>
+<p><strong>最外层目录下的 build.gradle 文件</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">buildscript &#123;</span><br><span class="line">    ext.kotlin_version = <span class="string">&#x27;1.3.50&#x27;</span></span><br><span class="line">    repositories &#123;</span><br><span class="line">      <span class="comment">// 分别对应了一个代码仓库</span></span><br><span class="line">        google()  <span class="comment">// 包含的主要是 Google 自家的扩展依赖库</span></span><br><span class="line">        jcenter() <span class="comment">// 包含的大多是一些第三方的开源库</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    dependencies &#123;</span><br><span class="line">      <span class="comment">// 此闭包中声明了两个插件，一个 Gradle 插件和一个 Kotlin 插件。</span></span><br><span class="line">      <span class="comment">// 声明前者是因为 Gradle 并不是专门为构建 Android 项目开发的，并且版本号一般要和 AS 版本对应。</span></span><br><span class="line">      <span class="comment">// 声明后者是因为此项目使用 Kotlin 开发，如果是使用 Java，则不需要声明此插件。</span></span><br><span class="line">        classpath <span class="string">&#x27;com.android.tools.build:gradle:3.5.2&#x27;</span></span><br><span class="line">        classpath <span class="string">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:<span class="variable">$kotlin_version</span>&quot;</span></span><br><span class="line">        <span class="comment">// <span class="doctag">NOTE:</span> Do not place your application dependencies here; they belong</span></span><br><span class="line">        <span class="comment">// in the individual module build.gradle files</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">allprojects &#123;</span><br><span class="line">    repositories &#123;</span><br><span class="line">      <span class="comment">// 分别对应了一个代码仓库</span></span><br><span class="line">        google()  <span class="comment">// 包含的主要是 Google 自家的扩展依赖库</span></span><br><span class="line">        jcenter() <span class="comment">// 包含的大多是一些第三方的开源库</span></span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">task clean(type: Delete) &#123;</span><br><span class="line">    delete rootProject.buildDir</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>app 目录下的 build.gradle 文件</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 此插件表示这是一个应用模块（library 则表示库模块。应用模块可直接运行，库模块需依附于别的应用模块来运行）</span></span><br><span class="line">apply plugin: <span class="string">&#x27;com.android.application&#x27;</span></span><br><span class="line"><span class="comment">// 使用 Kotlin 开发必须应用的插件</span></span><br><span class="line">apply plugin: <span class="string">&#x27;kotlin-android&#x27;</span></span><br><span class="line"><span class="comment">// 实现了一些非常好用的 Kotlin 扩展功能</span></span><br><span class="line">apply plugin: <span class="string">&#x27;kotlin-android-extensions&#x27;</span></span><br><span class="line"><span class="comment">// 此闭包中可配置项目构建的各种属性</span></span><br><span class="line">android &#123;</span><br><span class="line">  <span class="comment">// 用于指定项目的编译版本，这里表示使用 Android 10.0 系统的 SDK 编译。</span></span><br><span class="line">    compileSdkVersion <span class="number">29</span></span><br><span class="line">  <span class="comment">// 用于指定项目构建工具的版本</span></span><br><span class="line">    buildToolsVersion <span class="string">&quot;29.0.2&quot;</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">      <span class="comment">// 应用的唯一标识符</span></span><br><span class="line">        applicationId <span class="string">&quot;com.example.myapplication&quot;</span></span><br><span class="line">      <span class="comment">// 用于指定项目最低兼容的 Android 系统版本</span></span><br><span class="line">        minSdkVersion <span class="number">21</span></span><br><span class="line">      <span class="comment">// 指定的值表示在该目标版本上已经做过了充分的测试，系统将会为应用程序启用一些最新的功能和特性。比如 Android 6.0 系统的运行时权限。</span></span><br><span class="line">        targetSdkVersion <span class="number">29</span></span><br><span class="line">      <span class="comment">// 项目的版本号</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">      <span class="comment">// 项目的版本名</span></span><br><span class="line">        versionName <span class="string">&quot;1.0&quot;</span></span><br><span class="line">      <span class="comment">// 用于在当前项目中启用 JUnit 测试，可以为当前项目编写测试用例，以保证功能的正确性和稳定性。</span></span><br><span class="line">        testInstrumentationRunner <span class="string">&quot;androidx.test.runner.AndroidJUnitRunner&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 此闭包用于指定生成安装文件的相关配置，通常只会有两个子闭包：debug 和 release。前者用于指定生成测试版安装文件的配置，可忽略不写，后者用于指定生成正式版安装文件的配置。</span></span><br><span class="line">  <span class="comment">// 注意，通过 AS 直接运行生成的都是测试版安装文件。</span></span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">          <span class="comment">// 对项目代码是否进行混淆</span></span><br><span class="line">            minifyEnabled <span class="literal">false</span></span><br><span class="line">          <span class="comment">// 指定混淆时使用的规则文件，这里指定了两个文件：第一个是在&lt;Android SDK&gt;/tools/proguard 目录下的，里面是所有项目通用的混淆规则，第二个是在项目的根目录下的，里面可以编写当前项目的特有的混淆规则。</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">&#x27;proguard-android-optimize.txt&#x27;</span>), <span class="string">&#x27;proguard-rules.pro&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 指定当前项目的所有的依赖关系</span></span><br><span class="line"><span class="comment">// 通常 AS 项目一共有三种依赖方式：本地依赖、库依赖的远程依赖。</span></span><br><span class="line"><span class="comment">// 本地依赖可以对本地的 jar 包或目录添加依赖关系 （implementation fileTree）</span></span><br><span class="line"><span class="comment">// 库依赖可以对项目中的库模块添加依赖关系 （implementation project）</span></span><br><span class="line"><span class="comment">// 远程依赖可以对 jcenter 仓库上的开源项目添加依赖关系。（implementation）</span></span><br><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// 本地依赖声明，表示将 libs 目录下所有 .jar 后缀的文件都添加到项目的构建路径中。</span></span><br><span class="line">    implementation fileTree(dir: <span class="string">&#x27;libs&#x27;</span>, include: [<span class="string">&#x27;*.jar&#x27;</span>])</span><br><span class="line">    implementation<span class="string">&quot;org.jetbrains.kotlin:kotlin-stdlib-jdk7:<span class="variable">$kotlin_version</span>&quot;</span></span><br><span class="line">  <span class="comment">// implementation 则是远程依赖声明</span></span><br><span class="line">  <span class="comment">// androidx.appcompat：域名部分，用于和其他公司的库做区分。</span></span><br><span class="line">  <span class="comment">// appcompat：工程名部分，用于和同一公司中不同的库工程做区分。</span></span><br><span class="line">  <span class="comment">// 1.1.3：版本号，用于和同一个库不同的版本做区分。</span></span><br><span class="line">    implementation <span class="string">&#x27;androidx.appcompat:appcompat:1.1.0&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;androidx.core:core-ktx:1.0.2&#x27;</span></span><br><span class="line">    implementation <span class="string">&#x27;androidx.constraintlayout:constraintlayout:1.1.3&#x27;</span></span><br><span class="line">  <span class="comment">// testImplementation 和 androidTestImplementation 都是用于声明测试用例库的</span></span><br><span class="line">    testImplementation <span class="string">&#x27;junit:junit:4.12&#x27;</span></span><br><span class="line">    androidTestImplementation <span class="string">&#x27;androidx.test.ext:junit:1.1.1&#x27;</span></span><br><span class="line">    androidTestImplementation <span class="string">&#x27;androidx.test.espresso:espresso-core:3.2.0&#x27;</span></span><br><span class="line">  <span class="comment">// 库依赖：比如一个库模块名字是 helper。</span></span><br><span class="line">  <span class="comment">// implementation project(&#x27;:helper&#x27;)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><Center style="color:rgb(195,176,145);">链接</Center></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/9e663e1d.html" title="Android 项目结构">https://jianghouren.cn/archives/9e663e1d.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%9E%B6%E6%9E%84/" rel="tag"># 架构</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/27cba059.html" rel="prev" title="Android 系统架构">
+                  <i class="fa fa-chevron-left"></i> Android 系统架构
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/2c778873.html" rel="next" title="ssl 证书配置">
+                  ssl 证书配置 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/9e663e1d.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

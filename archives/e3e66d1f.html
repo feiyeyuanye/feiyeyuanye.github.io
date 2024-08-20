@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android MediaPlayer">
+<meta property="og:url" content="https://jianghouren.cn/archives/e3e66d1f.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-08-22T12:36:20.000Z">
+<meta property="article:modified_time" content="2021-04-28T23:47:41.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/e3e66d1f.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/e3e66d1f.html","path":"archives/e3e66d1f.html","title":"Android MediaPlayer"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android MediaPlayer | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Play"><span class="nav-number">1.</span> <span class="nav-text">Play</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%B8%80"><span class="nav-number">1.1.</span> <span class="nav-text">示例一</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%9B%BE%E5%8F%8A%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">3.</span> <span class="nav-text">状态图及生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E5%88%9B%E5%BB%BA%E5%88%B0-setDataSource-%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">从创建到 setDataSource 过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create-%E5%88%B0-setDisplay-%E8%BF%87%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">create 到 setDisplay 过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">创建过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/e3e66d1f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android MediaPlayer | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android MediaPlayer
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-22 20:36:20" itemprop="dateCreated datePublished" datetime="2020-08-22T20:36:20+08:00">2020-08-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-29 07:47:41" itemprop="dateModified" datetime="2021-04-29T07:47:41+08:00">2021-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/e3e66d1f.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/e3e66d1f.html" data-xid="/archives/e3e66d1f.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/e3e66d1f.html" class="post-meta-item leancloud_visitors" data-flag-title="Android MediaPlayer" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>13k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>12 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/shenqinvxia.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>MediaPlayer 是 Android 中的一个多媒体播放类，能通过它控制音视频流或本地音视频资源的播放过程。</p>
+<h2 id="Play"><a href="#Play" class="headerlink" title="Play"></a>Play</h2><h3 id="示例一"><a href="#示例一" class="headerlink" title="示例一"></a>示例一</h3><p><strong>图片旋转音乐</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 媒体播放</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MediaPlayerManager</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放 0。 暂停 1。 停止 2。</span></span><br><span class="line"><span class="comment">     * 当前状态默认等于停止状态。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MEDIA_STATUS_PLAY</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MEDIA_STATUS_PAUSE</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MEDIA_STATUS_STOP</span> <span class="operator">=</span> <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="variable">MEDIA_STATUS</span> <span class="operator">=</span> MEDIA_STATUS_STOP;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">H_PROGRESS</span> <span class="operator">=</span> <span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">private</span> MediaPlayer mediaPlayer;</span><br><span class="line">    <span class="keyword">private</span> OnMusicProgressListener musicProgressListener;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过 Handler 获取进度</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 计算歌曲的进度：</span></span><br><span class="line"><span class="comment">     * 1.开始播放的时候就开启循环计算时长</span></span><br><span class="line"><span class="comment">     * 2.将进度计算结果对外抛出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">Handler</span> <span class="variable">mHandler</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Handler</span>(<span class="keyword">new</span> <span class="title class_">Handler</span>.Callback() &#123;</span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">handleMessage</span><span class="params">(<span class="meta">@NonNull</span> Message message)</span> &#123;</span><br><span class="line">            <span class="keyword">switch</span> (message.what)&#123;</span><br><span class="line">                <span class="keyword">case</span> H_PROGRESS:</span><br><span class="line">                    <span class="keyword">if</span> (musicProgressListener != <span class="literal">null</span>)&#123;</span><br><span class="line">                        <span class="comment">// 拿到当前时长</span></span><br><span class="line">                        <span class="type">int</span> <span class="variable">currentPosition</span> <span class="operator">=</span> getCurrentPosition();</span><br><span class="line">                        <span class="comment">// 当前进度百分比</span></span><br><span class="line">                        <span class="type">int</span> <span class="variable">pos</span> <span class="operator">=</span> (<span class="type">int</span>) (((<span class="type">float</span>)currentPosition) / ((<span class="type">float</span>)getDuration())*<span class="number">100</span>);</span><br><span class="line">                        musicProgressListener.OnProgress(currentPosition,pos);</span><br><span class="line">                        <span class="comment">// 每隔一秒</span></span><br><span class="line">                        mHandler.sendEmptyMessageDelayed(H_PROGRESS,<span class="number">1000</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">MediaPlayerManager</span><span class="params">()</span>&#123;</span><br><span class="line">        mediaPlayer = <span class="keyword">new</span> <span class="title class_">MediaPlayer</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 判断是否在播放</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isPlaying</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mediaPlayer.isPlaying();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 开始播放</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">startPlay</span><span class="params">(AssetFileDescriptor path)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mediaPlayer.reset();</span><br><span class="line"><span class="comment">//            mediaPlayer.setDataSource(path); // Android N 以上</span></span><br><span class="line">            mediaPlayer.setDataSource(path.getFileDescriptor(),</span><br><span class="line">                    path.getStartOffset(), path.getLength());</span><br><span class="line">            mediaPlayer.prepare();</span><br><span class="line">            mediaPlayer.start();</span><br><span class="line">            MEDIA_STATUS = MEDIA_STATUS_PLAY;</span><br><span class="line">            mHandler.sendEmptyMessage(H_PROGRESS);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LogUtils.e(e.toString());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 开始播放的重载方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> path</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">startPlay</span><span class="params">(String path)</span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            mediaPlayer.reset();</span><br><span class="line">            mediaPlayer.setDataSource(path);</span><br><span class="line">            mediaPlayer.prepare();</span><br><span class="line">            mediaPlayer.start();</span><br><span class="line">            MEDIA_STATUS = MEDIA_STATUS_PLAY;</span><br><span class="line">            mHandler.sendEmptyMessage(H_PROGRESS);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            LogUtils.e(e.toString());</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 暂停播放</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pausePlay</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isPlaying())&#123;</span><br><span class="line">            mediaPlayer.pause();</span><br><span class="line">            MEDIA_STATUS = MEDIA_STATUS_PAUSE;</span><br><span class="line">            mHandler.removeMessages(H_PROGRESS);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 继续播放</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">continuePlay</span><span class="params">()</span>&#123;</span><br><span class="line">        mediaPlayer.start();</span><br><span class="line">        MEDIA_STATUS = MEDIA_STATUS_PLAY;</span><br><span class="line">        mHandler.sendEmptyMessage(H_PROGRESS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 停止播放</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">stopPlay</span><span class="params">()</span>&#123;</span><br><span class="line">        mediaPlayer.stop();</span><br><span class="line">        MEDIA_STATUS = MEDIA_STATUS_STOP;</span><br><span class="line">        mHandler.removeMessages(H_PROGRESS);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取当前位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCurrentPosition</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mediaPlayer.getCurrentPosition();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取总时长</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getDuration</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> mediaPlayer.getDuration();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 是否循环</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setLooping</span><span class="params">(<span class="type">boolean</span> isLooping)</span>&#123;</span><br><span class="line">        mediaPlayer.setLooping(isLooping);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 跳转位置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> ms 时间段</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">seekTo</span><span class="params">(<span class="type">int</span> ms)</span>&#123;</span><br><span class="line">        mediaPlayer.seekTo(ms);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放结束监听</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOnCompletionListener</span><span class="params">(MediaPlayer.OnCompletionListener listener)</span>&#123;</span><br><span class="line">        mediaPlayer.setOnCompletionListener(listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放错误监听</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOnErrorListener</span><span class="params">(MediaPlayer.OnErrorListener listener)</span>&#123;</span><br><span class="line">        mediaPlayer.setOnErrorListener(listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放进度监听</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setOnProgressListener</span><span class="params">(OnMusicProgressListener listener)</span>&#123;</span><br><span class="line">        musicProgressListener = listener;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">OnMusicProgressListener</span>&#123;</span><br><span class="line">        <span class="keyword">void</span> <span class="title function_">OnProgress</span><span class="params">(<span class="type">int</span> progress,<span class="type">int</span> pos)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> MediaPlayerManager mGuideMusic;</span><br><span class="line"><span class="keyword">private</span> ObjectAnimator mAnim;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 播放音乐</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">startMusic</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">      mGuideMusic = <span class="keyword">new</span> <span class="title class_">MediaPlayerManager</span>();</span><br><span class="line">      mGuideMusic.setLooping(<span class="literal">true</span>);</span><br><span class="line">      <span class="type">AssetFileDescriptor</span> <span class="variable">file</span> <span class="operator">=</span> getResources().openRawResourceFd(R.raw.guide);</span><br><span class="line">      mGuideMusic.startPlay(file);</span><br><span class="line"></span><br><span class="line">      mGuideMusic.setOnComplteionListener(<span class="keyword">new</span> <span class="title class_">MediaPlayer</span>.OnCompletionListener() &#123;</span><br><span class="line">          <span class="meta">@Override</span></span><br><span class="line">          <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCompletion</span><span class="params">(MediaPlayer mp)</span> &#123;</span><br><span class="line">              mGuideMusic.startPlay(file);</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="comment">//旋转动画</span></span><br><span class="line">      mAnim = AnimUtils.rotation(iv_music_switch);</span><br><span class="line">      mAnim.start();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View view)</span> &#123;</span><br><span class="line">      <span class="keyword">switch</span> (view.getId())&#123;</span><br><span class="line">          <span class="keyword">case</span> R.id.iv_music_switch:</span><br><span class="line">              <span class="keyword">if</span>(mGuideMusic.MEDIA_STATUS == MediaPlayerManager.MEDIA_STATUS_PAUSE)&#123;</span><br><span class="line">                  mAnim.start();</span><br><span class="line">                  mGuideMusic.continuePlay();</span><br><span class="line">                  iv_music_switch.setImageResource(R.drawable.img_guide_music);</span><br><span class="line">              &#125;<span class="keyword">else</span> <span class="keyword">if</span>(mGuideMusic.MEDIA_STATUS == MediaPlayerManager.MEDIA_STATUS_PLAY)&#123;</span><br><span class="line">                  mAnim.pause();</span><br><span class="line">                  mGuideMusic.pausePlay();</span><br><span class="line">                  iv_music_switch.setImageResource(R.drawable.img_guide_music_off);</span><br><span class="line">              &#125;</span><br><span class="line">              <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDestroy</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="built_in">super</span>.onDestroy();</span><br><span class="line">      mGuideMusic.stopPlay();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Profile: 动画工具类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AnimUtils</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 旋转动画</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> view</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> ObjectAnimator <span class="title function_">rotation</span><span class="params">(View view)</span> &#123;</span><br><span class="line">        <span class="type">ObjectAnimator</span> <span class="variable">mAnim</span> <span class="operator">=</span> ObjectAnimator.ofFloat(view, <span class="string">&quot;rotation&quot;</span>, <span class="number">0f</span>, <span class="number">360f</span>);</span><br><span class="line">        mAnim.setDuration(<span class="number">2</span> * <span class="number">1000</span>);</span><br><span class="line">        mAnim.setRepeatMode(ValueAnimator.RESTART);</span><br><span class="line">        mAnim.setRepeatCount(ValueAnimator.INFINITE);</span><br><span class="line">        mAnim.setInterpolator(<span class="keyword">new</span> <span class="title class_">LinearInterpolator</span>());</span><br><span class="line">        <span class="keyword">return</span> mAnim;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>###示例二</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 播放音频文件</span></span><br><span class="line"><span class="comment"> * 一般使用 MediaPlayer 类实现，可以用于播放网络、本地以及应用程序安装包中的音频。</span></span><br><span class="line"><span class="comment"> * 工作流程，首先需要创建一个 MediaPlayer 对象，然后调用 setDataSource() 设置音频文件的路径，</span></span><br><span class="line"><span class="comment"> * 再调用 prepare() 使 MediaPlayer 进入准备状态，接下来调用 start() 播放音频，pause() 暂停，reset() 停止播放。</span></span><br><span class="line"><span class="comment"> * ----------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * 播放视频文件</span></span><br><span class="line"><span class="comment"> * 主要使用 VideoView 类实现，它将视频的显示和控制集于一身。</span></span><br><span class="line"><span class="comment"> * VideoView 不支持直接播放 assets 目录下的视频资源，但像音频、视频之类的资源文件也可以放在 res 目录下的 raw 目录内。</span></span><br><span class="line"><span class="comment"> * ----------------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * VideoView 的背后仍然是使用 MediaPlayer 类对视频文件进行控制的，</span></span><br><span class="line"><span class="comment"> * 并且 VideoView 在视频格式的支持以及播放效率方面都存在着较大的不足，所以更适合用于播放一些游戏的片头动画，或是某个应用的视频宣传。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PlayActivity</span> : <span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 播放音频(1) or 播放视频(2)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> type = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 类初始化时，先创建了一个 MediaPlayer 实例。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mediaPlayer = MediaPlayer()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_play)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">        initData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 为 MediaPlayer 对象进行初始化操作</span></span><br><span class="line">        initMediaPlayer()</span><br><span class="line">        initVideoView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initVideoView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 将 raw 目录下的 mp4 文件解析成了一个 Uri 对象，这里使用的写法是 Android 要求的固定写法。</span></span><br><span class="line">        <span class="keyword">val</span> uri = Uri.parse(<span class="string">&quot;android.resource://<span class="variable">$packageName</span>/<span class="subst">$&#123;R.raw.video&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="comment">// 初始化 VideoView 完成</span></span><br><span class="line">        videoView.setVideoURI(uri)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里测试使用应用程序安装包中的音频，借助 AssetManager 类提供的接口对 assets 目录下的文件进行读取。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initMediaPlayer</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 通过 getAssets() 得到一个 AssetMessager 的实例，AssetMessager 可用于读取 assets 目录下的任何资源。</span></span><br><span class="line">        <span class="keyword">val</span> assetMessager = assets</span><br><span class="line">        <span class="comment">// 调用 openFd() 将音频文件句柄打开</span></span><br><span class="line">        <span class="keyword">val</span> fd = assetMessager.openFd(<span class="string">&quot;music.mp3&quot;</span>)</span><br><span class="line">        mediaPlayer.setDataSource(fd.fileDescriptor,fd.startOffset,fd.length)</span><br><span class="line">        mediaPlayer.prepare()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * MediaPlayer 类中常用的控制方法:</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setDataSource() 设置要播放的音频文件的位置。（设置播放资源）</span></span><br><span class="line"><span class="comment">     * mediaPlayer.prepare() 开始播放前调用，已完成准备工作。（同步的方式装载流媒体文件）</span></span><br><span class="line"><span class="comment">     * mediaPlayer.prepareAsync() 异步的方式装载流媒体文件</span></span><br><span class="line"><span class="comment">     * mediaPlayer.start() 开始或继续播放音频</span></span><br><span class="line"><span class="comment">     * mediaPlayer.pause() 暂停播放</span></span><br><span class="line"><span class="comment">     * mediaPlayer.reset() 将 MediaPlayer 对象重置到刚刚创建的状态</span></span><br><span class="line"><span class="comment">     * mediaPlayer.seekTo() 从指定的位置开始播放音频（跳转）</span></span><br><span class="line"><span class="comment">     * mediaPlayer.getCurrentPosition() 获取当前流媒体的播放的位置</span></span><br><span class="line"><span class="comment">     * mediaPlayer.stop() 停止播放音频。调用后的 MediaPlayer 对象无法再播放音频。</span></span><br><span class="line"><span class="comment">     * mediaPlayer.release() 释放 与 MediaPlayer 对象相关的资源（回收流媒体资源）</span></span><br><span class="line"><span class="comment">     * mediaPlayer.isPlaying() 判断当前 MediaPlayer 是否正在播放音频</span></span><br><span class="line"><span class="comment">     * mediaPlayer.isLooping() 判断是否循环播放</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setLooping() 设置是否循环播放</span></span><br><span class="line"><span class="comment">     * mediaPlayer.duration 获取载入的音频文件的时长</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setAudioStreamType() 设置播放流媒体类型</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setWakeMode() 设置 CPU 唤醒的状态</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * MediaPlayer 的公开接口</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setOnCompletionListener(); 当流媒体播放完毕的时候回调</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setOnErrorListener(); 当播放中发生错误的时候回调</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setOnPreparedListener(); 当装载流媒体完毕的时候回调</span></span><br><span class="line"><span class="comment">     * mediaPlayer.setOnSeekCompleteListener(); 当使用 seekTo() 设置播放位置的时候回调</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * -----------------------------------------------------------------</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * VideoView 的常用方法:</span></span><br><span class="line"><span class="comment">     * videoView.setVideoPath() 设置要播放的视频文件的位置</span></span><br><span class="line"><span class="comment">     * videoView.start() 开始或继续播放视频</span></span><br><span class="line"><span class="comment">     * videoView.pause() 暂停播放视频</span></span><br><span class="line"><span class="comment">     * videoView.resume() 将视频从头开始播放</span></span><br><span class="line"><span class="comment">     * videoView.seekTo() 从制定的位置开始播放视频</span></span><br><span class="line"><span class="comment">     * videoView.isPlaying 判断当前是否正在播放视频</span></span><br><span class="line"><span class="comment">     * videoView.duration 获取载入的视频文件的时长</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btnType.setOnClickListener&#123;</span><br><span class="line">            <span class="keyword">if</span> (type == <span class="number">1</span>)&#123;</span><br><span class="line">                type = <span class="number">2</span></span><br><span class="line">                btnPlay.setText(<span class="string">&quot;视频 Play&quot;</span>)</span><br><span class="line">                btnPause.setText(<span class="string">&quot;视频 Pause&quot;</span>)</span><br><span class="line">                btnStop.setText(<span class="string">&quot;视频 Stop&quot;</span>)</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>)&#123;</span><br><span class="line">                type = <span class="number">1</span></span><br><span class="line">                btnPlay.setText(<span class="string">&quot;音频 Play&quot;</span>)</span><br><span class="line">                btnPause.setText(<span class="string">&quot;音频 Pause&quot;</span>)</span><br><span class="line">                btnStop.setText(<span class="string">&quot;音频 Stop&quot;</span>)</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                type = -<span class="number">1</span></span><br><span class="line">                btnPlay.setText(<span class="string">&quot;-1&quot;</span>)</span><br><span class="line">                btnPause.setText(<span class="string">&quot;-1&quot;</span>)</span><br><span class="line">                btnStop.setText(<span class="string">&quot;-1&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        btnPlay.setOnClickListener&#123;</span><br><span class="line">            <span class="keyword">if</span> (type == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (!mediaPlayer.isPlaying)&#123;</span><br><span class="line">                    mediaPlayer.start()  <span class="comment">// 开始播放</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(!videoView.isPlaying)&#123;</span><br><span class="line">                    videoView.start() <span class="comment">// 开始播放</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;error&quot;</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        btnPause.setOnClickListener&#123;</span><br><span class="line">            <span class="keyword">if</span> (type == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (mediaPlayer.isPlaying)&#123;</span><br><span class="line">                    mediaPlayer.pause()  <span class="comment">// 暂停播放</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(videoView.isPlaying)&#123;</span><br><span class="line">                    videoView.pause() <span class="comment">// 暂停播放</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;error&quot;</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        btnStop.setOnClickListener&#123;</span><br><span class="line">            <span class="keyword">if</span> (type == <span class="number">1</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span> (mediaPlayer.isPlaying)&#123;</span><br><span class="line">                    mediaPlayer.reset() <span class="comment">// 停止播放</span></span><br><span class="line">                    initMediaPlayer()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> <span class="keyword">if</span> (type == <span class="number">2</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(videoView.isPlaying)&#123;</span><br><span class="line">                    videoView.resume() <span class="comment">// 重新播放</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                Toast.makeText(<span class="keyword">this</span>,<span class="string">&quot;error&quot;</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onDestroy</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onDestroy()</span><br><span class="line"></span><br><span class="line">        mediaPlayer.stop()</span><br><span class="line">        mediaPlayer.release()</span><br><span class="line"></span><br><span class="line">        videoView.<span class="keyword">suspend</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, PlayActivity::<span class="keyword">class</span>.java)</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h2 id="状态图及生命周期"><a href="#状态图及生命周期" class="headerlink" title="状态图及生命周期"></a><p class="m_more_title_style">状态图及生命周期</p></h2><p>MediaPlayer 用于控制视频&#x2F;音频文件及流的播放，由状态机进行管理。它有下面的一些状态：</p>
+<ul>
+<li>Idle 状态及 End 状态：<ul>
+<li>在 MediaPlayer 创建实例或者调用 reset() 后，播放器就被创建了，这是处于 Idle（就绪）状态，调用 release() 后，就会变成 End（结束）状态，在这两种状态之间的就是 MediaPlayer 的生命周期。</li>
+</ul>
+</li>
+<li>Error （错误）状态：<ul>
+<li>当处于 Idle 状态时，上层应用程序调用一些方法时，用户提供的回调函数 OnErrorListener.onError 将触发 MediaPlayer 状态到 Error 状态（或者其他原因导致播放失败时），可从中获取错误原因，并且可以调用 reset() 重新恢复到 Idle 状态。</li>
+<li>当不再使用 MediaPlayer 时，需调用 release() ，以便 MediaPlayer 资源得到合理释放，因为当处于 End 时，代表本次生命周期已经终止，MediaPlayer 将不能再被使用，这时不能再回到其他状态。</li>
+</ul>
+</li>
+<li>Initialized（初始化）状态：<ul>
+<li>当调用 setDataSource() 时，由 Idle 状态将变为 Initialized 状态，如果在非 Idle 状态时调用此方法，会抛出异常。</li>
+</ul>
+</li>
+<li>Prepared（准备）状态：<ul>
+<li>由 Initialized 状态到达此状态有两种方式，同步（prepare() -&gt; Prepared 状态）和异步（prepareAsync() -&gt; Preparing 状态，这是一个瞬时状态，可理解为时间比较短。 -&gt; Prepared 状态）。</li>
+<li>前者主要使用本地音视频文件，后者主要使用网络数据，需要缓冲数据。</li>
+<li>当应用层事先注册过 setOnPrepareListener 时，播放器内部将回调用户设置的 OnPrepareListener 中的 onPrapared()。</li>
+<li>此状态时，上层应用可设置一些属性，如音视频的音量、screenOnWhilePlaying、looping 等。</li>
+</ul>
+</li>
+<li>Started（播放控制）状态：<ul>
+<li>由 Prepared 状态时调用 start() 并成功返回时，开始播放控制状态。</li>
+<li>回调函数为 OnBufferingUpdateListener.onBufferingUpdate，此函数主要使应用程序保持跟踪音视频流的 buffering（缓冲）。</li>
+<li>在播放控制时可以是 Paused 和 Stopped 状态的，且当前的播放进度可以被调整（seekTo()）。</li>
+</ul>
+</li>
+<li>Paused（暂停）状态：<ul>
+<li>调用 MediaPlayer.pause() 时，进入此状态，这个过程是瞬时的，反之在播放器内部是异步过程的。</li>
+<li>在状态更新并调用 isPlaying 函数前，将有一些耗时。已经缓冲过的数据流，也要耗费数秒。</li>
+<li>可调用 start() 恢复到 Started 状态，playback 恢复到之前暂停时的位置，并开始播放。</li>
+</ul>
+</li>
+<li>Stopped（停止）状态：<ul>
+<li>当调用 stop() 时，MediaPlayer 无论正处于 Started、Paused、Prepared 或 PlaybackCompleted 中的哪种状态，都将进入 Stopped 状态。</li>
+<li>此状态时，playback 将不能开始，直到重新调用 prepare()  或 prepareAsync() 并处于 Prepared 状态时才可以开始。</li>
+</ul>
+</li>
+<li>PlaybackCompleted（播放完成）状态：<ul>
+<li>可通过 getCurrentPosition() 跟踪和获取播放器的播放进度。</li>
+<li>当在 Started 状态中，事先调用 setLooping(boolean) 并设置为 true，表示循环播放，MediaPlayer 依然处于 Started 状态，如果设置为 false，表示不循环播放，回调函数为 OnCompletion.onCompletion，并进入 PlaybackCompleted 状态。</li>
+<li>此状态中，调用 start() ，将重启播放器从头开始播放数据。</li>
+</ul>
+</li>
+</ul>
+<p>备注：</p>
+<ul>
+<li>Seek 操作：<ul>
+<li>在 Seek 操作完成后，如果事先在 MediaPlayer 注册了 setOnSeekCompleteListener，播放器内部将回调 OnSeekComplete.onSeekComplete 函数。</li>
+<li>seekTo() 在 Prepared、Paused、PlaybackCompleted 状态时都可被调用。</li>
+</ul>
+</li>
+<li>播放器内部将回调的函数，需要用户事先通过 setOnXXXListener 来进行注册。</li>
+<li>当已经处于 Started 、Paused、Stopped 状态时，此时再调用相应函数 start() 、pause()、stop()  是没有任何作用的，依然处于当前状态中。</li>
+</ul>
+<hr>
+<h2 id="从创建到-setDataSource-过程"><a href="#从创建到-setDataSource-过程" class="headerlink" title="从创建到 setDataSource 过程"></a><p class="m_more_title_style">从创建到 setDataSource 过程</p></h2><h3 id="create-到-setDisplay-过程"><a href="#create-到-setDisplay-过程" class="headerlink" title="create 到 setDisplay 过程"></a>create 到 setDisplay 过程</h3><p>通过 getService 从 ServiceManager 获取对应的 MediaPlayerService，然后调用 native_setup 函数创建播放器，接着调用 setDataSource 把 URL 地址传入底层。当准备好后，通过 setDisplay 传入 SurfaceHolder，以便将解码出的数据放到 SurfaceHolder 中的 Surface。最后显示在 SurfaceView 上。</p>
+<h3 id="创建过程"><a href="#创建过程" class="headerlink" title="创建过程"></a>创建过程</h3><p>实例化 MediaPlayer 有两种方式：</p>
+<p>1、使用 new 的方式：</p>
+<p><code>MediaPlayer mp = newMediaPlayer();</code></p>
+<p>2、使用 create 的方式：这时不需要再调用 setDataSource 了，更适用于使用现成的资源。</p>
+<p><code>MediaPlayer mp = MediaPlayer.create(this, R.raw.test);</code></p>
+<figure class="highlight java"><figcaption><span>MediaPlayer.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> MediaPlayer <span class="title function_">create</span><span class="params">(Context context, Uri uri, SurfaceHolder holder,</span></span><br><span class="line"><span class="params">        AudioAttributes audioAttributes, <span class="type">int</span> audioSessionId)</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="type">MediaPlayer</span> <span class="variable">mp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MediaPlayer</span>();</span><br><span class="line">      <span class="comment">// 声音相关处理，若为空，就创建一个。</span></span><br><span class="line">        <span class="keyword">final</span> <span class="type">AudioAttributes</span> <span class="variable">aa</span> <span class="operator">=</span> audioAttributes != <span class="literal">null</span> ? audioAttributes :</span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">AudioAttributes</span>.Builder().build();</span><br><span class="line">      <span class="comment">// 设置音频属性。</span></span><br><span class="line">        mp.setAudioAttributes(aa);</span><br><span class="line">      <span class="comment">// 设置声音的会话 ID，视频和音频是分开渲染的。</span></span><br><span class="line">        mp.setAudioSessionId(audioSessionId);</span><br><span class="line">      <span class="comment">// 从这里开始 setDataSource。uri 即统一资源标识符。</span></span><br><span class="line">        mp.setDataSource(context, uri);</span><br><span class="line">      <span class="comment">// 判断 SurfaceHolder 是否为空，这是一个控制器。</span></span><br><span class="line">        <span class="keyword">if</span> (holder != <span class="literal">null</span>) &#123;</span><br><span class="line">          <span class="comment">// 给 Surface 设置一个控制器，用来操纵 Surface，处理它在 canvas 上作画的效果和动画，控制表面、大小、像素等。</span></span><br><span class="line">            mp.setDisplay(holder);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 开始准备</span></span><br><span class="line">        mp.prepare();</span><br><span class="line">        <span class="keyword">return</span> mp;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException ex) &#123;</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;create failed:&quot;</span>, ex);</span><br><span class="line">        <span class="comment">// fall through</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (IllegalArgumentException ex) &#123;</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;create failed:&quot;</span>, ex);</span><br><span class="line">        <span class="comment">// fall through</span></span><br><span class="line">    &#125; <span class="keyword">catch</span> (SecurityException ex) &#123;</span><br><span class="line">        Log.d(TAG, <span class="string">&quot;create failed:&quot;</span>, ex);</span><br><span class="line">        <span class="comment">// fall through</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/hejjunlin/article/details/83304678?utm_medium=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param&depth_1-utm_source=distribute.pc_relevant.none-task-blog-BlogCommendFromMachineLearnPai2-3.channel_param">Android 音视频开发</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/e3e66d1f.html" title="Android MediaPlayer">https://jianghouren.cn/archives/e3e66d1f.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/dee78ac1.html" rel="prev" title="Android JNI 原理">
+                  <i class="fa fa-chevron-left"></i> Android JNI 原理
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/79dc4338.html" rel="next" title="Android 绘制优化">
+                  Android 绘制优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/e3e66d1f.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

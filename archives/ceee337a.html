@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="C 语言基础">
+<meta property="og:url" content="https://jianghouren.cn/archives/ceee337a.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/linux内存地址的划分.png">
+<meta property="article:published_time" content="2021-01-07T14:04:12.000Z">
+<meta property="article:modified_time" content="2022-04-28T06:47:20.226Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/ceee337a.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/ceee337a.html","path":"archives/ceee337a.html","title":"C 语言基础"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>C 语言基础 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">C 语言基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E8%AF%86%E7%AC%A6%E4%B8%8E%E5%85%B3%E9%94%AE%E5%AD%97"><span class="nav-number">1.1.</span> <span class="nav-text">标识符与关键字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">常用基本类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E8%BF%90%E7%AE%97"><span class="nav-number">1.3.</span> <span class="nav-text">基本运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E9%87%8F%E4%B8%8E%E5%B8%B8%E9%87%8F"><span class="nav-number">1.4.</span> <span class="nav-text">变量与常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E7%BB%84"><span class="nav-number">1.5.</span> <span class="nav-text">数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93"><span class="nav-number">1.6.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.7.</span> <span class="nav-text">枚举类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E9%92%88"><span class="nav-number">1.8.</span> <span class="nav-text">指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4"><span class="nav-number">1.9.</span> <span class="nav-text">常见的内存空间</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E5%88%A4%E6%96%AD%E4%B8%8E%E5%BE%AA%E7%8E%AF"><span class="nav-number">1.10.</span> <span class="nav-text">条件判断与循环</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%87%BD%E6%95%B0"><span class="nav-number">1.11.</span> <span class="nav-text">函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.12.</span> <span class="nav-text">文件操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/ceee337a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="C 语言基础 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          C 语言基础
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2021-01-07 22:04:12" itemprop="dateCreated datePublished" datetime="2021-01-07T22:04:12+08:00">2021-01-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 14:47:20" itemprop="dateModified" datetime="2022-04-28T14:47:20+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/C-C/" itemprop="url" rel="index"><span itemprop="name">C/C++</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/ceee337a.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/ceee337a.html" data-xid="/archives/ceee337a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/ceee337a.html" class="post-meta-item leancloud_visitors" data-flag-title="C 语言基础" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>7 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-z8mq8y_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span> 
+
+<p>C 语言是一种通用的、面向过程式的计算机程序设计语言。1972 年，为了移植与开发 UNIX 操作系统，丹尼斯·里奇在贝尔电话实验室设计开发了 C 语言。</p>
+<h2 id="C-语言基础"><a href="#C-语言基础" class="headerlink" title="C 语言基础"></a><p class="m_more_tit le_style">C 语言基础</p></h2><p>###程序结构</p>
+<p>C 程序结构如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入头文件。</span></span><br><span class="line"><span class="comment">// stdio.h 是一个头文件 (标准输入输出头文件) , #include 是一个预处理命令，用来引入头文件。 当编译器遇到 printf() 函数时，如果没有找到 stdio.h 头文件，会发生编译错误。</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 入口函数。所有的 C 语言程序都需要包含 main() 函数。代码从 main() 函数开始执行。</span></span><br><span class="line"><span class="comment">// 参数一指输入的参数个数，参数二保存了所有参数。</span></span><br><span class="line"><span class="comment">// 返回值为 int 类型，一般 0 代表成功，负数代表失败。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">  <span class="comment">// printf() 用于格式化输出到屏幕。printf() 函数在 &quot;stdio.h&quot; 头文件中声明。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Hello World!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 代表执行成功。退出程序。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过指令的编译与执行</strong>：</p>
+<p>打开一个文本编辑器，添加代码，保存文件为 xxx.c。( C 程序的源文件通常使用扩展名 .c )</p>
+<p>打开命令提示符，进入到保存文件所在的目录。</p>
+<p>MAC 下的编译使用 clang，Linux 下的编译使用 gcc。</p>
+<p>第一种方式： </p>
+<p><em>gcc hello.c</em>，输入回车，编译代码。</p>
+<p>如果不指定目标文件名时默认生成的可执行文件名为 a.out 或 a.exe。</p>
+<p>键入<code>./a.out</code> 来执行程序。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jianghouren@jianghourendeMacBook-Pro test % clang hello.c</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test % ls</span><br><span class="line">a.out  hello.c</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test % ./a.out</span><br><span class="line">Hello, World!</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test %</span><br></pre></td></tr></table></figure>
+
+<p>第二种方式：</p>
+<p>gcc&#x2F;clang  -g -o Hello xxx.c</p>
+<ul>
+<li>-g 是 debug 模式，带有调试信息的。</li>
+<li>-o 指明输出文件的名字。</li>
+<li>xxx.c 源代码。</li>
+</ul>
+<p>在 Mac 或 Linux 下使用 <code>./Hello</code> 来执行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">jianghouren@jianghourendeMacBook-Pro test % clang -o Hello hello.c</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test % ls</span><br><span class="line">Hello  hello.c</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test % ./Hello</span><br><span class="line">Hello, World!</span><br><span class="line">jianghouren@jianghourendeMacBook-Pro test %</span><br></pre></td></tr></table></figure>
+
+<p>集成环境的运行，后台其实也是这个步骤。</p>
+<h3 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h3><p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E6%A8%99%E8%AD%98%E7%AC%A6">标识符</a>：在编程语言中，就是程序员自己规定的具有特定含义的词，比如类名称，属性名称，变量名等。</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://zh.wikipedia.org/wiki/%E4%BF%9D%E7%95%99%E5%AD%97">关键字</a>：C 中的保留字不能作为常量名、变量名或其他标识符名称。</p>
+<h3 id="常用基本类型"><a href="#常用基本类型" class="headerlink" title="常用基本类型"></a>常用基本类型</h3><p>在 C 语言中，数据类型指的是用于声明不同类型的变量或函数的一个广泛的系统。变量的类型决定了变量存储占用的空间，以及如何解释存储的位模式。C 中的类型可分为以下几种：</p>
+<p>1、基本类型。它们是算术类型，包括两种类型：整数类型和浮点类型。</p>
+<ul>
+<li><p>short（短整型）、int（整型）、long（长整型）</p>
+</li>
+<li><p>float（单精度浮点型，一般情况使用 float。）、double（双精度浮点型，精度高，适用于科学计算等。）</p>
+</li>
+<li><p>char（字符，整数类型。）</p>
+</li>
+</ul>
+<p>2、枚举类型。它们也是算术类型，被用来定义在程序中只能赋予其一定的离散整数值的变量。</p>
+<p>3、void 类型。类型说明符 <em>void</em> 表明没有可用的值。（对类型不关心时）</p>
+<p>4、派生类型。它们包括：指针类型、数组类型、结构类型、共用体类型和函数类型。</p>
+<p>可使用 sizeof 运算符。通过表达式 <em>sizeof(type)</em> 得到对象或类型的存储字节在特定平台上的准确大小。</p>
+<p>资料：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/cprogramming/c-data-types.html">数据类型</a></p>
+<h3 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h3><ul>
+<li>+、-</li>
+<li>*、&#x2F;、%</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123; </span><br><span class="line">    <span class="type">int</span> a = <span class="number">10</span>;</span><br><span class="line">    <span class="type">float</span> b = <span class="number">12.5</span>;</span><br><span class="line">    <span class="comment">// 打印结果；a+b=22.500000 （float 类型）</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a+b=%f\n&quot;</span>,a+b);</span><br><span class="line">    <span class="comment">// 打印结果；... , a*b=125.000000 （float 类型）</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a+b=%f\n,a*b=%f\n&quot;</span>,a+b,a*b);</span><br><span class="line">    </span><br><span class="line">    <span class="type">char</span> c = <span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">    <span class="comment">// 打印结果；c=f（c 为字符 a，c 加数字可以变为另一个字符，c+1=b，c+2=c，...）</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;c=%c\n&quot;</span>,c+<span class="number">5</span>);</span><br><span class="line">    <span class="comment">// 打印结果；c=102（f 的实际编码的值就是 102）</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;c=%d\n&quot;</span>,c+<span class="number">5</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> d = <span class="number">10</span>;</span><br><span class="line">    <span class="type">int</span> e = d % <span class="number">6</span>; <span class="comment">// 取余</span></span><br><span class="line">    <span class="type">int</span> f = d / <span class="number">6</span>; <span class="comment">// 取商</span></span><br><span class="line">    <span class="comment">// 打印结果；e=4,f=1</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;e=%d\n,f=%d\n&quot;</span>,e,f);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 代表执行成功。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量与常量"><a href="#变量与常量" class="headerlink" title="变量与常量"></a>变量与常量</h3><ul>
+<li><p>int a &#x3D; 0; &#x2F;&#x2F; 变量，可以再赋值。可以不赋值初始值。</p>
+<p>变量在计算机中的物理意义，就是一个寄存器。寄存器是临时存储数据的，它的速度非常快。从内存中取一块数据时，首先存储到寄存器，当改变这个值时，刷新的是寄存器，可擦除。这样可以加快程序的执行速度。</p>
+</li>
+<li><p>const int LEN &#x3D; 265; &#x2F;&#x2F; 常量，不可改变。需要赋值初始值。</p>
+<p>在编译程序时，程序中设定了一段静态缓冲区，静态缓冲区是受保护的，通过正常途径是不可修改的。但如果知道内存的具体物理地址，也是可以改变的。</p>
+</li>
+</ul>
+<p>资料：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/cprogramming/c-variables.html">C 变量</a> 、 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/cprogramming/c-constants.html">C 常量</a>。</p>
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><p>数组是有序的元素序列（C 语言的数组存放的是同一种类型的元素，索引从 0 开始），C 语言中定义数组需要告诉编译器数组的长度。C 语言中数组的定义; char c[2], int arr[10]</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123; </span><br><span class="line"><span class="comment">//    int arr[10];</span></span><br><span class="line"><span class="comment">//    arr[0] = 1;</span></span><br><span class="line"><span class="comment">//    arr[1] = 2;</span></span><br><span class="line"><span class="comment">//    printf(&quot;%d,%d\n&quot;,arr[0],arr[1]);</span></span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> arr[<span class="number">10</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,&#125;;</span><br><span class="line">    <span class="comment">// 打印结果；1，2，3，0（默认情况下，不赋值的情况下，数组会初始化为 0。）</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d,%d,%d,%d\n&quot;</span>,arr[<span class="number">0</span>],arr[<span class="number">1</span>],arr[<span class="number">2</span>],arr[<span class="number">3</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="type">float</span> f[<span class="number">2</span>] = &#123;<span class="number">1</span>,<span class="number">2</span>&#125;;</span><br><span class="line">    <span class="comment">// 打印结果；1.000000,2.000000</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%f,%f\n&quot;</span>,f[<span class="number">0</span>],f[<span class="number">1</span>]);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 它是没有保护的概念的(如 private 等)</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">st</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> a; <span class="comment">// 成员 a</span></span><br><span class="line">    <span class="type">int</span> b; <span class="comment">// 成员 b</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 结构体可以理解为它是一个类</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">st</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> a;</span><br><span class="line">    <span class="type">float</span> f;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">st</span> <span class="title">ss</span>;</span></span><br><span class="line">    ss.a = <span class="number">12</span>;</span><br><span class="line">    ss.f = <span class="number">10.2</span>;</span><br><span class="line">    <span class="comment">// 打印结果；struct:12, 10.200000</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;struct:%d, %f\n&quot;</span>,ss.a,ss.f);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 代表执行成功。</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><p>枚举可以认为它是一个有限制的整型。一般情况下的使用，是在有一定数值范围的，比如某个属性的取值只能为 1、2、3。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">em</span> &#123;</span></span><br><span class="line">    red_color = <span class="number">0</span>,  <span class="comment">// 值为 0，如果值为 1</span></span><br><span class="line">    green_color,    <span class="comment">// 值为 1，则值为 2</span></span><br><span class="line">    black_color     <span class="comment">// 值为 2，则值为 3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">em</span> &#123;</span></span><br><span class="line">    red_color = <span class="number">5</span>,</span><br><span class="line">    green_color,</span><br><span class="line">    black_color = <span class="number">10</span>,</span><br><span class="line">    yellow_color</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">em</span> <span class="title">ee</span>;</span></span><br><span class="line">    </span><br><span class="line">    ee = green_color;</span><br><span class="line">    <span class="comment">// 打印结果；enum:6</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;enum:%d\n&quot;</span>,ee);</span><br><span class="line">    </span><br><span class="line">    ee = yellow_color;</span><br><span class="line">    <span class="comment">// 打印结果；enum:11</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;enum:%d\n&quot;</span>,ee);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  <span class="comment">// 代表执行成功。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>指针就是存放内存地址的变量。地址空间内的存的值，在 C 语言中，它除了可以存放普通的数值，还可以存放另一个内存的地址，这个值就是指针，通过这个值就可以访问到其它地址，然后就可以取出这个地址所存放的数据。所以，这个值可以有多重含义，具体跟业务逻辑相关。</p>
+<p><strong>指针的作用</strong>：</p>
+<ul>
+<li><p>提升执行效率。</p>
+<p>一般情况下，将字符串传入函数中，函数对字符串进行操作时，它是一个拷贝的过程，函数将字符串拷贝到自己的函数空间存放起来。多次的拷贝会对整个 CPU 造成巨大的浪费。而指针，只需要向函数传递这个字符串所在的地址，函数通过指针访问字符串。</p>
+</li>
+<li><p>更强的控制力。</p>
+<p>因为它具有访问地址的能力。像计算机的硬件实际到操作系统层都会有一个对应的映射地址，通过这个地址，C 语言就能访问到硬件设备，并进行控制。C 语言是更底层的语言，它可以访问设备。</p>
+</li>
+</ul>
+<p><strong>指针的操作</strong>：</p>
+<ul>
+<li><p>一是对指针本身的操作。</p>
+<p>实际就是对地址的操作。比如，当获取某个空间的指针后，可以对这个指针进行加减乘除的操作，对其加一，就指向了下一个空间。</p>
+</li>
+<li><p>二是对所指向的内容操作。</p>
+<p>指针指向某一个内存地址时，可以获取其内容，可以对这个内容进行加减乘除的操作。</p>
+</li>
+</ul>
+<p><strong>指针的定义与使用</strong>：</p>
+<p>type* var：</p>
+<ul>
+<li>type 指类型，比如 int、void 等。</li>
+<li>而 * 代表这个变量是一个指针，可以靠近类型 type 写，表示这种类型的指针，关注指针是什么类型的，也可以靠近变量 var 写，表示这个变量是一个指针，而对类型不关注。这两种写法对编译器是没有区别的，但在编写代码时，最好统一风格。</li>
+</ul>
+<p>*var：表示获取指针所指向的内容</p>
+<p><strong>堆内存的分配与释放</strong>：</p>
+<p>分配内存：void* mem &#x3D; malloc(size);</p>
+<p>释放内存：free(mem);</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span> <span class="comment">// malloc() 需要的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="comment">// malloc() 一般返回的是 void* 类型。</span></span><br><span class="line">    <span class="comment">// malloc() 在 &lt;stdlib.h&gt; 头文件中。</span></span><br><span class="line">    <span class="type">char</span>* p = (<span class="type">char</span>*)<span class="built_in">malloc</span>(<span class="number">10</span>); <span class="comment">// 分配十个字符的空间</span></span><br><span class="line">    *p = <span class="string">&#x27;a&#x27;</span>;      <span class="comment">// 第一个字符的位置</span></span><br><span class="line">    *(p+<span class="number">1</span>) = <span class="string">&#x27;b&#x27;</span>;  <span class="comment">// 第二个字符的位置</span></span><br><span class="line">    <span class="comment">// 将内存分配的地址告诉 printf，</span></span><br><span class="line">    <span class="comment">// printf 将 p 地址所指向的空间的内容以字符串的形式打印出来。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,p); <span class="comment">// 打印结果；ab</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将 p 所指向的空间释放掉</span></span><br><span class="line">    <span class="comment">// 系统管理层将内存又还给了堆空间</span></span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">    *p = <span class="string">&#x27;d&#x27;</span>;</span><br><span class="line">    <span class="comment">// 即使把空间释放掉，但因为仍然掌握此空间的位置，知道 p 的指向。</span></span><br><span class="line">    <span class="comment">// 所以即使被释放掉了，还是可以对其操作。</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,p); <span class="comment">// 打印结果；db</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 所以为了不让再访问这个地址，要将其指向 NULL，设置为无效地址。</span></span><br><span class="line">    p = <span class="literal">NULL</span>;</span><br><span class="line"><span class="comment">//    *p = &#x27;e&#x27;;  // crash</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见的内存空间"><a href="#常见的内存空间" class="headerlink" title="常见的内存空间"></a>常见的内存空间</h3><p><strong>栈空间</strong>：栈的机制，后进先出。最大的特点是，在 C 语言中写的函数，在函数内所分配的所有变量都是在栈空间分配的，当从函数退出时，从栈空间分配的资源会被自动释放。（分配的资源是有限的，默认每个函数栈空间的大小是 8兆。）</p>
+<p><strong>堆空间</strong>：需要明确的使用 malloc() 函数来分配资源，使用完内存后，要通过 free() 函数将资源释放回堆空间，这样别人使用时还能从堆空间分配资源。（分配的资源几乎可以认为是无限的，适合需要大空间的时候。）</p>
+<p><strong>内存映射</strong>：像一些动态库一般都是将它直接导入内存映射区，也是一段专门的空间。比如将某个文件直接映射到内存中，文件的内容与内存形成映射关系，当改变内存中的值时，会直接在系统内部自动更新到文件中。</p>
+<p><strong>Linux 内存地址的划分</strong>：4G 32 位系统</p>
+<img data-src="https://imgsw.cn/static/images/linux内存地址的划分.png" style="width:80%;height:600px"/>
+
+<p>0 ~ 0x08048000：这段是受保护空间，我们的进程是不能访问的。</p>
+<p>code：存放的是进程所要执行的代码段。</p>
+<p>堆空间的增长是从下向上，栈空间是从上向下，每次分配空间是向下走的。堆空间与栈空间这样的划分是为了减少冲突。</p>
+<p>共享库，或者叫内存映射区，当想通过内存改变文件时，就可以将文件映射到 mmap 这段空间中。</p>
+<p><strong>内存泄漏</strong>：</p>
+<ul>
+<li>不断的向系统申请内存。</li>
+<li>申请的内存不用，也不释放。</li>
+</ul>
+<p><strong>野指针</strong>：占用别人的内存称为野指针。</p>
+<h3 id="条件判断与循环"><a href="#条件判断与循环" class="headerlink" title="条件判断与循环"></a>条件判断与循环</h3><p><strong>比较运算</strong>：&gt;、&lt;、&gt;&#x3D;、&lt;&#x3D;、&#x3D;&#x3D;、!&#x3D;</p>
+<p><strong>if&#x2F;else 语句</strong>：</p>
+<p>if( a&gt; b){<br>​	…<br>}else{<br>​	…<br>}</p>
+<p><strong>for 语句</strong>：</p>
+<p>for(int i &#x3D;0; i&lt;100; i++){<br>​	…<br>}</p>
+<p><strong>while 语句</strong>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span>   <span class="comment">// usleep() 需要的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;  <span class="comment">// 死循环</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;while...\n&quot;</span>); <span class="comment">// 一秒钟打印一次</span></span><br><span class="line">        usleep(<span class="number">1000000</span>); <span class="comment">// 微秒</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>C 语言中的命名一般以 Linux 的风格，单词与单词用下划线连接，单词一般都是缩写。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// void 返回类型</span></span><br><span class="line"><span class="comment">// func 函数名称</span></span><br><span class="line"><span class="comment">// int a 形参</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">    ... <span class="comment">// 函数不能太大，一般不超过 50 行。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数指针</strong>：指向函数的指针变量。通过 C 语言的函数指针可以实现 C++ 中的多态，就是定义的函数指针既可以指向 a 函数，也可以指向 b 函数，对外层来说，只需要调用这个函数指针就可以了。（多态就是指一个函数可以有不同的含义）</p>
+<p><strong>函数指针的格式</strong>：返回值类型  (*指针变量名)  ([形参列表]);</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> x)</span>;  <span class="comment">// 声明一个函数</span></span><br><span class="line"><span class="type">int</span> (*f)(<span class="type">int</span> x);  <span class="comment">// 声明一个函数指针。返回类型和形参必须与指定的函数一致。</span></span><br><span class="line">f = func;  <span class="comment">// 将 func 函数的首地址赋值给指针 f。然后调用 f 即可。</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">func</span><span class="params">(<span class="type">int</span> a)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;a=%d\n&quot;</span>,a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">func1</span><span class="params">(<span class="type">int</span> b)</span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;b=%d\n&quot;</span>,b+<span class="number">5</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="type">int</span> (*f)(<span class="type">int</span>);</span><br><span class="line">    <span class="comment">// 在 C++ 中这就是多态。</span></span><br><span class="line">    <span class="comment">// 对上层来讲，调用的都是 f 这个函数指针，但在底层返回的是不同的结果。</span></span><br><span class="line">    f=func;</span><br><span class="line">    f(<span class="number">2</span>);</span><br><span class="line">    f=func1;</span><br><span class="line">    f(<span class="number">3</span>);</span><br><span class="line">    <span class="comment">// 打印结果；a=2 b=8</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p>文件类型：FILE* file; （FILE* 在 Linux 下叫指针，在 Windows 下叫句柄。）</p>
+<p>打开文件：FILE* fopen(path,mode);</p>
+<p>关闭文件：fclose(FILE*);</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">createfile</span><span class="params">(<span class="type">char</span>* filename)</span>&#123;</span><br><span class="line">    <span class="comment">// open/create file</span></span><br><span class="line">    FILE* file = fopen(filename,<span class="string">&quot;w&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed to create file (%s)\n&quot;</span>,filename);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 向创建好的文件内写入内容。</span></span><br><span class="line">    <span class="comment">// 参数一指写入的字符串，参数二指字符串中的每一项多大，参数三指一共有几项，参数四指写到哪个文件</span></span><br><span class="line">    <span class="type">size_t</span> len = fwrite(<span class="string">&quot;aaaaa&quot;</span>, <span class="number">1</span>, <span class="number">5</span>, file);</span><br><span class="line">    <span class="keyword">if</span> (len !=<span class="number">5</span>) &#123;</span><br><span class="line">        <span class="comment">// size_t 使用的打印为 %zu。</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed to write file,(%zu)&quot;</span>,len);</span><br><span class="line">        fclose(file);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Successed to write file\n&quot;</span>);</span><br><span class="line">    fclose(file);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Successed to create file\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">read_data</span><span class="params">(<span class="type">char</span>* filename)</span>&#123;</span><br><span class="line">    FILE* file = fopen(filename,<span class="string">&quot;r&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (!file) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed to create file (%s)\n&quot;</span>,filename);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 定义为 1k 大小，并初始化为 0。</span></span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">1024</span>] = &#123;<span class="number">0</span>,&#125;;</span><br><span class="line">    <span class="comment">// 参数：读出的数据存放位置，长度，读多少，从哪读。</span></span><br><span class="line">    <span class="type">size_t</span> len = fread(buffer, <span class="number">1</span>, <span class="number">10</span>, file);</span><br><span class="line">    <span class="keyword">if</span> (len &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Failed to read file!\n&quot;</span>);</span><br><span class="line">        fclose(file);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;read_data:%s\n&quot;</span>,buffer);</span><br><span class="line">    fclose(file);</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc,<span class="type">char</span>* argv[])</span>&#123;</span><br><span class="line">    <span class="comment">// create file</span></span><br><span class="line"><span class="comment">//    createfile(&quot;/Users/jianghouren/Downloads/1.txt&quot;);</span></span><br><span class="line">    <span class="comment">// read file</span></span><br><span class="line">    read_data(<span class="string">&quot;/Users/jianghouren/Downloads/1.txt&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.runoob.com/cprogramming/c-tutorial.html">菜鸟教程</a></p>
+<p>慕课网-音视频基础(李超)</p>
+<p><strong>欢迎关注微信公众号：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blove7.cn/qrcode/">非也缘也</a></strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/ceee337a.html" title="C 语言基础">https://jianghouren.cn/archives/ceee337a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/C-C/" rel="tag"># C/C++</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/9e8723dc.html" rel="prev" title="沉浸式状态栏">
+                  <i class="fa fa-chevron-left"></i> 沉浸式状态栏
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/312ec9e0.html" rel="next" title="Linux 基础">
+                  Linux 基础 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/ceee337a.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

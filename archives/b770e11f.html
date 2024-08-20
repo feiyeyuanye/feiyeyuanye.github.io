@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 泛型">
+<meta property="og:url" content="https://jianghouren.cn/archives/b770e11f.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-07-24T00:55:32.000Z">
+<meta property="article:modified_time" content="2022-04-28T06:50:30.791Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/b770e11f.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/b770e11f.html","path":"archives/b770e11f.html","title":"Kotlin 泛型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kotlin 泛型 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E5%92%8C%E5%A7%94%E6%89%98"><span class="nav-number">1.</span> <span class="nav-text">泛型和委托</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#infix-%E5%87%BD%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">infix 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E9%AB%98%E7%BA%A7%E7%89%B9%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">泛型的高级特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/b770e11f.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kotlin 泛型 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 泛型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-24 08:55:32" itemprop="dateCreated datePublished" datetime="2020-07-24T08:55:32+08:00">2020-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 14:50:30" itemprop="dateModified" datetime="2022-04-28T14:50:30+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/b770e11f.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/b770e11f.html" data-xid="/archives/b770e11f.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/b770e11f.html" class="post-meta-item leancloud_visitors" data-flag-title="Kotlin 泛型" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>15 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wangpaitegong2.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="泛型和委托"><a href="#泛型和委托" class="headerlink" title="泛型和委托"></a><p class="m_more_title_style">泛型和委托</p></h2><p><strong>泛型的基本用法</strong></p>
+<p>Java 早在 1.5 版本中就引入了泛型的机制，因此，Kotlin 自然也就支持了泛型功能。但是 Kotlin 中的泛型与 Java 中的泛型有同有异，这里先看与 Java 中相同的部分。</p>
+<p>泛型，是指在一般的编程模式下，我们需要给任何一个变量指定一个具体的类型，而泛型允许我们在不指定具体类型的情况下进行编程，这样编写出来的代码将会拥有更好的扩展性。比如 List 就是使用泛型来实现的。</p>
+<p>泛型主要有两种定义方式，一种是定义泛型类，另一种是定义泛型方法，使用的语法结构都是<code> &lt;T&gt;</code>，这个 T 只是一种约定俗成的泛型写法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 泛型类的调用方式</span></span><br><span class="line">    <span class="keyword">val</span> myClass = MyClass&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line">    <span class="keyword">val</span> result = myClass.method(<span class="number">123</span>)</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$result</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 泛型方法的调用方式</span></span><br><span class="line">    <span class="keyword">val</span> myClass2 = MyClass2()</span><br><span class="line">    <span class="comment">// 类型推导机制，所以可省略泛型的指定。</span></span><br><span class="line"><span class="comment">//    val result = myClass.method&lt;Int&gt;(123)</span></span><br><span class="line">    <span class="keyword">val</span> result2 = myClass2.method(<span class="number">123</span>)</span><br><span class="line">    println(<span class="string">&quot;<span class="variable">$result2</span>&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义泛型类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span>&lt;<span class="type">T</span>&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法允许使用 T 类型的参数和返回值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>:T&#123;</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义泛型方法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass2</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 泛型方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">method</span><span class="params">(param: <span class="type">T</span>)</span></span>:T&#123;</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 指定上界的方式，对泛型的类型进行约束。</span></span><br><span class="line"><span class="comment">     * 这里表示，只能将方法的泛型指定为数字类型，比如 Int、Float、Double 等。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 另外，默认情况下，所有泛型都是可以指定成可空类型的，这是因为在不手动指定上界时，泛型的上界默认是 Any?。</span></span><br><span class="line"><span class="comment">     * 如果想让泛型的类型不可为空，只需要将泛型的上界手动指定成 Any 就可以了。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T:Number&gt;</span> <span class="title">method2</span><span class="params">(param: <span class="type">T</span>)</span></span>:T&#123;</span><br><span class="line">        <span class="keyword">return</span> param</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    contentResolver.query(uri,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>)?.apply &#123;</span><br><span class="line">         <span class="keyword">while</span> (moveToNext())&#123;</span><br><span class="line">             ... </span><br><span class="line">         &#125;</span><br><span class="line">         close()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    contentResolver.query(uri,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>)?.build &#123;</span><br><span class="line">        <span class="keyword">while</span> (moveToNext())&#123;</span><br><span class="line">            ...</span><br><span class="line">        &#125;</span><br><span class="line">        close()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 前面了解过的，此函数的作用与 apply 函数基本一样，区别在于此函数只能作用在 SB 上。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> StringBuilder.<span class="title">build</span><span class="params">(block:<span class="type">StringBuilder</span>.() -&gt; <span class="type">Unit</span>)</span></span>:StringBuilder&#123;</span><br><span class="line">    block()</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用泛型，对上面函数进行扩展，让它实现和 apply 函数完全一样的功能。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> T.<span class="title">build</span><span class="params">(block: <span class="type">T</span>.() -&gt; <span class="type">Unit</span>)</span></span>:T &#123;</span><br><span class="line">    block()</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>类委托和委托属性</strong></p>
+<p>委托是一种设计模式，它的基本理念是：操作对象自己不会去处理某段逻辑，而是会把工作委托给另外一个辅助对象去处理。Java 对于委托并没有语言层级的实现，而像 C# 语言就对委托进行了原生的支持。Kotlin 中也是支持委托功能的，并且将之分为两种：类委托和委托属性。</p>
+<p>类委托，它的核心思想在于将一个类的具体实现委托给另一个类去完成。Set 这种数据结构，它是一个接口，如果要实现它，需要使用它具体的实现类，比如 HashSet。借助委托模式，我们可以轻松实现一个自己的实现类：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 构造函数中接收了一个 HashSet 参数，这就相当于一个辅助对象。</span></span><br><span class="line"><span class="comment"> * 然后在 Set 接口所有的方法实现中，都没有进行自己的实现，</span></span><br><span class="line"><span class="comment"> * 而是调动了辅助对象中相应的方法实现，这其实就是一种委托模式。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 委托模式的意义在于：</span></span><br><span class="line"><span class="comment"> * 可以只是让大部分的方法实现调用辅助对象中的方法，少部分的方法实现由自己来重写，甚至加入一些自己独有的方法，</span></span><br><span class="line"><span class="comment"> * 这样，MySet 就会成为一个全新的数据结构类。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 这种写法的弊端是，如果接口中待实现的方法太多，那么每个都要去这样调用辅助对象中的相应方法实现。</span></span><br><span class="line"><span class="comment"> * 这个问题，在 Java 中没有什么解决方案，但在 Kotlin 中可以通过类委托的功能来解决。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//class MySet&lt;T&gt;(val helperSet: HashSet&lt;T&gt;):Set&lt;T&gt; &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    override val size: Int</span></span><br><span class="line"><span class="comment">//        get() = TODO(&quot;not implemented&quot;) //To change initializer of created properties use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    override fun contains(element: T): Boolean &#123;</span></span><br><span class="line"><span class="comment">//        TODO(&quot;not implemented&quot;) //To change body of created functions use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    override fun containsAll(elements: Collection&lt;T&gt;): Boolean &#123;</span></span><br><span class="line"><span class="comment">//        TODO(&quot;not implemented&quot;) //To change body of created functions use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    override fun isEmpty(): Boolean &#123;</span></span><br><span class="line"><span class="comment">//        TODO(&quot;not implemented&quot;) //To change body of created functions use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//    override fun iterator(): Iterator&lt;T&gt; &#123;</span></span><br><span class="line"><span class="comment">//        TODO(&quot;not implemented&quot;) //To change body of created functions use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Kotlin 中委托使用的关键字是 by，只需要在接口声明的后面使用 by 关键字，</span></span><br><span class="line"><span class="comment"> * 再接上受委托的辅助对象，就可以免去之前所写的一大堆模板式的代码了。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 这两段代码实现的效果是一致的。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//class MySet&lt;T&gt;(val helperSet: HashSet&lt;T&gt;):Set&lt;T&gt; by helperSet&#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 如果要对某个方法进行重新实现，只需单独重写。</span></span><br><span class="line"><span class="comment"> * 其它 Set 接口中的功能，则和 HashSet 保持一致。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySet</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> helperSet: HashSet&lt;T&gt;):Set&lt;T&gt; <span class="keyword">by</span> helperSet&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 新增方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">helloWorld</span><span class="params">()</span></span> = println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写方法</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span> = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>委托属性的核心思想是将一个属性（字段）的具体实现委托给另一个类去实现。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * by 关键字连接了左边的 p 属性和右边的 Delegate() 实例。</span></span><br><span class="line"><span class="comment">     * 这种写法就代表，将 p 属性的具体实现委托给了 Delegate 类去完成。</span></span><br><span class="line"><span class="comment">     * 当调用 p 属性时，会自动调用 Delegate 类的 getValue()，</span></span><br><span class="line"><span class="comment">     * 当给 p 属性赋值时，会自动调用 Delegate 类的 setValue()。</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * 假设这里使用 val 关键字，那么只需要实现 getValue() 即可，</span></span><br><span class="line"><span class="comment">     * 因为 p 属性是无法在初始化后被重新赋值的。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> p <span class="keyword">by</span> Delegate()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 对 Delegate 类进行具体的实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Delegate</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> propValue: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> myClass 用于声明该类的委托功能可以在什么类中使用，这里表示仅可在 MyClass 类中使用。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> property 是 Kotlin 中的一个属性操作类，可用于获取各种属性相关的值。</span></span><br><span class="line"><span class="comment">     * 另外 &lt;*&gt; 这种泛型的写法表示你不知道或者不关心泛型的具体类型，只是为了通过语法编译而已，有点类似 Java中 &lt;?&gt; 的写法。</span></span><br><span class="line"><span class="comment">     * 返回值可声明成任何类型，根据具体的实现逻辑写，这里只是一种标准的实例写法。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(myClass: <span class="type">MyClass</span>, property: <span class="type">KProperty</span>&lt;*&gt;)</span></span>: Any? &#123;</span><br><span class="line">        <span class="keyword">return</span> propValue</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> any 表示具体要赋值给委托属性的值，此参数的类型必须和 getValue() 返回值的类型保持一致。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">setValue</span><span class="params">(myClass: <span class="type">MyClass</span>, property: <span class="type">KProperty</span>&lt;*&gt;, any: <span class="type">Any</span>?)</span></span> &#123;</span><br><span class="line">        propValue = any</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实现一个自己的 lazy 函数（一些诸如同步、空值处理等方面没有实现得很严谨）</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 解密 by lazy：</span></span><br><span class="line"><span class="comment"> * 懒加载技术，只有当变量首次调用时，代码块中的代码才会执行。</span></span><br><span class="line"><span class="comment"> * 这里，by 才是 Kotlin 中的关键字，lazy 在这里只是一个高阶函数。</span></span><br><span class="line"><span class="comment"> * 在 lazy 函数中会创建并返回一个 Delegate 对象，当调用 p 属性时，其实调用的是 Delegate 对象的 getValue()，</span></span><br><span class="line"><span class="comment"> * 然后 getValue() 中又会调用 lazy 函数传入的 Lambda 表达式，这样表达式中的代码就可以得到执行，</span></span><br><span class="line"><span class="comment"> * 并且调用 p 属性后得到的值就是 Lambda 表达式中最后一行代码的返回值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">val</span> p <span class="keyword">by</span> lazy &#123;  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用自己实现的 lazy 函数</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">val</span> p <span class="keyword">by</span> later &#123;</span><br><span class="line">        <span class="comment">// 验证 later 函数的懒加载功能是否生效。</span></span><br><span class="line">        <span class="comment">// 将这段代码放在任何一个 Activity 中，并在按钮的点击事件里调用 p 属性。</span></span><br><span class="line">        <span class="comment">// 当 Activity 启动时，later 函数中的那行日志是不会打印的。只有当首次点击按钮调用时才会打印。</span></span><br><span class="line">        <span class="comment">// 并且，代码块中的代码只会执行一次，再次点击按钮也不会打印日志。</span></span><br><span class="line">        Log.d(<span class="string">&quot;TAG&quot;</span>,<span class="string">&quot;run codes inside later block&quot;</span>)</span><br><span class="line">        <span class="string">&quot;test later&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义 Later 类，并指定为泛型。</span></span><br><span class="line"><span class="comment"> * 构造函数中接收一个函数类型参数，其中不接收任何参数，返回值的类型就是 Later 指定的泛型。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 由于懒加载技术是不会对属性进行赋值的，因此这里就不用实现 setValue() 了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Later</span>&lt;<span class="type">T</span>&gt;</span>(<span class="keyword">val</span> block:() -&gt; T)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使用 value 变量对值进行缓存，</span></span><br><span class="line"><span class="comment">     * 如果为空就调用构造函数中传入的函数类型参数去获取值，否则就直接返回。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">var</span> value: Any? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> any Any？类型表示希望 Later 的委托功能在所有类中都可以使用。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">getValue</span><span class="params">(any: <span class="type">Any</span>?,prop:<span class="type">KProperty</span>&lt;*&gt;)</span></span>: T&#123;</span><br><span class="line">        <span class="keyword">if</span> (value == <span class="literal">null</span>)&#123;</span><br><span class="line">            value = block()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> value <span class="keyword">as</span> T</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 为了让 Later 的用法更加类似于 lazy 函数，这里定义一个顶层函数。</span></span><br><span class="line"><span class="comment"> * 并且要定义在 Later 类的外面，因为只有不定义在任何类当中的函数才是顶层函数。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 使用时，将 lazy 替换为 later。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">later</span><span class="params">(block: () -&gt; <span class="type">T</span>)</span></span> = Later(block)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="infix-函数"><a href="#infix-函数" class="headerlink" title="infix 函数"></a><p class="m_more_title_style">infix 函数</p></h2><p><strong>使用 infix 函数构建更可读的语法</strong></p>
+<p>对于 A to B 这样的语法结构来构建键值对，包括 Kotlin 自带的 mapOf() 函数，并不是因为 to 是 Kotlin 中的一个关键字，而是 Kotlin 提供了一种高级语法糖特性：infix 函数。</p>
+<p>infix 函数实际上是把编程语言函数调用的语法规则调整了一下，比如 A to B 这样的写法，实际上等价于 A.to(B) 的写法。</p>
+<p>示例1：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 判断一个字符串是否是以某个指定参数开头的</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;Hello Kotlin&quot;</span>.startsWith(<span class="string">&quot;Hello&quot;</span>))&#123;</span><br><span class="line">        <span class="comment">// 处理具体逻辑</span></span><br><span class="line">        println(<span class="string">&quot;true&quot;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        println(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 借助 infix 实现一种更具有可读性的语法来表达上面代码。一种特殊的语法糖格式。</span></span><br><span class="line">    <span class="comment">// ------------------------------------------------------------</span></span><br><span class="line">    <span class="comment">// infix 函数的语法规则：</span></span><br><span class="line">    <span class="comment">// 实际就是调用 &quot;Hello Kotlin&quot; 的 beginsWith()，并传入了一个字符串参数。</span></span><br><span class="line">    <span class="comment">// 只不过 infix 函数允许将函数调用时的小数点、括号等计算机相关语法去掉，</span></span><br><span class="line">    <span class="comment">// 从而使用一种更接近英语的写法来编写程序，让代码看起来更加具有可读性。</span></span><br><span class="line">    <span class="comment">// ------------------------------------------------------------</span></span><br><span class="line">    <span class="comment">// infix 函数的语法糖使用限制：</span></span><br><span class="line">    <span class="comment">// 一：函数不能定义成顶层函数，必须是某个类的成员函数，可以使用扩展函数的方式将它定义到某个类中。</span></span><br><span class="line">    <span class="comment">// 二：必须接收且只能接收一个参数，至于参数类型没有限制。</span></span><br><span class="line">    <span class="comment">// 只有同时满足这两点，infix 函数的语法糖才具备使用的条件。</span></span><br><span class="line">    <span class="comment">// ------------------------------------------------------------</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="string">&quot;Hello Kotlin&quot;</span> beginsWith <span class="string">&quot;Hello&quot;</span>)&#123;</span><br><span class="line">        <span class="comment">// 处理具体逻辑</span></span><br><span class="line">        println(<span class="string">&quot;true&quot;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        println(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 这是一个 String 类的扩展函数，加上了 infix 关键字后，此函数变成了一个 infix 函数。</span></span><br><span class="line"><span class="comment"> * beginsWith() 也是用于判断一个字符串是否是以某个指定参数开头的，</span></span><br><span class="line"><span class="comment"> * 并且它的内部实现就是调用的 String 类的 startsWith()。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> String.<span class="title">beginsWith</span><span class="params">(prefix: <span class="type">String</span>)</span></span> = startsWith(prefix)</span><br></pre></td></tr></table></figure>
+
+<p>示例 2：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> list = listOf(<span class="string">&quot;Apple&quot;</span>,<span class="string">&quot;Banana&quot;</span>,<span class="string">&quot;Pear&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> (list.contains(<span class="string">&quot;Apple&quot;</span>))&#123;</span><br><span class="line">        println(<span class="string">&quot;true&quot;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        println(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> list1 = listOf(<span class="string">&quot;Apple&quot;</span>,<span class="string">&quot;Banana&quot;</span>,<span class="string">&quot;Pear&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> (list has <span class="string">&quot;Apple&quot;</span>)&#123;</span><br><span class="line">        println(<span class="string">&quot;true&quot;</span>)</span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        println(<span class="string">&quot;false&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 给 Collection 接口添加了一个扩展函数，内部调用了 contains()，所以，</span></span><br><span class="line"><span class="comment"> * has() 和 contains() 的功能是一致的，只不过多了一个 infix 关键字，从而拥有了其语法糖功能。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Collection 是 Java 以及 Kotlin 所有集合的总接口，所以 has() 可以被所有集合的子类使用了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Collection<span class="type">&lt;T&gt;</span>.<span class="title">has</span><span class="params">(element: <span class="type">T</span>)</span></span> = contains(element)</span><br></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> map = mapOf(<span class="string">&quot;Apple&quot;</span> to <span class="number">1</span>,<span class="string">&quot;Banana&quot;</span> to <span class="number">2</span>,<span class="string">&quot;Pear&quot;</span> to <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> map)&#123;</span><br><span class="line">        println(<span class="string">&quot;i is <span class="variable">$i</span>, key is <span class="subst">$&#123;i.key&#125;</span>, value is <span class="subst">$&#123;i.value&#125;</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 模仿 to() 函数的源码来编写自己的键值对构建函数。</span></span><br><span class="line">    <span class="keyword">val</span> map1 = mapOf(<span class="string">&quot;Apple&quot;</span> with <span class="number">1</span>,<span class="string">&quot;Banana&quot;</span> with <span class="number">2</span>,<span class="string">&quot;Pear&quot;</span> with <span class="number">3</span>)</span><br><span class="line">    <span class="keyword">for</span> (i <span class="keyword">in</span> map1)&#123;</span><br><span class="line">        println(<span class="string">&quot;i is <span class="variable">$i</span>, key is <span class="subst">$&#123;i.key&#125;</span>, value is <span class="subst">$&#123;i.value&#125;</span>&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 模仿 to() 函数的源码来编写自己的键值对构建函数</span></span><br><span class="line"><span class="comment"> * ---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * to() 函数源码如下：</span></span><br><span class="line"><span class="comment"> * public infix fun &lt;A, B&gt; A.to(that: B): Pair&lt;A, B&gt; = Pair(this, that)</span></span><br><span class="line"><span class="comment"> * ---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * 首先，使用定义泛型函数的方式将 to() 定义到了 A 类型下，并且接收一个 B 类型的参数。</span></span><br><span class="line"><span class="comment"> * 因此 A 和 B 可以是两种不同类型的泛型，也就使得我们可以构建出字符串 to 整型这样的键值对。</span></span><br><span class="line"><span class="comment"> * ---------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * to() 函数的具体实现：</span></span><br><span class="line"><span class="comment"> * 创建并返回了一个 Pair 对象，实际上 A to B 这样的语法结构得到的是一个包含 A、B 数据的 Pair 对象，</span></span><br><span class="line"><span class="comment"> * 而 mapOf() 实际上接收的正是一个 Pair 类型的可变参数列表。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;A,B&gt;</span> A.<span class="title">with</span><span class="params">(that:<span class="type">B</span>)</span></span>: Pair&lt;A,B&gt; = Pair(<span class="keyword">this</span>,that)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="泛型的高级特性"><a href="#泛型的高级特性" class="headerlink" title="泛型的高级特性"></a><p class="m_more_title_style">泛型的高级特性</p></h2><p>Kotlin 在泛型方面提供的特有功能</p>
+<p><strong>对泛型进行实化</strong></p>
+<p>在 JDK 1.5 之前，Java 是没有泛型的，那时诸如 List 之类的数据结构可以存储任意类型的数据，取出数据的时候也需要手动向下转型，这不仅麻烦，而且很危险。比如说在同一个 List 中存储了字符串和整型这两种数据，但是在取出数据时却无法区分具体的数据类型，如果手动将它们强制转成同一种类型，那么就会抛出类型转换异常。</p>
+<p>于是在 JDK 1.5 中，Java 引入了泛型功能。这不仅让诸如 List 之类的数据结构变得简单好用，也让代码变得更加安全。但实际上，Java 的泛型功能是通过类型擦除机制来实现的。</p>
+<p>泛型对于类型的约束只在编译时期存在，运行时仍然会按照 JDK 1.5 之前的机制来运行，JVM 是识别不出在代码中指定的泛型类型的。比如 <code>List&lt;String&gt;</code>集合，虽然在编译时期只能添加字符串类型的元素，但在运行时期 JVM 并不能知道它本来只打算包含哪种类型的元素，只能识别出它是个 List。</p>
+<p>所以基于 JVM 的语言，它们的泛型功能都是通过类型擦除机制来实现的，这种机制使得我们不可能使用 a is T 或者 T::class.java 这样的语法，因为 T 的实际类型在运行时已经被删除了。</p>
+<p>然而，Kotlin 提供了一个内联函数的概念，内联函数中的代码会在编译时自动被替换到调用它的地方，这样的话也就不存在什么泛型擦除的问题了，因为代码在编译之后会直接使用实际的类型来替代内联函数中泛型声明。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 内联函数的代码替换过程</span></span><br><span class="line"><span class="comment"> * foo() 函数调用了带有泛型类型的内联函数 bar() 函数，</span></span><br><span class="line"><span class="comment"> * 在代码编译之后，bar() 函数中的代码将可以获得泛型的实际类型。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    bar&lt;String&gt;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">bar</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// do something with T type</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 替换完成后的代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// do something with T type</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>泛型实化的条件：首先，该函数必须是内联函数。其次，在声明泛型的地方必须加上 reified 关键字来表示该泛型要进行实化。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> result1 = getGenericType&lt;String&gt;()</span><br><span class="line">    <span class="keyword">val</span> result2= getGenericType&lt;<span class="built_in">Int</span>&gt;()</span><br><span class="line">    println(result1)</span><br><span class="line">    println(result2)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 打印结果：</span></span><br><span class="line">    <span class="comment">// class java.lang.String</span></span><br><span class="line">    <span class="comment">// class java.lang.Integer</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取泛型实际类型的功能，这在 Java 中是不可能实现的功能。</span></span><br><span class="line"><span class="comment"> * 此函数直接返回了当前指定泛型的实际类型。</span></span><br><span class="line"><span class="comment"> * T.clss 这样的语法在 Java 中是不合法的，而在 Kotlin 中借助泛型实化就可以使用 T::class.java 这样的语法了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">getGenericType</span><span class="params">()</span></span> = T::<span class="keyword">class</span>.java</span><br></pre></td></tr></table></figure>
+
+<p><strong>泛型实化的应用</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Intent 的第二个参数本该是一个具体的 Activity 的 Class 类型，</span></span><br><span class="line"><span class="comment"> * 但由于 T 已经是一个被实化的泛型了，因此这里可直接传入 T::class.java。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(context,T::<span class="keyword">class</span>.java)</span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动 Activity 时传参</span></span><br><span class="line"><span class="comment"> * 增加了一个函数类型参数，并且它的函数类型是定义在 Intent 类当中的</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">startActivity</span><span class="params">(context: <span class="type">Context</span>,block:<span class="type">Intent</span>.() -&gt;<span class="type">Unit</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> intent = Intent(context,T::<span class="keyword">class</span>.java)</span><br><span class="line">    intent.block()</span><br><span class="line">    context.startActivity(intent)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 使用泛型实化来启动 Activity</span></span><br><span class="line">        startActivity&lt;ServiceActivity&gt;(context)</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 带参数启动 Activity</span></span><br><span class="line">        startActivity&lt;Main2Activity&gt;(context)&#123;</span><br><span class="line">            putExtra(<span class="string">&quot;param1&quot;</span>,data1)</span><br><span class="line">            putExtra(<span class="string">&quot;param2&quot;</span>,data2)</span><br><span class="line">        &#125;</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 其它像 Service 的代码也是基本类似的。</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>泛型的协变</strong></p>
+<p>泛型的协变和逆变功能不太常用，而且不易理解。但是 Kotlin 的内置 API 中使用了很多协变和逆变的特性。</p>
+<p>首先了解一个约定。一个泛型类或者泛型接口中的方法，它的参数列表是接收数据的地方，因此可以称它为 in 位置，而它的返回值是输出数据的地方，因此可以称它为 out 位置。</p>
+<p>假设某个方法接收一个 Persion 类型参数，这时传入 Student 的实例是合法的，但如果某个方法接收一个 <code>List&lt;Persion&gt; 类型参数</code>，这时传入一个 <code>List&lt;Student&gt; 的实例</code>，在 Java 中是不允许的，因为 &#96;&#96;List<Student> 不能成为 List<Persion>的子类&#96;，否则将可能存在类型转换的安全隐患。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">&quot;Tom&quot;</span>,<span class="number">19</span>)</span><br><span class="line">    <span class="keyword">val</span> <span class="keyword">data</span> = SimpleData&lt;Student&gt;()</span><br><span class="line">    <span class="keyword">data</span>.<span class="keyword">set</span>(student)</span><br><span class="line">    handleSimpleData(<span class="keyword">data</span>)  <span class="comment">// 实际上这行代码会报错，这里假设它能编译通过</span></span><br><span class="line">    <span class="keyword">val</span> studentData = <span class="keyword">data</span>.<span class="keyword">get</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleSimpleData</span><span class="params">(<span class="keyword">data</span>: <span class="type">SimpleData</span>&lt;<span class="type">Person</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 传入的是 SimpleData&lt;Student&gt;，但创建的是 Teacher 的实例用来替换 SimpleData&lt;Person&gt; 参数中的原有数据。</span></span><br><span class="line">    <span class="comment">// 但在上述 data.get() 获取内部封装的 Student 数据，可现在 SimpleData&lt;Student&gt; 实际包含的却是一个 Teacher 实例，</span></span><br><span class="line">    <span class="comment">// 那么，这里必然会产生类型转换异常。所以，Java 是不允许使用这种方式传递参数的。</span></span><br><span class="line">    <span class="comment">// 换句话说，即使 Student 是 子类，SimpleData&lt;Student&gt; 并不是 SimpleData&lt;Person&gt; 的子类。</span></span><br><span class="line">    <span class="keyword">val</span> teacher = Teacher(<span class="string">&quot;Jack&quot;</span>,<span class="number">35</span>)</span><br><span class="line">    <span class="keyword">data</span>.<span class="keyword">set</span>(teacher)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义 3 个类</span></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String,<span class="keyword">val</span> age:<span class="built_in">Int</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleData</span>&lt;<span class="type">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> <span class="keyword">data</span>:T? = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">set</span><span class="params">(t:<span class="type">T</span>?)</span></span>&#123;</span><br><span class="line">        <span class="keyword">data</span> = t</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">()</span></span>:T?&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">data</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>泛型协变的定义：假如定义了一个 <code>MyClass&lt;T&gt;</code>的泛型类，其中 A 是 B 的子类型，同时<code>MyClass&lt;A&gt;</code>又是<code>MyClass&lt;B&gt;</code>的子类型，那么我们就可以称 MyClass 在 T 这个泛型上是协定的。</p>
+<p>如何才能让<code>MyClass&lt;A&gt;</code>成为<code>MyClass&lt;B&gt;</code>的子类型：如果一个泛型类在其泛型类型的数据上是只读的，那么它是没有类型转换安全隐患的。而要实现这一点，则需要让<code>MyClass&lt;T&gt;</code>类中的所有方法都不能接收 T 类型的参数。换句话说，T 只能出现在 out 位置上，而不能出现在 in 位置上。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">&quot;Tom&quot;</span>,<span class="number">19</span>)</span><br><span class="line">    <span class="comment">// 由于 SimpleData 类进行了协变声明，那么 SimpleData&lt;Student&gt; 自然就是 SimpleData&lt;Person&gt; 的子类了。</span></span><br><span class="line">    <span class="keyword">val</span> <span class="keyword">data</span> = SimpleData&lt;Student&gt;(student)</span><br><span class="line">    handleSimpleData(<span class="keyword">data</span>)  </span><br><span class="line">    <span class="keyword">val</span> studentData = <span class="keyword">data</span>.<span class="keyword">get</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleSimpleData</span><span class="params">(<span class="keyword">data</span>: <span class="type">SimpleData</span>&lt;<span class="type">Person</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 获取 SimpleData 封装的数据，虽然泛型声明是 Person 类型，实际获得的会是一个 Student 实例，</span></span><br><span class="line">    <span class="comment">// 但由于 Persion 是 Student 的父类，向上转型是完全安全的。</span></span><br><span class="line">    <span class="keyword">val</span> personData = <span class="keyword">data</span>.<span class="keyword">get</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String,<span class="keyword">val</span> age:<span class="built_in">Int</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * out 关键字说明 T 只能出现在 out 位置上，同时也意味着 SimpleData 是在泛型 T 上是协变的。</span></span><br><span class="line"><span class="comment"> * 由于泛型 T 不能出现在 in 位置上，所以也就不能使用 set() 为 data 参数赋值了，所以这里采用构造函数的方式来赋值。</span></span><br><span class="line"><span class="comment"> * 虽然构造函数中的泛型 T 在 in 位置上，但由于使用了 val 关键字，所以 T 仍然是只读的，</span></span><br><span class="line"><span class="comment"> * 即使使用 var 关键字，只要给它加上 private 修饰符，保证这个泛型 T 对于外部而言是不可修改的，那么就都是合法的写法。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimpleData</span>&lt;<span class="type">out T</span>&gt;</span>(<span class="keyword">val</span> <span class="keyword">data</span>:T?)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">()</span></span>:T?&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">data</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述中，如果某个方法接收一个 <code>List&lt;Persion&gt; 类型参数</code>，这时传入一个 <code>List&lt;Student&gt; 的实例</code>，在 Java 中是不允许的，但在 Kotlin 中是合法的，因为已经默认给许多内置的 API 加上了协变声明，其中就包括了各种集合的类与接口。比如 List 本身就是只读的，如果想添加数据，需要使用 MutableList 才行。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* List 简化版源码：</span></span><br><span class="line"><span class="comment">* out 关键字说明 List 在泛型 E 上是协变的。</span></span><br><span class="line"><span class="comment">* 原则上声明了协变后，泛型 E 只能出现在 out 位置，但 contaion() 中，仍然出现在 in 位置上，</span></span><br><span class="line"><span class="comment">* 这是因为 contains() 的目的非常明确，它只是为了判断当前集合中是否包含参数中传入的这个元素，而不会修改当前集合中的内容，因此这种操作实际上又是安全的。为了让编译器能够理解这种操作是安全的，使用了 <span class="doctag">@UnsafeVariance</span> 注解，这样编译器就会允许泛型 E 出现在 in 位置上了。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">List</span>&lt;<span class="type">out E</span>&gt; : <span class="type">Collection</span>&lt;<span class="type">E</span>&gt; </span>&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">val</span> size: <span class="built_in">Int</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">isEmpty</span><span class="params">()</span></span>: <span class="built_in">Boolean</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">contains</span><span class="params">(element: @<span class="type">UnsafeVariance</span> <span class="type">E</span>)</span></span>: <span class="built_in">Boolean</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">iterator</span><span class="params">()</span></span>: Iterator&lt;E&gt;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">get</span><span class="params">(index: <span class="type">Int</span>)</span></span>: E</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>泛型的逆变</strong></p>
+<p>逆变的定义：假如定义了一个<code>MyClass&lt;T&gt;</code>的泛型类，其中 A 是 B 的子类型，同时<code>MyClass&lt;B&gt;又是MyClass&lt;A&gt;的子类型</code>，那么就可以称 MyClass 在 T 这个泛型上是逆变的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 编写了一个 Transformer&lt;Person&gt; 的匿名类实现，</span></span><br><span class="line">    <span class="keyword">val</span> trans = <span class="keyword">object</span> :Transformer&lt;Person&gt;&#123;</span><br><span class="line">        <span class="comment">// 通过 transform() 将传入的 Person 对象转换成了一个字符串</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t: <span class="type">Person</span>)</span></span>: String &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;<span class="subst">$&#123;t.name&#125;</span> <span class="subst">$&#123;t.age&#125;</span>&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 因为 Transformer&lt;Person&gt; 并不是 Transformer&lt;Student&gt; 的子类型</span></span><br><span class="line">    handleTransformer(trans)  <span class="comment">// 这行代码会报错</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleTransformer</span><span class="params">(trans:<span class="type">Transformer</span>&lt;<span class="type">Student</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">&quot;Tom&quot;</span>,<span class="number">19</span>)</span><br><span class="line">    <span class="keyword">val</span> result = trans.transform(student)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用来执行一些转换操作</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Transformer</span>&lt;<span class="type">T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="comment">// 参数 T 经过转换后，将会变成一个字符串，至于具体的转换逻辑则由子类去实现。</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t:<span class="type">T</span>)</span></span>:String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String,<span class="keyword">val</span> age:<span class="built_in">Int</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 使用逆变</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> trans = <span class="keyword">object</span> :Transformer&lt;Person&gt;&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t: <span class="type">Person</span>)</span></span>: String &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;<span class="subst">$&#123;t.name&#125;</span> <span class="subst">$&#123;t.age&#125;</span>&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 此时，Transformer&lt;Person&gt; 已经是 Transformer&lt;Student&gt; 的子类型了</span></span><br><span class="line">    handleTransformer(trans)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果让泛型 T 出现在 out 位置的隐患</span></span><br><span class="line">    <span class="keyword">val</span> trans1 = <span class="keyword">object</span> :Transformer1&lt;Person&gt;&#123;</span><br><span class="line">        <span class="comment">// 构建了一个 Teacher 对象，并直接返回。</span></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(name: <span class="type">String</span>,age: <span class="type">Int</span>)</span></span>: Person &#123;</span><br><span class="line">            <span class="comment">// transform() 的返回值要求是一个 Person 对象，而 Teacher 是 Person 的子类，这种写法是合法的。</span></span><br><span class="line">            <span class="keyword">return</span> Teacher(name,age)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    handleTransformer1(trans1)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleTransformer</span><span class="params">(trans:<span class="type">Transformer</span>&lt;<span class="type">Student</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> student = Student(<span class="string">&quot;Tom&quot;</span>,<span class="number">19</span>)</span><br><span class="line">    <span class="keyword">val</span> result = trans.transform(student)</span><br><span class="line">    println(result)</span><br><span class="line">    <span class="comment">// 打印结果:</span></span><br><span class="line">    <span class="comment">// Tom 19</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">handleTransformer1</span><span class="params">(trans:<span class="type">Transformer1</span>&lt;<span class="type">Student</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 期望得到的是一个 Student 对象，但实际上得到的是一个 Teacher 对象，因此造成类型转换异常。</span></span><br><span class="line">    <span class="keyword">val</span> result = trans.transform(<span class="string">&quot;Tom&quot;</span>,<span class="number">19</span>)</span><br><span class="line">    println(result)</span><br><span class="line">    <span class="comment">// 打印结果</span></span><br><span class="line">    <span class="comment">// Exception in thread &quot;main&quot; java.lang.ClassCastException:</span></span><br><span class="line">    <span class="comment">// com.example.myapplication.test.Teacher cannot be cast to com.example.myapplication.test.Student</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用来执行一些转换操作</span></span><br><span class="line"><span class="comment"> * in 关键字表示 T 只能出现在 in 位置，Transformer 在泛型 T 上是逆变的</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Transformer</span>&lt;<span class="type">in T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(t:<span class="type">T</span>)</span></span>:String</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 如果让泛型 T 出现在 out 位置的隐患</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Transformer1</span>&lt;<span class="type">in T</span>&gt;</span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">transform</span><span class="params">(name:<span class="type">String</span>,age: <span class="type">Int</span>)</span></span>:<span class="meta">@UnsafeVariance</span> T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name: String,<span class="keyword">val</span> age:<span class="built_in">Int</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Teacher</span></span>(name:String,age: <span class="built_in">Int</span>):Person(name,age)</span><br></pre></td></tr></table></figure>
+
+<p>逆变功能在 Kotlin 内置 API 中的应用，比较典型的例子就是 Comparable 的使用，Comparable 是一个用于比较两个对象大小的接口。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Comparable 的源码：</span></span><br><span class="line"><span class="comment">* Comparable 接口为逆变的意义在于，如果使用 Comparable&lt;Person&gt; 实现了让两个 Person 对象比较大小的逻辑，那么用这段逻辑去比较两个 Student 对象的大小也一定是成立的，因此让 Comparable&lt;Person&gt; 成为 Comparable&lt;Student&gt; 的子类合情合理，这也是逆变非常典型的应用。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Comparable</span>&lt;<span class="type">in T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="comment">// 实现具体的比较逻辑</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">compareTo</span><span class="params">(other: <span class="type">T</span>)</span></span>: <span class="built_in">Int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关于逆变，假设 Student 是 Person 的子类，然后让 <code>Comparable&lt;Person&gt; 成为 Comparable&lt;Student&gt;</code>的子类，这叫逆变，而接收 Student 参数的方法硬要传 Person 参数进去，这是不可能的，因为 Person 永远不会是 Student 的子类。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/JetBrains/kotlin">官方文档</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kotlincn.net/docs/reference/">官方中文翻译站</a></p>
+<p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/Preliminary-use-of-Kotlin">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/b770e11f.html" title="Kotlin 泛型">https://jianghouren.cn/archives/b770e11f.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/7a161085.html" rel="prev" title="Kotlin 协程">
+                  <i class="fa fa-chevron-left"></i> Kotlin 协程
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/9906e5a2.html" rel="next" title="职业发展规划">
+                  职业发展规划 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/b770e11f.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

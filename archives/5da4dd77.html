@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android-打包过程">
+<meta property="og:url" content="https://jianghouren.cn/archives/5da4dd77.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_resources.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_resources2.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_resources3.jpg?imageMogr2/rotate/-90">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_resources4.jpg?imageMogr2/rotate/-90">
+<meta property="article:published_time" content="2019-07-23T22:54:13.000Z">
+<meta property="article:modified_time" content="2022-09-03T04:06:57.665Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="APK">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/5da4dd77.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/5da4dd77.html","path":"archives/5da4dd77.html","title":"Android-打包过程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android-打包过程 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E4%BC%98%E5%85%88%E7%BA%A7"><span class="nav-number">1.</span> <span class="nav-text">模块优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E5%8C%85%E6%97%B6%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88"><span class="nav-number">2.</span> <span class="nav-text">打包时做了什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E7%BA%BF%E8%B7%AF%E7%9A%84%E5%A4%84%E7%90%86%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">资源文件线路的处理过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Assets%E6%96%87%E4%BB%B6%E5%90%88%E5%B9%B6%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">Assets文件合并规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manifest%E6%B8%85%E5%8D%95%E5%90%88%E5%B9%B6"><span class="nav-number">5.</span> <span class="nav-text">Manifest清单合并</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Manifest%E5%90%88%E5%B9%B6%E5%86%B2%E7%AA%81"><span class="nav-number">6.</span> <span class="nav-text">Manifest合并冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML%E8%B5%84%E6%BA%90"><span class="nav-number">7.</span> <span class="nav-text">XML资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aapt-overlay"><span class="nav-number">8.</span> <span class="nav-text">Aapt overlay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E8%BF%B0%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85%E5%8F%8A%E5%8E%9F%E7%90%86%E5%92%8C%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C"><span class="nav-number">9.</span> <span class="nav-text">简述多渠道打包及原理和常用操作?</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/5da4dd77.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android-打包过程 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android-打包过程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-07-24 06:54:13" itemprop="dateCreated datePublished" datetime="2019-07-24T06:54:13+08:00">2019-07-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-03 12:06:57" itemprop="dateModified" datetime="2022-09-03T12:06:57+08:00">2022-09-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/5da4dd77.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/5da4dd77.html" data-xid="/archives/5da4dd77.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/5da4dd77.html" class="post-meta-item leancloud_visitors" data-flag-title="Android-打包过程" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>3.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/龙珠.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="模块优先级"><a href="#模块优先级" class="headerlink" title="模块优先级"></a>模块优先级</h2><p><strong>模块优先级：</strong></p>
+<ul>
+<li>从根项目出发，优先级依次降低 。</li>
+<li>优先级和依赖顺序一致。（APP&gt;A&gt;B）</li>
+<li>深度遍历法则。(APP&gt;A&gt;C&gt;D&gt;B)</li>
+<li>重复依赖，取最后一次的优先级。(APP&gt;A&gt;D&gt;B&gt;C)</li>
+</ul>
+<p>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_resources.jpg">
+<hr>
+<h2 id="打包时做了什么"><a href="#打包时做了什么" class="headerlink" title="打包时做了什么"></a>打包时做了什么</h2><p>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_resources2.jpg">
+
+<p>Android 中，限制整个应用的方法数不能超过 65536，解决的方法有两种：</p>
+<ul>
+<li>Google 提供的 multidex 方案：<br>通过将一个 dex 文件拆分为多个 dex 文件来避免单个 dex 文件方法数越界。</li>
+<li>动态加载（插件化技术）：<br>可直接加载一个 dex 形式的文件，将部分代码打包到一个单独的 dex 文件中（也可以是 dex 格式的 jar 或者 apk），并在程序运行时根据需要去动态加载 dex 中的类。<br>它的优势在于除了解决缓解方法数越界的问题，还可为程序提供按需加载的特性，同时还为应用按模块更新提供了可能性。</li>
+</ul>
+<hr>
+<h2 id="资源文件线路的处理过程"><a href="#资源文件线路的处理过程" class="headerlink" title="资源文件线路的处理过程"></a>资源文件线路的处理过程</h2><p>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_resources3.jpg?imageMogr2/rotate/-90">
+<hr>
+<h2 id="Assets文件合并规则"><a href="#Assets文件合并规则" class="headerlink" title="Assets文件合并规则"></a>Assets文件合并规则</h2><p><strong>合并规则：优先级高覆盖优先级低</strong><br>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_resources4.jpg?imageMogr2/rotate/-90">
+<p>Q1：本地有 assets 文件，打包 apk 中却找不到。<br>A1：新建 Assets 文件夹姿势不对。（以防无法识别，正确方法创建assets文件夹应是：New -&gt; Folder -&gt; Assets Folder）<br>A2：Gradle 文件中 aaptOptions 对 Assets 做限制。</p>
+<hr>
+<h2 id="Manifest清单合并"><a href="#Manifest清单合并" class="headerlink" title="Manifest清单合并"></a>Manifest清单合并</h2><p>Lowest priority - - - - - - - - - - - - - - - - - &gt;Highest priority<br>AndroidManifest.xml（library manifest）–(merge)–&gt;<br>AndroidManifest.xml（main manifest）–&gt;<br>AndroidManifest.xml（partial merge）–(merge)–&gt;<br>AndroidManifest.xml（build variant manifest）–&gt;<br>AndroidManifest.xml（final）</p>
+<p><strong>Manifest清单合并：</strong></p>
+<ul>
+<li>清单优先级&amp;合并顺序：遵循整体优先级（高的合并低的）</li>
+<li>标签不同，合并规则不同。</li>
+</ul>
+<p><strong>默认合并规则：</strong></p>
+<table>
+<thead>
+<tr>
+<th>高优先级属性</th>
+<th>低优先级属性</th>
+<th>属性的合并结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>没有值</td>
+<td>没有值</td>
+<td>没有值(使用默认值)</td>
+</tr>
+<tr>
+<td>没有值</td>
+<td>值B</td>
+<td>值B</td>
+</tr>
+<tr>
+<td>值A</td>
+<td>没有值</td>
+<td>值A</td>
+</tr>
+<tr>
+<td>值A</td>
+<td>值A</td>
+<td>值A</td>
+</tr>
+<tr>
+<td>值A</td>
+<td>值B</td>
+<td>冲突错误，必须添加一个合并规则标记</td>
+</tr>
+</tbody></table>
+<p><strong>特殊标签：</strong><br>a：manifest 仅使用高优先级的属性（manifest本身，只使用创建打包apk的manifest，其它不要。）<br>b：uses-library，uses-feature [require] or 合并（类似&#x2F;&#x2F;，真假则为真。）<br>c：uses-adk minSdkVersion 使用较高值，targetSdkVersion 使用高优先级，并添加相应权限。<br>d：intent-filter 不匹配，直接合并。</p>
+<hr>
+<h2 id="Manifest合并冲突"><a href="#Manifest合并冲突" class="headerlink" title="Manifest合并冲突"></a>Manifest合并冲突</h2><p>xmlns:tools&#x3D;”<a target="_blank" rel="noopener external nofollow noreferrer" href="http://schemas.android.com/tools&quot;">http://schemas.android.com/tools&quot;</a><br>tools：Node节点标记（作用域为整个节点）<br>tools：selector选择器（当依赖库与自己的manifest冲突了，可以借此做处理。）<br>tools属性标记：replace，remove，strict（针对属性）<br>类似如果项目发布后，提示不支持最新版本，则有可能是项目依赖包定义的max版本太低，因为一般不定义max版本，则默认为向上无限兼容，一直支持最新版本，但依赖包定义了，则会使用依赖包的max版本。<br>tools:node&#x3D;”merge&#x2F;merge-only-attributes&#x2F;remove&#x2F;removeAll&#x2F;strict”<br>.merge：若没有冲突，则合并标签内的所有属性以及所有嵌套元素。<br>.merge-only-attributes：仅合并此标签内的属性，不合并嵌套元素。<br>.remove：删除此标签。<br>.removeAll：删除同一级别的相似标签。<br>.replace：替换低优先级清单内标签。<br>.strict：清单不匹配时会导致构建失败。<br>示例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">&quot;.MergeActivity&quot;</span></span><br><span class="line">    tools:node=<span class="string">&quot;remove&quot;</span>&gt;  <span class="comment">// 合并时，删除此标签</span></span><br><span class="line">            </span><br><span class="line">&lt;/activity&gt;</span><br><span class="line">    </span><br><span class="line">tools:selector=<span class="string">&quot;lib1&quot;</span>  <span class="comment">// 指定导入库使用合并规则（偏见选择器）</span></span><br><span class="line">    </span><br><span class="line">&lt;permission android:name=<span class="string">&quot;permission1&quot;</span></span><br><span class="line">  tools:node=<span class="string">&quot;remove&quot;</span>  <span class="comment">// 需先定义一个合并规则</span></span><br><span class="line">  tools:selector=<span class="string">&quot;lib1&quot;</span>&gt;  <span class="comment">// 定义的规则只对此库生效</span></span><br><span class="line">    <span class="comment">// 如果属性来自第优先级库&quot;lib1&quot;的时候，使用规则remove.</span></span><br><span class="line">&lt;/permission&gt;</span><br></pre></td></tr></table></figure>
+<p>属性标记：针对属性使用规则<br>tools:remove&#x3D;”attr0,attr1,…”<br>在标签内移除指定属性，防止lib中引入非必要属性。<br>tools:replace&#x3D;”attr,…”<br>在标签内，指定属性使用高优先级清单中的值。</p>
+<p>依赖库属性冲突解决利器 tools-replace：当项目中引用了其他库时，若第三方库中的组件属性与本地库发生了冲突，可以通过 <code>tools:replace</code> 解决，被 <code>tools:replace</code> 声明的组件会覆盖第三方库中的属性：</p>
+<p>示例：如组件化中，应用图标的设置，app 模块与其他模块的图标设置不一致，可在 app 模块中添加代码：</p>
+<figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">...</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">tools:replace</span>=<span class="string">&quot;android:icon,android:roundIcon&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">...</span></span></span><br><span class="line"><span class="tag">    &lt;/<span class="attr">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>tools:strict&#x3D;”attr,…”<br>指定属性如果不匹配则编译失败<br>注：在左下角Text旁边的选项，可以通过不同颜色查看是哪个依赖包依赖进来的。</p>
+<hr>
+<h2 id="XML资源"><a href="#XML资源" class="headerlink" title="XML资源"></a>XML资源</h2><p>默认合并策略：高优先级覆盖低优先级。<br>appt 分配 ID，放入 resource.arsc 中。</p>
+<p>libB strings.xml(key-&gt;B,key2-&gt;B1) – libA strings.xml(key-&gt;A) –&gt; main –&gt;<br>APK(key-&gt;A(keyA覆盖了keyB),key2-&gt;B1(key2没有冲突))</p>
+<p>当模块化时，会将定义的统一放在base库里面，但这样会导致优先级比较低，（因为大家都会引用，而优先级会使用最后一次的，也就是前面所说的重复依赖），这样当其它依赖库定义了相同文件时，则因为优先级的关系会覆盖掉，也就导致了类似于名称变成了demo，或者图标变成了绿机器人这些问题。<br>所以提倡，资源文件，谁用就放在哪里，放在它的module里面。<br>如果一定要有公共模块，则可以重命名，比如 icon 图标，可以在前加个名字。</p>
+<p>防止资源覆盖：<br>未雨绸缪，最好在项目开始时，就做划分，做好规划。</p>
+<ul>
+<li>模块化命名：module_XX</li>
+<li>重要资源，提升优先级。</li>
+<li>使用tools防止冲突和覆盖。</li>
+</ul>
+<hr>
+<h2 id="Aapt-overlay"><a href="#Aapt-overlay" class="headerlink" title="Aapt overlay"></a>Aapt overlay</h2><p>假设冲突了，比如因为需要换个图标，或者换肤，一般是修改后，打个包，再换回来，但太麻烦，则可以使用 Aapt overlay，也就是添加指定重叠包。<br>比如在 main 下添加重叠包：main&#x2F;java,res,res1,res2<br>并且在build.gradle中添加：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">aaptOptions&#123;</span><br><span class="line">    <span class="comment">// -f,强行覆盖已存在文件。-s,resources文件。-A，assets文件</span></span><br><span class="line">    <span class="comment">// -M，manifest文件。</span></span><br><span class="line">    <span class="comment">// --auto-add-overlay，找不到相同值，则自动添加进去，以防值不同出错。</span></span><br><span class="line">    additionalParameters <span class="string">&#x27;-s&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;/Users/handsome/work/ResourceDemo/app/src/main/res2&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;-s&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;/Users/handsome/work/ResourceDemo/app/src/main/res1&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;--auto-add-overlay&#x27;</span></span><br><span class="line">    <span class="comment">// 最终：res=res+overlay资源首次出现的新资源。</span></span><br><span class="line">    <span class="comment">// 比如上例，则先寻找是否有res2.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="简述多渠道打包及原理和常用操作"><a href="#简述多渠道打包及原理和常用操作" class="headerlink" title="简述多渠道打包及原理和常用操作?"></a>简述多渠道打包及原理和常用操作?</h2><p>针对每一个渠道(应用市场)都生成一个带有渠道标识的apk文件</p>
+<p>原理:用户下载启动应用,获取渠道标识,和设备的唯一标识,并上传到服务器里面,服务器这里就 会根据获取的记录,根据渠道号然后判断是否存在该服务器的表里面.(打标记,取标记,上传标记)</p>
+<p>1)友盟多渠道打包:在清单文件中定义一个占位符,在gradle脚本中替换占位符(会使用到Python)</p>
+<p>2)美团打包,在meta-data中创建一个空的文件,以文件名标识渠道,做一个解压与压缩的操作,速度会比较快</p>
+<p>3)新一代多渠道打包,将渠道标识添加到.apk文件的末尾,并不会对源文件损坏</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/5da4dd77.html" title="Android-打包过程">https://jianghouren.cn/archives/5da4dd77.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/APK/" rel="tag"># APK</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/f7159b41.html" rel="prev" title="Flutter-UI布局和控件">
+                  <i class="fa fa-chevron-left"></i> Flutter-UI布局和控件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/cd65786b.html" rel="next" title="排序算法总结">
+                  排序算法总结 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/5da4dd77.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

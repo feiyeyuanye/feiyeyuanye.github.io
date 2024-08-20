@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 应用程序进程启动过程">
+<meta property="og:url" content="https://jianghouren.cn/archives/6e49e308.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-09-05T04:54:03.000Z">
+<meta property="article:modified_time" content="2020-09-07T02:43:54.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Framework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/6e49e308.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/6e49e308.html","path":"archives/6e49e308.html","title":"Android 应用程序进程启动过程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 应用程序进程启动过程 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E7%AE%80%E4%BB%8B"><span class="nav-number">1.</span> <span class="nav-text">应用程序进程简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">应用程序进程启动过程介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AMS-%E5%8F%91%E9%80%81%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B%E8%AF%B7%E6%B1%82"><span class="nav-number">2.1.</span> <span class="nav-text">AMS 发送启动应用程序进程请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Zygote-%E6%8E%A5%E6%94%B6%E8%AF%B7%E6%B1%82%E5%B9%B6%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">Zygote 接收请求并创建应用程序进程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">Binder 线程池启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%BE%AA%E7%8E%AF%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">消息循环创建过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/6e49e308.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 应用程序进程启动过程 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 应用程序进程启动过程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-09-05 12:54:03" itemprop="dateCreated datePublished" datetime="2019-09-05T12:54:03+08:00">2019-09-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-07 10:43:54" itemprop="dateModified" datetime="2020-09-07T10:43:54+08:00">2020-09-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/6e49e308.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/6e49e308.html" data-xid="/archives/6e49e308.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/6e49e308.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 应用程序进程启动过程" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/数码宝贝.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="应用程序进程简介"><a href="#应用程序进程简介" class="headerlink" title="应用程序进程简介"></a><p class="m_more_title_style">应用程序进程简介</p></h2><p>要想启动一个应用程序，须先确保它所需的应用程序进程已经启动。由 AMS 来检查这个进程是否存在，不存在就会请求 Zygote 进程来启动这个进程。<br>在 Zygote 的 Java 框架层中会创建一个 Server 端的 Socket 用来等待 Zygote 创建新的应用程序进程。<br>Zygote 进程通过 fock 自身创建应用程序进程，这个程序会获得 Zygote 进程在启动时创建的虚拟机实例，并且还创建了 Binder 线程池和消息循环，这样运行在应用进程中的应用程序就可以方便地使用 Binder 进行进程间通信以及处理消息了。</p>
+<hr>
+<h2 id="应用程序进程启动过程介绍"><a href="#应用程序进程启动过程介绍" class="headerlink" title="应用程序进程启动过程介绍"></a><p class="m_more_title_style">应用程序进程启动过程介绍</p></h2><p>这里将其分为两部分，AMS 发送启动应用程序进程请求，和 Zygote 接收请求并创建应用程序进程。</p>
+<h3 id="AMS-发送启动应用程序进程请求"><a href="#AMS-发送启动应用程序进程请求" class="headerlink" title="AMS 发送启动应用程序进程请求"></a>AMS 发送启动应用程序进程请求</h3><p>AMS 会通过调用 startProcessLocked() 向 Zygote 进程发送请求来启动应用程序，在 startProcessLocked() 中做了几件事：</p>
+<ul>
+<li><p>得到创建应用程序进程的用户 ID。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="variable">uid</span> <span class="operator">=</span> app.uid;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对用户组 ID（gids）进行创建和赋值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (ArrayUtils.isEmpty(permGids)) &#123;</span><br><span class="line">    gids = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">3</span>];</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    gids = <span class="keyword">new</span> <span class="title class_">int</span>[permGids.length + <span class="number">3</span>];</span><br><span class="line">    System.arraycopy(permGids, <span class="number">0</span>, gids, <span class="number">3</span>, permGids.length);</span><br><span class="line">&#125;</span><br><span class="line">gids[<span class="number">0</span>] = UserHandle.getSharedAppGid(UserHandle.getAppId(uid));</span><br><span class="line">gids[<span class="number">1</span>] = UserHandle.getCacheAppGid(UserHandle.getAppId(uid));</span><br><span class="line">gids[<span class="number">2</span>] = UserHandle.getUserGid(UserHandle.getUserId(uid));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 entryPoint 为 null，则赋值为 android.app.ActivityThread，这个值为应用程序进程主线程的类名。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (entryPoint == <span class="literal">null</span>) entryPoint = <span class="string">&quot;android.app.ActivityThread&quot;</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用 Process 的 start 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将上面三步的值传入</span></span><br><span class="line">startResult = Process.start(entryPoint,</span><br><span class="line">          app.processName, uid, uid, gids, debugFlags, mountExternal,</span><br><span class="line">          app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,</span><br><span class="line">          app.info.dataDir, invokeWith, entryPointArgs);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在 Process 的 start() 中只调用了 ZygoteProcess 的 start() ，ZygoteProcess 类用于保持与 Zygote 进程的通信状态，它的 start() 调用了 startViaZygote()，此方法做了如下几件事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/os/ZygoteProcess.java">ZygoteProcess.java</a></p>
+<ul>
+<li><p>创建字符串列表 argsForZygote，并将应用程序的启动参数保存其中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ArrayList&lt;String&gt; argsForZygote = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">  </span><br><span class="line">argsForZygote.add(<span class="string">&quot;--runtime-args&quot;</span>);</span><br><span class="line">argsForZygote.add(<span class="string">&quot;--setuid=&quot;</span> + uid);</span><br><span class="line">argsForZygote.add(<span class="string">&quot;--setgid=&quot;</span> + gid);</span><br><span class="line"><span class="keyword">if</span> ((debugFlags &amp; Zygote.DEBUG_ENABLE_JNI_LOGGING) != <span class="number">0</span>) &#123;</span><br><span class="line">    argsForZygote.add(<span class="string">&quot;--enable-jni-logging&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line">...</span><br><span class="line">  </span><br><span class="line">argsForZygote.add(<span class="string">&quot;--target-sdk-version=&quot;</span> + targetSdkVersion);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法最后调用了 zygoteSendArgsAndGetResult()。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// argsForZygote 是上面的字符串列表</span></span><br><span class="line"><span class="keyword">synchronized</span>(mLock) &#123;</span><br><span class="line">            <span class="keyword">return</span> zygoteSendArgsAndGetResult(openZygoteSocketIfNeeded(abi), argsForZygote);</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>zygoteSendArgsAndGetResult() 的主要作用就是将传入的应用进程的启动参数 argsForZygote 写入 ZygoteState 中，ZygoteState 是 ZygoteProcess 的静态内部类，用于表示与 Zygote 进程通信的状态。ZygoteState 是由 openZygoteSocketIfNeeded() 返回的。openZygoteSocketIfNeeded() 做了如下几件事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/os/ZygoteProcess.java">ZygoteProcess.java</a>（已知，在 Zygote 进程启动过程时，在 Zygote 的 main 方法中会创建 name 为 ”zygote“ 的 Service 端 Socket。）</p>
+<ul>
+<li><p>调用 ZygoteState 的 connect 方法与名称为 ZYGOTE_SOCKET（值为 ”zygote“ ） 的 Socket 建立连接。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (primaryZygoteState == <span class="literal">null</span> || primaryZygoteState.isClosed()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line"><span class="comment">// 与 Zygote 进程建立 Socket 连接，并返回 ZygoteState 类型的 primaryZygoteState 对象。</span></span><br><span class="line">                primaryZygoteState = ZygoteState.connect(mSocket);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ZygoteStartFailedEx</span>(<span class="string">&quot;Error connecting to primary zygote&quot;</span>, ioe);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果 primaryZygoteState 与启动应用程序进程所需的 ABI 不匹配，则连接 name 为 ”zygote_secondary“ 的 Socket。（已知，Zygote 的启动脚本有 4 种，如果采用的是 init_zygote32_64.rc 或者 init_zygote64_32.rc，则 name 为 ”zygote“ 的主模式，name 为 ”zygote_secondary“ 的为辅模式。）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 连接 Zygote 主模式返回的 ZygoteState 是否与启动应用程序进程所需要的 ABI 匹配。        </span></span><br><span class="line"><span class="keyword">if</span> (primaryZygoteState.matches(abi)) &#123;</span><br><span class="line">            <span class="keyword">return</span> primaryZygoteState;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果不匹配，则尝试连接 Zygote 辅模式。</span></span><br><span class="line">        <span class="keyword">if</span> (secondaryZygoteState == <span class="literal">null</span> || secondaryZygoteState.isClosed()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                secondaryZygoteState = ZygoteState.connect(mSecondarySocket);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (IOException ioe) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ZygoteStartFailedEx</span>(<span class="string">&quot;Error connecting to secondary zygote&quot;</span>, ioe);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接 Zygote 辅模式返回的 ZygoteState 是否与启动应用程序进程所需要的 ABI 匹配。</span></span><br><span class="line">        <span class="keyword">if</span> (secondaryZygoteState.matches(abi)) &#123;</span><br><span class="line">            <span class="keyword">return</span> secondaryZygoteState;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">// 如果都不匹配，则抛出异常。</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">ZygoteStartFailedEx</span>(<span class="string">&quot;Unsupported zygote ABI: &quot;</span> + abi);</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Zygote-接收请求并创建应用程序进程"><a href="#Zygote-接收请求并创建应用程序进程" class="headerlink" title="Zygote 接收请求并创建应用程序进程"></a>Zygote 接收请求并创建应用程序进程</h3><p>Socket 连接成功并匹配 ABI 后会返回 ZygoteState 类型对象，在 zygoteSendArgsAndGetResult() 中可以看到，会将应用程序的启动参数写入 ZygoteState 中，这样 Zygote 进程就会收到一个创建新的应用程序进程的请求，首先看 ZygoteInit 的 main 方法做了哪些事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/ZygoteInit.java">ZygoteInit.java</a></p>
+<ul>
+<li><p>通过 registerServerSocket() 创建了一个 Server 端的 Socket，这个 name 为 ”zygote“ 的 Socket 用来等待 AMS 请求 Zygote，以创建新的应用程序进程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Server 端的 Socket，SocketName 的值为 ”zygote“。</span></span><br><span class="line">zygoteServer.registerServerSocket(socketName);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>预加载类和资源。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preload(bootTimingsTraceLog);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动 SystemServer 进程，这样系统的服务也会由 SystemServer 进程启动起来。</p>
+</li>
+</ul>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (startSystemServer) &#123;</span><br><span class="line"><span class="comment">// 启动 SystemServer 进程</span></span><br><span class="line">  startSystemServer(abiList, socketName, zygoteServer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>调用 ZygoteServer 的 runSelectLoop() 来等待 AMS 请求创建新的应用程序进程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zygoteServer.runSelectLoop(abiList);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>在 runSelectLoop() 内部，当有 AMS 的请求数据到来时，会调用到 ZygoteConnection 的 runOnce() 来处理请求数据，runOnce() 做了如下几件事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/ZygoteConnection.java">ZygoteConnection.java</a></p>
+<ul>
+<li><p>调用 readArgumentList() 获取应用程序进程的启动参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String args[];</span><br><span class="line">...</span><br><span class="line">    args = readArgumentList();</span><br><span class="line">  </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将 args 封装到 Arguments 类型的 parsedArgs 对象中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">parsedArgs = <span class="keyword">new</span> <span class="title class_">Arguments</span>(args);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用 Zygote 的 forkAndSpecialize() 来创建应用程序进程，参数为 parsedArgs 中存储的应用进程启动参数，返回值为 pid。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建应用程序进程</span></span><br><span class="line">pid = Zygote.forkAndSpecialize(parsedArgs.uid, parsedArgs.gid, parsedArgs.gids,</span><br><span class="line">           parsedArgs.debugFlags, rlimits, parsedArgs.mountExternal, parsedArgs.seInfo,</span><br><span class="line">           parsedArgs.niceName, fdsToClose, fdsToIgnore, parsedArgs.instructionSet,</span><br><span class="line">           parsedArgs.appDataDir);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>forkAndSpecialize() 主要是通过 fork 当前进程来创建一个子进程的，如果 pid 等于 0，则说明当前代码逻辑运行在新创建的子进程（应用程序进程）中，这时就会调用 handleChildProc() 来处理应用程序进程，handleChildProc() 中调用了 ZygoteInit 的 zygoteInit()，zygoteInit() 做了如下几件事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/ZygoteInit.java">ZygoteInit.java</a></p>
+<ul>
+<li><p>在新创建的应用程序进程中创建 Binder 线程池。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZygoteInit.nativeZygoteInit();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用了 RuntimeInit 的 applicationInit 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RuntimeInit.applicationInit(targetSdkVersion, argv, classLoader);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>applicationInit() 内部会调用 invokeStaticMain(args.startClass, args.startArgs, classLoader);，它的第一个参数指的就是前面的 android.app.ActivityThread 参数。invokeStaticMain() 做了如下几件事：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/com/android/internal/os/RuntimeInit.java">RuntimeInit.java</a></p>
+<ul>
+<li><p>通过反射获得 android.app.ActivityThread 类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; cl;</span><br><span class="line">    cl = Class.forName(className, <span class="literal">true</span>, classLoader);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>获得 ActivityThread 的 main 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Method m;</span><br><span class="line">    m = cl.getMethod(<span class="string">&quot;main&quot;</span>, <span class="keyword">new</span> <span class="title class_">Class</span>[] &#123; String[].class &#125;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将上一步的 main 方法传入 Zygote 中的 MethodAndArgsCaller 类的构造方法中，这里抛出的 MethodAndArgsCaller 异常会被 Zygote 的 main 方法捕获。这里采用了抛出异常而不是直接调用 ActivityThread 的 main，原理和 Zygote 处理 SystemServer 进程是一样的，这种抛出异常的处理会清除所有的设置过程需要的堆栈帧，并让 ActivityThread 的 main 方法看起来像是应用程序进程的入口方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Zygote</span>.MethodAndArgsCaller(m, argv);</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>接下来 ZygoteInit.java 的 main 方法通过 try catch 捕获到 MethodAndArgsCaller 异常时，会调用 MethodAndArgsCaller 的 run 方法，MethodAndArgsCaller 是 Zygote.java 的静态内部类。在 run 方法中调用了 <code>mMethod.invoke(null, new Object[] &#123; mArgs &#125;);</code>，mMethod 指的就是 ActivityThread 的 main 方法，调用了 mMethod 的 invoke 方法后，ActivityThread 的 main 方法就会被动态调用，应用程序进程就进入了 ActivityThread 的 main 方法中。到这里，应用程序进程就创建完成了并且运行了主线程的管理类 ActivityThread。</p>
+<hr>
+<h2 id="Binder-线程池启动过程"><a href="#Binder-线程池启动过程" class="headerlink" title="Binder 线程池启动过程"></a><p class="m_more_title_style">Binder 线程池启动过程</p></h2><p>当 Zygote 接收请求并创建应用程序进程，在应用程序进程创建过程中会启动 Binder 线程池，查看 ZygoteInit 类的 zygoteInit 方法，通过 <code>ZygoteInit.nativeZygoteInit();</code> 在新创建的应用程序进程中创建 Binder 线程池，nativeZygoteInit() 是一个 JNI 方法 <code>private static final native void nativeZygoteInit();</code>，它对应的函数是在 AndroidRuntime.cpp 的 JNINativeMethod 数组中的 com_android_internal_os_ZygoteInit_nativeZygoteInit，在 <a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/jni/AndroidRuntime.cpp">AndroidRuntime.cpp</a> 中可以看到，com_android_internal_os_ZygoteInit_nativeZygoteInit 函数如下，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">com_android_internal_os_ZygoteInit_nativeZygoteInit</span><span class="params">(JNIEnv* env, jobject clazz)</span></span><br><span class="line">&#123;</span><br><span class="line">    gCurRuntime-&gt;onZygoteInit();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>gCurRuntime 是 AndroidRuntime 类型的指针，它是在 AndroidRuntime 初始化时就创建的，如下所示，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="type">static</span> AndroidRuntime* gCurRuntime = <span class="literal">NULL</span>;</span><br><span class="line">...</span><br><span class="line">AndroidRuntime::<span class="built_in">AndroidRuntime</span>(<span class="type">char</span>* argBlockStart, <span class="type">const</span> <span class="type">size_t</span> argBlockLength) :</span><br><span class="line">        <span class="built_in">mExitWithoutCleanup</span>(<span class="literal">false</span>),</span><br><span class="line">        <span class="built_in">mArgBlockStart</span>(argBlockStart),</span><br><span class="line">        <span class="built_in">mArgBlockLength</span>(argBlockLength)</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    gCurRuntime = <span class="keyword">this</span>;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<p>AppRuntime 继承自 AndroidRuntime，AppRuntime 创建时就会调用 AndroidRuntime 的构造函数，gCurRuntime 就会被初始化，它指向的是 AppRuntime，接下来查看 AppRuntime 的 onZygoteInit 函数，<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/cmds/app_process/app_main.cpp">app_main.cpp</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">virtual</span> <span class="type">void</span> <span class="title">onZygoteInit</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sp&lt;ProcessState&gt; proc = ProcessState::<span class="built_in">self</span>();</span><br><span class="line">    <span class="built_in">ALOGV</span>(<span class="string">&quot;App process: starting thread pool.\n&quot;</span>);</span><br><span class="line">    proc-&gt;<span class="built_in">startThreadPool</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后一行会调用 ProcessState 的 startThreadPool 函数来启动 Binder 线程池，<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/native/libs/binder/ProcessState.cpp">ProcessState.cpp</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ProcessState::startThreadPool</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    AutoMutex _l(mLock);</span><br><span class="line">    <span class="keyword">if</span> (!mThreadPoolStarted) &#123;</span><br><span class="line">        mThreadPoolStarted = <span class="literal">true</span>;</span><br><span class="line">        <span class="built_in">spawnPooledThread</span>(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>支持 Binder 通信的进程中都有一个 ProcessState 类，它里面有一个 mThreadPoolStarted 变量，表示 Binder 线程池是否已经被启动过，默认值是 false。在每次调用 startThreadPool() 时都会先检查这个标记，从而确保 Binder 线程池只会被启动一次。如果 Binder 线程池未被启动，则设置 mThreadPoolStarted 为 true，并调用 spawnPooledThread() 来创建线程池中的第一个线程，也就是线程池的主线程，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">ProcessState::spawnPooledThread</span><span class="params">(<span class="type">bool</span> isMain)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mThreadPoolStarted) &#123;</span><br><span class="line">        String8 name = <span class="built_in">makeBinderThreadName</span>();</span><br><span class="line">        <span class="built_in">ALOGV</span>(<span class="string">&quot;Spawning new pooled thread, name=%s\n&quot;</span>, name.<span class="built_in">string</span>());</span><br><span class="line">        sp&lt;Thread&gt; t = <span class="keyword">new</span> <span class="built_in">PoolThread</span>(isMain);</span><br><span class="line">        t-&gt;<span class="built_in">run</span>(name.<span class="built_in">string</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到 Binder 线程为一个 PoolThread。并调用了它的 run 函数来启动一个新线程，接下来查看 PoolThread 类，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PoolThread 类继承了 Thread 类</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">PoolThread</span> : <span class="keyword">public</span> Thread</span><br><span class="line">&#123;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="keyword">virtual</span> <span class="type">bool</span> <span class="title">threadLoop</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">      <span class="comment">// 调用了 IPCThreadState 的 joinThreadPool 函数，将当前线程注册到 Binder 驱动程序中，这样创建的线程就加入了 Binder 线程池中，新创建的应用程序进程就支持 Binder 进程间通信了，我们只需要创建当前进程的 Binder 对象，并将它注册到 ServiceManager 中就可以实现 Binder 进程间通信，而不必关心进程是如何通过 Binder 进行通信的。</span></span><br><span class="line">        IPCThreadState::<span class="built_in">self</span>()-&gt;<span class="built_in">joinThreadPool</span>(mIsMain);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">const</span> <span class="type">bool</span> mIsMain;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="消息循环创建过程"><a href="#消息循环创建过程" class="headerlink" title="消息循环创建过程"></a><p class="m_more_title_style">消息循环创建过程</p></h2><p>当 Zygote 接收请求并创建应用程序进程，在应用程序进程启动后会创建消息循环。首先回到 RuntimeInit 的 invokeStaticMain()，此方法的最后一行会抛出一个 MethodAndArgsCaller 异常，此异常会被 ZygoteInit 的 main 方法通过 try catch 捕获，并执行 MethodAndArgsCaller 的 run 方法，在 run 方法中调用了 <code>mMethod.invoke(null, new Object[] &#123; mArgs &#125;);</code>，mMethod 指的就是 ActivityThread 的 main 方法，mArgs 指的是应用程序进程的启动参数，查看 ActivityThread 的 main 方法，<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityThread.java">ActivityThread.java</a>。ActivityThread 类用于管理当前应用程序进程的主线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 创建主线程的消息循环 Looper</span></span><br><span class="line">    Looper.prepareMainLooper();</span><br><span class="line"><span class="comment">// 创建 ActivityThread</span></span><br><span class="line">    <span class="type">ActivityThread</span> <span class="variable">thread</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ActivityThread</span>();</span><br><span class="line">    thread.attach(<span class="literal">false</span>);</span><br><span class="line"><span class="comment">// 判断 Handler 类型的 sMainThreadHandler 是否为 null</span></span><br><span class="line">    <span class="keyword">if</span> (sMainThreadHandler == <span class="literal">null</span>) &#123;</span><br><span class="line">      <span class="comment">// 创建主线程 H 类（获取 H 类并赋值给 sMainThreadHandler，这个 H 类继承自 Handler，是 ActivityThread 的内部类，用于处理主线程的消息循环。）</span></span><br><span class="line">        sMainThreadHandler = thread.getHandler();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">        Looper.myLooper().setMessageLogging(<span class="keyword">new</span></span><br><span class="line">                <span class="title class_">LogPrinter</span>(Log.DEBUG, <span class="string">&quot;ActivityThread&quot;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Trace.traceEnd(Trace.TRACE_TAG_ACTIVITY_MANAGER);</span><br><span class="line">  <span class="comment">// 开始工作（调用 Looper 的 loop 方法，使得 Looper 开始处理消息。）</span></span><br><span class="line">    Looper.loop();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Main thread loop unexpectedly exited&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，系统在应用程序进程启动完成后，就会创建一个消息循环，这样运行在应用程序进程中的应用程序可以方便地使用消息处理机制。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>注：基于 Android 8.0 源码</strong></p>
+<p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/6e49e308.html" title="Android 应用程序进程启动过程">https://jianghouren.cn/archives/6e49e308.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/2d4e716c.html" rel="prev" title="Android 系统启动">
+                  <i class="fa fa-chevron-left"></i> Android 系统启动
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/438d7339.html" rel="next" title="IPC 机制">
+                  IPC 机制 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/6e49e308.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

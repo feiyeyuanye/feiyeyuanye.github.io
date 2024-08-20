@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 编写好用的工具">
+<meta property="og:url" content="https://jianghouren.cn/archives/ef06a13d.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-07-26T00:34:55.000Z">
+<meta property="article:modified_time" content="2022-04-28T06:50:38.874Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="工具配置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/ef06a13d.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/ef06a13d.html","path":"archives/ef06a13d.html","title":"Kotlin 编写好用的工具"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kotlin 编写好用的工具 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B1%82N%E4%B8%AA%E6%95%B0%E7%9A%84%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">求N个数的最大最小值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E8%8E%B7%E5%8F%96-Context-%E7%9A%84%E6%8A%80%E5%B7%A7"><span class="nav-number">2.</span> <span class="nav-text">全局获取 Context 的技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8C%96-Toast-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">简化 Toast 的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8C%96-Snackbar-%E7%9A%84%E7%94%A8%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">简化 Snackbar 的用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E5%BF%97%E5%B7%A5%E5%85%B7"><span class="nav-number">5.</span> <span class="nav-text">日志工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E8%83%8C%E6%99%AF%E5%9B%BE%E5%92%8C%E7%8A%B6%E6%80%81%E6%A0%8F%E8%9E%8D%E5%90%88%E5%88%B0%E4%B8%80%E8%B5%B7"><span class="nav-number">6.</span> <span class="nav-text">将背景图和状态栏融合到一起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9A%90%E8%97%8F%E8%BE%93%E5%85%A5%E6%B3%95"><span class="nav-number">7.</span> <span class="nav-text">隐藏输入法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">8.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/ef06a13d.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kotlin 编写好用的工具 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 编写好用的工具
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-26 08:34:55" itemprop="dateCreated datePublished" datetime="2020-07-26T08:34:55+08:00">2020-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 14:50:38" itemprop="dateModified" datetime="2022-04-28T14:50:38+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/ef06a13d.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/ef06a13d.html" data-xid="/archives/ef06a13d.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/ef06a13d.html" class="post-meta-item leancloud_visitors" data-flag-title="Kotlin 编写好用的工具" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>7.1k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>6 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/tianqizhizi.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>Kotlin 提供的丰富语法特性给我们提供了无限扩展的可能，各种复杂的 API 经过特殊的封装处理后都能变得简单易用，因此我们要养成对 Kotlin 的各种特性进行灵活运用的意识。接下来对一些常用 API 的用法进行简化，从而编写出一些好用的工具。</p>
+<h2 id="求N个数的最大最小值"><a href="#求N个数的最大最小值" class="headerlink" title="求N个数的最大最小值"></a><p class="m_more_title_style">求N个数的最大最小值</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> a = <span class="number">10</span></span><br><span class="line">    <span class="keyword">val</span> b = <span class="number">15</span></span><br><span class="line">    <span class="keyword">val</span> larger = max(a,b)</span><br><span class="line">    println(larger)  <span class="comment">// 15</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> c = <span class="number">5</span></span><br><span class="line">    <span class="keyword">val</span> largest  = max(max(a,b),c)</span><br><span class="line">    println(largest) <span class="comment">// 15</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用自定义函数 max() 来简化 max() 的嵌套。</span></span><br><span class="line">    <span class="keyword">val</span> largest1 = mMax(a,b,c)</span><br><span class="line">    <span class="keyword">val</span> lowest1 = mMin(a,b,c)</span><br><span class="line">    println(largest1)  <span class="comment">// 15</span></span><br><span class="line">    println(lowest1)   <span class="comment">// 5</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 比较浮点型数字</span></span><br><span class="line">    <span class="keyword">val</span> d = <span class="number">15.5</span></span><br><span class="line">    <span class="keyword">val</span> e = <span class="number">16.5</span></span><br><span class="line">    <span class="keyword">val</span> largest2 = mMax(d,e)</span><br><span class="line">    <span class="keyword">val</span> lowest2 = mMin(d,e)</span><br><span class="line">    println(largest2)  <span class="comment">// 16.5</span></span><br><span class="line">    println(lowest2)   <span class="comment">// 15.5</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 简化多个数比较时的 max() 嵌套</span></span><br><span class="line"><span class="comment"> * 借助 vararg 关键字，它允许方法接收任意多个同等类型的参数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//fun mMax(vararg nums:Int):Int&#123;</span></span><br><span class="line"><span class="comment">//    // 记录所有数中的最大值，并在一开始将它赋值成了整形范围的最小值。</span></span><br><span class="line"><span class="comment">//    var maxNum = Int.MIN_VALUE</span></span><br><span class="line"><span class="comment">//    for (num in nums)&#123;</span></span><br><span class="line"><span class="comment">//        maxNum = max(maxNum,num)</span></span><br><span class="line"><span class="comment">//    &#125;</span></span><br><span class="line"><span class="comment">//    return maxNum</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 上面的方法只能比较整型数字。</span></span><br><span class="line"><span class="comment"> * 那如果想要比较浮点型或长整型数字，可以重载多个 mMax()，来接收不同类型的参数。</span></span><br><span class="line"><span class="comment"> * 但在这里会使用一种更加巧妙的做法。</span></span><br><span class="line"><span class="comment"> * ------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * Java 中规定，所有类型的数字都是可比较的，因为必须实现 Comparable 接口，</span></span><br><span class="line"><span class="comment"> * 这个规则在 Kotlin 中也同样成立。我们可借助泛型，将 mMax() 修改成接收任意多个实现 Comparable 接口 的参数。</span></span><br><span class="line"><span class="comment"> * ------------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * 这里将泛型 T 的上界指定成了 Comparable&lt;T&gt;，那么参数 T 就必然是 Comparable&lt;T&gt; 的子类型了。</span></span><br><span class="line"><span class="comment"> * 现在不管是双精度浮点型、单精度浮点型，还是短整型、整型、长整型，只要是实现 Comparable 接口的子类型，此函数都支持获取它们的最大值。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T:Comparable&lt;T&gt;</span>&gt; <span class="title">mMax</span><span class="params">(<span class="keyword">vararg</span> nums:<span class="type">T</span>)</span></span>:T&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.isEmpty()) <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;Params can not be empty&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> maxNum = nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> (num <span class="keyword">in</span> nums)&#123;</span><br><span class="line">        <span class="keyword">if</span> (num &gt; maxNum)&#123;</span><br><span class="line">            maxNum = num</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> maxNum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T:Comparable&lt;T&gt;</span>&gt; <span class="title">mMin</span><span class="params">(<span class="keyword">vararg</span> nums:<span class="type">T</span>)</span></span>:T&#123;</span><br><span class="line">    <span class="keyword">if</span> (nums.isEmpty()) <span class="keyword">throw</span> RuntimeException(<span class="string">&quot;Params can not be empty&quot;</span>)</span><br><span class="line">    <span class="keyword">var</span> minNum = nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> (num <span class="keyword">in</span> nums)&#123;</span><br><span class="line">        <span class="keyword">if</span> (num &lt; minNum)&#123;</span><br><span class="line">            minNum = num</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> minNum</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="全局获取-Context-的技巧"><a href="#全局获取-Context-的技巧" class="headerlink" title="全局获取 Context 的技巧"></a><p class="m_more_title_style">全局获取 Context 的技巧</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Application 类要记得在 AndroidManifest.xml 中指定使用这个自定义的，而不是默认的 Application 类。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> :<span class="type">Application</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 平时的很多操作都是在 Activity 中进行的，而 Activity 本身就是一个 Context 对象，所以不担心得不到 COntext 的问题，</span></span><br><span class="line"><span class="comment">     * 但有时会脱离 Activity 类，这时可使用 Application 类来管理程序内一些全局的状态信息，比如全局 Context。</span></span><br><span class="line"><span class="comment">     * 以静态变量的形式提供全局获取 Context</span></span><br><span class="line"><span class="comment">     * 使用方式：MyApplication.context</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="comment">// 由于 Application 中的 Context 全局只会存在一份实例，并且在整个应用程序的生命周期内都不会回收，因此是不存在内存泄漏风险的，</span></span><br><span class="line">        <span class="comment">// 所以这里可以使用注解，让 Android Studio 忽略可能会产生内存泄漏的警告提示。</span></span><br><span class="line">        <span class="meta">@SuppressLint(<span class="string">&quot;StaticFieldLeak&quot;</span>)</span></span><br><span class="line">        <span class="keyword">lateinit</span> <span class="keyword">var</span> context:Context</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate()</span><br><span class="line">        context = applicationContext</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="简化-Toast-的用法"><a href="#简化-Toast-的用法" class="headerlink" title="简化 Toast 的用法"></a><p class="m_more_title_style">简化 Toast 的用法</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Toast 第二个参数是要显示的内容，可以传入字符串和字符串资源 id 两种类型，</span></span><br><span class="line"><span class="comment"> * 所以，可以给 String 和 Int 类各添加一个扩展函数。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//fun String.showToast(context: Context)&#123;</span></span><br><span class="line"><span class="comment">//    Toast.makeText(context,this,Toast.LENGTH_SHORT).show()</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//fun Int.showToast(context: Context)&#123;</span></span><br><span class="line"><span class="comment">//    Toast.makeText(context,this,Toast.LENGTH_SHORT).show()</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 指定 Toast 的显示时长</span></span><br><span class="line"><span class="comment"> * 通过给函数设定参数默认值，当需要 Toast.LENGTH_LONG 时可直接传入。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">showToast</span><span class="params">(context: <span class="type">Context</span>,duration:<span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(context,<span class="keyword">this</span>,duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">showToast</span><span class="params">(context: <span class="type">Context</span>,duration:<span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(context,<span class="keyword">this</span>,duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用 MyApplication 提供的 context 来简化代码</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">showToast</span><span class="params">(duration:<span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(context,<span class="keyword">this</span>,duration).show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">showToast</span><span class="params">(duration:<span class="type">Int</span> = Toast.LENGTH_SHORT)</span></span>&#123;</span><br><span class="line">    Toast.makeText(context,<span class="keyword">this</span>,duration).show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 直接弹出一段字符串文本</span></span><br><span class="line"><span class="string">&quot;This is Toast&quot;</span>.showToast(context)</span><br><span class="line"><span class="comment">// 弹出一个定义在 strings.xml 中的字符串资源</span></span><br><span class="line">R.string.app_name.showToast(context)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用长显示</span></span><br><span class="line"><span class="string">&quot;This is Toast&quot;</span>.showToast(context,Toast.LENGTH_LONG)</span><br><span class="line">R.string.app_name.showToast(context,Toast.LENGTH_LONG)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用全局 context 后的简化写法</span></span><br><span class="line"><span class="string">&quot;This is Toast&quot;</span>.showToast()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="简化-Snackbar-的用法"><a href="#简化-Snackbar-的用法" class="headerlink" title="简化 Snackbar 的用法"></a><p class="m_more_title_style">简化 Snackbar 的用法</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 记得要添加依赖库：implementation &#x27;com.google.android.material:material:1.1.0&#x27;</span></span><br><span class="line"><span class="comment"> * 将扩展函数添加到了 View 类中</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//fun View.showSnackbar(text:String, duration:Int = Snackbar.LENGTH_SHORT)&#123;</span></span><br><span class="line"><span class="comment">//    Snackbar.make(this,text,duration).show()</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//fun View.showSnackbar(resId:Int, duration:Int = Snackbar.LENGTH_SHORT)&#123;</span></span><br><span class="line"><span class="comment">//    Snackbar.make(this,resId,duration).show()</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 通过高阶函数来添加对 setAction() 的支持</span></span><br><span class="line"><span class="comment"> * 这里将新增的两个参数都设置成可为空的类型，并将默认值都设置为空，然后只有当两个参数都不为空时才去调用 Snackbar 的 setAction() 来设置额外的点击事件。</span></span><br><span class="line"><span class="comment"> * 如果触发了点击事件，只需要调用函数类型参数将事件传递给外部的 Lambda 表达式即可。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">showSnackbar</span><span class="params">(text:<span class="type">String</span>, actionText:<span class="type">String</span>? = <span class="literal">null</span>, duration:<span class="type">Int</span> = Snackbar.LENGTH_SHORT, block:(() -&gt; <span class="type">Unit</span>)? = <span class="literal">null</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> snackbar = Snackbar.make(<span class="keyword">this</span>,text,duration)</span><br><span class="line">    <span class="keyword">if</span> (actionText != <span class="literal">null</span> &amp;&amp; block != <span class="literal">null</span>)&#123;</span><br><span class="line">        snackbar.setAction(actionText)&#123;</span><br><span class="line">            block()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    snackbar.show()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> View.<span class="title">showSnackbar</span><span class="params">(resId:<span class="type">Int</span>, actionResId:<span class="type">Int</span>? = <span class="literal">null</span>, duration:<span class="type">Int</span> = Snackbar.LENGTH_SHORT, block:(() -&gt; <span class="type">Unit</span>)? = <span class="literal">null</span>)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> snackbar = Snackbar.make(<span class="keyword">this</span>,resId,duration)</span><br><span class="line">    <span class="keyword">if</span> (actionResId != <span class="literal">null</span> &amp;&amp; block != <span class="literal">null</span>)&#123;</span><br><span class="line">        snackbar.setAction(actionResId)&#123;</span><br><span class="line">            block()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    snackbar.show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用方法如下：（Action 是按钮的名字）</span></span><br><span class="line">view.showSnackbar(<span class="string">&quot;This is Snackbar&quot;</span>,<span class="string">&quot;Action&quot;</span>)&#123;</span><br><span class="line">    Toast.makeText(context,<span class="string">&quot;showSnackbar&quot;</span>,Toast.LENGTH_SHORT).show()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="日志工具"><a href="#日志工具" class="headerlink" title="日志工具"></a><p class="m_more_title_style">日志工具</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * LogUtil 单例类，用来控制日志的打印。</span></span><br><span class="line"><span class="comment"> * 当存在过多的日志打印时，不仅会降低程序的运行效率，还可能泄露机密性的数据。</span></span><br><span class="line"><span class="comment"> * 所以，最好是在开发阶段就打印日志，当程序上线后就把日志屏蔽掉。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">object</span> LogUtil &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义了 5 个整型常量，并且数值递增，表示日志级别。</span></span><br><span class="line"><span class="comment">     * 然后又定义了一个静态变量，可将它的值指定为这 5 个常量中的任意一个，用来控制打印日志。</span></span><br><span class="line"><span class="comment">     * --------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">     * 这样，当开发阶段将 level 设为 VERBOSE，当项目正式上线时将 level 设为 ERROR 表示只打印程序的错误日志。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> VERBOSE = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> DEBUG = <span class="number">2</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> INFO = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> WARN = <span class="number">4</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> ERROR = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> level = VERBOSE</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义了 5 个日志方法，用来打印不同级别的日志。</span></span><br><span class="line"><span class="comment">     * ------------------------------------</span></span><br><span class="line"><span class="comment">     * 使用方法：</span></span><br><span class="line"><span class="comment">     * LogUtil.d(&quot;TAG&quot;,&quot;debug log&quot;)</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">v</span><span class="params">(tag: <span class="type">String</span>, msg: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (level &lt;= VERBOSE) &#123;</span><br><span class="line">            Log.v(tag, msg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">d</span><span class="params">(tag: <span class="type">String</span>, msg: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (level &lt;= DEBUG) &#123;</span><br><span class="line">            Log.d(tag, msg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">i</span><span class="params">(tag: <span class="type">String</span>, msg: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (level &lt;= INFO) &#123;</span><br><span class="line">            Log.i(tag, msg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">w</span><span class="params">(tag: <span class="type">String</span>, msg: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (level &lt;= WARN) &#123;</span><br><span class="line">            Log.w(tag, msg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">e</span><span class="params">(tag: <span class="type">String</span>, msg: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (level &lt;= ERROR) &#123;</span><br><span class="line">            Log.e(tag, msg)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="将背景图和状态栏融合到一起"><a href="#将背景图和状态栏融合到一起" class="headerlink" title="将背景图和状态栏融合到一起"></a><p class="m_more_title_style">将背景图和状态栏融合到一起</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WeatherActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= <span class="number">21</span>) &#123;</span><br><span class="line"><span class="comment">//            调用 getWindow().getDecorView() 拿到当前 Activity 的 DecorView，</span></span><br><span class="line"><span class="comment">//            在调用它的 setSystemUiVisibility() 改变系统 UI 的显示，</span></span><br><span class="line"><span class="comment">//            传入的 View.SYSTEM_UI_FLAG_LAYOUT_STABLE 和 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN 表示 Activity 的布局会显示在状态栏上面</span></span><br><span class="line"><span class="comment">//            最后调用 setStatusBarColor() 将状态栏设置为透明色</span></span><br><span class="line">            <span class="keyword">val</span> decorView = window.decorView</span><br><span class="line">            decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN</span><br><span class="line">            window.statusBarColor = Color.TRANSPARENT</span><br><span class="line">        &#125;</span><br><span class="line">        setContentView(R.layout.activity_weather)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过上面的设置，系统状态栏已经成为布局的一部分了，因此会导致界面的布局整体向上偏移一些，可在相应布局中增加 android:fitsSystemWindows&#x3D;”true” 属性，表示会为系统状态栏留出空间。</p>
+<h2 id="隐藏输入法"><a href="#隐藏输入法" class="headerlink" title="隐藏输入法"></a><p class="m_more_title_style">隐藏输入法</p></h2><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> manager = getSystemService(Context.INPUT_METHOD_SERVICE) <span class="keyword">as</span> InputMethodManager</span><br><span class="line">manager.hideSoftInputFromWindow(drawerView.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+<p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/Android-development-toolset">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/ef06a13d.html" title="Kotlin 编写好用的工具">https://jianghouren.cn/archives/ef06a13d.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%B7%A5%E5%85%B7%E9%85%8D%E7%BD%AE/" rel="tag"># 工具配置</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/2f48c577.html" rel="prev" title="Android Material Design">
+                  <i class="fa fa-chevron-left"></i> Android Material Design
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/bc0ba64e.html" rel="next" title="Kotlin 使用 DSL 构建专有的语法结构">
+                  Kotlin 使用 DSL 构建专有的语法结构 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/ef06a13d.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

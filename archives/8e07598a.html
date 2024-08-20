@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Adnroid 生成正式签名的 APK 文件">
+<meta property="og:url" content="https://jianghouren.cn/archives/8e07598a.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_create_keystore.png">
+<meta property="article:published_time" content="2020-08-02T06:45:19.000Z">
+<meta property="article:modified_time" content="2021-04-30T05:20:23.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="APK">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/8e07598a.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/8e07598a.html","path":"archives/8e07598a.html","title":"Adnroid 生成正式签名的 APK 文件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Adnroid 生成正式签名的 APK 文件 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B7%E6%B7%86"><span class="nav-number">1.</span> <span class="nav-text">混淆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E6%AD%A3%E5%BC%8F%E7%AD%BE%E5%90%8D%E7%9A%84-APK-%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">生成正式签名的 APK 文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-AS-%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96%E5%B7%A5%E5%85%B7%E7%94%9F%E6%88%90"><span class="nav-number">2.1.</span> <span class="nav-text">使用 AS 的可视化工具生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Gradle-%E7%94%9F%E6%88%90"><span class="nav-number">2.2.</span> <span class="nav-text">使用 Gradle 生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85"><span class="nav-number">3.</span> <span class="nav-text">多渠道打包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E5%9B%BA"><span class="nav-number">4.</span> <span class="nav-text">加固</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/8e07598a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Adnroid 生成正式签名的 APK 文件 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Adnroid 生成正式签名的 APK 文件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-02 14:45:19" itemprop="dateCreated datePublished" datetime="2020-08-02T14:45:19+08:00">2020-08-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-30 13:20:23" itemprop="dateModified" datetime="2021-04-30T13:20:23+08:00">2021-04-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/8e07598a.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/8e07598a.html" data-xid="/archives/8e07598a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/8e07598a.html" class="post-meta-item leancloud_visitors" data-flag-title="Adnroid 生成正式签名的 APK 文件" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/yitiantulongji.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>通过 Android Studio 将程序安装到手机上，实际是 Android Studio 会将程序代码打包成一个 APK 文件，然后将这个文件传输到手机上，最后再执行安装操作。</p>
+<p>Android 系统会将所有的 APK 文件识别为应用程序的安装包，类似于 Windows 系统上的 EXE 文件。并且，只有签名后的 APK 文件才可以安装到手机上。而直接通过 Android Studio 运行程序会使用一个默认的 keystore 文件帮我们自动进行了签名。（点击 Android Studio 右侧工具栏的 Gradle -&gt; 项目名 -&gt; app -&gt; Tasks -&gt; android -&gt; 双击 “signingReport”，查看这个 debug.keystore 文件具体内容）</p>
+<p>正式发布的应用程序，还是需要一个正式的 keystore 文件来进行签名才行。</p>
+<hr>
+<h2 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h2><p><strong>Proguard：Java 类</strong></p>
+<ul>
+<li>文件压缩器<ul>
+<li>压缩（Sharinking）：默认开启，优化 Apk 的体积，移除无用的类和成员。</li>
+</ul>
+</li>
+<li>代码优化<ul>
+<li>优化（Optimizaion）：主要体现在字节码上，让应用运行更快。</li>
+</ul>
+</li>
+<li>代码混淆器<ul>
+<li>混淆：类和成员随机命名，增加了反编译和阅读的难度，也可以使用 keep 保持不混淆。</li>
+</ul>
+</li>
+<li>预校验器</li>
+</ul>
+<p> <strong>混淆的规则</strong></p>
+<ul>
+<li>关闭压缩：-dontshrink</li>
+<li>关闭优化：-dontoptimize</li>
+<li>关闭混淆：-dontobfuscate<ul>
+<li><code>-keep class com.example.xxx.*</code> ：表示保持该包下的类，但是子类依然会被混淆。</li>
+<li><code>-keep class com.example.xxx.**</code> ：表示保持该包下的类，子类不会被混淆。</li>
+<li><code>-keep class class com.example.xxx.*&#123;*;&#125; </code>：想避免类中的成员不会混淆。</li>
+</ul>
+</li>
+</ul>
+<p><strong>项目混淆</strong></p>
+<figure class="highlight c"><figcaption><span>build.gradle(:app)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//打包配置</span></span><br><span class="line">buildTypes &#123;</span><br><span class="line">    release &#123;</span><br><span class="line">        <span class="comment">//是否混淆</span></span><br><span class="line">        minifyEnabled <span class="literal">false</span></span><br><span class="line">        proguardFiles <span class="title function_">getDefaultProguardFile</span><span class="params">(<span class="string">&#x27;proguard-android-optimize.txt&#x27;</span>)</span>, &#x27;proguard-rules.pro&#x27;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>proguard-rules.pro</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">#指定压缩级别（<span class="number">1</span><span class="number">-7</span>）</span><br><span class="line">-optimizationpasses <span class="number">5</span></span><br><span class="line"></span><br><span class="line">#不跳过非公共的库的类成员</span><br><span class="line">-dontskipnonpubliclibraryclassmembers</span><br><span class="line"></span><br><span class="line">#混淆时采用的算法（默认的）</span><br><span class="line">-optimizations !code/simplification/arithmetic,!field<span class="comment">/*,!class/merging/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#把混淆类中的方法名也混淆了</span></span><br><span class="line"><span class="comment">#-useuniqueclassmembernames</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#优化时允许访问并修改有修饰符的类和类的成员</span></span><br><span class="line"><span class="comment">-allowaccessmodification</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#将文件来源重命名为“SourceFile”字符串</span></span><br><span class="line"><span class="comment">-renamesourcefileattribute SourceFile</span></span><br><span class="line"><span class="comment">#保留行号</span></span><br><span class="line"><span class="comment">-keepattributes SourceFile,LineNumberTable</span></span><br><span class="line"><span class="comment">#保持泛型</span></span><br><span class="line"><span class="comment">-keepattributes Signature</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#------------------------------------------------------------</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#保持所有实现 Serializable 接口的类成员</span></span><br><span class="line"><span class="comment">-keepclassmembers class * implements java.io.Serializable &#123;</span></span><br><span class="line"><span class="comment">    static final long serialVersionUID;</span></span><br><span class="line"><span class="comment">    private static final java.io.ObjectStreamField[] serialPersistentFields;</span></span><br><span class="line"><span class="comment">    private void writeObject(java.io.ObjectOutputStream);</span></span><br><span class="line"><span class="comment">    private void readObject(java.io.ObjectInputStream);</span></span><br><span class="line"><span class="comment">    java.lang.Object writeReplace();</span></span><br><span class="line"><span class="comment">    java.lang.Object readResolve();</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-keep class * implements android.os.Parcelable &#123;</span></span><br><span class="line"><span class="comment">  public static final android.os.Parcelable$Creator *;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">-keepclassmembers class * implements android.os.Parcelable &#123;</span></span><br><span class="line"><span class="comment"> public &lt;fields&gt;;</span></span><br><span class="line"><span class="comment"> private &lt;fields&gt;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 保持测试相关的代码</span></span><br><span class="line"><span class="comment">-dontnote junit.framework.**</span></span><br><span class="line"><span class="comment">-dontnote junit.runner.**</span></span><br><span class="line"><span class="comment">-dontwarn android.test.**</span></span><br><span class="line"><span class="comment">-dontwarn android.support.test.**</span></span><br><span class="line"><span class="comment">-dontwarn org.junit.**</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#Fragment不需要在AndroidManifest.xml中注册，需要额外保护下</span></span><br><span class="line"><span class="comment">-keep public class * extends android.support.v4.app.Fragment</span></span><br><span class="line"><span class="comment">-keep public class * extends android.app.Fragment</span></span><br><span class="line"><span class="comment">-keep public class * extends androidx.fragment.app.Fragment</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#Android SDK</span></span><br><span class="line"><span class="comment">#-keep class android.app.**&#123;*;&#125;</span></span><br><span class="line"><span class="comment">-keep public class * extends androidx.appcompat.app.AppCompatActivity</span></span><br><span class="line"><span class="comment">-keep public class * extends android.app.Application</span></span><br><span class="line"><span class="comment">-keep public class * extends android.app.Service</span></span><br><span class="line"><span class="comment">-keep public class * extends android.content.BroadcastReceiver</span></span><br><span class="line"><span class="comment">-keep public class * extends android.preference.Preference</span></span><br><span class="line"><span class="comment">-keep public class * extends android.content.ContentProvider</span></span><br><span class="line"><span class="comment">-keep public class * extends android.support.v4.**</span></span><br><span class="line"><span class="comment">-keep public class * extends android.support.annotation.**</span></span><br><span class="line"><span class="comment">-keep public class * extends android.support.v7.**</span></span><br><span class="line"><span class="comment">-keep public class * extends androidx.**</span></span><br><span class="line"><span class="comment">-keep public class * extends android.app.backup.BackupAgentHelper</span></span><br><span class="line"><span class="comment">-keep public class * extends android.preference.Preference</span></span><br><span class="line"><span class="comment">-keep public class * extends android.view.View</span></span><br><span class="line"><span class="comment">-keep public class com.android.vending.licensing.ILicensingService</span></span><br><span class="line"><span class="comment">-keep class android.support.** &#123;*;&#125;</span></span><br><span class="line"><span class="comment">-keep class androidx.** &#123;*;&#125;</span></span><br><span class="line"><span class="comment">-keep class android.**&#123;*;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 自定义View</span></span><br><span class="line"><span class="comment">-keep public class * extends android.view.View&#123;</span></span><br><span class="line"><span class="comment">    *** get*();</span></span><br><span class="line"><span class="comment">    void set*(***);</span></span><br><span class="line"><span class="comment">    public &lt;init&gt;(android.content.Context);</span></span><br><span class="line"><span class="comment">    public &lt;init&gt;(android.content.Context, android.util.AttributeSet);</span></span><br><span class="line"><span class="comment">    public &lt;init&gt;(android.content.Context, android.util.AttributeSet, int);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 自己的View</span></span><br><span class="line"><span class="comment">-keep class com.liuguilin.framework.view.**&#123;*;&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#枚举</span></span><br><span class="line"><span class="comment">-keepclassmembers enum * &#123;</span></span><br><span class="line"><span class="comment"> public static **[] values();</span></span><br><span class="line"><span class="comment"> public static ** valueOf(java.lang.String);</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">#保持native方法不被混淆</span></span><br><span class="line"><span class="comment">-keepclasseswithmembernames class * &#123;</span></span><br><span class="line"><span class="comment">  native &lt;methods&gt;;</span></span><br><span class="line"><span class="comment">&#125;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"># 第三方SDK</span></span><br><span class="line"><span class="comment">#----------------------------  ------------------------------</span></span><br><span class="line"><span class="comment"></span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="生成正式签名的-APK-文件"><a href="#生成正式签名的-APK-文件" class="headerlink" title="生成正式签名的 APK 文件"></a>生成正式签名的 APK 文件</h2><h3 id="使用-AS-的可视化工具生成"><a href="#使用-AS-的可视化工具生成" class="headerlink" title="使用 AS 的可视化工具生成"></a>使用 AS 的可视化工具生成</h3><ul>
+<li><p>Android App Bundle：创建 Android App Bundle 文件，用于上架 Google Play 商店的。（最后生成 .aab 后缀的签名文件）</p>
+<details class="m_more_content_details_supplement">
+   <summary  class="m_more_content_summary">详细信息</summary>
+   <p>使用这种类型的文件，Google Play 可以根据用户的手机，只下发它需要的那部分程序资源。比如说一个高分辨率的手机，是没有必要下载低分辨率目录下的图片资源的，一个 arm 架构的手机，也没有必要下载 x86 架构下的 so 文件（so 文件是使用 C/C++ 代码开发的库文件）。因此，使用此类型文件可以显著地减少 App 的下载体积，但缺点是它不能直接安装到手机上，也不能用于上架除 Google Play 之外的其它应用程序。</p>
+   </details>
+</li>
+<li><p>APK：创建 APK 文件。（最后生成 .apk 后缀的签名文件）</p>
+</li>
+</ul>
+<p><strong>创建 APK 文件举例</strong>：（不管创建哪种类型的文件，后面的流程基本上是一样的。）</p>
+<p>点击 AS 导航栏上的 Build -&gt; Generate Signed Bundle&#x2F;APK ，选择 APK ，点击 “Next” 按钮，然后开始填入 keystore 文件的路径和密码。第一次使用则点击 “Create new” 按钮，然后填写创建 keystore 文件所必要的信息，根据自己的实际情况进行填写即可。</p>
+<ul>
+<li>Key store path：存储签名文件的的路径地址</li>
+<li>Password&#x2F;Confirm：密码&#x2F;确认密码</li>
+<li>Key<ul>
+<li>Alias：别名</li>
+<li>Password&#x2F;Confirm：签名密码&#x2F;确认签名密码</li>
+<li>Validity（years）：有效时长（单位：年。建议设置的长一些）</li>
+<li>Certificate<ul>
+<li>First and Last Name：名字</li>
+<li>Organizational Unit：组织或公司</li>
+<li>Organization：组织</li>
+<li>City or Locality：城市或地区</li>
+<li>State or Province：州或省</li>
+<li>Country Code（XX）：国家代码（中国：cn）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>图例：</p>
+<img data-src="https://imgsw.cn/static/images/android_create_keystore.png">
+
+<p>填写完成后，点击 “OK”，然后刚才填写的信息会自动填充到创建签名 APK 的对话框中。如果希望以后都不用再输 keystore 的密码了，可以将 “Remember passwords” 选项勾上，然后点击 “Next” 来选择 APK 文件的输出地址。</p>
+<ul>
+<li>Destination Folder：默认将 APK 文件生成到项目的 app 目录下</li>
+<li>Build Veriants：选择构建类型</li>
+<li>Signature Versions：这里将签名版本中的 V1 和 V2 选项同时勾上，表示会使用同时兼容新老版本系统的签名方式。（只使用 V1 则在 7.0 上不会使用更安全的安装方式。而只使用 V2 则 7.0 以下会显示未安装，因为 7.0 都开始使用 V2。V2 签名后无法更改。）</li>
+</ul>
+<p>最后点击 “Finish” 按钮，然后稍等一段时间，APK 文件就会生成好了，并且会在右下角弹出提示（或在 Event Log 中查看提示）。点击提示上的 “locate” 可以立刻查看生成的 APK 文件，“analyze” 可以对 APK 文件进行分析 。</p>
+<h3 id="使用-Gradle-生成"><a href="#使用-Gradle-生成" class="headerlink" title="使用 Gradle 生成"></a>使用 Gradle 生成</h3><p>Gradle 是一个非常先进的项目构建工具，在 Android Studio 中开发的所有项目都是使用它来构建的。</p>
+<p>首先配置 app&#x2F;build.gradle 文件：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    </span><br><span class="line">   ...</span><br><span class="line">     </span><br><span class="line">     <span class="comment">// gradle 是从上向下的，所以 signingConfigs 要在 buildTypes 的上面。因为在 buildTypes 中引用了 signingConfig signingConfigs.config。 </span></span><br><span class="line"><span class="comment">//     在 android 闭包中添加了一个 signingConfigs 闭包</span></span><br><span class="line">    signingConfigs&#123;</span><br><span class="line"><span class="comment">//         添加 config 闭包，在其中配置 keystore 文件的各种信息</span></span><br><span class="line">        config&#123;</span><br><span class="line"><span class="comment">//            将敏感数据配置在一个独立的文件里面，然后在这里去读取这些数据          </span></span><br><span class="line"><span class="comment">//            指定 keystore 文件的位置（需要一个已存在的文件，若果没有则去 create）</span></span><br><span class="line">            <span class="function">storeFile <span class="title">file</span><span class="params">(KEY_PATH)</span></span></span><br><span class="line"><span class="function"><span class="comment">//            指定密码（create 时填写的密码）</span></span></span><br><span class="line"><span class="function">            storePassword KEY_PASS</span></span><br><span class="line"><span class="function"><span class="comment">//            指定别名（create 时填写的别名）</span></span></span><br><span class="line"><span class="function">            keyAlias ALIAS_NAME</span></span><br><span class="line"><span class="function"><span class="comment">//            指定别名密码（create 时填写的密码）</span></span></span><br><span class="line"><span class="function">            keyPassword ALIAS_PASS</span></span><br><span class="line"><span class="function">        &#125;</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">    buildTypes </span>&#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            <span class="function">minifyEnabled <span class="literal">false</span></span></span><br><span class="line"><span class="function">            proguardFiles <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">&#x27;proguard-android-optimize.txt&#x27;</span>)</span>, &#x27;proguard-rules.pro&#x27;</span></span><br><span class="line"><span class="function">              </span></span><br><span class="line"><span class="function"><span class="comment">//            这样，当生成正式 APK 文件时，就会自动使用这个配置的签名信息来进行签名了。</span></span></span><br><span class="line"><span class="function">            signingConfig signingConfigs.config</span></span><br><span class="line"><span class="function">        &#125;</span></span><br><span class="line"><span class="function">    &#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>为了避免将 keystore 的信息以明文的形式直接配置在 build.gradle 中，更推荐的做法是将这些敏感数据配置在一个独立的文件里面，这里则配置在 Android Studio 项目的根目录下的 gradle.properties 文件中，这个文件它是专门用来配置全局键值对数据的。（然后，如果要开源代码时，只需要将这个文件从 Git 版本控制中排除即可。）</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 配置 keystore 信息</span><br><span class="line">KEY_PATH=/Users/jianghouren/jhr.jks</span><br><span class="line">KEY_PASS=<span class="number">1234567</span></span><br><span class="line">ALIAS_NAME=jhrdev</span><br><span class="line">ALIAS_PASS=<span class="number">1234567</span></span><br></pre></td></tr></table></figure>
+
+<p>然后通过 Android Studio 中内置的 Gradle Tasks 来生成 APK 文件，点击右侧工具栏的 Gradle -&gt; 项目名 -&gt; app -&gt; Tasks -&gt;build，其中 assemble 就是用于生成 APK 文件的，它会同时生成 debug 和 release 两个版本的 APK 文件，只需要双击即可执行这个 Task。当提示 BUILD SUCCESSFUL 时说明 assemble 执行成功了，APK 文件会自动生成在 app&#x2F;build&#x2F;outputs&#x2F;apk 目录下。</p>
+<p>可通过 <code>adb install apk路径</code> 命令安装 apk（可直接将 apk 拖动到命令行中来生成路径。注意不要和手机已安装的冲突。）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 卸载应用</span></span><br><span class="line">adb uninstall com.example.app</span><br><span class="line"><span class="comment">//安装应用</span></span><br><span class="line">adb install E:...</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="多渠道打包"><a href="#多渠道打包" class="headerlink" title="多渠道打包"></a>多渠道打包</h2><p><strong>1、通过 Gradle 来配置</strong></p>
+<figure class="highlight xml"><figcaption><span>AndroidManifest.xml</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--渠道 $&#123;APP_CHANNEL_VALUE&#125; --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta-data</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;APP_CHANNEL&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:value</span>=<span class="string">&quot;$&#123;APP_CHANNEL_VALUE&#125;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><figcaption><span>build.gradle(:app)</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        <span class="comment">// Android Studio 3.0 之后多渠道需要配置方向</span></span><br><span class="line">        flavorDimensions <span class="string">&quot;default&quot;</span></span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 渠道配置</span></span><br><span class="line">    productFlavors&#123;</span><br><span class="line">        xiaomi &#123;</span><br><span class="line">            manifestPlaceholders = [APP_CHANNEL_VALUE:<span class="string">&quot;xiaomi&quot;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        baidu &#123;</span><br><span class="line">            manifestPlaceholders = [APP_CHANNEL_VALUE:<span class="string">&quot;baidu&quot;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        wandoujia &#123;</span><br><span class="line">            manifestPlaceholders = [APP_CHANNEL_VALUE:<span class="string">&quot;wandoujia&quot;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        yingyongbao &#123;</span><br><span class="line">            manifestPlaceholders = [APP_CHANNEL_VALUE:<span class="string">&quot;yingyongbao&quot;</span>]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后通过 Android Studio 中内置的 Gradle Tasks 来生成 APK 文件，点击右侧工具栏的 Gradle -&gt; 项目名 -&gt; app -&gt; Tasks -&gt;build，其中包含了 xiaomi、baidu、wandoujia 等工具。其中 assemble 用于生成全部的 APK 文件。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * FileName: FlavorHelper</span></span><br><span class="line"><span class="comment"> * Profile: 多渠道帮助类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FlavorHelper</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获取渠道号</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> mContext</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">getFlavor</span><span class="params">(Context mContext)</span> &#123;</span><br><span class="line">        <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> mContext.getPackageManager();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">ApplicationInfo</span> <span class="variable">info</span> <span class="operator">=</span> pm.getApplicationInfo(mContext.getPackageName(), PackageManager.GET_META_DATA);</span><br><span class="line">            <span class="type">Bundle</span> <span class="variable">bundle</span> <span class="operator">=</span> info.metaData;</span><br><span class="line">            <span class="keyword">return</span> bundle.getString(<span class="string">&quot;APP_CHANNEL&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BaseApp</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>.onCreate();</span><br><span class="line">        <span class="comment">// 获取渠道</span></span><br><span class="line">        <span class="type">String</span> <span class="variable">flavor</span> <span class="operator">=</span> FlavorHelper.getFlavor(<span class="built_in">this</span>);</span><br><span class="line">        <span class="comment">// 打印出 App 的下载渠道</span></span><br><span class="line">        Toast.makeText(<span class="built_in">this</span>, <span class="string">&quot;flavor:&quot;</span> + flavor, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、也可以使用美团 Walle 来打包</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/Meituan-Dianping/walle">渠道包打包神器</a></p>
+<hr>
+<h2 id="加固"><a href="#加固" class="headerlink" title="加固"></a>加固</h2><p>加固：Loader -&gt; 校验，动态解密，内存保护，反调试等逻辑。 -&gt; 加载和启动原程序逻辑</p>
+<p>Apk 解压后会包含如下文件：（加固前）</p>
+<ul>
+<li>axml：程序配置文件和资源文件</li>
+<li>dex：字节码文件</li>
+<li>arsc：编译后的资源</li>
+<li>assets：未编码的文件</li>
+<li>libs：so 文件</li>
+</ul>
+<p>加固后：</p>
+<p>assets：会生成一些 so 加固</p>
+<p>会在我们清单文件中增加一条权限：READ SD CARD</p>
+<p>增加一个 Application</p>
+<p><strong>加固的方式有多种，这里使用</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://jiagu.360.cn/#/global/download">360加固保</a></p>
+<p>360加固保也可以用来实现多渠道打包。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/8e07598a.html" title="Adnroid 生成正式签名的 APK 文件">https://jianghouren.cn/archives/8e07598a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/APK/" rel="tag"># APK</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/3d825bc5.html" rel="prev" title="Android SDK 开发">
+                  <i class="fa fa-chevron-left"></i> Android SDK 开发
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/812d49a5.html" rel="next" title="科学上网">
+                  科学上网 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/8e07598a.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

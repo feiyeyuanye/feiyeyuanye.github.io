@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="网络通信协议">
+<meta property="og:url" content="https://jianghouren.cn/archives/d54f64ae.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/feidanyaliya.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/three_times_handshake.webp">
+<meta property="article:published_time" content="2019-03-22T08:03:30.000Z">
+<meta property="article:modified_time" content="2020-09-01T01:16:13.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="网络编程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/feidanyaliya.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/d54f64ae.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/d54f64ae.html","path":"archives/d54f64ae.html","title":"网络通信协议"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>网络通信协议 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">网络模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Http"><span class="nav-number">2.</span> <span class="nav-text">Http</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP%E6%8A%A5%E6%96%87"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#method"><span class="nav-number">2.1.1.</span> <span class="nav-text">method</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E7%A0%81"><span class="nav-number">2.1.2.</span> <span class="nav-text">状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A6%96%E9%83%A8"><span class="nav-number">2.1.3.</span> <span class="nav-text">首部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93"><span class="nav-number">2.1.4.</span> <span class="nav-text">实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Http%E7%BC%93%E5%AD%98"><span class="nav-number">2.1.5.</span> <span class="nav-text">Http缓存</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HTTPS"><span class="nav-number">3.</span> <span class="nav-text">HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Https%E7%9A%84%E5%8A%A0%E5%AF%86"><span class="nav-number">3.1.</span> <span class="nav-text">Https的加密</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Https%E7%9A%84%E8%AE%A4%E8%AF%81"><span class="nav-number">3.2.</span> <span class="nav-text">Https的认证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS%E7%9A%84%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BF%9D%E6%8A%A4"><span class="nav-number">3.3.</span> <span class="nav-text">HTTPS的完整性保护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Https%E7%9A%84%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">3.4.</span> <span class="nav-text">Https的通信流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTPS%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.5.</span> <span class="nav-text">HTTPS的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Socket"><span class="nav-number">4.</span> <span class="nav-text">Socket</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OAuth"><span class="nav-number">5.</span> <span class="nav-text">OAuth</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DDoS%E6%94%BB%E5%87%BB"><span class="nav-number">6.</span> <span class="nav-text">DDoS攻击</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%87%E5%BF%98"><span class="nav-number">8.</span> <span class="nav-text">备忘</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/d54f64ae.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="网络通信协议 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          网络通信协议
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-03-22 16:03:30" itemprop="dateCreated datePublished" datetime="2019-03-22T16:03:30+08:00">2019-03-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-01 09:16:13" itemprop="dateModified" datetime="2020-09-01T09:16:13+08:00">2020-09-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" itemprop="url" rel="index"><span itemprop="name">网络编程</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/d54f64ae.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/d54f64ae.html" data-xid="/archives/d54f64ae.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/d54f64ae.html" class="post-meta-item leancloud_visitors" data-flag-title="网络通信协议" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>14k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>13 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/feidanyaliya.jpg" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h1 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a><p class="m_more_title_style">网络模型</p></h1><p>网络分层是由硬件和软件模块来完成网络节点数据的一系列工作。常见的网络模型如：</p>
+<ul>
+<li>因特网模型【五层】<br>应用层 → 运输层 → 网络层 → 链路层 → 物理层</li>
+<li>OSI&#x2F;ISO模型【开放式系统互联 七层】<br>应用层 → 表示层 → 会话层 → 运输层 → 网络层 → 链路层 → 物理层</li>
+<li>简化五层 → TCP&#x2F;IP模型【最常见 四层】<br>应用层 → 运输层 → 网络层 → 网络接口层</li>
+</ul>
+<p><strong>TCP&#x2F;IP 四层模型</strong><br>TCP&#x2F;IP 协议模型（Transmission Control Protocol&#x2F;Internet Protocol），包含了一系列构成互联网基础的网络协议，是互联网相关的各类协议族的总称，而不是单指 TCP 协议或 IP 协议，是Internet的核心协议。</p>
+<ul>
+<li>应用层：位于应用层要传递的信息称为报文，根据规则解析传输层发送过来的数据，并决定了向用户提供应用服务时通信的活动。FTP（文件传输），DNS（域名服务），HTTP（Web服务协议）。目前主要使用两种体系结构，C&#x2F;S结构（客户端&#x2F;服务端结构），P2P结构（对等体系结构）。</li>
+<li>传输层：协议把应用层的报文封装成一个新的结构，叫做报文段，为两台主机上的应用程序提供端到端的通信。常见的有 TCP、UDP 协议。</li>
+<li>网络层：把传输层的报文段封装成一个叫做数据报的数据结构，建立主机到主机的通信。该层决定如何将数据从发送方路由到接收方. 网络层通过综合考虑发送优先权,网络拥塞程度,服务质量以及可选路由的花费来决定从一个网络节点A到另一个网络节点B的最佳路径。常见的如 ip 协议。</li>
+<li>网络接口层：对应数据链路层和物理层。</li>
+<li>链路层：这一层把网络层的数据报再次封装，叫做帧。这一层把帧从当前节点移动到下一个节点，如从主机传输到路由器。主要功能是如何在不可靠的物理线路上进行数据的可靠传递，如果在传输数据时，接收点检测到所传数据中有差错，就要通知发送方重发这一帧。</li>
+<li>物理层：该层负责比特流在节点间的传输，即负责物理传输，该层的协议既与链路有关，也与传输介质有关，通俗来讲就是把计算机链接起来的物理手段。</li>
+</ul>
+<p><strong>OSI 七层网络模型</strong></p>
+<p>为了使不同厂家生产的计算机可以相互通信，建立更大范围的计算机网络，国际标准化组织（ISO）在 1984 年提出了“开放系统互联参考模型”，即 OSI&#x2F;RM 模型（Open System Interconnection&#x2F;Reference Model）。</p>
+<p>OSI 模型将计算机网络体系结构的通信协议划分为七层，每一层都建立在它的下层之上，同时向它的上一层提供一定服务。上层只管调用下层提供的服务，而不用关心具体实现细节，有些类似我们开发中对外暴露接口隐藏实现的思想。</p>
+<p>七层模型自下而上分别为：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层。其中低四层完成数据传输，高三层面向用户。</p>
+<h1 id="Http"><a href="#Http" class="headerlink" title="Http"></a><p class="m_more_title_style">Http</p></h1><p>HTTP 协议的主要特点</p>
+<ol>
+<li>支持 C&#x2F;S（客户&#x2F;服务器）模式。</li>
+<li>应用层；是一个属于应用层的面向对象的协议，常配合 TCP&#x2F;IP 使用。</li>
+<li>简单快速：<br>客户向服务器请求服务时，只需传送请求方法和路径。请求方法常用的有 GET、HEAD、POST，每种方法规定了客户与服务器联系的类型不同。由于HTTP协议简单，使得HTTP服务器的程序规模小，因而通信速度很快。</li>
+<li>灵活：HTTP允许传输任意类型的数据对象。正在传输的类型由 Content-Type 加以标记。</li>
+<li>无连接：<br>无连接的含义是限制每次连接只处理一个请求。服务器处理完客户的请求，并收到客户的应答后，即断开连接。采用这种方式可以节省传输时间。<br>由于HTTP在每次请求结束后都会主动释放连接，因此 HTTP 连接是一种“短连接”，要保持客户端程序的在线状态，需要不断地向服务器发起连接请求。通常 的做法是即时不需要获得任何数据，客户端也保持每隔一段固定的时间向服务器发送一次“保持连接”的请求，服务器在收到该请求后对客户端进行回复，表明知道 客户端“在线”。若服务器长时间无法收到客户端的请求，则认为客户端“下线”，若客户端长时间无法收到服务器的回复，则认为网络已经断开。</li>
+<li>无状态：<br>HTTP 协议是无状态协议，无状态是指协议对于事务处理没有记忆能力。缺少状态意味着如果后续处理需要前面的信息，则它必须重传，这样可能导致每次连接传送的数据量增大。另一方面，在服务器不需要先前信息时它的应答就较快。当断开连接后，下次客户端向同样的服务端发送请求时，需重新建立连接。</li>
+<li>请求与响应；<br>HTTP 连接最显著的特点是客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。从建立连接到关闭连接的过程称为“一次连接”。<ul>
+<li>在 HTTP 1.0中，客户端的每次请求都要求建立一次单独的连接，在处理完本次请求后，就自动释放连接。</li>
+<li>在 HTTP 1.1中则可以在一次连接中处理多个请求，并且多个请求可以重叠进行，不需要等待一个请求结束后再发送下一个请求。<br>一次网络请求的过程是怎样的，简单的讲，为域名解析（将注册域名解析为 IP 地址）、TCP握手建立连接、客户端发起HTTP请求、服务器响应请求、客户端解析接收数据（客户端解析html代码，同时请求html代码中的资源）并渲染页面。</li>
+</ul>
+</li>
+</ol>
+<p>HTTP URL 的格式如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://host[&quot;:&quot;port][abs_path]</span><br></pre></td></tr></table></figure>
+
+<p>http 表示要通过 HTTP 协议来定位网络资源；host 表示合法的 Internet 主机域名或者IP地址；port 指定一个端口号，为空则使用默认端口80；abs_path 指定请求资源的 URI（Web上任意的可用资源）。</p>
+<p><strong>DNS协议</strong><br>位于应用层，提供域名到IP之间的解析服务。</p>
+<p>DNS 协议解析（域名解析协议），用来实现域名和 IP 地址的转换。主要基于 UDP 实现，端口 53。域名是分层结构，是为了保证域名的唯一性。域名服务器分为（根，顶级，权限，本地）四种域名服务器。</p>
+<p><strong>IP 协议</strong><br>IP 协议提供了主机和主机间的通信，为了完成不同主机的通信，我们需要某种方式来唯一标识一台主机，这个标识，就是著名的IP地址。通过IP地址，IP 协议就能够帮我们把一个数据包发送给对方。</p>
+<p>所有的TCP，UDP，ICMP，IGCP的数据都以IP数据格式传输。要注意的是，IP不是可靠的协议，这是说，IP协议没有提供一种数据未传达以后的处理机制，这被认为是上层协议——TCP或UDP要做的事情。</p>
+<p>IP协议使用ARP协议（ARP协议是用以解析地址的协议）凭借MAC地址进行通信。</p>
+<p><strong>TCP：传输控制协议</strong><br>TCP 的全称是 Transmission Control Protocol。</p>
+<p>TCP 协议在 IP 协议提供的主机间通信功能的基础上，完成两个主机上进程对进程的通信。<br>有了 IP，不同主机就能够交换数据。但是，计算机收到数据后，并不知道这个数据属于哪个进程（简单讲，进程就是一个正在运行的应用程序）。TCP 的作用就在于，让我们能够知道这个数据属于哪个进程，从而完成进程间的通信。<br>为了标识数据属于哪个进程，给需要进行 TCP 通信的进程分配一个唯一的数字来标识它。这个数字，就是端口号。</p>
+<p>TCP具有面向连接的特性，之所以说它是有连接的，是因为在进行通信前，通信双方需要先经过一个三次握手的过程。三次握手完成后，连接便建立了。这时才可以开始发送&#x2F;接收数据。（与之相对的是 UDP，不需要经过握手，就可以直接发送数据）。</p>
+<p>TCP是面向字节流的传输方法。<br>提供可靠的字节流服务，确保可靠性。<br>TCP把应用程序看成是一连串的无结构的字节流，交互是一次一个大小不等的数据块。<br>字节流服务指将大块数据分割成以报文段为单位的数据包进行管理。<br>TCP有一个缓冲，当应用程序传送的数据块太长，TCP就把它划分短一些再传送。<br>如果应用程序一次只发送一个字节，TCP也可以等待积累足够多的字节再构成报文段发送出去。<br>使用三次握手确保数据能到达目的地。</p>
+<p>TCP连接相关的报文相关缩写：SYN（同步标志synchronous）、ACK（确认标志Acknowledgement）、ACK序号（Acknowledgment Number）、SEQ（序列号Sequence Number）、FIN（结束标志final）。</p>
+<p><strong>TCP 三次握手</strong></p>
+<img data-src="https://imgsw.cn/static/images/three_times_handshake.webp">
+
+<p>第一次握手，客户端发送 SYN 报文，SYN 值为 1，seq 值 为 x（这个 x 是由操作系统根据一定的规则生成的，不妨认为它是一个随机数。），并且客户端进入 SYN_SENT 状态，等待服务端响应。第二次握手，服务端接收到 SYN 报文，对其进行确认，并发送 SYN-ACK 报文，SYN 值为1，seq 值为 y，ACK 值为 x+1，并且服务端进入 SYN—RCVD 状态。第三次握手，客户端收到 SYN-ACK 报文段，并发送 ACK 报文段，ACK 值为 y+1，然后客户端和服务端进入 TCP 连接成功状态，完成三次握手。（注意：如果中途哪个环节中断了，则会重复发送相同的数据包，直到握手结束。）</p>
+<p>当 TCP 连接建立成功。这里需要注意的有三点：</p>
+<ul>
+<li>连接是由客户端主动发起的</li>
+<li>在第 3 步客户端向服务器回复 ACK 的时候，TCP 协议是允许我们携带数据的。之所以做不到，是 API 的限制导致的。</li>
+<li>TCP 协议还允许 “四次握手” 的发生，同样的，由于 API 的限制，这个极端的情况并不会发生。</li>
+</ul>
+<p><strong>Tcp 四次挥手</strong></p>
+<p>第一次挥手，客户端发送 FIN 报文段，seq 值为 x+2，ACK 值为 y+1，并且客户端进入FIN_WAIT_1 状态，表示没有数据要发给服务端了。第二次挥手，服务端收到 FIN 报文段，并回了一个 ACK 报文段，ACK 值为 x+3，表示同意你的关闭请求。第三次挥手，服务端发送 FIN 报文段，seq 值为 y+1，请求关闭连接，同时服务端进入 LAST_ACK 状态。第四次挥手，客户端收到 FIN 报文段，并发送 ACK 报文段，ACK 值为 y+2，并且客户端进入 TIME_WAIT 状态。服务端收到 ACK 报文段后，就关闭连接。此时，客户端等待一段时间后（2MSL）依然没有收到回复，则说明服务端已正常关闭，这样客户端也可以关闭连接了。（注意：通常由客户端先发起挥手，但也可以是服务器端先发起）</p>
+<p><strong>为什么要进行三次握手?</strong></p>
+<p>三次握手不是 TCP 本身的要求, 而是为了满足”在不可靠信道上可靠地传输信息”这一需求所导致的.。</p>
+<p><strong>为什么不是两次而必须是三次?</strong></p>
+<p>三次握手完成两个重要的功能，既要双方做好发送数据的准备工作(双方都知道彼此已准备好)，也要允许双方就初始序列号进行协商，这个序列号在握手过程中被发送和确认。</p>
+<p>现在把三次握手改成仅需要两次握手，死锁是可能发生的。作为例子，考虑计算机S和C之间的通信，假定C给S发送一个连接请求分组，S收到了这个分组，并发 送了确认应答分组。按照两次握手的协定，S认为连接已经成功地建立了，可以开始发送数据分组。可是，C在S的应答分组在传输中被丢失的情况下，将不知道S 是否已准备好，不知道S建立什么样的序列号，C甚至怀疑S是否收到自己的连接请求分组。在这种情况下，C认为连接还未建立成功，将忽略S发来的任何数据分 组，只等待连接确认应答分组。而S在发出的分组超时后，重复发送同样的分组。这样就形成了死锁。</p>
+<p><strong>挥手为什么是四次？</strong></p>
+<p>TCP 连接是全双工的，每一端都可以同时发送和接受数据，关闭的时候两端都要关闭各自两个方向的通道，总共相当于要关闭四个。</p>
+<p><strong>为什么 TIME_WAIT 状态需要经过 2MSL (最大报文段生存时间) 才能返回到 CLOSE 状态</strong></p>
+<p>首先，MSL（Maximum Segment Life），是 TCP 对 TCP Segment 生存时间的限制。<br>客户端在发出确认服务端关闭的 ACK 后，它没有办法知道对方是否收到这个消息，于是需要等待一段时间，如果服务端没有收到关闭的消息后会重新发出 FIN 报文，这样客户端就知道自己上条消息丢了，需要再发一次；如果等待的这段时间没有在收到 FIN 的重发报文，说明它的确已经收到断开的消息并且已经断开了。<br>这个等待时间至少是：客户端的 timeout + FIN 的传输时间，为了保证可靠，采用更加保守的等待时间 2MSL。</p>
+<p><strong>如果已经建立了连接，但是客户端突然出现故障了怎么办</strong></p>
+<p>TCP还设有一个保活计时器，显然，客户端如果出现故障，服务器不能一直等下去，白白浪费资源。服务器每收到一次客户端的请求后都会重新复位这个计时器，时间通常是设置为2小时，若两小时还没有收到客户端的任何数据，服务器就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，服务器就认为客户端出了故障，接着就关闭连接。</p>
+<p><strong>UDP：用户数据报协议</strong><br>面向报文的传输方式。<br>应用层交给UDP多长的报文，UDP就照样发送，既不合并，也不分解，而是保留这些报文的边界，即一次发送一次报文。<br>因此，应用程序必须选择合适大小的报文，太长会导致IP层需要分片，降低效率，太短则会使IP太小。</p>
+<p><strong>区别</strong></p>
+<table>
+<thead>
+<tr>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>面向有连接的通信服务</td>
+<td>面向无连接的通信服务</td>
+</tr>
+<tr>
+<td>提供可靠的通信传输</td>
+<td>不可靠，不能保证数据传输的完整性</td>
+</tr>
+<tr>
+<td>保证数据顺序</td>
+<td>不保证</td>
+</tr>
+<tr>
+<td>传输的数据没有大小限制</td>
+<td>传输数据有大小限制，每个被传输的数据限定在64KB之内</td>
+</tr>
+<tr>
+<td>耗时较多开销较大</td>
+<td>传输速度快开销较小</td>
+</tr>
+<tr>
+<td>面向字节流</td>
+<td>面向报文</td>
+</tr>
+<tr>
+<td>只支持点对点的通信</td>
+<td>支持一对一、一对多、多对一、多对多通信</td>
+</tr>
+<tr>
+<td>报头至少20字节</td>
+<td>报头8字节</td>
+</tr>
+<tr>
+<td>有流量控制，拥塞控制</td>
+<td>没有</td>
+</tr>
+</tbody></table>
+<p><strong>URL和URI</strong></p>
+<ul>
+<li>URI：统一资源标识符，用字符串标识某一互联网资源。</li>
+<li>URL：统一资源定位符，表示资源的地点，为URI的子集。</li>
+</ul>
+<h2 id="HTTP报文"><a href="#HTTP报文" class="headerlink" title="HTTP报文"></a>HTTP报文</h2><p>用于 HTTP 协议交互的信息被称为 HTTP 报文。<br>HTTP 报文可以分为请求报文和响应报文：</p>
+<ul>
+<li>请求端（客户端）的HTTP报文叫做请求报文：<br>请求报文主要分为四个部分，请求行、请求头、空行、请求体：</li>
+<li>起始行：请求行（请求方法，HTTP版本，URL）</li>
+<li>首部：请求条件和属性的首部（请求首部字段，通用···，实体···，其他）</li>
+<li>主体：报文主体（与首部之间会有一个空行）</li>
+<li>示例： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// 请求报文格式：</span></span><br><span class="line">&lt;method&gt; &lt;request-url&gt; &lt;version&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 各个标签的含义</span></span><br><span class="line">&lt;method&gt; 指请求方法，常用的主要是Get、 Post、Head 还有其他一些不常用的。</span><br><span class="line">&lt;version&gt; 指协议版本，现在通常都是Http/<span class="number">1.1</span>了</span><br><span class="line">&lt;request-url&gt; 请求地址</span><br></pre></td></tr></table></figure></li>
+<li>响应端（服务器端）的HTTP报文叫做响应报文：<br>响应报文主要分为四个部分，状态行、响应头、空行、响应体：</li>
+<li>起始行：状态行（响应结束状态码，HTTP版本，短语）</li>
+<li>首部：请求条件和属性的首部（响应首部字段，通用···，实体···，其他）</li>
+<li>主体：报文主体（与首部之间会有一个空行）</li>
+<li>示例： <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应报文格式</span></span><br><span class="line">&lt;version&gt; &lt;status&gt; &lt;reason-phrase&gt;</span><br><span class="line">&lt;headers&gt;</span><br><span class="line"></span><br><span class="line">&lt;entity-body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 各个标签的含义</span></span><br><span class="line">&lt;version&gt; 指协议版本，现在通常都是Http/<span class="number">1.1</span>了</span><br><span class="line">&lt;status&gt; 指响应状态码， 比如熟悉的<span class="number">200</span>、<span class="number">404</span>等等</span><br><span class="line">&lt;reason-phrase&gt; 原因短语，<span class="number">200</span> OK 、<span class="number">404</span> Not Found 这种后面的描述就是原因短语，通常不必太关注。</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="method"><a href="#method" class="headerlink" title="method"></a>method</h3><p>PUT：传输文件<br>DELETE：删除文件<br>GET：表示请求获取 Request-URI 所标识的资源<br>POST：表示在 Request-URI 所标识的资源后附加新的数据<br>对于常用的Get和POST请求方法，两者的区别：</p>
+<ul>
+<li>传输形式上有些区别：<br>通过Get方法发起请求时，会将请求参数拼接在request-url尾部，格式是url?param1&#x3D;xxx&amp;param2&#x3D;xxx&amp;[…]，但参数都会暴露在地址栏中。<br>并且由于url是ASCII编码的，所以参数中如果有Unicode编码的字符，例如汉字，都会编码之后传输。<br>虽然http协议并没有对url长度做限制，但是一些浏览器和服务器可能会有限制，所以通过GET方法发起的请求参数不能够太长(不大于2KB)。<br>而通过POST方法发送的请求是将参数放在请求体中的，传输量一般无大小限制，所以不会有GET参数的这些问题。</li>
+<li>方法本身的语义：<br>GET方法通常是指从服务器获取某个URL资源，其行为可以看作是一个读操作(查询操作，而且应该是安全和幂等的)，对同一个URL进行多次GET并不会对服务器产生什么影响。<br>而POST方法通常是对某个URL进行添加、修改，例如一个表单提交，通常会往服务器插入一条记录。多次POST请求可能导致服务器的数据库中添加了多条记录。</li>
+<li>效率的区别：<br>Post执行效率低，Get执行效率略高。<br>因为Get将参数拼成URL,放到header消息头里传递。<br>Post直接以键值对的形式放到消息体中传递。<br>但两者的效率差距很小很小。</li>
+</ul>
+<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>常见的状态码：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1XX</td>
+<td>Informational（信息性状态码）<br>接受的请求正在被处理</td>
+</tr>
+<tr>
+<td>2XX</td>
+<td>Success（成功状态码）<br>请求正常处理完毕</td>
+</tr>
+<tr>
+<td>3XX</td>
+<td>Redirection（重定向状态码）<br>需要进行附加操作以完成请求</td>
+</tr>
+<tr>
+<td>4XX</td>
+<td>Client Error（客户端错误状态码）<br>服务器无法处理请求</td>
+</tr>
+<tr>
+<td>5XX</td>
+<td>Server Error（服务器错误状态码）<br>服务器处理请求出错</td>
+</tr>
+<tr>
+<td>200 OK</td>
+<td>请求成功，实体包含请求的资源</td>
+</tr>
+<tr>
+<td>301 Moved Permanent</td>
+<td>请求的URL被移除了，通常会在Location首部中包含新的URL用于重定向。</td>
+</tr>
+<tr>
+<td>304 Not Modified</td>
+<td>条件请求进行再验证，资源未改变。</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>资源不存在</td>
+</tr>
+<tr>
+<td>206 Partial Content</td>
+<td>成功执行一个部分请求。这个在用于断点续传时会涉及到。</td>
+</tr>
+</tbody></table>
+<h3 id="首部"><a href="#首部" class="headerlink" title="首部"></a>首部</h3><p>首部字段是为了给浏览器和服务器提供报文主体，所使语言，认证信息等内容，它由首部字段名和字段值构成，中间用冒号“:”分割。<br>在请求报文和响应报文中都可以携带一些信息，通过与其他部分配合，能够实现各种强大的功能。<br>这些信息位于起始行之下与请求实体之间，以键值对的形式，称之为首部。<br>每条首部以回车换行符结尾，最后一个首部额外多一个换行，与实体分隔开。</p>
+<p>首部类型：</p>
+<ul>
+<li>通用首部字段：请求报文和响应报文均可以使用</li>
+<li>请求首部字段：补充了请求的附加信息，客户端信息等。</li>
+<li>响应首部字段：补充了响应的附加内容</li>
+<li>实体首部字段：补充了资源内容更新时间等与实体有关的信息</li>
+</ul>
+<p>一些常见的header：</p>
+<table>
+<thead>
+<tr>
+<th>header</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Date</td>
+<td></td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>控制缓存的行为</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>请求资源所在服务器</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>实体主体适用的编码方式</td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>实体主体的大小（单位：字节）</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>实体主体的媒体类型</td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>开始状态管理所使用的Cookie信息，为响应首部字段。</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>服务器返回的响应首部。</td>
+</tr>
+<tr>
+<td>Etag</td>
+<td>服务器返回的响应首部。Etag首部实际上可以认为是服务器对文档资源定义的一个版本号。有时候一个文档被修改了，可能所做的修改极为微小，并不需要所有的缓存都重新下载数据。或者说某一个文档的修改周期极为频繁，以至于以秒为时间粒度的判断已经无法满足需求。这个时候可能就需要Etag这个首部来表明这个文档的版号了。</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td></td>
+</tr>
+<tr>
+<td>If-Modified-Since</td>
+<td>可结合Last-Modified使用，当发起条件请求时，将Last-Modified首部的值作为If-Modified-Since首部的值传递到服务器，意思是查询服务器的资源自从我们上一次缓存之后是否有修改。</td>
+</tr>
+<tr>
+<td>If-None-Match</td>
+<td>需结合另一个Etag使用。发起条件请求时可将缓存时保存下来的Etag的值作为If-None-Match首部的值发送至服务器，如果服务器的资源的Etag与当前条件请求的Etag一致，表明这次再验证命中。</td>
+</tr>
+<tr>
+<td>If-Unmodified-Since</td>
+<td>断点续传相关</td>
+</tr>
+<tr>
+<td>If-Range</td>
+<td>断点续传相关</td>
+</tr>
+<tr>
+<td>If-Match</td>
+<td>断点续传相关</td>
+</tr>
+</tbody></table>
+<h3 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h3><p>请求发送的资源，或是响应返回的资源。</p>
+<h3 id="Http缓存"><a href="#Http缓存" class="headerlink" title="Http缓存"></a>Http缓存</h3><p>缓存可以节约不必要的网络宽带，并且能迅速的对http请求做出响应。<br>当发起一个http请求后，可以将服务器返回的资源的副本存储在本地，这样当再次对该url资源发起请求时，可以快速的从本地存储设备中获取到该url资源，这就是所谓的缓存。</p>
+<table>
+<thead>
+<tr>
+<th>概念</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新鲜度检测</td>
+<td>为了避免本地缓存的资源与服务器的资源有差异，所以当发起一个请求时，需要先对缓存的资源进行判断，是否未超过一定的时间并可以直接使用缓存资源，这个就叫做新鲜度检测。</td>
+</tr>
+<tr>
+<td>再验证</td>
+<td>若发现该缓存资源已经超过了一定的时间，当再次发起请求时不会直接将缓存资源返回，而是先去服务器查看该资源是否已经改变，这个就叫做再验证。</td>
+</tr>
+<tr>
+<td>再验证命中</td>
+<td>若服务器发现对应的url资源并没有发生变化，则会返回304 Not Modified，并且不再返回对应的实体。这称之为再验证命中。相反如果再验证未命中，则返回200 OK，并将改变后的url资源返回，此时缓存可以更新以待之后请求。</td>
+</tr>
+</tbody></table>
+<p>具体的实现方式：</p>
+<ol>
+<li>新鲜度检测<br>由服务器通过在响应报文中增加Cache-Control:max-age（http1.1的协议规范，通常是接相对的时间，即多少秒以后，需要结合last-modified这个首部计算出绝对时间。），或是Expire（http1.0的规范，后面接一个绝对时间。）这两个首部来判断是否超过了一定的时间。</li>
+<li>再验证<br>采用一种称之为“条件请求”的方式来实现验证，提供缓存资源给服务器判断是否一致。</li>
+<li>Http定义了5个首部用于条件请求：</li>
+</ol>
+<ul>
+<li>If-Modified-Since </li>
+<li>If-None-Match  </li>
+<li>If-Unmodified-Since </li>
+<li>If-Range </li>
+<li>If-Match</li>
+</ul>
+<h1 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a><p class="m_more_title_style">HTTPS</p></h1><p>使用HTTP协议的客户端，会打开一条服务端端口为80的连接，并发送老的HTTP请求。使用HTTPS协议的客户端，会打开一条服务端端口为443连接，然后与服务器进行SSL握手。以二进制格式与服务器交互一些SSL的安全参数，附上加密的HTTP请求。</p>
+<p>传统的HTTP协议是一种应用层的传输协议，HTTP直接与TCP协议通信（HTTP → TCP → IP）。其本身存在一些缺点：</p>
+<ul>
+<li>HTTP使用明文传输，容易遭到窃听。HTTPS是SSL加密传输。</li>
+<li>对于通信双方都没有进行身份验证，通信的双方无法确认对方是否是伪装的客户端或者服务端。</li>
+<li>对于传输内容的完整性没有确认的办法，往往容易在传输过程中被劫持篡改。</li>
+</ul>
+<p>而HTTPS就是身披SSL（一种网络安全技术）外壳的HTTP，HTTP是和TCP通信，而HTTPS则是先和SSL通信，再由SSL和TCP通信。（HTTP → SSL&#x2F;TLS → TCP → IP）<br>HTTPS可以通过增加的SSL&#x2F;TLS，支持对于通信内容的加密，以及对通信双方的身份进行验证。</p>
+<blockquote>
+<p>简单地说：HTTP + 加密（保证密码） + 认证（验证通信方） + 完整性保护（报文的完整） &#x3D; HTTPS<br>端口号是443</p>
+</blockquote>
+<h2 id="Https的加密"><a href="#Https的加密" class="headerlink" title="Https的加密"></a>Https的加密</h2><p>加密方式主要有两类：</p>
+<ul>
+<li>对称秘钥加密（共享秘钥加密）：<br>指加密与解密过程使用同一把秘钥。<br>优点是处理速度快。<br>缺点是无法保证一方将秘钥传递到通信的另一方的安全，可能会在传输过程中被拦截。</li>
+<li>非对称密钥加密（公开秘钥加密）：<br>指加密与解密使用两把不同的秘钥。<br>一把叫公开秘钥，可随意对外公开。<br>一把叫私有秘钥，只用于本身持有。<br>得到公开秘钥的客户端可以使用公开秘钥对传输内容进行加密，而只有私有秘钥持有者本身可以对公开秘钥加密的内容进行解密。<br>也就是发送方使用对方的公开秘钥进行加密，接收方用私有秘钥解密。<br>优点是克服了秘钥交换的问题，没有被拦截的风险。<br>缺点是相对于对称秘钥加密的方式，处理速度较慢。</li>
+</ul>
+<p><strong>而HTTPS采用混合加密机制：</strong><br>SSL\TLS的加密方式则是结合了两种加密方式的优点。<br>首先采用非对称秘钥加密，将一个对称秘钥使用公开秘钥加密后传输到对方。<br>对方使用私有秘钥解密，得到传输的对称秘钥。<br>之后双方再使用对称秘钥进行通信。<br>也就是说，交换秘钥环节使用公开秘钥加密方式，交换报文阶段使用共享秘钥加密方式。<br>这样即解决了对称秘钥加密的秘钥传输问题，又利用了对称秘钥的高效率来进行通信内容的加密与解密。</p>
+<h2 id="Https的认证"><a href="#Https的认证" class="headerlink" title="Https的认证"></a>Https的认证</h2><p>为什么要认证：</p>
+<ul>
+<li>公开秘钥方式无法证明公开秘钥本身就是货真价实的公开秘钥</li>
+<li>公开秘钥在传输过程中可能被篡改</li>
+</ul>
+<p>目前的做法是使用由数字证书认证机构（CA）和其相关机构颁发的公开秘钥证书。<br>加入数字证书认证的加密过程：</p>
+<ol>
+<li>服务器的运营人员把自己的公开秘钥登陆至数字证书认证机构，向认证机构提出公开秘钥申请。</li>
+<li>数字证书认证机构审核之后，用自己的私有秘钥向服务器的公开秘钥署数字签名并颁发公钥证书。</li>
+<li>服务器就可以将这个公钥证书下发给客户端，客户端拿到服务器的公钥证书后，使用数字证书认证机构的公开秘钥，向数字证书认证机构验证公钥证书上的数字签名，以确认服务器的公开秘钥的真实性。</li>
+<li>验证成功后，使用服务器的公开秘钥对报文加密后发送</li>
+<li>服务器用私有秘钥对报文解密。</li>
+</ol>
+<h2 id="HTTPS的完整性保护"><a href="#HTTPS的完整性保护" class="headerlink" title="HTTPS的完整性保护"></a>HTTPS的完整性保护</h2><p>应用层使用HTTPS发送数据时，会附加一种叫做MAC的报文摘要，MAC能够查知报文是否遭到篡改，从而保证报文的完整性。</p>
+<h2 id="Https的通信流程"><a href="#Https的通信流程" class="headerlink" title="Https的通信流程"></a>Https的通信流程</h2><ol>
+<li>客户端发起HTTPS的请求，携带了客户端支持的加密算法和SSL协议版本号，连接到服务器的443端口。如果是HTTP连接到80端口。</li>
+<li>配置服务器，采用HTTPS的服务器需要申请一套数字证书（数字证书的本身其实是一对公钥和私钥）。服务器收到请求之后，从加密算法中挑选一种，同时将自己的数字证书以及公钥发送给客户端（私钥自己保留）。</li>
+<li>客户端验证数字证书，生产一个用于加密传输握手消息的密钥，并使用服务器端传来的公钥对此密钥进行加密。 SSL握手的大致内容【具体细节】<ol>
+<li>交换协议版本号</li>
+<li>选择一个客户端与服务端都了解的密码</li>
+<li>对两端的身份进行验证</li>
+<li>生产临时的会话密钥以便加密信道</li>
+</ol>
+</li>
+<li>服务器使用保留的私钥对加密的密钥进行解密，得到密钥信息（完成非对称交换密钥）。</li>
+<li>使用刚才得到的密钥信息，加密握手信息，发送给客户端，客户端使用相同密钥进行解密验证，完成握手（完成对称加密信息）。</li>
+<li>进行加密信息传输。</li>
+</ol>
+<h2 id="HTTPS的问题"><a href="#HTTPS的问题" class="headerlink" title="HTTPS的问题"></a>HTTPS的问题</h2><ul>
+<li>通信速度慢：因为要通过SSL</li>
+<li>处理速度慢：主要是对加密的处理</li>
+</ul>
+<h1 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a><p class="m_more_title_style">Socket</p></h1><p>套接字（socket）是处于应用层与运输层【TCP&#x2F;IP模型】中间一组接口（API），是支持TCP&#x2F;IP协议的网络通信的基本操作单元，TCP&#x2F;IP协议只是理论，需要通过Socket来实际编码使用。它是网络通信过程中端点的抽象表示，包含进行网络通信必须的五种信息：连接使用的协议（TCP或者UDP），本地主机的IP地址，本地主机进程的协议端口，远程主机的IP地址，远程主机进程的协议端口。Android与IOS都提供了相关的Socket类，这些类提供了一系列的方法，来实现网络连接的各种操作。</p>
+<p>应用层通过传输层进行数据通信时，TCP会遇到同时为多个应用程序进程提供并发服务的问题。多个TCP连接或多个应用程序进程可能需要通过同一个 TCP协议端口传输数据。为了区别不同的应用程序进程和连接，许多计算机操作系统为应用程序与TCP／IP协议交互提供了套接字(Socket)接口。应用层可以和传输层通过Socket接口，区分来自不同应用程序进程或网络连接的通信，实现数据传输的并发服务。</p>
+<p>简单来说，Socket确定协议，确定客户端与服务端的IP地址与端口后，可以使用其提供的方法来进行网络的相关操作。</p>
+<p><strong>建立socket连接</strong></p>
+<p>建立Socket连接至少需要一对套接字，其中一个运行于客户端，称为ClientSocket ，另一个运行于服务器端，称为ServerSocket 。</p>
+<p>套接字之间的连接过程分为三个步骤：服务器监听，客户端请求，连接确认。</p>
+<ul>
+<li>服务器监听：服务器端套接字并不定位具体的客户端套接字，而是处于等待连接的状态，实时监控网络状态，等待客户端的连接请求。</li>
+<li>客户端请求：指客户端的套接字提出连接请求，要连接的目标是服务器端的套接字。为此，客户端的套接字必须首先描述它要连接的服务器的套接字，指出服务器端套接字的地址和端口号，然后就向服务器端套接字提出连接请求。</li>
+<li>连接确认：当服务器端套接字监听到或者说接收到客户端套接字的连接请求时，就响应客户端套接字的请求，建立一个新的线程，把服务器端套接字的描述发 给客户端，一旦客户端确认了此描述，双方就正式建立连接。而服务器端套接字继续处于监听状态，继续接收其他客户端套接字的连接请求。</li>
+</ul>
+<p><strong>SOCKET连接与TCP连接</strong></p>
+<p>创建Socket连接时，可以指定使用的传输层协议，Socket可以支持不同的传输层协议（TCP或UDP），当使用TCP协议进行连接时，该Socket连接就是一个TCP连接。</p>
+<p><strong>Socket连接与HTTP连接</strong></p>
+<p>由于通常情况下Socket连接就是TCP连接，因此Socket连接一旦建立，通信双方即可开始相互发送数据内容，直到双方连接断开。但在实际网 络应用中，客户端到服务器之间的通信往往需要穿越多个中间节点，例如路由器、网关、防火墙等，大部分防火墙默认会关闭长时间处于非活跃状态的连接而导致 Socket 连接断连，因此需要通过轮询告诉网络，该连接处于活跃状态。</p>
+<p>而HTTP连接使用的是“请求—响应”的方式，不仅在请求时需要先建立连接，而且需要客户端向服务器发出请求后，服务器端才能回复数据。</p>
+<p>很多情况下，需要服务器端主动向客户端推送数据，保持客户端与服务器数据的实时与同步。此时若双方建立的是Socket连接，服务器就可以直接将数 据传送给客户端；若双方建立的是HTTP连接，则服务器需要等到客户端发送一次请求后才能将数据传回给客户端，因此，客户端定时向服务器端发送连接请求， 不仅可以保持在线，同时也是在“询问”服务器是否有新的数据，如果有就将数据传给客户端。TCP(Transmission Control Protocol)　传输控制协议</p>
+<p>TCP是主机对主机层的传输控制协议，提供可靠的连接服务，采用三次握手确认建立一个连接:</p>
+<blockquote>
+<p>位码即tcp标志位,有6种标示:SYN(synchronous建立联机) ACK(acknowledgement 确认) PSH(push传送) FIN(finish结束) RST(reset重置) URG(urgent紧急)<br>Sequence number(顺序号码) Acknowledge number(确认号码)</p>
+</blockquote>
+<p>看了极光推送的 文档 极光的长连接 就是采用TCP 协议来建立的长连接<br>对TCP 长连接进行内部自己的实现逻辑 来完成长连接的.</p>
+<blockquote>
+<p>尽可能以最小的代价，尽可能地维持连接状态。 因为策略原因，并不会总是在每次断开后马上重新发起连接。</p>
+</blockquote>
+<p>还有Http 有一种 keepalive connections 的机制,可以在数据传输后仍然操持连接,当客户端 需要再次获取数据时,直接使用刚刚空闲下来的连接而无须再次握手.</p>
+<hr>
+<h1 id="OAuth"><a href="#OAuth" class="headerlink" title="OAuth"></a><p class="m_more_title_style">OAuth</p></h1><p>一个用于授权第三方获取相应资源的协议。<br>它能避免用户暴露自己的用户密码给第三方，更加安全。<br>它通过设置一个授权层，来区分用户和第三方应用。<br>用户本身可以通过用户密码来登陆服务提供商，获取到账户的所有资源，而第三方应用只能通过向用户请求授权，获取到一个Access Token，用以登陆授权层，从而在指定时间内获取到用户授权访问的部分资源。</p>
+<p>OAuth定义的几个角色：</p>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Resource Owner</td>
+<td>可以授权访问某些受保护资源的实体，通常就是指用户</td>
+</tr>
+<tr>
+<td>Client</td>
+<td>可以通过用户的授权访问受保护资源的应用,也就是第三方应用</td>
+</tr>
+<tr>
+<td>Authorization server</td>
+<td>在认证用户之后给第三方下发Access Token的服务器</td>
+</tr>
+<tr>
+<td>Resource Server</td>
+<td>拥有受保护资源的服务器，可以通过Access Token响应资源请求</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">+--------+                               +---------------+</span><br><span class="line">|        |--(A)- Authorization Request -&gt;|   Resource    |</span><br><span class="line">|        |                               |     Owner     |</span><br><span class="line">|        |&lt;-(B)-- Authorization Grant ---|               |</span><br><span class="line">|        |                               +---------------+</span><br><span class="line">|        |</span><br><span class="line">|        |                               +---------------+</span><br><span class="line">|        |--(C)-- Authorization Grant --&gt;| Authorization |</span><br><span class="line">| Client |                               |     Server    |</span><br><span class="line">|        |&lt;-(D)----- Access Token -------|               |</span><br><span class="line">|        |                               +---------------+</span><br><span class="line">|        |</span><br><span class="line">|        |                               +---------------+</span><br><span class="line">|        |--(E)----- Access Token ------&gt;|    Resource   |</span><br><span class="line">|        |                               |     Server    |</span><br><span class="line">|        |&lt;-(F)--- Protected Resource ---|               |</span><br><span class="line">+--------+                               +---------------+</span><br></pre></td></tr></table></figure>
+<p>从上图可以看出，一个OAuth授权的流程主要可以分为6步：</p>
+<ol>
+<li>客户端向用户申请授权</li>
+<li>用户同意授权</li>
+<li>客户端通过获取的授权，向认证服务器申请Access Token。</li>
+<li>认证服务器通过授权后，下发Access Token。</li>
+<li>客户端通过获取到的Access Token向资源服务器发起请求</li>
+<li>资源服务器核对Access Token后下发请求资源</li>
+</ol>
+<hr>
+<h1 id="DDoS攻击"><a href="#DDoS攻击" class="headerlink" title="DDoS攻击"></a><p class="m_more_title_style">DDoS攻击</p></h1><p>分布式拒绝服务。一种常见的服务器攻击技术。一般指攻击者利用大量合法的分布式服务器在较短时间内对目标进行大量请求，大规模消耗目标网站的主机资源，让其无法正常服务。用来应对的手段比如，高防服务器，黑名单，DDos 清洗，CDN 加速等。</p>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><p class="m_more_title_style">总结</p></h1><p>网络分层：以 TCP&#x2F;IP 模型为例，分为应用层，传输层，网络层和网络接口层，应用层传递的信息为报文，会根据规则解析传输层发送过来的数据，并决定了向用户提供应用服务时通信的活动。传输层传递的信息为报文段，为两台主机上的应用程序提供段对端的通信，常见如 TCP、UDP 协议。网络层传递的信息为数据报，建立主机到主机的通信，常见如 IP 协议。网络接口层包含数据链路层和物理层，数据链路层传递的信息为帧，主要功能是如何在不可靠的物理线路上保证数据的可靠传输，物理层通俗来讲，就是把计算机链接起来的物理手段。</p>
+<p>Http Web服务协议：是用于计算机通过网络进行通信的一种规则。是基于无状态的，请求与响应的，应用层的协议。常基于 TCP&#x2F;IP 协议（HTTP 使用 TCP 作为它的支撑运输协议）传输数据。默认端口 80。</p>
+<p>DNS 域名解析协议（应用层）：用来实现域名和 IP 地址的转换，主要基于 UDP 实现，默认端口 53。</p>
+<p>IP 协议（网络层）：它标识了每台主机的唯一性，使用 ARP 协议凭借 MAC 地址进行通信，提供了主机和主机间的通信，像 TCP、UDP 的数据都以 IP 数据格式传输。</p>
+<p>TCP 传输控制协议（传输层）：基于 IP 协议，以端口号标识进程，完成两台主机上进程对进程的通信，是面向连接的（三次握手），面向字节流的传输方法（提供可靠的字节流服务）。</p>
+<p>UDP 用户数据报协议（传输层）：面向报文的传输方式，只发送原样的报文。</p>
+<p>HTTP 报文：指 HTTP 协议交互的信息，分请求报文和响应报文，前者主要包含：请求行、请求头、空行、请求体，后者主要包含：状态行、响应头、空行、响应体。</p>
+<p>HTTPS 协议：是身披 SSL 外壳的 HTTP 协议，在 HTTP 协议的基础上，通过加密（保证密码）、认证（验证通信方）、完整性保护（报文的完整）来实现的。默认端口 443。</p>
+<hr>
+<h1 id="备忘"><a href="#备忘" class="headerlink" title="备忘"></a><p class="m_more_title_style">备忘</p></h1><p><strong>参考资料</strong>：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/Fazx13maQfPJItfkOqk9FQ">HTTP 必知必会的那些</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/LpkCPTh6GmL7GvB4QiEqeg">三次握手</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/sQ37NBb6b-iuKAk3aY7TxA">四次挥手</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/YuDdnfdGv-T4t9wZOvAb5A">这样理解 HTTPS 更容易！</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/d54f64ae.html" title="网络通信协议">https://jianghouren.cn/archives/d54f64ae.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/" rel="tag"># 网络编程</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/b05e1533.html" rel="next" title="Android 屏幕适配">
+                  Android 屏幕适配 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/d54f64ae.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

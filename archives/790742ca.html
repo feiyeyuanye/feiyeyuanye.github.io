@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Jetpack Room">
+<meta property="og:url" content="https://jianghouren.cn/archives/790742ca.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="http://imgsw.cn/static/images/android_room_基本架构图.png">
+<meta property="article:published_time" content="2022-08-11T09:56:08.000Z">
+<meta property="article:modified_time" content="2022-08-16T03:54:03.820Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Jetpack">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/790742ca.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/790742ca.html","path":"archives/790742ca.html","title":"Jetpack Room"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Jetpack Room | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Room"><span class="nav-number">1.</span> <span class="nav-text">Room</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Room-%E8%BF%9B%E8%A1%8C%E5%A2%9E%E5%88%A0%E6%94%B9%E6%9F%A5"><span class="nav-number">1.1.</span> <span class="nav-text">使用 Room 进行增删改查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Room-%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8D%87%E7%BA%A7"><span class="nav-number">1.2.</span> <span class="nav-text">Room 的数据库升级</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">原理解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/790742ca.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Jetpack Room | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Jetpack Room
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-08-11 17:56:08" itemprop="dateCreated datePublished" datetime="2022-08-11T17:56:08+08:00">2022-08-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-16 11:54:03" itemprop="dateModified" datetime="2022-08-16T11:54:03+08:00">2022-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/Jetpack/" itemprop="url" rel="index"><span itemprop="name">Jetpack</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/790742ca.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/790742ca.html" data-xid="/archives/790742ca.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/790742ca.html" class="post-meta-item leancloud_visitors" data-flag-title="Jetpack Room" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.7k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-e77o3r_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+  <span id="more"></span>
+
+<h2 id="Room"><a href="#Room" class="headerlink" title="Room"></a>Room</h2><p>由于原生的 SQLite 需要编写大量的 SQL 语句和处理逻辑，因此涌现出了许多 ORM 框架，比如 GreenDAO、ORMLite 以及 Litepal 等。而 Jetpack 也提供了 Room 组件，并且 Room 融合了 LiveData 等组件。</p>
+<p>Room 在 SQLite 上提供了一个抽象层，以便在充分利用 SQLite 强大功能的同时，能够流畅地访问数据库。</p>
+<p>ORM（Object Relational Mapping）也叫对象关系映射。简单地讲，我们使用的编程语言是面向对象语言，而使用的数据库则是关系型数据库，将面向对象的语言和面向关系的数据库之间建立一种映射关系，这就是 ORM 了。</p>
+<p>使用 ORM 框架的好处是可以用面向对象的思维来和数据库进行交互，绝大多数情况下不用再和 SQL 语句打交道了，同时也不用担心操作数据库的逻辑会让项目的整体代码变的混乱。</p>
+<h3 id="使用-Room-进行增删改查"><a href="#使用-Room-进行增删改查" class="headerlink" title="使用 Room 进行增删改查"></a>使用 Room 进行增删改查</h3><p>Room 的基本架构图：</p>
+<img data-src="http://imgsw.cn/static/images/android_room_基本架构图.png" />
+
+<p>Room 的整体结构。它主要由 Entity、Dao 和 Database 三部分组成：</p>
+<ul>
+<li>Entity 表示数据库中对应的表，用于定义封装实际数据的实体类，每个实体类都会在数据库中有一张对应的表，并且表中的列是根据实体类中的字段自动生成的。</li>
+<li>Dao 是数据访问对象的意思，提供了访问数据库的方法，通常会在这里对数据库的各项操作进行封装，在实际编程的时候，逻辑层就不需要和底层数据库打交道了，直接和 Dao 层进行交互即可。</li>
+<li>Database 是数据库持有者，用于定义数据库中的关键信息，包括数据库的版本号、包含哪些实体类以及提供 Dao 层的访问实例。</li>
+</ul>
+<p>对 App 而言，他要使用 Database 获取对应数据库的访问对象 DAO，然后使用 DAO 对 Entity 进行存储操作。</p>
+<p>首先需要添加插件和依赖：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">&#x27;kotlin-kapt&#x27;</span></span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">  <span class="comment">// 由于 Room 会根据项目中声明的注解来动态生成代码，因此这里一定要使用 kapt 引入 Room 的编译时注解库，</span></span><br><span class="line">  <span class="comment">// 而启用编译时注解功能则一定要先添加 kotlin-kapt 插件。</span></span><br><span class="line">  <span class="comment">//（Java 项目使用 annotationProcessor(&quot;androidx.room:room-compiler:$roomVersion&quot;)）</span></span><br><span class="line">    implementation <span class="string">&quot;androidx.room:room-runtime:2.2.5&quot;</span></span><br><span class="line">    kapt <span class="string">&quot;androidx.room:room-compiler:2.2.5&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义 Entity</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Entity</span> 注解声明它是一个实体类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span></span>(<span class="keyword">var</span> firstName:String,<span class="keyword">var</span> lastName:String,<span class="keyword">var</span> age:<span class="built_in">Int</span>)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 一个良好的数据库编程建议是：</span></span><br><span class="line"><span class="comment">     * 给每个实体类都添加一个 id 字段，并将这个字段设为主键。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@PrimaryKey</span> 设为主键</span></span><br><span class="line"><span class="comment">     * autoGenerate = true 使得主键的值是自动生成的</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line">    <span class="keyword">var</span> id: <span class="built_in">Long</span> = <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Dao 必须使用接口，使用 <span class="doctag">@Dao</span> 注解声明这是一个 Dao</span></span><br><span class="line"><span class="comment"> * 内部则根据业务需求对各种数据库操作进行封装</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 使用非实体类参数来增删改查数据，必须编写 SQL 语句。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">UserDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">insertUser</span><span class="params">(user: <span class="type">User</span>)</span></span>:<span class="built_in">Long</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Update</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">updateUser</span><span class="params">(newUser:<span class="type">User</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;select * from User&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadAllUsers</span><span class="params">()</span></span>:List&lt;User&gt;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;select * from User where age&gt;:age&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadUsersOlderThan</span><span class="params">(age: <span class="type">Int</span>)</span></span>:List&lt;User&gt;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Delete</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">deleteUser</span><span class="params">(user:<span class="type">User</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;delete from User where lastName = :lastName&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">deleteUserByLastName</span><span class="params">(lastName:<span class="type">String</span>)</span></span>:<span class="built_in">Int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 写法是非常固定的，只需定义好 3 个部分的内容：</span></span><br><span class="line"><span class="comment"> * 数据库版本号，包含哪些实体类，以及提供 Dao 层的访问实例。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 使用 <span class="doctag">@Database</span> 注解，并在其中声明了数据库的版本号以及包含哪些实体类。（多个实体类用逗号隔开）</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * 必须继承自 RoomDatabase() 类，并且要使用 abstract 关键字声明为抽象类，</span></span><br><span class="line"><span class="comment"> * 然后提供相应的抽象方法，用户获取 Dao 实例，只需提供方法就可以，具体实现由 Room 在底层自动完成。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Database(version = 1,entities = [User::class])</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AppDatabase</span> :<span class="type">RoomDatabase</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">userDao</span><span class="params">()</span></span>:UserDao</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 在结构体中编写了一个单例模式</span></span><br><span class="line"><span class="comment">     * 使用 instance 变量缓存 AppDatabase 的实例</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">var</span> instance:AppDatabase? =<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Synchronized</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>:AppDatabase&#123;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 如果 instance 变量不为空就直接返回，</span></span><br><span class="line"><span class="comment">             * 否则调用 Room.databaseBuilder() 来构建一个 AppDatabase 实例。</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            instance?.let &#123;</span><br><span class="line">                <span class="keyword">return</span> it</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 接收三个参数：</span></span><br><span class="line"><span class="comment">             * 第一个一定要使用 context.applicationContext，避免内存泄漏的问题。</span></span><br><span class="line"><span class="comment">             * 第二个参数是 AppDatabase 的 class 类型</span></span><br><span class="line"><span class="comment">             * 第三个参数是数据库名</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">return</span> Room.databaseBuilder(context.applicationContext,</span><br><span class="line">                AppDatabase::<span class="keyword">class</span>.java,<span class="string">&quot;app_database&quot;</span>).build().apply&#123;</span><br><span class="line">                instance = <span class="keyword">this</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> userDao = AppDatabase.getDatabase(<span class="keyword">this</span>).userDao()</span><br><span class="line">        <span class="keyword">var</span> user1 = User(<span class="string">&quot;Tom&quot;</span>,<span class="string">&quot;Brady&quot;</span>,<span class="number">40</span>)</span><br><span class="line">        <span class="keyword">var</span> user2 = User(<span class="string">&quot;Tom&quot;</span>,<span class="string">&quot;Hanks&quot;</span>,<span class="number">63</span>)</span><br><span class="line">      </span><br><span class="line">        addDataBtn.setOnClickListener&#123;</span><br><span class="line">            <span class="comment">// 由于数据库操作属于耗时操作，Room 默认是不允许在主线程中进行数据库操作的。</span></span><br><span class="line">            <span class="comment">// 但为了测试方便，Room 还提供了一个更加简单的方法：</span></span><br><span class="line">            <span class="comment">// Room.databaseBuilder(context.applicationContext,</span></span><br><span class="line">            <span class="comment">//                AppDatabase::class.java,&quot;app_database&quot;)</span></span><br><span class="line">            <span class="comment">//                .allowMainThreadQueries()</span></span><br><span class="line">            <span class="comment">//                .build()</span></span><br><span class="line">            <span class="comment">// 这样 Room 就允许在主线程中操作数据库了，但建议只在测试环境下使用。</span></span><br><span class="line">            thread &#123;</span><br><span class="line">                <span class="comment">// 将 User 对象插入到数据库中，并将 insertUser() 返回的主键 id 值赋值给原来的 User 对象</span></span><br><span class="line">                <span class="comment">// 因为使用更新和删除注解去操作数据时都是基于这个 id 值来操作的。</span></span><br><span class="line">                user1.id = userDao.insertUser(user1)</span><br><span class="line">                user2.id = userDao.insertUser(user2)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        updateDataBtn.setOnClickListener&#123;</span><br><span class="line">            thread &#123;</span><br><span class="line">                user1.age = <span class="number">42</span></span><br><span class="line">                userDao.updateUser(user1)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        deleteDateBtn.setOnClickListener&#123;</span><br><span class="line">            thread &#123;</span><br><span class="line">               userDao.deleteUserByLastName(<span class="string">&quot;Hanks&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        queryDateBtn.setOnClickListener&#123;</span><br><span class="line">            thread &#123;</span><br><span class="line">               <span class="keyword">for</span> (user <span class="keyword">in</span> userDao.loadAllUsers())&#123;</span><br><span class="line">                   Log.e(<span class="string">&quot;MainActivity&quot;</span>,user.toString())</span><br><span class="line">               &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Room-的数据库升级"><a href="#Room-的数据库升级" class="headerlink" title="Room 的数据库升级"></a>Room 的数据库升级</h3><p>测试阶段使用的方法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 构建 AppDatabase 时，加入 fallbackToDestructiveMigration() 方法，</span></span><br><span class="line"><span class="comment">// 这样只要数据库进行了升级，Room 就会将当前数据库销毁，然后再重新创建。副作用就是之前数据库中的所有数据全部丢失。</span></span><br><span class="line">Room.databaseBuilder(context.applicationContext,</span><br><span class="line">    AppDatabase::<span class="keyword">class</span>.java,<span class="string">&quot;app_database&quot;</span>)</span><br><span class="line">    .fallbackToDestructiveMigration()</span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+
+<p>正规写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span></span>(<span class="keyword">var</span> name:String,<span class="keyword">var</span> pages:<span class="built_in">Int</span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line">    <span class="keyword">var</span> id : <span class="built_in">Long</span> = <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Dao</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">BookDao</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Insert</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">insertBook</span><span class="params">(book: <span class="type">Book</span>)</span></span>:<span class="built_in">Long</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Query(<span class="string">&quot;select * from Book&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">loadAllBooks</span><span class="params">()</span></span>:List&lt;Book&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 将版本升级为 2，并添加实体类。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Database(version = 2,entities = [User::class,Book::class])</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AppDatabase</span> :<span class="type">RoomDatabase</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">userDao</span><span class="params">()</span></span>:UserDao</span><br><span class="line">    <span class="keyword">abstract</span> <span class="function"><span class="keyword">fun</span> <span class="title">bookDao</span><span class="params">()</span></span>:BookDao</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 实现匿名类 Migration，传入的参数代表当数据库版本从 1 升级到 2 时就执行这个匿名类中的升级逻辑。</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">val</span> MIGRATION_1_2 = <span class="keyword">object</span> : Migration(<span class="number">1</span>,<span class="number">2</span>)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">migrate</span><span class="params">(database: <span class="type">SupportSQLiteDatabase</span>)</span></span> &#123;</span><br><span class="line">                <span class="comment">// 由于要新增一张 Book 表，所以需要编写相应的建表语句。</span></span><br><span class="line">                <span class="comment">// 并且建表语句必须和 Book 实体类中声明的结构完全一致。</span></span><br><span class="line">                database.execSQL(<span class="string">&quot;create table Book (id integer primary key autoincrement not null, name text not null,pages integer not null)&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">var</span> instance:AppDatabase? =<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Synchronized</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>:AppDatabase&#123;</span><br><span class="line"></span><br><span class="line">            instance?.let &#123;</span><br><span class="line">                <span class="keyword">return</span> it</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 添加 addMigrations(MIGRATION_1_2) 方法</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">return</span> Room.databaseBuilder(context.applicationContext,</span><br><span class="line">                AppDatabase::<span class="keyword">class</span>.java,<span class="string">&quot;app_database&quot;</span>)</span><br><span class="line">                .fallbackToDestructiveMigration()</span><br><span class="line">                .addMigrations(MIGRATION_1_2)</span><br><span class="line">                .build()</span><br><span class="line">                .apply&#123;</span><br><span class="line">                instance = <span class="keyword">this</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果只是向现有的表中添加新的列，那只需要使用 alert 语句修改表结构就可以。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Book</span></span>(<span class="keyword">var</span> name:String,<span class="keyword">var</span> pages:<span class="built_in">Int</span>,<span class="keyword">var</span> author:String) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@PrimaryKey(autoGenerate = true)</span></span><br><span class="line">    <span class="keyword">var</span> id : <span class="built_in">Long</span> = <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Database(version = 3,entities = [User::class,Book::class])</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">AppDatabase</span> :<span class="type">RoomDatabase</span></span>()&#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line"></span><br><span class="line">        ...</span><br><span class="line">        <span class="keyword">val</span> MIGRATION_2_3 = <span class="keyword">object</span> : Migration(<span class="number">2</span>,<span class="number">3</span>)&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">migrate</span><span class="params">(database: <span class="type">SupportSQLiteDatabase</span>)</span></span> &#123;</span><br><span class="line">                database.execSQL(<span class="string">&quot;alter table Book add column text not null default &#x27;unknown&#x27;&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">var</span> instance:AppDatabase? =<span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="meta">@Synchronized</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">getDatabase</span><span class="params">(context: <span class="type">Context</span>)</span></span>:AppDatabase&#123;</span><br><span class="line"></span><br><span class="line">            ...</span><br><span class="line"></span><br><span class="line">            <span class="comment">/**</span></span><br><span class="line"><span class="comment">             * 添加 addMigrations(MIGRATION_2_3) 方法</span></span><br><span class="line"><span class="comment">             */</span></span><br><span class="line">            <span class="keyword">return</span> Room.databaseBuilder(context.applicationContext,</span><br><span class="line">                AppDatabase::<span class="keyword">class</span>.java,<span class="string">&quot;app_database&quot;</span>)</span><br><span class="line">                .fallbackToDestructiveMigration()</span><br><span class="line">                .addMigrations(MIGRATION_1_2, MIGRATION_2_3)</span><br><span class="line">                .build().apply&#123;</span><br><span class="line">                instance = <span class="keyword">this</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="原理解析"><a href="#原理解析" class="headerlink" title="原理解析"></a>原理解析</h2><p>从 DataBase 的创建来看，程序通过 Room.databaseBuilder().build 创建了 database 对象，build 方法：</p>
+<figure class="highlight java"><figcaption><span>RoomDatabase.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SuppressLint(&quot;RestrictedApi&quot;)</span></span><br><span class="line"><span class="meta">@NonNull</span></span><br><span class="line"><span class="keyword">public</span> T <span class="title function_">build</span><span class="params">()</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="type">DatabaseConfiguration</span> <span class="variable">configuration</span> <span class="operator">=</span></span><br><span class="line">            <span class="keyword">new</span> <span class="title class_">DatabaseConfiguration</span>(...);</span><br><span class="line">    <span class="type">T</span> <span class="variable">db</span> <span class="operator">=</span> Room.getGeneratedImplementation(mDatabaseClass, DB_IMPL_SUFFIX);</span><br><span class="line">    db.init(configuration);</span><br><span class="line">    <span class="keyword">return</span> db;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先查看 getGeneratedImplementation 方法：</p>
+<p>getGeneratedImplementation 方法通过反射方法为 AccountDataBase 创建了实例，命名规则为 类型+”_Impl”，也就是 AccountDataBase_Impl 类。</p>
+<figure class="highlight java"><figcaption><span>Room.java</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NonNull</span></span><br><span class="line"><span class="meta">@RestrictTo(RestrictTo.Scope.LIBRARY_GROUP)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T, C&gt; T <span class="title function_">getGeneratedImplementation</span><span class="params">(<span class="meta">@NonNull</span> Class&lt;C&gt; klass,</span></span><br><span class="line"><span class="params">        <span class="meta">@NonNull</span> String suffix)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">fullPackage</span> <span class="operator">=</span> klass.getPackage().getName();</span><br><span class="line">    <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> klass.getCanonicalName();</span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">postPackageName</span> <span class="operator">=</span> fullPackage.isEmpty()</span><br><span class="line">            ? name</span><br><span class="line">            : name.substring(fullPackage.length() + <span class="number">1</span>);</span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">implName</span> <span class="operator">=</span> postPackageName.replace(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;_&#x27;</span>) + suffix;</span><br><span class="line">    <span class="comment">//noinspection TryWithIdenticalCatches</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">String</span> <span class="variable">fullClassName</span> <span class="operator">=</span> fullPackage.isEmpty()</span><br><span class="line">                ? implName</span><br><span class="line">                : fullPackage + <span class="string">&quot;.&quot;</span> + implName;</span><br><span class="line">        <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">        <span class="keyword">final</span> Class&lt;T&gt; aClass = (Class&lt;T&gt;) Class.forName(</span><br><span class="line">                fullClassName, <span class="literal">true</span>, klass.getClassLoader());</span><br><span class="line">        <span class="keyword">return</span> aClass.newInstance();</span><br><span class="line">    &#125; ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 db.init(configuration)，他会调用 createOpenHelper 方法，查看 AccountDataBase_Impl 实现类中的 createOpenHelper 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">AccountDatabase_Impl</span> <span class="keyword">extends</span> <span class="title class_">AccountDatabase</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> AccountDao _accountDao;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">protected</span> SupportSQLiteOpenHelper <span class="title function_">createOpenHelper</span><span class="params">(DatabaseConfiguration configuration)</span> &#123;</span><br><span class="line">    <span class="keyword">final</span> SupportSQLiteOpenHelper.<span class="type">Callback</span> <span class="variable">_openCallback</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RoomOpenHelper</span>(configuration, <span class="keyword">new</span> <span class="title class_">RoomOpenHelper</span>.Delegate(<span class="number">2</span>) &#123;</span><br><span class="line">      <span class="meta">@Override</span></span><br><span class="line">      <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">createAllTables</span><span class="params">(SupportSQLiteDatabase _db)</span> &#123;</span><br><span class="line">        _db.execSQL(<span class="string">&quot;CREATE TABLE IF NOT EXISTS `Account` (`accountId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `_loginAccount` TEXT NOT NULL, `_loginPassword` TEXT NOT NULL, `_loginIpAddress` TEXT NOT NULL)&quot;</span>);</span><br><span class="line">        _db.execSQL(<span class="string">&quot;CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)&quot;</span>);</span><br><span class="line">        _db.execSQL(<span class="string">&quot;INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, &#x27;14a6d25a90b176163fb0e4b68c523836&#x27;)&quot;</span>);</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      ...</span><br><span class="line">  &#125;</span><br><span class="line">                                                                              </span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>createOpenHelper 方法通过 SupportSQLiteOpenHelper 类实现了创建数据表、删除数据表等方法。数据插入等操作采用的是同样的实现方式。</p>
+<hr>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>1、可能会遇到的问题：</p>
+<figure class="highlight groovy"><figcaption><span>build.gradle（:app）</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ...</span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        ...</span><br><span class="line">        <span class="comment">// 指定room.schemaLocation生成的文件路径  处理Room 警告 Schema export Error</span></span><br><span class="line">        javaCompileOptions &#123;</span><br><span class="line">            annotationProcessorOptions &#123;</span><br><span class="line">                arguments += [<span class="string">&quot;room.schemaLocation&quot;</span>: <span class="string">&quot;$projectDir/schemas&quot;</span>.toString()]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2、修改数据库版本号后报错：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java.lang.IllegalStateException: A migration from 1 to 2 was required but not found. Please provide the necessary Migration path via RoomDatabase.Builder.addMigration(Migration ...) or allow for destructive migrations via one of the RoomDatabase.Builder.fallbackToDestructiveMigration* methods.</span><br></pre></td></tr></table></figure>
+
+<p>解决方法1：设置 fallbackToDestructiveMigration()（不推荐）</p>
+<p>解决方法2：使用 Migration 升级策略</p>
+<p>3、AndroidStudio 4.1 及更高版本为开发者提供了 <a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/studio/inspect/database">DataBase Inspector 工具</a>，用来直接查看生成的数据库文件。运行程序后（有线连接）从菜单栏中依次选择 <strong>View &gt; Tool Windows &gt; App Inspection</strong> -&gt; 选择 <strong>Database Inspector</strong> 标签页 -&gt; 从下拉菜单中选择正在运行的应用进程就可以看到生成的数据库文件了。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/training/data-storage/room?hl=zh-cn">Room</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+<p>《Android Jetpack开发 原理解析与应用实战》</p>
+<p><strong>相关文章</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://v.jianghouren.com/archives/2ee5522d.html">Android 账号登录</a></p>
+<p><strong>欢迎关注微信公众号：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blove7.cn/qrcode/">非也缘也</a></strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/790742ca.html" title="Jetpack Room">https://jianghouren.cn/archives/790742ca.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Jetpack/" rel="tag"># Jetpack</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/33b1a1c5.html" rel="prev" title="Jetpack DataBinding">
+                  <i class="fa fa-chevron-left"></i> Jetpack DataBinding
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/2ee5522d.html" rel="next" title="Android 账号登录">
+                  Android 账号登录 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/790742ca.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

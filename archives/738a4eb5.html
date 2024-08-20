@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="理解 ActivityManagerService">
+<meta property="og:url" content="https://jianghouren.cn/archives/738a4eb5.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_7_ams家族.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_amp和ams通信.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_8_ams家族.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_activityrecord.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_activity任务栈模型.jpeg?imageView2/2/h/600">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_activity栈管理.jpeg?imageView2/2/h/600">
+<meta property="article:published_time" content="2020-09-04T01:38:56.000Z">
+<meta property="article:modified_time" content="2020-09-18T12:57:08.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Framework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/738a4eb5.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/738a4eb5.html","path":"archives/738a4eb5.html","title":"理解 ActivityManagerService"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>理解 ActivityManagerService | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AMS-%E5%AE%B6%E6%97%8F"><span class="nav-number">1.</span> <span class="nav-text">AMS 家族</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-7-0-%E7%9A%84-AMS-%E5%AE%B6%E6%97%8F"><span class="nav-number">1.1.</span> <span class="nav-text">Android 7.0 的 AMS 家族</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Android-8-0-%E7%9A%84-AMS-%E5%AE%B6%E6%97%8F"><span class="nav-number">1.2.</span> <span class="nav-text">Android 8.0 的 AMS 家族</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMS-%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">AMS 的启动过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMS-%E4%B8%8E%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%BF%9B%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">AMS 与应用程序进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AMS-%E9%87%8D%E8%A6%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">4.</span> <span class="nav-text">AMS 重要的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-ActivityRecord"><span class="nav-number">4.1.</span> <span class="nav-text">解析 ActivityRecord</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-TaskRecord"><span class="nav-number">4.2.</span> <span class="nav-text">解析 TaskRecord</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90-ActivityStack"><span class="nav-number">4.3.</span> <span class="nav-text">解析 ActivityStack</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity-%E6%A0%88%E7%AE%A1%E7%90%86"><span class="nav-number">5.</span> <span class="nav-text">Activity 栈管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-%E4%BB%BB%E5%8A%A1%E6%A0%88%E6%A8%A1%E5%9E%8B"><span class="nav-number">5.1.</span> <span class="nav-text">Activity 任务栈模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">6.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/738a4eb5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="理解 ActivityManagerService | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          理解 ActivityManagerService
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-04 09:38:56" itemprop="dateCreated datePublished" datetime="2020-09-04T09:38:56+08:00">2020-09-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-18 20:57:08" itemprop="dateModified" datetime="2020-09-18T20:57:08+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/738a4eb5.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/738a4eb5.html" data-xid="/archives/738a4eb5.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/738a4eb5.html" class="post-meta-item leancloud_visitors" data-flag-title="理解 ActivityManagerService" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>17k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>16 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-96qy3w_1200x500.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>AMS 是 Android 中最核心的服务，主要负责系统中四大组件的启动、切换、调度及应用进程的管理和调度等工作，其职责与操作系统中的进程管理和调度模块相类似，因此它在 Android 中非常重要。</p>
+<h2 id="AMS-家族"><a href="#AMS-家族" class="headerlink" title="AMS 家族"></a><p class="m_more_title_style">AMS 家族</p></h2><p>之所以称为 AMS 家族，因为会有一些类来帮助 AMS 完成相关逻辑。</p>
+<p>Android 7.0 和 Android 8.0 对于 AMS 相关部分处理有较大的区别。</p>
+<h3 id="Android-7-0-的-AMS-家族"><a href="#Android-7-0-的-AMS-家族" class="headerlink" title="Android 7.0 的 AMS 家族"></a>Android 7.0 的 AMS 家族</h3><p>ActivityManager  是一个和 AMS 相关联的类，它主要对运行中的 Activity 进行管理，这些管理工作实际是交由 AMS 来处理的。</p>
+<p>ActivityManager 中的方法会通过 ActivityManagerNative（以后简称 AMN）的 getDefault 方法来得到 ActivityManagerProxy（以后简称 AMP），通过 AMP 就可以和 AMN 进行通信，而 AMN 是一个抽象类，它将功能交由它的子类 AMS 来处理，因此，AMP 就是 AMS 的代理类。</p>
+<p>AMS 作为系统服务，很多 API 是不会暴露给 ActivityManager 的，因此 ActivityManager 并不算是 AMS 家族的一份子。</p>
+<p>接下来以 Android 7.0 的 Activity 启动过程来举例，在 Activity 的启动过程中会调用 Instrumentation 的 execStartActivity 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/7.0.0_r1/xref/frameworks/base/core/java/android/app/Instrumentation.java">Instrumentation.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ActivityResult <span class="title function_">execStartActivity</span><span class="params">(</span></span><br><span class="line"><span class="params">        Context who, IBinder contextThread, IBinder token, Activity target,</span></span><br><span class="line"><span class="params">        Intent intent, <span class="type">int</span> requestCode, Bundle options)</span> &#123;</span><br><span class="line">...</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        intent.migrateExtraStreamToClipData();</span><br><span class="line">        intent.prepareToLeaveProcess(who);</span><br><span class="line"><span class="comment">// 调用了 AMN 的 getDefault() 来获取 AMS 的代理类 AMP。</span></span><br><span class="line"><span class="comment">// 接着，调用了 AMP 的 startActivity()。</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> ActivityManagerNative.getDefault()</span><br><span class="line">            .startActivity(whoThread, who.getBasePackageName(), intent,</span><br><span class="line">                    intent.resolveTypeIfNeeded(who.getContentResolver()),</span><br><span class="line">                    token, target != <span class="literal">null</span> ? target.mEmbeddedID : <span class="literal">null</span>,</span><br><span class="line">                    requestCode, <span class="number">0</span>, <span class="literal">null</span>, options);</span><br><span class="line">        checkStartActivityResult(result, intent);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Failure from system&quot;</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先查看 AMN 的 getDefault 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/7.0.0_r1/xref/frameworks/base/core/java/android/app/ActivityManagerNative.java">ActivityManagerNative.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title function_">getDefault</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// 调用了 gDefault 的 get()</span></span><br><span class="line">    <span class="keyword">return</span> gDefault.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* gDefault 是一个 Singleton 类</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; gDefault = <span class="keyword">new</span> <span class="title class_">Singleton</span>&lt;IActivityManager&gt;() &#123;</span><br><span class="line">    <span class="keyword">protected</span> IActivityManager <span class="title function_">create</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="comment">// 得到名为 “activity” 的 Service 引用，也就是 IBinder 类型的 AMS 的引用。</span></span><br><span class="line">        <span class="type">IBinder</span> <span class="variable">b</span> <span class="operator">=</span> ServiceManager.getService(<span class="string">&quot;activity&quot;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">            Log.v(<span class="string">&quot;ActivityManager&quot;</span>, <span class="string">&quot;default service binder = &quot;</span> + b);</span><br><span class="line">        &#125;</span><br><span class="line">      <span class="comment">// 将上面得到的引用封装成 AMP 类型对象，并将它保存到 gDefault 中，此后调用 AMN 的 getDefault 方法就会直接获得 AMS 的代理对象 AMP。</span></span><br><span class="line">        <span class="type">IActivityManager</span> <span class="variable">am</span> <span class="operator">=</span> asInterface(b);</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">false</span>) &#123;</span><br><span class="line">            Log.v(<span class="string">&quot;ActivityManager&quot;</span>, <span class="string">&quot;default service = &quot;</span> + am);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> am;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">public</span> IActivityManager <span class="title function_">asInterface</span><span class="params">(IBinder obj)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (obj == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// IActivityManager 是一个接口，AMN 和 AMP 都实现了这个接口，用于实现代理模式和 Binder 通信。</span></span><br><span class="line">  <span class="comment">// descriptor 的值为 android.app.IActivityManager</span></span><br><span class="line">    <span class="type">IActivityManager</span> <span class="variable">in</span> <span class="operator">=</span> (IActivityManager)obj.queryLocalInterface(descriptor);</span><br><span class="line">  <span class="comment">// 用来查询本地进程是否有 IActivityManager 接口的实现，如果有则返回。</span></span><br><span class="line">    <span class="keyword">if</span> (in != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> in;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 如果没有则将 IBinder 类型的 AMS 引用封装成 AMP。</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ActivityManagerProxy</span>(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ActivityManagerProxy</span> <span class="keyword">implements</span> <span class="title class_">IActivityManager</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * AMP 的构造方法如下。</span></span><br><span class="line"><span class="comment">  */</span> </span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">ActivityManagerProxy</span><span class="params">(IBinder remote)</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="comment">// 将 AMS 的引用赋值给变量 mRemote，这样在 AMP 中就可以使用 AMS 了。</span></span><br><span class="line">        mRemote = remote;</span><br><span class="line">    &#125;</span><br><span class="line">  ...</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>再回到 Instrumentation 的 execStartActivity 方法，查看 AMP 的 startActivity()，AMP 是 AMN 的内部类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">startActivity</span><span class="params">(IApplicationThread caller, String callingPackage, Intent intent,</span></span><br><span class="line"><span class="params">            String resolvedType, IBinder resultTo, String resultWho, <span class="type">int</span> requestCode,</span></span><br><span class="line"><span class="params">            <span class="type">int</span> startFlags, ProfilerInfo profilerInfo, Bundle options)</span> <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">...</span><br><span class="line">  <span class="comment">// 将传入的参数写入到 Parcel 类型的 data 中。</span></span><br><span class="line">        data.writeInt(requestCode);</span><br><span class="line">        data.writeInt(startFlags);</span><br><span class="line">...</span><br><span class="line">  <span class="comment">// 通过 IBinder 类型对象 mRemote（AMS 的引用）向服务器端的 AMS 发送一个 START_ACTIVITY_TRANSACTION 类型的进程间通信请求。那么服务器端 AMS 就会从 Binder 线程池中读取客户端发来的数据，最终会调用 AMN 的 onTransact 方法。</span></span><br><span class="line">        mRemote.transact(START_ACTIVITY_TRANSACTION, data, reply, <span class="number">0</span>);</span><br><span class="line">        reply.readException();</span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> reply.readInt();</span><br><span class="line">        reply.recycle();</span><br><span class="line">        data.recycle();</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">onTransact</span><span class="params">(<span class="type">int</span> code, Parcel data, Parcel reply, <span class="type">int</span> flags)</span></span><br><span class="line">        <span class="keyword">throws</span> RemoteException &#123;</span><br><span class="line">    <span class="keyword">switch</span> (code) &#123;</span><br><span class="line">    <span class="keyword">case</span> START_ACTIVITY_TRANSACTION:</span><br><span class="line">    &#123;</span><br><span class="line">       ...</span><br><span class="line">       <span class="comment">// 调用了 AMS 的 startActivity 方法</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> startActivity(app, callingPackage, intent, resolvedType,</span><br><span class="line">                resultTo, resultWho, requestCode, startFlags, profilerInfo, options);</span><br><span class="line">        reply.writeNoException();</span><br><span class="line">        reply.writeInt(result);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   ...</span><br><span class="line">&#125;     </span><br></pre></td></tr></table></figure>
+
+<p>AMS 的 startActivity 方法最后会返回 startActivityAsUser 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/7.0.0_r1/xref/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java">ActivityManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">startActivity</span><span class="params">(IApplicationThread caller, String callingPackage,</span></span><br><span class="line"><span class="params">        Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="type">int</span> requestCode,<span class="type">int</span> startFlags, ProfilerInfo profilerInfo, Bundle bOptions)</span> &#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> startActivityAsUser(caller, callingPackage, intent, resolvedType, resultTo,</span><br><span class="line">            resultWho, requestCode, startFlags, profilerInfo, bOptions,</span><br><span class="line">            UserHandle.getCallingUserId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>startActivityAsUser 方法最后会返回 ActivityStarter 的 startActivityMayWait 方法，这一调用过程已经脱离了 AMS 家族的范畴。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="title function_">startActivityAsUser</span><span class="params">(IApplicationThread caller, String callingPackage,</span></span><br><span class="line"><span class="params">        Intent intent, String resolvedType, IBinder resultTo, String resultWho, <span class="type">int</span> requestCode,<span class="type">int</span> startFlags, ProfilerInfo profilerInfo, Bundle bOptions, <span class="type">int</span> userId)</span> &#123;</span><br><span class="line">    enforceNotIsolatedCaller(<span class="string">&quot;startActivity&quot;</span>);</span><br><span class="line">  </span><br><span class="line">    userId = mUserController.handleIncomingUser(Binder.getCallingPid(), Binder.getCallingUid(),userId, <span class="literal">false</span>, ALLOW_FULL_ONLY, <span class="string">&quot;startActivity&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">    <span class="comment">// <span class="doctag">TODO:</span> Switch to user app stacks here.</span></span><br><span class="line">    <span class="keyword">return</span> mActivityStarter.startActivityMayWait(caller, -<span class="number">1</span>, callingPackage, intent,</span><br><span class="line">            resolvedType, <span class="literal">null</span>, <span class="literal">null</span>, resultTo, resultWho, requestCode, startFlags,</span><br><span class="line">            profilerInfo, <span class="literal">null</span>, <span class="literal">null</span>, bOptions, <span class="literal">false</span>, userId, <span class="literal">null</span>, <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<img data-src="https://imgsw.cn/static/images/android_7_ams家族.jpeg?imageView2/2/h/600">
+
+<img data-src="https://imgsw.cn/static/images/android_amp和ams通信.jpeg?imageView2/2/h/600">
+
+<p>在 Activity 的启动过程中，提到了 AMP、AMN 和 AMS，它们共同组成了 AMS 家族的主要部分。</p>
+<p>AMP 是 AMN 的内部类，它们都实现了 IActivityManager 接口，这样它们就可以实现代理模式，具体来讲是远程代理：</p>
+<ul>
+<li>AMP 和 AMN 是运行在两个进程中的，AMP 是 Client 端，AMN 是 Server 端，而 Server 端中具体的功能都是由 AMN 的子类 AMS 来实现的，因此，AMP 就是 AMS 在 Client 端的代理类。</li>
+<li>AMN 又实现了 Binder 类，这样 AMP 和 AMS 就可以通过 Binder 来进行进程间通信。</li>
+<li>ActivityManager 通过 AMN 的 getDefault 方法得到 AMP，通过 AMP 就可以和 AMS 进行通信。</li>
+<li>除了 ActivityManager 以外，有些想要与 AMS 进行通信的类也需要通过 AMP。</li>
+</ul>
+<h3 id="Android-8-0-的-AMS-家族"><a href="#Android-8-0-的-AMS-家族" class="headerlink" title="Android 8.0 的 AMS 家族"></a>Android 8.0 的 AMS 家族</h3><p>接下来以 Android 8.0 版本的 Activity 启动过程来展示 AMS 家族与 Android 7.0 都有哪些不同。</p>
+<p>在 Activity 的启动过程中会调用 Instrumentation 的 execStartActivity 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/Instrumentation.java">Instrumentation.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> ActivityResult <span class="title function_">execStartActivity</span><span class="params">(</span></span><br><span class="line"><span class="params">        Context who, IBinder contextThread, IBinder token, Activity target,</span></span><br><span class="line"><span class="params">        Intent intent, <span class="type">int</span> requestCode, Bundle options)</span> &#123;</span><br><span class="line">...</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        intent.migrateExtraStreamToClipData();</span><br><span class="line">        intent.prepareToLeaveProcess(who);</span><br><span class="line"> <span class="comment">// 实际上调用的是 AMS 的 execStartActivity 方法。     </span></span><br><span class="line">        <span class="type">int</span> <span class="variable">result</span> <span class="operator">=</span> ActivityManager.getService()</span><br><span class="line">            .startActivity(whoThread, who.getBasePackageName(), intent,</span><br><span class="line">                    intent.resolveTypeIfNeeded(who.getContentResolver()),</span><br><span class="line">                    token, target != <span class="literal">null</span> ? target.mEmbeddedID : <span class="literal">null</span>,</span><br><span class="line">                    requestCode, <span class="number">0</span>, <span class="literal">null</span>, options);</span><br><span class="line">        checkStartActivityResult(result, intent);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Failure from system&quot;</span>, e);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ActivityManager 的 getService 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/core/java/android/app/ActivityManager.java">ActivityManager.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> IActivityManager <span class="title function_">getService</span><span class="params">()</span> &#123;</span><br><span class="line">  <span class="comment">// getService 方法调用了 IActivityManagerSingleton 的 get()。</span></span><br><span class="line">    <span class="keyword">return</span> IActivityManagerSingleton.get();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* IActivityManagerSingleton 是一个 Singleton 类。</span></span><br><span class="line"><span class="comment">*/</span> </span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Singleton&lt;IActivityManager&gt; IActivityManagerSingleton =</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">Singleton</span>&lt;IActivityManager&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">protected</span> IActivityManager <span class="title function_">create</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="comment">// 得到名为 “activity” 的 Service 引用（Context.ACTIVITY_SERVICE 的值为 “activity”），也就是 IBinder 类型的 AMS 引用。</span></span><br><span class="line">                <span class="keyword">final</span> <span class="type">IBinder</span> <span class="variable">b</span> <span class="operator">=</span> ServiceManager.getService(Context.ACTIVITY_SERVICE);</span><br><span class="line"><span class="comment">// 将上面的引用转换成 IActivityManager 类型的对象，这段代码采用的是 AIDL，IActivityManager.java 类是由 AIDL 工具在编译时自动生成的，IActivityManager.aidl 文件路径为 frameworks/base/core/java/android/app/IActivityManager.aidl。</span></span><br><span class="line"><span class="comment">// 要实现进程间通信，服务器端也就是 AMS 只需要继承 IActivityManager.Stub 类并实现相应的方法就可以了。</span></span><br><span class="line"><span class="comment">// 采用 AIDL 后就不需要使用 AMS 的代理类 AMP 了，因此 Android 8.0 去掉了 AMP，代替它的是 IActivityManager ，它是 AMS 在本地的代理。              </span></span><br><span class="line">                <span class="keyword">final</span> <span class="type">IActivityManager</span> <span class="variable">am</span> <span class="operator">=</span> IActivityManager.Stub.asInterface(b);</span><br><span class="line">                <span class="keyword">return</span> am;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<img data-src="https://imgsw.cn/static/images/android_8_ams家族.jpeg?imageView2/2/h/600">
+
+<p>对比 Android 7.0 的 AMS 家族，Android 8.0 的 AMS 家族要简单得多，ActivityManager 的 getService 方法会得到 IActivityManager，AMS 只需要继承 IActivityManager.Stub 类，就可以和 ActivityManager 实现进程间通信了。</p>
+<hr>
+<h2 id="AMS-的启动过程"><a href="#AMS-的启动过程" class="headerlink" title="AMS 的启动过程"></a><p class="m_more_title_style">AMS 的启动过程</p></h2><p>AMS 的启动是在 SystemServer 进程中启动的。接下来从 SystemServer 的 main 方法开始：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/java/com/android/server/SystemServer.java">SystemServer.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">  <span class="comment">// main 方法只调用了 SystemServer 的 run 方法。</span></span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">SystemServer</span>().run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      ...</span><br><span class="line">        <span class="comment">// 创建 Looper</span></span><br><span class="line">        Looper.prepareMainLooper();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加载了动态库 libandroid_servers.so</span></span><br><span class="line">        System.loadLibrary(<span class="string">&quot;android_servers&quot;</span>);</span><br><span class="line">        performPendingShutdown();</span><br><span class="line">        <span class="comment">// 创建系统的 Context</span></span><br><span class="line">        createSystemContext();</span><br><span class="line">        <span class="comment">// 创建 SystemServiceManager，它会对系统的服务进行创建、启动和生命周期管理。</span></span><br><span class="line">        mSystemServiceManager = <span class="keyword">new</span> <span class="title class_">SystemServiceManager</span>(mSystemContext);</span><br><span class="line">        mSystemServiceManager.setRuntimeRestarted(mRuntimeRestart);</span><br><span class="line">        LocalServices.addService(SystemServiceManager.class, mSystemServiceManager);</span><br><span class="line">        SystemServerInitThreadPool.get();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        traceEnd();  <span class="comment">// InitBeforeStartServices</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Start services.</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        traceBeginAndSlog(<span class="string">&quot;StartServices&quot;</span>);</span><br><span class="line">      <span class="comment">// 官方将系统服务分为 3 种类型，这些服务的父类都是 SystemService。</span></span><br><span class="line">      <span class="comment">// 启动引导服务，此方法中用 SystemServiceManager 启动了 ActivityManagerService、PowerManagerService、PackageManagerService 等服务。</span></span><br><span class="line">        startBootstrapServices();</span><br><span class="line">      <span class="comment">// 启动核心服务，此方法中启动了 DropBoxManagerService、BatteryService、UsageStatsService 和 WebViewUpdateService。</span></span><br><span class="line">        startCoreServices();</span><br><span class="line">      <span class="comment">// 其它服务是一些非紧要和不需要立即启动的服务。</span></span><br><span class="line">      <span class="comment">// 启动其它服务，此方法中启动了 CameraService、AlarmManagerService、VrManagerService 等服务。</span></span><br><span class="line">        startOtherServices();</span><br><span class="line">        SystemServerInitThreadPool.shutdown();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable ex) &#123;</span><br><span class="line">        Slog.e(<span class="string">&quot;System&quot;</span>, <span class="string">&quot;******************************************&quot;</span>);</span><br><span class="line">        Slog.e(<span class="string">&quot;System&quot;</span>, <span class="string">&quot;************ Failure starting system services&quot;</span>, ex);</span><br><span class="line">        <span class="keyword">throw</span> ex;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        traceEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// Loop forever。</span></span><br><span class="line">    Looper.loop();</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Main thread loop unexpectedly exited&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看引导服务 AMS 是如何启动的，startBootstrapServices 方法如下。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">startBootstrapServices</span><span class="params">()</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">    traceBeginAndSlog(<span class="string">&quot;StartActivityManager&quot;</span>);</span><br><span class="line"><span class="comment">// 通过下面的两段代码，可以知道 mSystemServiceManager.startService(ActivityManagerService.Lifecycle.class).getService() 实际上得到的就是 AMS 实例。 </span></span><br><span class="line">    mActivityManagerService = mSystemServiceManager.startService(</span><br><span class="line">            ActivityManagerService.Lifecycle.class).getService();</span><br><span class="line">    mActivityManagerService.setSystemServiceManager(mSystemServiceManager);</span><br><span class="line">    mActivityManagerService.setInstaller(installer);</span><br><span class="line">    traceEnd();</span><br><span class="line">  ...</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>调用了 SystemServiceManager 的 startService 方法，该方法的参数是 ActivityManagerService.Lifecycle.class。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/SystemServiceManager.java">SystemServiceManager.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">startService</span><span class="params">(<span class="meta">@NonNull</span> <span class="keyword">final</span> SystemService service)</span> &#123;</span><br><span class="line">  <span class="comment">// 传入的 SystemService 类型的 service 对象的值为 ActivityManagerService.Lifecycle.class。</span></span><br><span class="line">  <span class="comment">// 将 service 对象添加到 ArrayList 类型的 mServices 中来完成注册。</span></span><br><span class="line">    mServices.add(service);</span><br><span class="line">    <span class="type">long</span> <span class="variable">time</span> <span class="operator">=</span> System.currentTimeMillis();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="comment">// 调用 service 的 onStart 方法来启动 service 对象。</span></span><br><span class="line">        service.onStart();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RuntimeException ex) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;Failed to start service &quot;</span> + service.getClass().getName()</span><br><span class="line">                + <span class="string">&quot;: onStart threw an exception&quot;</span>, ex);</span><br><span class="line">    &#125;</span><br><span class="line">    warnIfTooLong(System.currentTimeMillis() - time, service, <span class="string">&quot;onStart&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来查看 ActivityManagerService 的 Lifecycle 类。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java">ActivityManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">Lifecycle</span> <span class="keyword">extends</span> <span class="title class_">SystemService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ActivityManagerService mService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Lifecycle</span><span class="params">(Context context)</span> &#123;</span><br><span class="line">        <span class="built_in">super</span>(context);</span><br><span class="line">      <span class="comment">// 在构造函数中创建了 AMS 的实例。</span></span><br><span class="line">        mService = <span class="keyword">new</span> <span class="title class_">ActivityManagerService</span>(context);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onStart</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="comment">// 当调用 SystemService 类型的 service 的 onStart 方法时，实际上是调用了此处的 AMS 的 start 方法。</span></span><br><span class="line">        mService.start();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> ActivityManagerService <span class="title function_">getService</span><span class="params">()</span> &#123;</span><br><span class="line">      <span class="comment">// 此方法会返回 AMS 实例。</span></span><br><span class="line">        <span class="keyword">return</span> mService;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="AMS-与应用程序进程"><a href="#AMS-与应用程序进程" class="headerlink" title="AMS 与应用程序进程"></a><p class="m_more_title_style">AMS 与应用程序进程</p></h2><p>在 Zygote 的 Java 框架层中，会创建一个 Server 端的 Socket 用来等待 AMS 请求 Zygote 来创建新的应用程序进程。要启动一个应用程序，首先要保证这个应用程序所需要的应用程序进程已经存在。在启动应用程序时 AMS 会检查这个应用程序所需要的应用程序进程是否存在，不存在就会请求 Zygote 进程创建需要的应用程序进程。接下来以 Service 的启动过程为例，来分析 AMS 与应用程序进程的关系。</p>
+<p>Service 在启动过程中会调用 ActivityServices 的 bringUpServiceLocked 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActiveServices.java">ActiveServices.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> String <span class="title function_">bringUpServiceLocked</span><span class="params">(ServiceRecord r, <span class="type">int</span> intentFlags, <span class="type">boolean</span> execInFg,</span></span><br><span class="line"><span class="params">        <span class="type">boolean</span> whileRestarting, <span class="type">boolean</span> permissionsReviewRequired)</span></span><br><span class="line">        <span class="keyword">throws</span> TransactionTooLargeException &#123;</span><br><span class="line">...</span><br><span class="line">  <span class="comment">// 得到 ServiceRecord 的 processName 的值并赋值给 procName，procName 用来描述 Service 想要在哪个进程运行，默认是当前进程，也可以在 AndroidManifest 文件中设置 android:process 属性来新开启一个进程运行 Service。</span></span><br><span class="line">    <span class="keyword">final</span> <span class="type">String</span> <span class="variable">procName</span> <span class="operator">=</span> r.processName;</span><br><span class="line">    <span class="type">String</span> <span class="variable">hostingType</span> <span class="operator">=</span> <span class="string">&quot;service&quot;</span>;</span><br><span class="line">    ProcessRecord app;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isolated) &#123;</span><br><span class="line">      <span class="comment">// 将 procName 和 Service 的 uid 传入到 AMS 的 getProcessRecordLocked 方法中，来查询是否存在一个与 Service 对应的 ProcessRecord 类型的对象 app，ProcessRecord 主要用来描述运行的应用程序进程的消息。</span></span><br><span class="line">        app = mAm.getProcessRecordLocked(procName, r.appInfo.uid, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">if</span> (DEBUG_MU) Slog.v(TAG_MU, <span class="string">&quot;bringUpServiceLocked: appInfo.uid=&quot;</span> + r.appInfo.uid</span><br><span class="line">                    + <span class="string">&quot; app=&quot;</span> + app);</span><br><span class="line">      <span class="comment">// 如果运行 Service 的应用程序进程存在</span></span><br><span class="line">        <span class="keyword">if</span> (app != <span class="literal">null</span> &amp;&amp; app.thread != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                app.addPackage(r.appInfo.packageName, r.appInfo.versionCode, mAm.mProcessStats);</span><br><span class="line">              <span class="comment">// 启动 Service</span></span><br><span class="line">                realStartServiceLocked(r, app, execInFg);</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (TransactionTooLargeException e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> e;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">                Slog.w(TAG, <span class="string">&quot;Exception when starting service &quot;</span> + r.shortName, e);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        app = r.isolatedProc;</span><br><span class="line">        <span class="keyword">if</span> (WebViewZygote.isMultiprocessEnabled()</span><br><span class="line">                &amp;&amp; r.serviceInfo.packageName.equals(WebViewZygote.getPackageName())) &#123;</span><br><span class="line">            hostingType = <span class="string">&quot;webview_service&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// 判断 Service 对应的 app 为 null 则说明用来运行 Service 的应用程序进程不存在。</span></span><br><span class="line">    <span class="keyword">if</span> (app == <span class="literal">null</span> &amp;&amp; !permissionsReviewRequired) &#123;</span><br><span class="line">      <span class="comment">// 调用 AMS 的 startProcessLocked 方法来创建对应的应用程序进程。</span></span><br><span class="line">        <span class="keyword">if</span> ((app=mAm.startProcessLocked(procName, r.appInfo, <span class="literal">true</span>, intentFlags,</span><br><span class="line">                hostingType, r.name, <span class="literal">false</span>, isolated, <span class="literal">false</span>)) == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">msg</span> <span class="operator">=</span> <span class="string">&quot;Unable to launch app &quot;</span></span><br><span class="line">                    + r.appInfo.packageName + <span class="string">&quot;/&quot;</span></span><br><span class="line">                    + r.appInfo.uid + <span class="string">&quot; for service &quot;</span></span><br><span class="line">                    + r.intent.getIntent() + <span class="string">&quot;: process is bad&quot;</span>;</span><br><span class="line">            Slog.w(TAG, msg);</span><br><span class="line">            bringDownServiceLocked(r);</span><br><span class="line">            <span class="keyword">return</span> msg;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isolated) &#123;</span><br><span class="line">            r.isolatedProc = app;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!mPendingServices.contains(r)) &#123;</span><br><span class="line">        mPendingServices.add(r);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (r.delayedStop) &#123;</span><br><span class="line">        <span class="comment">// Oh and hey we&#x27;ve already been asked to stop!</span></span><br><span class="line">        r.delayedStop = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (r.startRequested) &#123;</span><br><span class="line">            <span class="keyword">if</span> (DEBUG_DELAYED_STARTS) Slog.v(TAG_SERVICE,</span><br><span class="line">                    <span class="string">&quot;Applying delayed stop (in bring up): &quot;</span> + r);</span><br><span class="line">            stopServiceLocked(r);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>总结：AMS 与应用程序进程的关系主要有以下两点：</p>
+<ul>
+<li>启动应用程序时 AMS 会检查这个应用程序需要的应用程序进程是否存在。</li>
+<li>如果需要的应用程序进程不存在，AMS 就会请求 Zygote 进程创建需要的应用程序进程。</li>
+</ul>
+<hr>
+<h2 id="AMS-重要的数据结构"><a href="#AMS-重要的数据结构" class="headerlink" title="AMS 重要的数据结构"></a><p class="m_more_title_style">AMS 重要的数据结构</p></h2><p>AMS 涉及了很多数据结构，接下来分析一下 ActivityRecord、TaskRecord 和 ActivityStack，它们和应用开发关联较大，是 Activity 任务栈模型的基础。</p>
+<h3 id="解析-ActivityRecord"><a href="#解析-ActivityRecord" class="headerlink" title="解析 ActivityRecord"></a>解析 ActivityRecord</h3><p>用来描述一个 Activity，内部记录了 Activity 的所有信息，是在启动 Activity 时被创建，具体是在 ActivityStarter 的 startActivity 方法中被创建的。</p>
+<img data-src="https://imgsw.cn/static/images/android_activityrecord.jpeg?imageView2/2/h/600">
+
+<p>ActivityRecord 内部存储了 Activity 的所有信息，包括 AMS 的引用、AndroidManifes 节点信息、Activity 状态、Activity 资源信息和 Activity 进程相关信息等，需要注意的是其中含有该 ActivityRecord 所在的 TaskRecord，这就将 ActivityRecord 和 TaskRecord 关联在一起，它们是 Activity 任务栈模型的重要成员。</p>
+<h3 id="解析-TaskRecord"><a href="#解析-TaskRecord" class="headerlink" title="解析 TaskRecord"></a>解析 TaskRecord</h3><p>用来描述一个 Activity 任务栈。TaskRecord 的部分重要成员变量如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">名称</th>
+<th align="center">类型</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">taskId</td>
+<td align="center">int</td>
+<td align="center">任务栈的唯一标识符</td>
+</tr>
+<tr>
+<td align="center">affinity</td>
+<td align="center">String</td>
+<td align="center">任务栈的倾向性</td>
+</tr>
+<tr>
+<td align="center">intent</td>
+<td align="center">Intent</td>
+<td align="center">启动这个任务栈的 Intent</td>
+</tr>
+<tr>
+<td align="center">mActivities</td>
+<td align="center"><code>ArrayList&lt;ActivityRecord&gt;</code></td>
+<td align="center">按照历史顺序排列的 Activity 记录</td>
+</tr>
+<tr>
+<td align="center">mStack</td>
+<td align="center">ActivityStack</td>
+<td align="center">当前属性的 ActivityStack</td>
+</tr>
+<tr>
+<td align="center">mService</td>
+<td align="center">ActivityManagerService</td>
+<td align="center">AMS 的作用</td>
+</tr>
+</tbody></table>
+<p>TaskRecord 内部存储了任务栈的所有信息，需要注意的是其中含有 ActivityStack，也就是当前 Activity 任务栈所归属的 ActivityStack。</p>
+<h3 id="解析-ActivityStack"><a href="#解析-ActivityStack" class="headerlink" title="解析 ActivityStack"></a>解析 ActivityStack</h3><p>一个用来管理系统所有 Activity 的管理类，其内部维护了 Activity 的所有状态、特殊状态的 Activity 以及和 Activity 相关的列表等数据。由 ActivityStackSupervisor（在 AMS 的构造方法中被创建）来进行管理。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java">ActivityManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="title function_">ActivityManagerService</span><span class="params">(Context systemContext)</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="comment">// 在 createStackSupervisor 方法中创建了 ActivityStackSupervisor</span></span><br><span class="line">     mStackSupervisor = createStackSupervisor();</span><br><span class="line">  ...</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> ActivityStackSupervisor <span class="title function_">createStackSupervisor</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ActivityStackSupervisor</span>(<span class="built_in">this</span>, mHandler.getLooper());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>ActivityStack 的实例类型</strong>：</p>
+<p>在 ActivityStackSupervisor 中有多种 ActivityStack 实例，并且提供了获取它们的 get 方法。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStackSupervisor.java">ActivityStackSupervisor.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ActivityStackSupervisor</span> <span class="keyword">extends</span> <span class="title class_">ConfigurationContainer</span> <span class="keyword">implements</span> <span class="title class_">DisplayListener</span> &#123;</span><br><span class="line">  ...</span><br><span class="line">    <span class="comment">// 用来存储 Launcher App 的所有 Activity。</span></span><br><span class="line">    ActivityStack mHomeStack;</span><br><span class="line">  <span class="comment">// 表示当前正在接收输入或启动下一个 Activity 的所有 Activity。</span></span><br><span class="line">    ActivityStack mFocusedStack;</span><br><span class="line">  <span class="comment">// 表示此前接收输入的所有 Activity。</span></span><br><span class="line">    <span class="keyword">private</span> ActivityStack mLastFocusedStack; </span><br><span class="line">  ...</span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p><strong>ActivityState</strong>：</p>
+<p>在 ActivityState 中通过枚举存储了 Activity 的所有的状态，通过名称便可知道它们所代表的意义。<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStack.java">ActivityStack.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">ActivityState</span> &#123;</span><br><span class="line">    INITIALIZING,</span><br><span class="line">    RESUMED,</span><br><span class="line">    PAUSING,</span><br><span class="line">    PAUSED,</span><br><span class="line">    STOPPING,</span><br><span class="line">    STOPPED,</span><br><span class="line">    FINISHING,</span><br><span class="line">    DESTROYING,</span><br><span class="line">    DESTROYED</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>应用 ActivityState 的场景会有很多，比如：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java">ActivityManagerService.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* overridePendingTransition 方法用于设置 Activity 的切换动画</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">overridePendingTransition</span><span class="params">(IBinder token, String packageName,</span></span><br><span class="line"><span class="params">        <span class="type">int</span> enterAnim, <span class="type">int</span> exitAnim)</span> &#123;</span><br><span class="line">    <span class="keyword">synchronized</span>(<span class="built_in">this</span>) &#123;</span><br><span class="line">        <span class="type">ActivityRecord</span> <span class="variable">self</span> <span class="operator">=</span> ActivityRecord.isInStackLocked(token);</span><br><span class="line">        <span class="keyword">if</span> (self == <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">final</span> <span class="type">long</span> <span class="variable">origId</span> <span class="operator">=</span> Binder.clearCallingIdentity();</span><br><span class="line"><span class="comment">// 只有 ActivityState 为 RESUMED 状态或 PAUSING 状态时才会调用 WMS 类型的 mWindowManager 对象的 overridePendingAppTransition 方法来切换动画。</span></span><br><span class="line">        <span class="keyword">if</span> (self.state == ActivityState.RESUMED</span><br><span class="line">                || self.state == ActivityState.PAUSING) &#123;</span><br><span class="line">            mWindowManager.overridePendingAppTransition(packageName,</span><br><span class="line">                    enterAnim, exitAnim, <span class="literal">null</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Binder.restoreCallingIdentity(origId);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>特殊状态的 Activity</strong>：</p>
+<p>在 ActivityStack 中定义了一些特殊状态的 Activity，这些特殊的状态都是 ActivityRecord 类型的，ActivityRecord 用来记录一个 Activity 的所有信息。如下所示：<a target="_blank" rel="noopener external nofollow noreferrer" href="http://androidxref.com/8.0.0_r4/xref/frameworks/base/services/core/java/com/android/server/am/ActivityStack.java">ActivityStack.java</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 正在暂停的 Activity</span></span><br><span class="line"><span class="type">ActivityRecord</span> <span class="variable">mPausingActivity</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 上一个已经暂停的 Activity</span></span><br><span class="line"><span class="type">ActivityRecord</span> <span class="variable">mLastPausedActivity</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 最近一次没有历史记录的 Activity</span></span><br><span class="line"><span class="type">ActivityRecord</span> <span class="variable">mLastNoHistoryActivity</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 已经 Resume 的 Activity</span></span><br><span class="line"><span class="type">ActivityRecord</span> <span class="variable">mResumedActivity</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line"><span class="comment">// 传递给 convertToTranslucent 方法的最上层的 Activity</span></span><br><span class="line"><span class="type">ActivityRecord</span> <span class="variable">mTranslucentActivityWaiting</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>维护的 ArrayList</strong>：</p>
+<p>在 ActivityStack 中维护了很多 ArrayList，它们中的元素类型主要有 ActivityRecord 和 TaskRecord。ArrayList 中的元素类型及其说明如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">ArrayList</th>
+<th align="center">元素类型</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">mTaskHistory</td>
+<td align="center">TaskRecord</td>
+<td align="center">所有没有被销毁的 Activity 任务栈</td>
+</tr>
+<tr>
+<td align="center">mLRUActivities</td>
+<td align="center">ActivityRecord</td>
+<td align="center">正在运行的 Activity，列表中的第一个条目是最近最少使用的 Activity</td>
+</tr>
+<tr>
+<td align="center">mNoAnimActivities</td>
+<td align="center">ActivityRecord</td>
+<td align="center">不考虑转换动画的 Activity</td>
+</tr>
+<tr>
+<td align="center">mValidateAppTokens</td>
+<td align="center">TaskGroup</td>
+<td align="center">用于与窗口管理器验证应用令牌</td>
+</tr>
+</tbody></table>
+<p>ActivityStack 维护了元素类型为 TaskRecord 的列表，这样 ActivityStack 和 TaskRecord 就有了关联，Activity 任务栈存储在 ActivityStack 中。</p>
+<hr>
+<h2 id="Activity-栈管理"><a href="#Activity-栈管理" class="headerlink" title="Activity 栈管理"></a><p class="m_more_title_style">Activity 栈管理</p></h2><p>Activity 是放入在 Activity 任务栈中的，有了任务栈，系统和开发者就能够更好地应用和管理 Activity，来完成各种业务逻辑。</p>
+<h3 id="Activity-任务栈模型"><a href="#Activity-任务栈模型" class="headerlink" title="Activity 任务栈模型"></a>Activity 任务栈模型</h3><p>Activity 任务栈是由多种数据结构共同组合而成的，上面提到的 ActivityRecord、TaskRecord 和 ActivityStack 就是 Activity 任务栈模型的重要组成部分。</p>
+<img data-src="https://imgsw.cn/static/images/android_activity任务栈模型.jpeg?imageView2/2/h/600">
+
+<p>ActivityRecord 用来记录一个 Activity 的所有信息，TaskRecord 中包含了一个或多个 ActivityRecord，TaskRecord 用来表示 Activity 的任务栈，用来管理栈中的 ActivityRecord，ActivityStack 又包含了一个或多个 TaskRecord，它是 TaskRecord 的管理者。</p>
+<p>Activity 栈管理就是建立在 Activity 任务栈模型之上的，有了栈管理，可以对应用程序进行操作，应用可以复用自身应用中以及其他应用的 Activity，节省了资源。比如使用一款社交应用，这个应用的联系人详情界面提供了联系人的邮箱，当点击邮箱时会跳到发送邮件的界面。</p>
+<img data-src="https://imgsw.cn/static/images/android_activity栈管理.jpeg?imageView2/2/h/600">
+
+<p>社交应用和系统 E-mail 中的 Activity 是处于不同应用程序进程的，而有了栈管理，就可以把发送邮件界面放到社交应用中详情界面所在栈的栈顶，来做到跨进程操作。为了更灵活地进行栈管理，Android 系统提供了很多配置，包括 Launch Mode、Intent 的 FLAG 和 taskAffinity 等。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>注：基于 Android 8.0 版本源码分析</strong></p>
+<p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+<details class="m_more_content_details">
+  <summary>单词音标：</summary>
+
+
+
+</details>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/738a4eb5.html" title="理解 ActivityManagerService">https://jianghouren.cn/archives/738a4eb5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Framework/" rel="tag"># Framework</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/e3bb0b27.html" rel="prev" title="理解上下文 Context">
+                  <i class="fa fa-chevron-left"></i> 理解上下文 Context
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/7fa03ba0.html" rel="next" title="理解 WindowManagerService">
+                  理解 WindowManagerService <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/738a4eb5.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit 使用">
+<meta property="og:url" content="https://jianghouren.cn/archives/22250a5.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://imgsw.cn/static/images/地缚少年花子君.jpg">
+<meta property="article:published_time" content="2020-01-06T01:42:40.000Z">
+<meta property="article:modified_time" content="2022-08-16T01:36:52.472Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="数据存储">
+<meta property="article:tag" content="库与框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://imgsw.cn/static/images/地缚少年花子君.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/22250a5.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/22250a5.html","path":"archives/22250a5.html","title":"Retrofit 使用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Retrofit 使用 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">基本使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E6%8E%A5%E5%8F%A3"><span class="nav-number">2.1.</span> <span class="nav-text">定义接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%9B%B8%E5%85%B3%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.2.</span> <span class="nav-text">获取相关对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82"><span class="nav-number">2.3.</span> <span class="nav-text">访问网络请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">参数注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Path"><span class="nav-number">3.1.</span> <span class="nav-text">@Path</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#QueryMap"><span class="nav-number">3.2.</span> <span class="nav-text">@QueryMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Field"><span class="nav-number">3.3.</span> <span class="nav-text">@Field</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Body"><span class="nav-number">3.4.</span> <span class="nav-text">@Body</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Part"><span class="nav-number">3.5.</span> <span class="nav-text">@Part</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PartMap"><span class="nav-number">3.6.</span> <span class="nav-text">@PartMap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E6%8A%A5%E5%A4%B4"><span class="nav-number">4.</span> <span class="nav-text">消息报头</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%99%E6%80%81%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.1.</span> <span class="nav-text">静态添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.2.</span> <span class="nav-text">动态添加</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E6%89%A9%E5%B1%95"><span class="nav-number">5.</span> <span class="nav-text">功能扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OkHttpClient"><span class="nav-number">5.1.</span> <span class="nav-text">OkHttpClient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addConverterFactory"><span class="nav-number">5.2.</span> <span class="nav-text">addConverterFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#addCallAdapterFactory"><span class="nav-number">5.3.</span> <span class="nav-text">addCallAdapterFactory</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin-%E7%94%A8%E6%B3%95"><span class="nav-number">6.</span> <span class="nav-text">Kotlin 用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">7.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/22250a5.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Retrofit 使用 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Retrofit 使用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-06 09:42:40" itemprop="dateCreated datePublished" datetime="2020-01-06T09:42:40+08:00">2020-01-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-16 09:36:52" itemprop="dateModified" datetime="2022-08-16T09:36:52+08:00">2022-08-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/22250a5.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/22250a5.html" data-xid="/archives/22250a5.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/22250a5.html" class="post-meta-item leancloud_visitors" data-flag-title="Retrofit 使用" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/地缚少年花子君.jpg" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>Retrofit 是一款由 Square 公司开发的网络库，但是它和 OkHttp 的定位不同，OkHttp 侧重的是底层通信的实现，而 Retrofit 侧重的是上层接口的封装。事实上，Retrofit 就是 Square 公司在 OkHttp 的基础上进一步开发出来的应用层网络通信库，使得我们可以用更加面向对象的思维进行网络操作。</p>
+<p>Retrofit 的设计基于以下几个事实：</p>
+<ul>
+<li>同一款应用程序中所发起的网络请求绝大多数指向的是同一个服务器域名。（Retrofit 允许我们可以配置好一个根路径，然后在指定服务器接口地址时只需要使用相对路径即可，这样就不用每次都指定完整的 URL 地址）</li>
+<li>服务器提供的接口通常是可以根据功能来归类的。（Retrofit 允许我们对服务器接口进行分类，将功能同属一类的服务器接口定义到同一个接口文件当中，从而让代码结构变得更加合理）</li>
+<li>其实大多数人并不关心网络的具体通信细节，但是传统网络库的用法却需要编写太多网络相关的代码。（Retrofit 让我们完全不用关心网络通信的细节，只需要在接口文件中声明一系列方法和返回值，然后通过注解的方式指定该方法对应哪个服务器接口，以及需要提供哪些参数。当我们在程序中调用该方法时，Retrofit 会自动向对应的服务器接口发起请求，并将响应的数据解析成返回值声明的类型。）</li>
+</ul>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><p class="m_more_title_style">准备工作</p></h2><p>添加权限：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>引入依赖：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:retrofit:2.7.1&#x27;</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:retrofit-converters:2.7.1&#x27;</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:retrofit-adapters:2.7.1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>添加扩展功能，如：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:converter-gson:2.7.1&#x27;</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:adapter-rxjava2:2.7.1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果现有的扩展包不能满足需要，还可以自己扩展 converter，adapter 等。</p>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a><p class="m_more_title_style">基本使用</p></h2><h3 id="定义接口"><a href="#定义接口" class="headerlink" title="定义接口"></a>定义接口</h3><p>Retrofit 不直接做网络请求，是按照接口去定制能做网络请求的 Call 网络工作对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 这个接口并不是传统意义上的网络请求接口，这个接口不是用来获取数据的接口，而是用来生产对象的接口，这个接口相当* 于一个工厂，接口中每个函数的返回值不是网络数据，而是一个能进行网络请求的工作对象，要先调用函数获得工作对象，* 再用这个工作对象去请求网络数据。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">INetApiService</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 注解 GET 声明 URL 路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> name 注解声明请求参数</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回值是一个 Retrofit 的 Call 对象。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GET(&quot;/demo/user&quot;)</span></span><br><span class="line">    Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Query(&quot;name&quot;)</span>String name)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="获取相关对象"><a href="#获取相关对象" class="headerlink" title="获取相关对象"></a>获取相关对象</h3><p>依次获得 <strong>Retrofit 对象、接口实例对象、网络工作对象</strong>：</p>
+<p>首先，需要新建一个 retrofit 对象。<br>然后，根据上一步的接口，实现一个 retrofit 加工过的接口对象。<br>最后，调用接口函数，得到一个可以执行网络访问的网络工作对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Retrofit 对象，建造者模式。</span></span><br><span class="line"><span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">        .baseUrl(URL)     <span class="comment">// 请求 URL 是拼接而成。</span></span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create()) </span><br><span class="line">        .build();</span><br><span class="line"><span class="comment">// 利用动态代理获取到之前定义的接口，并调用该接口定义的 getData 方法得到 Call 对象。</span></span><br><span class="line"><span class="comment">// 用 retrofit 加工出对应的接口实例对象</span></span><br><span class="line"><span class="type">INetApiService</span> <span class="variable">iNetApiService</span> <span class="operator">=</span> retrofit.create(INetApiService.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用接口函数，获得网络工作对象。</span></span><br><span class="line">Call&lt;UserBean&gt; callWorker = iNetApiService.getData(<span class="string">&quot;xx&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="访问网络请求"><a href="#访问网络请求" class="headerlink" title="访问网络请求"></a>访问网络请求</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用获取的 callWork 对象执行网络请求</span></span><br><span class="line"><span class="comment">// 这里是异步请求，回调的 Callback 运行在 UI 线程。同步使用 execute，中断网络请求使用 cancel。</span></span><br><span class="line">callWorker.enqueue(<span class="keyword">new</span> <span class="title class_">Callback</span>&lt;UserBean&gt;() &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onResponse</span><span class="params">(Call&lt;UserBean&gt; call, Response&lt;UserBean&gt; response)</span> &#123;</span><br><span class="line">        Log.e(TAG,response.toString());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onFailure</span><span class="params">(Call&lt;UserBean&gt; call, Throwable t)</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数注解"><a href="#参数注解" class="headerlink" title="参数注解"></a><p class="m_more_title_style">参数注解</p></h2><p><strong>Retrofit 的注解分为三大类</strong>：</p>
+<ul>
+<li><p>HTTP 请求方法注解：GET、POST、PUT、DELETE、HEAD、PATCH、OPTIONS 和 HTTP。其中前七种分别对应 HTTP 的请求方法，HTTP 则可以替换以上七种，也可以扩展请求方法。</p>
+</li>
+<li><p>标记类注解：</p>
+<ul>
+<li>FormUrlEncoded：标明这是一个表单请求。</li>
+<li>Multipart：表示允许多个 @Part。</li>
+<li>Streaming：代表响应的数据以流的形式返回，如果不使用它，则默认会把全部数据加载到内存，所以下载大文件时需要加上这个注解。</li>
+</ul>
+</li>
+<li><p>参数类注解：Header、headers、Body、Path、Field、FieldMap、Part、PartMap、Query 和 QueryMap 等。</p>
+</li>
+</ul>
+<h3 id="Path"><a href="#Path" class="headerlink" title="@Path"></a>@Path</h3><p>动态配置 URL 地址：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @GET 注解中的 &#123;path&#125; 对应着 @Path 注解中的 “path”。</span></span><br><span class="line"><span class="meta">@GET(&quot;&#123;path&#125;/getIpInfo.php?ip=59,108,54,37&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Path(&quot;path&quot;)</span> String path)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 传入 service 来替换 @GET 注解中的 &#123;path&#125; 的值。</span></span><br><span class="line">Call&lt;UserBean&gt; callWorker = iNetApiService.getData(<span class="string">&quot;service&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 请求网络时，只需要传入想要查询的 ip 值就可以，会将参数拼接在 url 后面。</span></span><br><span class="line"><span class="meta">@GET(&quot;getIpInfo.php&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Query(&quot;ip&quot;)</span> String ip)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="QueryMap"><a href="#QueryMap" class="headerlink" title="@QueryMap"></a>@QueryMap</h3><p>动态指定查询条件组：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 当需要传入很多查询参数，可将参数集成在一个 Map 中统一传递。</span></span><br><span class="line"><span class="meta">@GET(&quot;getIpInfo.php&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@QueryMap</span> Map&lt;String,String&gt; options)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用接口函数，获得网络工作对象。</span></span><br><span class="line">HashMap&lt;String,String&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">map.put(<span class="string">&quot;ip&quot;</span>,<span class="string">&quot;59.108.54.37&quot;</span>);</span><br><span class="line">map.put(<span class="string">&quot;&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">Call&lt;UserBean&gt; callWorker = iNetApiService.getData(map);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Field"><a href="#Field" class="headerlink" title="@Field"></a>@Field</h3><p>传输数据类型为键值对：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @FormUrlEncoded 注解标明这是一个表单请求，然后使用 @Field 注解标示所对应的 String 类型数据的键。</span></span><br><span class="line"><span class="meta">@FormUrlEncoded</span></span><br><span class="line"><span class="meta">@POST(&quot;getIpInfo.php&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Field(&quot;ip&quot;)</span> String first)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Body"><a href="#Body" class="headerlink" title="@Body"></a>@Body</h3><p>传输数据类型 JSON 字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将 JSON 字符串作为请求体发送到服务器</span></span><br><span class="line"><span class="comment">// Retrofit 会将 Ip 对象转换为字符串</span></span><br><span class="line"><span class="meta">@POST(&quot;getIpInfo.php&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Body</span> Ip json)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Ip</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String ip;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Ip</span><span class="params">(String ip,String name)</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.ip = ip;</span><br><span class="line">        <span class="built_in">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Call&lt;UserBean&gt; callWorker = iNetApiService.getData(<span class="keyword">new</span> <span class="title class_">Ip</span>(msg,<span class="string">&quot;xx&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<h3 id="Part"><a href="#Part" class="headerlink" title="@Part"></a>@Part</h3><p>单个文件上传：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Multipart</span>  注解表示允许多个 <span class="doctag">@Part</span>。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> photo  准备上传的图片文件，使用了 MultipartBody.Part 类型。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> description  RequestBody 类型，用来传递简单的键值对。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Multipart</span></span><br><span class="line"><span class="meta">@POST(&quot;user/photo&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Part</span> MultipartBody.Part photo, <span class="meta">@Part(&quot;description&quot;)</span>RequestBody description)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(Environment.getExternalStorageDirectory(),<span class="string">&quot;wangshu.png&quot;</span>);</span><br><span class="line"><span class="type">RequestBody</span> <span class="variable">photoRequestBody</span> <span class="operator">=</span> RequestBody.create(MediaType.parse(<span class="string">&quot;image/png&quot;</span>),file);</span><br><span class="line">MultipartBody.<span class="type">Part</span> <span class="variable">photo</span> <span class="operator">=</span> MultipartBody.Part.createFormData(<span class="string">&quot;photos&quot;</span>,<span class="string">&quot;wangshu.png&quot;</span>,photoRequestBody);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 retrofit 加工出对应的接口实例对象</span></span><br><span class="line"><span class="type">INetApiService</span> <span class="variable">iNetApiService</span> <span class="operator">=</span> retrofit.create(INetApiService.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用接口函数，获得网络工作对象。</span></span><br><span class="line">String msg=<span class="string">&quot;59.108.54.37&quot;</span>;</span><br><span class="line">Call&lt;UserBean&gt; callWorker =iNetApiService.getData(photo,RequestBody.create(<span class="literal">null</span>,<span class="string">&quot;wangshu&quot;</span>));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="PartMap"><a href="#PartMap" class="headerlink" title="@PartMap"></a>@PartMap</h3><p>多个文件上传：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 与单文件上传类似，只是使用了 Map 封装了上传的文件，并用 @PartMap 注解标示起来。</span></span><br><span class="line"><span class="meta">@Multipart</span></span><br><span class="line"><span class="meta">@POST(&quot;user/photo&quot;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@PartMap</span> Map&lt;String,RequestBody&gt; photos,<span class="meta">@Part(&quot;description&quot;)</span> RequestBody description)</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="消息报头"><a href="#消息报头" class="headerlink" title="消息报头"></a><p class="m_more_title_style">消息报头</p></h2><p>在 HTTP 请求中，为了防止攻击或过滤掉不安全的访问，或者添加特殊加密的访问等，以便减轻服务器的压力和保证请求的安全，通常都会在消息报头中携带一些特殊的消息头处理。Retrofit 提供了两种添加消息报头的方式：</p>
+<h3 id="静态添加"><a href="#静态添加" class="headerlink" title="静态添加"></a>静态添加</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET(&quot;getIpInfo.php?ip=59.108.54.37&quot;)</span></span><br><span class="line"><span class="meta">@Headers(&#123;</span></span><br><span class="line"><span class="meta">        &quot;Accept-Encoding: application/json&quot;,</span></span><br><span class="line"><span class="meta">        &quot;User-Agent: MoonRetrofit&quot;</span></span><br><span class="line"><span class="meta">&#125;)</span></span><br><span class="line">Call&lt;UserBean&gt; <span class="title function_">getData</span><span class="params">()</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 拦截器</span></span><br><span class="line"><span class="type">OkHttpClient</span> <span class="variable">okHttpClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OkHttpClient</span>.Builder()</span><br><span class="line">                .addInterceptor(<span class="keyword">new</span> <span class="title class_">Interceptor</span>() &#123;</span><br><span class="line">                    <span class="meta">@Override</span></span><br><span class="line">                    <span class="keyword">public</span> okhttp3.Response <span class="title function_">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">                        <span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> chain.request();</span><br><span class="line">                        Log.e(TAG, String.valueOf(request.headers()));</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">return</span> chain.proceed(request);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;).build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建一个 Retrofit 对象</span></span><br><span class="line">        <span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">                .baseUrl(<span class="string">&quot;http://ip.taobao.com/service/&quot;</span>)</span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())</span><br><span class="line">                .client(okHttpClient)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用 retrofit 加工出对应的接口实例对象</span></span><br><span class="line">        <span class="type">INetApiService</span> <span class="variable">iNetApiService</span> <span class="operator">=</span> retrofit.create(INetApiService.class);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用接口函数，获得网络工作对象。</span></span><br><span class="line">        String msg=<span class="string">&quot;59.108.54.37&quot;</span>;</span><br><span class="line">        Call&lt;UserBean&gt; callWorker = iNetApiService.getData();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 用获取的 callWork 对象执行网络请求</span></span><br><span class="line">        callWorker.enqueue(<span class="keyword">new</span> <span class="title class_">Callback</span>&lt;UserBean&gt;() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onResponse</span><span class="params">(Call&lt;UserBean&gt; call, Response&lt;UserBean&gt; response)</span> &#123;</span><br><span class="line">                Log.e(TAG,response.toString());</span><br><span class="line">                Log.e(TAG,response.body().toString());</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onFailure</span><span class="params">(Call&lt;UserBean&gt; call, Throwable t)</span> &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态添加"><a href="#动态添加" class="headerlink" title="动态添加"></a>动态添加</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@GET(&quot;getIpInfo.php?ip=59.108.54.37&quot;)</span></span><br><span class="line">Call&lt;ResponseBody&gt; <span class="title function_">getData</span><span class="params">(<span class="meta">@Header(&quot;Location&quot;)</span> String location)</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="功能扩展"><a href="#功能扩展" class="headerlink" title="功能扩展"></a><p class="m_more_title_style">功能扩展</p></h2><h3 id="OkHttpClient"><a href="#OkHttpClient" class="headerlink" title="OkHttpClient"></a>OkHttpClient</h3><p>Retrofit 可使用自己扩展的 OkHttpClient，一般最常扩展的就是 Interceptor 拦截器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">OkHttpClient</span> <span class="variable">okHttpClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OkHttpClient</span>.Builder()</span><br><span class="line">        .addInterceptor(<span class="keyword">new</span> <span class="title class_">Interceptor</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> okhttp3.Response <span class="title function_">intercept</span><span class="params">(Chain chain)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line"></span><br><span class="line">                Request.<span class="type">Builder</span> <span class="variable">builder</span> <span class="operator">=</span> chain.request().newBuilder();</span><br><span class="line">                builder.addHeader(<span class="string">&quot;Accept-Charset&quot;</span>, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">                builder.addHeader(<span class="string">&quot;Accept&quot;</span>, <span class="string">&quot; application/json&quot;</span>);</span><br><span class="line">                builder.addHeader(<span class="string">&quot;Content-type&quot;</span>, <span class="string">&quot;application/json&quot;</span>);</span><br><span class="line"></span><br><span class="line">                <span class="type">Request</span> <span class="variable">request</span> <span class="operator">=</span> builder.build();</span><br><span class="line">                <span class="keyword">return</span> chain.proceed(request);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个 Retrofit 对象</span></span><br><span class="line"><span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">        .baseUrl(URL)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">        .client(okHttpClient)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+
+<h3 id="addConverterFactory"><a href="#addConverterFactory" class="headerlink" title="addConverterFactory"></a>addConverterFactory</h3><p>扩展的是对返回的数据类型的自动转换，把一种数据对象转换为另一种数据对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">        .baseUrl(URL)</span><br><span class="line">        <span class="comment">// 把 Http 访问得到的 json 字符串转换为 Java 数据对象 UserBean。</span></span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create()) </span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+
+<p>如果现有的扩展包不能满足需要，可以继承 Retrofit 的接口。retrofit2.Converter&lt;F,T&gt;，自己实现 Converter 和ConverterFactory。</p>
+<h3 id="addCallAdapterFactory"><a href="#addCallAdapterFactory" class="headerlink" title="addCallAdapterFactory"></a>addCallAdapterFactory</h3><p>扩展的是对网络工作对象 callWorker 的自动转换，把 Retrofit 中执行网络请求的 Call 对象，转换为接口中定义的Call 对象。</p>
+<p>Retrofit底 层虽然使用了 OkHttpClient 去处理网络请求，但并没有使用 okhttp3.call 这个 Call 接口，而是自己又建了一个 retrofit2.Call 接口，OkHttpCall 继承的是 retrofit2.Call，与 okhttp3.call 只是引用关系。(依赖倒置原则)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">INetApiService</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 返回值是个 RxJava 的 Flowable 对象</span></span><br><span class="line"><span class="comment">    **/</span> </span><br><span class="line">    <span class="meta">@GET(&quot;/demo/yy&quot;)</span></span><br><span class="line">    Flowable&lt;UserBean&gt; <span class="title function_">getInfo</span><span class="params">(<span class="meta">@Query(&quot;id&quot;)</span>String id)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个 Retrofit 对象</span></span><br><span class="line"><span class="type">Retrofit</span> <span class="variable">retrofit</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Retrofit</span>.Builder()</span><br><span class="line">        .baseUrl(URL)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">        <span class="comment">// 为 Retrofit 添加对应的扩展</span></span><br><span class="line">        <span class="comment">// callAdapter 做的事情就是把 retrofit2.Call 对象适配转换为 Flowable&lt;T&gt; 对象。</span></span><br><span class="line">        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())</span><br><span class="line">        .client(okHttpClient)</span><br><span class="line">        .build();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 用 retrofit 加工出对应的接口实例对象</span></span><br><span class="line"><span class="type">INetApiService</span> <span class="variable">iNetApiService</span> <span class="operator">=</span> retrofit.create(INetApiService.class);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调用接口函数，获得网络工作对象，得到 Flowable 类型的 callWorker 对象。</span></span><br><span class="line">Flowable&lt;UserBean&gt; callWorker = iNetApiService.getInfo(<span class="string">&quot;111&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>如果现有的扩展包不能满足需要，可以继承 Retrofit 的接口 retrofit2.CallAdapter&lt;R,T&gt;，自己实现 CallAdapter 和 CallAdapterFactory。</p>
+<hr>
+<h2 id="Kotlin-用法"><a href="#Kotlin-用法" class="headerlink" title="Kotlin 用法"></a><p class="m_more_title_style">Kotlin 用法</p></h2><p><strong>首先添加依赖</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retrofit 是基于 OkHttp 开发的，因此这个依赖会自动将 Retrofit、OkHttp 和 Okio 一起下载。</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:retrofit:2.7.1&#x27;</span></span><br><span class="line"><span class="comment">// Retrofit 会将服务器返回的 JSON 数据自动解析成对象</span></span><br><span class="line"><span class="comment">// 因此这是一个 Retrofit 的转换库，它是借助 GSON 库来解析数据的，所以会自动将 GSON 一起下载。</span></span><br><span class="line">implementation <span class="string">&#x27;com.squareup.retrofit2:converter-gson:2.7.1&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>data class 可以通过 JSON To Kotlin Class（JsonToKotlinClass）插件生成，快捷键 Option + K on Mac。</strong></p>
+<p><strong>使用 Kotlin 简化 Retrofit 网络请求的回调</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 传统写法</span></span><br><span class="line"><span class="keyword">val</span> appService = ServiceCreator.create&lt;AppService&gt;()</span><br><span class="line">appService.getAppData().enqueue(<span class="keyword">object</span> : Callback&lt;List&lt;AppBean&gt;&gt;&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, response: <span class="type">Response</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 得到服务器返回的数据</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 等价于上面的写法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">getAppData</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 对于 try catch，现在每次请求都要进行一次。</span></span><br><span class="line">    <span class="comment">// 也可以选择不处理，然后发生异常时会一层层向上抛出，直到被某一层的函数处理了位置，</span></span><br><span class="line">    <span class="comment">// 所以也可以在某一统一的入口函数中只进行一次 try catch，从而让代码变得更加精简。</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">val</span> appList = ServiceCreator.create&lt;AppService&gt;().getAppData().await()</span><br><span class="line">    &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">        <span class="comment">// 对异常情况进行处理</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 定义一个挂起函数 await()</span></span><br><span class="line"><span class="comment"> * 由于不同的 Service 接口返回的数据类型也不同，所以使用泛型的方式。</span></span><br><span class="line"><span class="comment"> * 给它声明了一个泛型 T，并将函数定义成了 Call&lt;T&gt; 的扩展函数，这样，</span></span><br><span class="line"><span class="comment"> * 所有返回值是 Call 类型的 Retrofit 网络请求接口就都可以直接调用此函数了。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> Call<span class="type">&lt;T&gt;</span>.<span class="title">await</span><span class="params">()</span></span>: T&#123;</span><br><span class="line">    <span class="comment">// 挂起当前协程，并且由于扩展函数的原因，现在拥有了 Call 对象的上下文，可直接调用 enqueue()。</span></span><br><span class="line">    <span class="keyword">return</span> suspendCoroutine &#123; continuation -&gt;</span><br><span class="line">        enqueue(<span class="keyword">object</span> : Callback&lt;T&gt;&#123;</span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, response: <span class="type">Response</span>&lt;<span class="type">T</span>&gt;)</span></span> &#123;</span><br><span class="line">                <span class="keyword">val</span> body = response.body()</span><br><span class="line">                <span class="keyword">if</span> (body!=<span class="literal">null</span>)continuation.resume(body)</span><br><span class="line">                <span class="keyword">else</span> continuation.resumeWithException(RuntimeException(<span class="string">&quot;response body is null&quot;</span>))</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">T</span>&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">                continuation.resumeWithException(t)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注：挂起函数只能在协程作用域或其他挂起函数中调用，使用起来会有局限性。但通过合理的项目架构设计，也可以轻松地将各种协程的代码应用到一个普通的项目当中。</p>
+<p><strong>示例1</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Api</span></span>&#123;</span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;users/&#123;user&#125;/repos&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">listRepos</span><span class="params">(<span class="meta">@Path(<span class="string">&quot;user&quot;</span>)</span> user:<span class="type">String</span>)</span></span>: Call&lt;List&lt;Repo&gt;&gt;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * suspend，是挂起函数的使用，会自动放到后台请求。</span></span><br><span class="line"><span class="comment">     * 因为会自动切回来，所以也就不需要使用 Call 回调了。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;users/&#123;user&#125;/repos&quot;</span>)</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">listReposKt</span><span class="params">(<span class="meta">@Path(<span class="string">&quot;user&quot;</span>)</span> user:<span class="type">String</span>)</span></span>: List&lt;Repo&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">        <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">            .baseUrl(<span class="string">&quot;https://api.github.com/&quot;</span>)</span><br><span class="line">            .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">            .build()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> api = retrofit.create(Api::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line"><span class="comment">//        api.listRepos(&quot;feiyeyuanye&quot;)</span></span><br><span class="line"><span class="comment">//            .enqueue(object : Callback&lt;List&lt;Repo&gt;?&gt;&#123;</span></span><br><span class="line"><span class="comment">//                override fun onFailure(call: Call&lt;List&lt;Repo&gt;?&gt;, t: Throwable) &#123;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//                override fun onResponse(call: Call&lt;List&lt;Repo&gt;?&gt;, response: Response&lt;List&lt;Repo&gt;?&gt;) &#123;</span></span><br><span class="line"><span class="comment">//                    // ViewBinding</span></span><br><span class="line"><span class="comment">//                    binding.textView.text = response.body()?.get(0)?.name</span></span><br><span class="line"><span class="comment">//                &#125;</span></span><br><span class="line"><span class="comment">//            &#125;)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 协程对 Retrofit 的支持。</span></span><br><span class="line">        GlobalScope.launch &#123;</span><br><span class="line">            <span class="comment">// 因为没有了回调，但需要处理错误的情况（没有 onFailure），所以用 try catch 来处理。</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> repos = api.listReposKt(<span class="string">&quot;feiyeyuanye&quot;</span>)  <span class="comment">// 挂起函数，会自动切回来。。后台</span></span><br><span class="line">                binding.textView.text = repos[<span class="number">0</span>].name            <span class="comment">// 前台</span></span><br><span class="line">            &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">                binding.textView.text = e.message</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例2</strong>：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppBean</span></span>(<span class="keyword">val</span> id: String, <span class="keyword">val</span> name: String, <span class="keyword">val</span> version: String)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 接口文件，通常建议以具体的功能种类名开头，并以 Service 结尾。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">AppService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * GET 请求，并传入请求地址的相对路径，根路径会在稍后设置。</span></span><br><span class="line"><span class="comment">     * 返回值必须声明成 Retrofit 内置的 Call 类型，并通过泛型指定服务器响应的数据应该转换成什么对象。</span></span><br><span class="line"><span class="comment">     * -----------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">     * Retrofit 还提供了强大的 Call Adapters 功能来允许自定义方法返回值的类型，</span></span><br><span class="line"><span class="comment">     * 比如结合 RxJava 使用就可以将返回值声明成 Observable、Flowable 等类型。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;get_data.json&quot;</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">getAppData</span><span class="params">()</span></span>: Call&lt;List&lt;AppBean&gt;&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RetrofitActivity</span> : <span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_retrofit)</span><br><span class="line"></span><br><span class="line">        btnGet.setOnClickListener&#123;</span><br><span class="line">            <span class="comment">// 构建 Retrofit 对象</span></span><br><span class="line">            <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">                .baseUrl(<span class="string">&quot;http://10.0.2.2/&quot;</span>)   <span class="comment">// 根路径</span></span><br><span class="line">                .addConverterFactory(GsonConverterFactory.create())  <span class="comment">// 指定 Retrofit 在解析数据时所使用的转换库</span></span><br><span class="line">                .build()</span><br><span class="line">            <span class="comment">// 创建一个该接口的动态代理对象，然后就可以随意调用接口中定义的方法，而 Retrofit 会自动执行具体的处理。</span></span><br><span class="line">            <span class="keyword">val</span> appService = retrofit.create(AppService::<span class="keyword">class</span>.java)</span><br><span class="line">            <span class="comment">// appService.getAppData() 返回一个 Call&lt;List&lt;AppBean&gt;&gt; 对象，再调用它的 enqueue() ，</span></span><br><span class="line">            <span class="comment">// Retrofit 就会根据注解中配置的服务器接口地址去进行网络请求，服务器响应的数据会回调到 enqueue() 中传入的 Callback 实现里。</span></span><br><span class="line">            <span class="comment">// 当发起请求时，Retrofit 会自动在内部开启子线程，当数据回调到 Callback 中之后，Retrofit 又会自动切换回主线程。</span></span><br><span class="line">            appService.getAppData().enqueue(<span class="keyword">object</span> : Callback&lt;List&lt;AppBean&gt;&gt; &#123;</span><br><span class="line">                <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onResponse</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, response: <span class="type">Response</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;)</span></span> &#123;</span><br><span class="line">                    <span class="comment">// 得到 Retrofit 解析后的对象，也就是 List&lt;AppBean&gt; 类型的数据。</span></span><br><span class="line">                        <span class="keyword">val</span> list = response.body()</span><br><span class="line">                        <span class="keyword">if</span> (list != <span class="literal">null</span>)&#123;</span><br><span class="line">                            <span class="keyword">for</span> (app <span class="keyword">in</span> list)&#123;</span><br><span class="line">                                Log.d(<span class="string">&quot;TAG&quot;</span>,<span class="string">&quot;id is <span class="subst">$&#123;app.id&#125;</span>&quot;</span>)</span><br><span class="line">                                Log.d(<span class="string">&quot;TAG&quot;</span>,<span class="string">&quot;name is <span class="subst">$&#123;app.name&#125;</span>&quot;</span>)</span><br><span class="line">                                Log.d(<span class="string">&quot;TAG&quot;</span>,<span class="string">&quot;version is <span class="subst">$&#123;app.version&#125;</span>&quot;</span>)</span><br><span class="line">                            &#125;</span><br><span class="line">                       &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(call: <span class="type">Call</span>&lt;<span class="type">List</span>&lt;<span class="type">AppBean</span>&gt;&gt;, t: <span class="type">Throwable</span>)</span></span> &#123;</span><br><span class="line">                    t.printStackTrace()</span><br><span class="line">                &#125;</span><br><span class="line">           &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例3</strong>:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">ApiService</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * suspend，是挂起函数的使用，会自动放到后台请求。</span></span><br><span class="line"><span class="comment">     * 因为会自动切回来，所以也就不需要使用 Call 回调了。</span></span><br><span class="line"><span class="comment">     */</span>  </span><br><span class="line">    <span class="meta">@GET(<span class="string">&quot;users&quot;</span>)</span></span><br><span class="line">    <span class="keyword">suspend</span> <span class="function"><span class="keyword">fun</span> <span class="title">queryData</span><span class="params">()</span></span>:List&lt;UserBean&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> TAG = <span class="string">&quot;TAG_TestActivity&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> binding: ActivityTestBinding</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        binding = ActivityTestBinding.inflate(layoutInflater)</span><br><span class="line">        setContentView(binding.root)</span><br><span class="line"></span><br><span class="line">        initData()</span><br><span class="line"></span><br><span class="line"><span class="comment">//        KTX 扩展也提供了创建协程作用域的方法，如在 UI 页面中可以使用 lifecycleScope 构建一个协程作用域:</span></span><br><span class="line"><span class="comment">//        lifecycleScope.launch &#123;  &#125;</span></span><br><span class="line"><span class="comment">//        lifecycleScope.launchWhenCreated &#123;  &#125;</span></span><br><span class="line"><span class="comment">//        lifecycleScope.launchWhenResumed &#123;  &#125;</span></span><br><span class="line"><span class="comment">//        lifecycleScope.launchWhenStarted &#123;  &#125;</span></span><br><span class="line"><span class="comment">//        后三者会创建出某个生命周期下的协程作用域，同样地，在 ViewModel 中可以使用 ViewModelScope 创建协程作用域：</span></span><br><span class="line"><span class="comment">//        viewModelStore.launch&#123;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        使用 KTX 扩展创建协程作用域的好处是，viewModelStore 或 lifecycleScope 是与生命周期绑定的，所以当 Activity 销毁时，会自动取消协程操作，无需进行额外的操作。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//        在实际开发中，数据相关的操作一般放在 ViewModel 中进行，这时就需要将数据操作结果回调给 UI 层，</span></span><br><span class="line"><span class="comment">//        这可使用 LiveData 组件解决，但由于 LiveData 应对复杂场景时支持能力较弱，所以 Google 建议将 LiveData 迁移到 Kotlin 数据流（Flow）中。</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">            .baseUrl(<span class="string">&quot;https://api.github.com/&quot;</span>)</span><br><span class="line">            .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">            .build()</span><br><span class="line">        <span class="keyword">val</span> apiService = retrofit.create(ApiService::<span class="keyword">class</span>.java)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> job = Job()</span><br><span class="line">        CoroutineScope(job).launch(Dispatchers.Main) &#123;</span><br><span class="line">            <span class="comment">// 这里参数为 Dispatchers.Main，但网络请求依然可以正常执行，</span></span><br><span class="line">            <span class="comment">// 这是因为 Retrofit 自动为我们做了处理：当接口声明为 suspend 类型时，Retrofit 会自动切换到子线程中执行。</span></span><br><span class="line">            <span class="keyword">val</span> result = Gson().toJson(apiService.queryData())</span><br><span class="line">            binding.tvText.text = result</span><br><span class="line">            <span class="comment">// 如果 Retrofit 没有自动处理，则只需要在执行网络请求时开启一个 Dispatchers.IO 协程即可</span></span><br><span class="line"><span class="comment">//            val result = withContext(Dispatchers.IO)&#123;</span></span><br><span class="line"><span class="comment">//                apiService.queryData()</span></span><br><span class="line"><span class="comment">//            &#125;</span></span><br><span class="line"><span class="comment">//            binding.tvText.text = Gson().toJson(apiService.queryData())</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果报错： java.lang.NoSuchMethodError: No static method metafactory(Ljava&#x2F;lang&#x2F;invoke&#x2F;MethodHandles$Lookup;Ljava&#x2F;lang&#x2F;String;Ljava&#x2F;lang&#x2F;invoke&#x2F;MethodType;Ljava&#x2F;lang&#x2F;invoke&#x2F;MethodType;Ljava&#x2F;lang&#x2F;invoke&#x2F;MethodHandle;Ljava&#x2F;lang&#x2F;invoke&#x2F;MethodType;)Ljava&#x2F;lang&#x2F;invoke&#x2F;CallSite; in class Ljava&#x2F;lang&#x2F;invoke&#x2F;LambdaMetafactory; or its super classes (declaration of ‘java.lang.invoke.LambdaMetafactory’ appears in &#x2F;apex&#x2F;com.android.runtime&#x2F;javalib&#x2F;core-oj.jar)</p>
+<p>在 build.gradle 中添加：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">android &#123;</span><br><span class="line">    ....</span><br><span class="line">      </span><br><span class="line">    compileOptions &#123;</span><br><span class="line">        sourceCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">        targetCompatibility JavaVersion.VERSION_1_8</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>处理复杂的接口地址类型</strong></p>
+<p>除了上述简单的固定接口地址外，还有可能接口地址中的部分内容是动态变化的，如：</p>
+<p><code>GET http://example.com/&lt;page&gt;/get_data.json</code>，page 部分代表页数。可按照如下写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &#123;page&#125; 占位符</span></span><br><span class="line"><span class="comment"> * 当调用此方法发起请求时，Retrofit 就会自动将 page 参数的替换到占位符的位置。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@GET(<span class="string">&quot;&#123;page&#125;/get_data.json&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getData</span><span class="params">(<span class="meta">@Path(<span class="string">&quot;page&quot;</span>)</span> page: <span class="type">Int</span>)</span></span>:Call&lt;Data&gt;</span><br></pre></td></tr></table></figure>
+
+<p>服务器接口可能还会要求我们传入一系列的参数，格式如下：</p>
+<p><code>GET http://example.com/get_data.json?u=&lt;user&gt;&amp;t=&lt;token&gt;</code>。可按照如下写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当发起网络请求时，Retrofit 会自动按照带参数 GET 请求的格式将这两个参数构建到请求地址当中。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@GET(<span class="string">&quot;get_data.json&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getData</span><span class="params">(<span class="meta">@Query(<span class="string">&quot;u&quot;</span>)</span> user: <span class="type">String</span>, <span class="meta">@Query(<span class="string">&quot;t&quot;</span>)</span> token:<span class="type">String</span>)</span></span>:Call&lt;Data&gt;</span><br></pre></td></tr></table></figure>
+
+<p>除了 GET ，还有一些其它的常用请求方法。GET 请求用于从服务器获取数据，POST 请求用于向服务器提交数据，PUT 和 PATCH 请求用于修改服务器上的数据，DELETE 请求用于删除服务器上的数据。</p>
+<p>比如服务器提供了如下接口：<code>DELETE http://example.com/data/&lt;id&gt;</code>，可按如下写法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Call 的泛型指定成了 ResponseBody，这是因为</span></span><br><span class="line"><span class="comment"> * POST，PUT，PATCH，DELETE 这几种请求类型更多是用于操作服务器上的数据，而不是获取数据，</span></span><br><span class="line"><span class="comment"> * 所以通常它们对服务器响应的数据并不关心，ResponseBody 表示 Retrofit 能够接收任意类型的响应数据，并且不会对响应数据进行解析。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@DELETE(<span class="string">&quot;data/&#123;id&#125;&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">deleteData</span><span class="params">(<span class="meta">@Path(<span class="string">&quot;id&quot;</span>)</span> id:<span class="type">String</span>)</span></span>:Call&lt;ResponseBody&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果需要向服务器提交数据：</p>
+<p><code>POST http://example.com/data/create</code></p>
+<p>{“id”:1, “content”:”The data”}</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 使用 POST 请求，需要将数据放到 HTTP 请求的 body 部分。借助 <span class="doctag">@Body</span> 注解完成。</span></span><br><span class="line"><span class="comment"> * 请求时，会自动将对象中的数据转换成 JSON 格式的文本，并放到 HTTP 请求的 body 部分，</span></span><br><span class="line"><span class="comment"> * 服务器在收到请求后只需要从 body 中将这部分数据解析出来即可。</span></span><br><span class="line"><span class="comment"> * 这中写法同样适用于 PUT，PATCH，DELETE 类型的请求提交数据。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@POST(<span class="string">&quot;data/create&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">createData</span><span class="params">(<span class="meta">@Body</span> <span class="keyword">data</span>:<span class="type">AppBean</span>)</span></span>:Call&lt;ResponseBody&gt;</span><br></pre></td></tr></table></figure>
+
+<p>如果服务器接口要求在 HTTP 请求的 header 中指定参数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET http://example.com/get_data.json</span><br><span class="line">User-Agent: okhttp</span><br><span class="line">Cache-Control: max-age=0</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 静态 header 声明</span></span><br><span class="line"><span class="comment"> * 这些 header 参数其实就是一个个的键值对。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Headers(<span class="string">&quot;User-Agent: okhttp&quot;</span>,<span class="string">&quot;Cache-Control: max-age=0&quot;</span>)</span></span><br><span class="line"><span class="meta">@GET(<span class="string">&quot;get_data.json&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getData</span><span class="params">()</span></span>:Call&lt;AppBean&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发起网络请求时，Retrofit 会自动将参数中传入的值设置到 User-Agent 和 Cache-Control 中。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@GET(<span class="string">&quot;get_data.json&quot;</span>)</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">getData1</span><span class="params">(<span class="meta">@Header(<span class="string">&quot;User-Agent&quot;</span>)</span> userAgent: <span class="type">String</span>, <span class="meta">@Header(<span class="string">&quot;Cache-Control&quot;</span>)</span> cacheControl:<span class="type">String</span>)</span></span>:Call&lt;AppBean&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>Retrofit 构造器的最佳写法</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 构建的 Retrofit 对象是全局通用的，</span></span><br><span class="line"><span class="comment"> * 只需要在调用 create() 时针对不同的 Service 接口传入相应的 Class 类型即可。</span></span><br><span class="line"><span class="comment"> * 因此，可以将通用的部分功能封装起来，从而简化获取 Service 接口动态代理对象的过程。</span></span><br><span class="line"><span class="comment"> * --------------------------------------------------------------------</span></span><br><span class="line"><span class="comment"> * 使用 object 关键字变成一个单例类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">object</span> ServiceCreator &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义了一个常量</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> BASE_URL = <span class="string">&quot;http://10.0.2.2/&quot;</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">        .baseUrl(BASE_URL)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">        .build()</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">create</span><span class="params">(serviceClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>:T = retrofit.create(serviceClass)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用封装类来获取一个 AppService 接口的动态代理对象</span></span><br><span class="line"><span class="keyword">val</span> appService = ServiceCreator.create(AppService::<span class="keyword">class</span>.java)</span><br></pre></td></tr></table></figure>
+
+<p>通过泛型实化继续优化代码：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> ServiceCreator &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">val</span> BASE_URL = <span class="string">&quot;http://10.0.2.2/&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> retrofit = Retrofit.Builder()</span><br><span class="line">        .baseUrl(BASE_URL)</span><br><span class="line">        .addConverterFactory(GsonConverterFactory.create())</span><br><span class="line">        .build()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">create</span><span class="params">(serviceClass: <span class="type">Class</span>&lt;<span class="type">T</span>&gt;)</span></span>:T = retrofit.create(serviceClass)</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义了一个不带参数的 create()，</span></span><br><span class="line"><span class="comment">     * 并使用 inline 关键字修饰方法，使用 reified 关键字修饰泛型，这是泛型实化的两大前提条件。</span></span><br><span class="line"><span class="comment">     * 接下来就可以使用 T::class.java 这种语法了。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;<span class="keyword">reified</span> T&gt;</span> <span class="title">create</span><span class="params">()</span></span>:T = create(T::<span class="keyword">class</span>.java) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 通过泛型实化优化上面代码</span></span><br><span class="line"><span class="keyword">val</span> appService = ServiceCreator.create&lt;AppService&gt;()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/square/retrofit">GitHub 官方主页</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/itachi85">Android 进阶之光</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/p/f57b7cdb1c99">从架构角度看 Retrofit 的作用、原理和启示</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/22250a5.html" title="Retrofit 使用">https://jianghouren.cn/archives/22250a5.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" rel="tag"># 数据存储</a>
+              <a href="/tags/%E5%BA%93%E4%B8%8E%E6%A1%86%E6%9E%B6/" rel="tag"># 库与框架</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/fc03f94d.html" rel="prev" title="Retrofit 源码">
+                  <i class="fa fa-chevron-left"></i> Retrofit 源码
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/6faa267d.html" rel="next" title="LeakCanary">
+                  LeakCanary <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/22250a5.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

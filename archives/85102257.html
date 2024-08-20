@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 崩溃优化">
+<meta property="og:url" content="https://jianghouren.cn/archives/85102257.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_bengkuiyouhua.jpg">
+<meta property="article:published_time" content="2019-08-07T01:35:10.000Z">
+<meta property="article:modified_time" content="2020-09-18T12:29:07.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/85102257.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/85102257.html","path":"archives/85102257.html","title":"Android 崩溃优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 崩溃优化 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B4%A9%E6%BA%83%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">崩溃分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Native-%E5%B4%A9%E6%BA%83"><span class="nav-number">2.</span> <span class="nav-text">Native 崩溃</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B4%A9%E6%BA%83%E7%8E%87"><span class="nav-number">3.</span> <span class="nav-text">崩溃率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A8%B3%E5%AE%9A%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">稳定性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B4%A9%E6%BA%83%E7%8E%B0%E5%9C%BA"><span class="nav-number">5.</span> <span class="nav-text">崩溃现场</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B4%A9%E6%BA%83%E5%88%86%E6%9E%90"><span class="nav-number">6.</span> <span class="nav-text">崩溃分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">7.</span> <span class="nav-text">链接</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/85102257.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 崩溃优化 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 崩溃优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-08-07 09:35:10" itemprop="dateCreated datePublished" datetime="2019-08-07T09:35:10+08:00">2019-08-07</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-18 20:29:07" itemprop="dateModified" datetime="2020-09-18T20:29:07+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/85102257.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/85102257.html" data-xid="/archives/85102257.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/85102257.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 崩溃优化" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/蜡笔小新.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="崩溃分类"><a href="#崩溃分类" class="headerlink" title="崩溃分类"></a><p class="m_more_title_style">崩溃分类</p></h2><p><strong>Android 的两种崩溃：</strong></p>
+<ul>
+<li>Java 崩溃：在 Java 代码中，出现了未捕获异常，导致程序异常退出。</li>
+<li>Native 崩溃：一般是因为在 Native 代码中访问非法地址，也可能是地址对齐出现了问题，或者发生了程序主动 abort（异常终止一个进程），这些都会产生相应的 signal 信号，导致程序异常退出。</li>
+</ul>
+<p>可通过 CrashHandler 来监视应用的 crash 信息，当程序 crash 时会调用其 uncaughtException()。</p>
+<hr>
+<h2 id="Native-崩溃"><a href="#Native-崩溃" class="headerlink" title="Native 崩溃"></a><p class="m_more_title_style">Native 崩溃</p></h2><p><strong>建议先阅读<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/g-WzYF3wWAljok1XjPoo7w">《Android 平台 Native 代码的崩溃捕获机制及实现》</a>来了解一些 Native 崩溃的基本知识。</strong><br><strong>Native 崩溃的捕获流程：</strong></p>
+<ul>
+<li>编译端：编译 C&#x2F;C++ 代码时，需要将带符号信息的文件保留下来。</li>
+<li>客户端：捕获到崩溃时，将收集到尽可能多的有用信息写入日志文件，然后选择合适的时机上传到服务器。</li>
+<li>服务端：读取客户端上报的日志文件，寻找适合的符号文件，生成可读的 C&#x2F;C++ 调用栈。<img data-src="https://imgsw.cn/static/images/android_bengkuiyouhua.jpg"></li>
+</ul>
+<p><strong>Native 崩溃捕获的难点：</strong><br>上述三个流程中，最核心的在于怎样保证客户端在各种极端情况下依然可以生成崩溃日志。（因为在崩溃时，程序会处于一个不安全的状态，如果处理不当，非常容易发生二次崩溃。）</p>
+<p>生成崩溃日志时的一些比较棘手的情况：</p>
+<ul>
+<li><strong>文件句柄泄露，导致创建日志文件失败：（一个句柄，就是一个名字, 以便记住正处理的名字, 并隐藏某些缓存等的复杂性。）</strong><br>应对方式：需要提前申请文件句柄 fd 预留，防止出现这种情况。（在内核中，每一个进程都有一个私有的”打开文件表”，这个表是一个指针数组，每一个元素都指向一个内核的打开文件对象。而fd，就是这个表的下标。）</li>
+<li><strong>因为栈溢出了，导致日志生成失败。</strong><br>应对方式：为防止栈溢出导致进程没有空间创建调用栈执行处理函数，通常会使用常见的 signalstack（使用单独的信号堆栈） 。在一些特殊情况下，可能还需要直接替换当前栈，所以这里也需要在堆中预留部分空间。</li>
+<li><strong>整个堆的内存都耗尽了，导致日志生成失败。</strong><br>应对方式：这个时候无法安全地分配内存，也不敢使用 stl 或者 libc 的函数，因为它们内部实现会分配堆内存。这个时候如果继续分配内存，会导致出现堆破坏或者二次崩溃的情况。（ libc 和 stl 是一个应用于 C 语言编程的函数库）</li>
+<li><strong>堆破坏或者二次崩溃导致日志生成失败。</strong><br>应对方式：Breakpad 会从原进程 fork 出子进程去收集崩溃现场，此外涉及 Java 相关的，一般也会用子进程去操作。这样即使出现二次崩溃，只是这部分的信息丢失，父进程后面还可以继续获取其它的信息。在一些特殊情况下，还可能需要从子进程 fork 出孙进程。<br> 一个进程调用fork（）函数后，系统先给新的进程分配资源，例如存储数据和代码的空间。然后把原来的进程的所有值都复制到新的新进程中，只有少数值与原来的进程的值不同。相当于克隆了一个自己。</li>
+</ul>
+<hr>
+<h2 id="崩溃率"><a href="#崩溃率" class="headerlink" title="崩溃率"></a><p class="m_more_title_style">崩溃率</p></h2><p>如何客观地衡量崩溃：<br>崩溃就是程序出现异常，而崩溃率是衡量一个应用质量高低的基本指标。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * UV 是指通过互联网访问、浏览这个网页的人。访问网站的一台电脑客户端为一个访客。00:00-24:00内相同的客户端只被计算一次。</span></span><br><span class="line"><span class="comment"> * PV 即页面浏览量或点击量，用户每一次对网站中的每个网页访问均被记录一个 PV。用户对同一页面的多次访问，访问量累计，用以衡量网站用户访问的网页数量。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">UV 崩溃率 = 发生崩溃的 UV / 登录 UV</span><br></pre></td></tr></table></figure>
+<p>还可以去看应用 PV 崩溃率、启动崩溃率、重复崩溃率这些指标，计算方法都大同小异。<br>关于启动崩溃率，还涉及到一种<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s?__biz=MzUxMzcxMzE5Ng==&mid=2247488429&idx=1&sn=448b414a0424d06855359b3eb2ba8569&source=41#wechat_redirect">《安全模式》</a>的技术来保障客户端的启动流程。</p>
+<hr>
+<h2 id="稳定性"><a href="#稳定性" class="headerlink" title="稳定性"></a><p class="m_more_title_style">稳定性</p></h2><p>如何客观地衡量稳定性：<br>处理了崩溃，有时还要处理 ANR 的问题：</p>
+<ul>
+<li><strong>使用 FileObserver 监听 &#x2F;data&#x2F;anr&#x2F;traces.txt 的变化。</strong><br>但很多高版本的 ROM，已经没有读取这个文件的权限了。海外可以使用 Google Play服务。国内微信利用<a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s/9Z8j3Dv_5jgf7LDQHKA0NQ">《Hardcoder》</a>框架向厂商获取了更大权限。</li>
+<li><strong>监控消息队列的运行时间。</strong><br>这个方案无法准确的判断是否真正出现了 ANR 异常，也无法得到完整的 ANR 日志。或许，更应该放到卡顿的性能范畴。</li>
+</ul>
+<p>有哪些应用退出的情形：</p>
+<ul>
+<li>主动自杀。Process.killProcess()、exit()等。</li>
+<li>崩溃。出现了 Java 或 Native 崩溃。</li>
+<li>系统重启。系统出现异常、断电、用户主动重启等，可通过比较应用开机运行时间是否比之前记录的值小。</li>
+<li>被系统杀死。被 low memory killer 杀掉、从系统的任务管理器中划掉等。</li>
+<li>ANR。</li>
+</ul>
+<p>可以在应用启动时设定一个标志，在主动自杀或崩溃后更新日志，这样下次启动时通过检测这个标志就能确认运行期间是否发生过异常退出。</p>
+<p>还有一个指标来衡量应用的稳定性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 异常率</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">UV 异常率 = 发生异常退出或崩溃的 UV / 登录 UV</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="崩溃现场"><a href="#崩溃现场" class="headerlink" title="崩溃现场"></a><p class="m_more_title_style">崩溃现场</p></h2><p><strong>崩溃信息</strong></p>
+<ul>
+<li>进程名，线程名。崩溃的进程是前台进程还是后台进程，崩溃是不是发生在 UI 线程。</li>
+<li>崩溃堆栈和类型。崩溃是属于 Java 崩溃、 Native 崩溃，还是 ANR，对于不同类型的崩溃要关注的点也不太一样。特别需要看崩溃堆栈的栈顶，看具体崩溃在系统的代码，还是自己的代码里。</li>
+</ul>
+<p><strong>系统信息</strong></p>
+<ul>
+<li>Logcat。这里包括应用，系统的运行日志。由于系统权限问题，获取到的 Logcat 可能只包含与当前 App 相关的。其中系统的 event logcat 会记录 App 运行的一些基本情况，记录在文件 &#x2F;system&#x2F;etc&#x2F;event-log-tags 中。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">system logcat:</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> D dalvikvm: Trying to load lib ... </span><br><span class="line">event logcat:</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_on_resume_called: 生命周期</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_low_memory: 系统内存不足</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.788</span> <span class="number">21430</span> <span class="number">21430</span> I am_destroy_activity: 销毁 Activty</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.888</span> <span class="number">21430</span> <span class="number">21430</span> I am_anr: ANR 以及原因</span><br><span class="line"><span class="number">10</span>-<span class="number">25</span> <span class="number">17</span>:<span class="number">13</span>:<span class="number">47.888</span> <span class="number">21430</span> <span class="number">21430</span> I am_kill: APP 被杀以及原因 </span><br></pre></td></tr></table></figure></li>
+<li>机型、系统、厂商、CPU、ABI（应用程序二进制接口）、Linux 版本等。</li>
+<li>设备状态。是否 root 、是否是模拟器。一些问题是由 Xposed框架 或多开软件造成，对这部分问题要区别对待。</li>
+</ul>
+<p><strong>内存信息</strong></p>
+<ul>
+<li>系统剩余内存。关于系统内存状态，可以直接读取文件 &#x2F;proc&#x2F;meminfo。当系统可用内存很小（低于 MemTotal 的 10%，MemTotal 对应当前系统中可以使用的物理内存）时，OOM、大量 GC、系统频繁自杀拉起等问题都非常容易出现。</li>
+<li>应用使用内存。包括 Java 内存、RSS（实际使用物理内存，包含共享库占用的全部内存）、PSS（实际使用的物理内存，比例分配共享库占用的内存，按照进程数等比例划分），可以得出应用本身内存的占用大小和分布。PSS 和 RSS 通过 &#x2F;proc&#x2F;self&#x2F;smap 计算，可以进一步得到例如 apk、dex、so 等更加详细的分类统计。</li>
+<li>虚拟内存。虚拟内存可以通过 &#x2F;proc&#x2F;self&#x2F;status 得到，通过 &#x2F;proc&#x2F;self&#x2F;maps 文件可以得到具体的分布情况。有时一般不太重视虚拟内存，但是很多类似 OOM、tgkill 等问题都是虚拟内存不足导致的。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Name:     com.sample.name   <span class="comment">// 进程名</span></span><br><span class="line">FDSize:   <span class="number">800</span>               <span class="comment">// 当前进程申请的文件句柄个数</span></span><br><span class="line">VmPeak:   <span class="number">3004628</span> kB        <span class="comment">// 当前进程的虚拟内存峰值大小</span></span><br><span class="line">VmSize:   <span class="number">2997032</span> kB        <span class="comment">// 当前进程的虚拟内存大小</span></span><br><span class="line">Threads:  <span class="number">600</span>               <span class="comment">// 当前进程包含的线程个数</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>资源信息</strong><br>有时会发现应用堆内存和设备内存都非常充足，还是会出现内存分配失败的情况，这跟资源泄露可能有比较大的关系。</p>
+<ul>
+<li>文件句柄 fd。文件句柄的限制可以通过 &#x2F;proc&#x2F;self&#x2F;limits 获得，一般单个进程允许打开的最大文件句柄个数为 1024 。但是在超过 800 个时就比较危险，需要将所有的 fd 以及对应的文件名输出到日志中，进一步排查是否出现了有文件或者线程泄露。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">opened files count <span class="number">812</span>:</span><br><span class="line"><span class="number">0</span> -&gt; /dev/<span class="literal">null</span></span><br><span class="line"><span class="number">1</span> -&gt; /dev/log/main4 </span><br><span class="line"><span class="number">2</span> -&gt; /dev/binder</span><br><span class="line"><span class="number">3</span> -&gt; /data/data/com.crash.sample/files/test.config</span><br><span class="line">...</span><br></pre></td></tr></table></figure></li>
+<li>线程数<br>当前线程数大小可以通过上面的 status 文件得到，一个线程可能就占 2MB 的虚拟内存，过多的线程会对虚拟内存和文件句柄带来压力。当线程数超过 400 个就比较危险。需要将所有的线程 id 以及对应的线程名输出到日志中，进一步排查是否出现了线程相关的问题。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">threads count <span class="number">412</span>:               </span><br><span class="line"><span class="number">1820</span> com.sample.crashsdk                         </span><br><span class="line"><span class="number">1844</span> ReferenceQueueD                                             </span><br><span class="line"><span class="number">1869</span> FinalizerDaemon   </span><br><span class="line">...  </span><br></pre></td></tr></table></figure></li>
+<li>JNI。使用 JNI 时，如果不注意很容易出现引用失败、引用爆表等一些崩溃。可通过 DumpReferenceTables 统计 JNI 的引用表，进一步分析是否出现了 JNI 泄露等问题。</li>
+</ul>
+<p><strong>应用信息</strong></p>
+<ul>
+<li>崩溃场景：崩溃发生在哪个 Activity 或 Fragment，发生在哪个业务里。</li>
+<li>关键操作路径：不同于开发过程中详细的打点日志，可以记录关键的用户操作路径，这对复现崩溃会有比较大的帮助。</li>
+<li>其它自定义信息：不同的应用关心的重点可能不太一样。此外例如运行时间、是否加载了补丁、是否是全新安装或升级等信息也非常重要。</li>
+<li>除了上面这些通用信息外，针对特定的一些崩溃，可能还需要获取类似磁盘空间、电量、网络使用等特定信息。</li>
+</ul>
+<hr>
+<h2 id="崩溃分析"><a href="#崩溃分析" class="headerlink" title="崩溃分析"></a><p class="m_more_title_style">崩溃分析</p></h2><p><strong>确定重点</strong></p>
+<ul>
+<li>确定严重程度：优先解决 Top 崩溃或对业务有重大影响的。</li>
+<li>崩溃基本信息：确定崩溃的类型和异常描述，对崩溃有大致的判断。</li>
+<li>Java 崩溃。Java 崩溃类型比较明显。</li>
+<li>Native 崩溃。需要观察 signal（<a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.mkssoftware.com/docs/man5/siginfo_t.5.asp">《崩溃信号介绍》</a>，比较常见的有 SIGSEGV 和 SIGABRT，前者一般由于空指针、非法指针造成，后者主要因为 ANR 和调用 abort()退出所导致。）、code、fault addr等内容，以及崩溃时 Java 的堆栈。</li>
+<li>ANR。先看主线程堆栈，是否因为锁等待导致。接着看 ANR 日志中 iowait 、CPU、GC、system server 等信息，进一步确定是 I&#x2F;O 问题，或是 CPU 竞争问题，还是由于大量 GC 导致卡死。</li>
+<li>Logcat：当从一条崩溃日志中无法看出问题的原因，或者得不到有用信息时，建议查看相同崩溃点下的更多崩溃日志。</li>
+<li>各个资源情况：结合崩溃的基本信息，查看是否跟内存信息或是资源信息有关。比如物理内存不足、虚拟内存不足，还是文件句柄 fd 泄露。</li>
+<li>无论是资源文件还是 Logcat，内存与线程相关的信息都需要特别注意，很多崩溃都是由于它们使用不当造成的。</li>
+</ul>
+<p><strong>查找共性</strong><br>机型、系统、ROM、厂商、ABI，这些采集到的系统信息都可以作为维度聚合。共性问题例如是否只出现在某款机型，或是某个版本。应用信息也可以作为维度来聚合，比如正在打开的链接、正在播放的视频、国家、地区等。</p>
+<p><strong>尝试复现</strong><br>在稳定的复现路径上面，可以采用增加日志或使用 Debugger、GDB 等各种各样的手段或工具做进一步分析。</p>
+<p><strong>疑难问题：系统崩溃</strong></p>
+<ul>
+<li>查找可能原因：通过共性归类，查看是某个系统版本的问题，还是某个厂商特定 ROM 的问题。虽然崩溃日志可能没有自己的代码，但通过操作路径和日志，可以找到一些怀疑的点。</li>
+<li>尝试规避：查看可疑的代码调用，是否使用了不恰当的 API，是否可以更换其他的实现方式规避。</li>
+<li>Hook 解决：可分为 Java Hook 和 Native Hook。</li>
+</ul>
+<hr>
+<p><strong>获得 Logcat 和 Java 堆栈的方法</strong><br>获取 Logcat：<br>logcat 日志流程：应用层–&gt;liblog.so–&gt;logd，底层使用 ring buffer 来存储数据。</p>
+<ul>
+<li>通过 logcat 命令获取。<br>优点：非常简单，兼容性好。<br>缺点：整个链路比较长，可控性差，失败率高，特别是堆破坏或者堆内存不足时，基本会失败。</li>
+<li>hook liblog.so 实现。通过 hook liblog.so 中 __android_log_buf_write 方法，将内容重定向到自己的 buffer 中。<br>优点：简单，兼容性相对还好。<br>缺点：要一直打开。</li>
+<li>自定义获取代码。通过移植底层获取 logcat 的实现，通过 socket 直接跟 logd 交互。<br>优点：比较灵活，预先分配好资源，成功率也比较高。<br>缺点：实现非常复杂</li>
+</ul>
+<p>获取 Java 堆栈：<br>native 崩溃时，通过 unwind 只能拿到 Native 堆栈。我们希望可以拿到当时各个线程的 Java 堆栈</p>
+<ul>
+<li>Thread.getAllStackTraces()。<br>优点：简单，兼容性好。<br>缺点：</li>
+<li>成功率不高，依靠系统接口在极端情况也会失败。</li>
+<li>7.0 之后这个接口是没有主线程堆栈。</li>
+<li>使用 Java 层的接口需要暂停线程</li>
+<li>hook libart.so。通过 hook ThreadList 和 Thread 的函数，获得跟 ANR 一样的堆栈。为了稳定性，我们会在 fork 子进程执行。<br>优点：信息很全，基本跟 ANR 的日志一样，有 native 线程状态，锁信息等等。<br>缺点：黑科技的兼容性问题，失败时可以用 Thread.getAllStackTraces() 兜底</li>
+</ul>
+<p>获取 Java 堆栈的方法还可以用在卡顿时，因为使用 fork 进程，所以可以做到完全不卡主进程。</p>
+<hr>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a><p class="m_more_title_style">链接</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://time.geekbang.org/column/intro/142?code=BoHaFtvdLwqi5oAhvaQpHa440OBxaicg-o5HhgsJGLw=">极客时间-Android开发高手课</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/85102257.html" title="Android 崩溃优化">https://jianghouren.cn/archives/85102257.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/c6f5af44.html" rel="prev" title="Web-CSS基础">
+                  <i class="fa fa-chevron-left"></i> Web-CSS基础
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/544b3ab0.html" rel="next" title="Android 卡顿优化">
+                  Android 卡顿优化 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/85102257.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

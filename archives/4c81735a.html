@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 音频">
+<meta property="og:url" content="https://jianghouren.cn/archives/4c81735a.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-09-18T01:30:10.000Z">
+<meta property="article:modified_time" content="2020-11-26T01:49:42.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/4c81735a.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/4c81735a.html","path":"archives/4c81735a.html","title":"Android 音频"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 音频 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#AudioRecord"><span class="nav-number">1.</span> <span class="nav-text">AudioRecord</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API%E8%AF%A6%E8%A7%A3"><span class="nav-number">1.1.</span> <span class="nav-text">API详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%BD%95%E9%9F%B3%E5%B9%B6%E7%94%9F%E6%88%90-wav"><span class="nav-number">1.2.</span> <span class="nav-text">实现录音并生成 wav</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%84%E8%A8%80"><span class="nav-number">1.3.</span> <span class="nav-text">附言</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AudioTrack"><span class="nav-number">2.</span> <span class="nav-text">AudioTrack</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">2.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%8E-MediaPlayer-%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="nav-number">2.2.</span> <span class="nav-text">与 MediaPlayer 的对比</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/4c81735a.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 音频 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 音频
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-09-18 09:30:10" itemprop="dateCreated datePublished" datetime="2020-09-18T09:30:10+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-11-26 09:49:42" itemprop="dateModified" datetime="2020-11-26T09:49:42+08:00">2020-11-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/4c81735a.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/4c81735a.html" data-xid="/archives/4c81735a.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/4c81735a.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 音频" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wallhaven-5w23r8_1200x600.png" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="AudioRecord"><a href="#AudioRecord" class="headerlink" title="AudioRecord"></a><p class="m_more_title_style">AudioRecord</p></h2><h3 id="API详解"><a href="#API详解" class="headerlink" title="API详解"></a>API详解</h3><p>AudioRecord 是 Android 系统提供的用于实现录音的功能类。接下来实现使用 AudioRecord 采集音频 PCM 并保存到文件。</p>
+<p>AndioRecord 类的主要功能是让各种 JAVA 应用能够管理音频资源，以便它们通过此类能够录制声音相关的硬件所收集的声音。此功能的实现就是通过 ”pulling”（读取）AudioRecord 对象的声音数据来完成的。在录音过程中，应用所需要做的就是通过后面三个类方法中的一个去及时地获取 AudioRecord 对象的录音数据. AudioRecord 类提供的三个获取声音数据的方法分别是 read(byte[], int, int)，read(short[], int, int)，read(ByteBuffer, int). 无论选择使用哪一个方法都必须事先设定方便用户的声音数据的存储格式。</p>
+<p>开始录音的时候，AudioRecord 需要初始化一个相关联的声音 buffer, 这个 buffer 主要是用来保存新的声音数据。这个 buffer 的大小，我们可以在对象构造期间去指定。它表明一个 AudioRecord 对象还没有被读取（同步）声音数据前能录多长的音(即一次可以录制的声音容量)。声音数据从音频硬件中被读出，数据大小不超过整个录音数据的大小（可以分多次读出），即每次读取初始化 buffer 容量的数据。</p>
+<p>实现 Android 录音的流程为：</p>
+<ol>
+<li>构造一个 AudioRecord 对象，其中需要的最小录音缓存 buffer 大小可以通过 getMinBufferSize 方法得到。如果 buffer 容量过小，将导致对象构造的失败。</li>
+<li>初始化一个 buffer，该 buffer 大于等于 AudioRecord 对象用于写声音数据的 buffer 大小。</li>
+<li>开始录音</li>
+<li>创建一个数据流，一边从 AudioRecord 中读取声音数据到初始化的 buffer，一边将 buffer 中数据导入数据流。</li>
+<li>关闭数据流</li>
+<li>停止录音</li>
+</ol>
+<h3 id="实现录音并生成-wav"><a href="#实现录音并生成-wav" class="headerlink" title="实现录音并生成 wav"></a>实现录音并生成 wav</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> TAG = <span class="string">&quot;TAG_MainActivity&quot;</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> MY_PERMISSIONS_REQUEST = <span class="number">1001</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> audioRecord: AudioRecord  <span class="comment">// 声明 AudioRecord 对象</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> recordBufSize = <span class="number">0</span>  <span class="comment">// 声明 recordBuffer 的大小字段</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> isRecording = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 需要申请的运行时权限</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> permissions = arrayOf&lt;String&gt;(</span><br><span class="line">        Manifest.permission.RECORD_AUDIO,</span><br><span class="line">        Manifest.permission.WRITE_EXTERNAL_STORAGE</span><br><span class="line">    )</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 被用户拒绝的权限列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> mPermissionList = ArrayList&lt;String&gt;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line"></span><br><span class="line">        checkPermissions()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">checkPermissions</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// Marshmallow 开始才用申请运行时权限</span></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.M) &#123;</span><br><span class="line">            <span class="keyword">val</span> permissionsSize = permissions.size</span><br><span class="line">            <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until permissionsSize) &#123;</span><br><span class="line">                <span class="keyword">if</span> (ContextCompat.checkSelfPermission(<span class="keyword">this</span>, permissions[i]) != PackageManager.PERMISSION_GRANTED) &#123;</span><br><span class="line">                    mPermissionList.add(permissions[i])</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!mPermissionList.isEmpty()) &#123;</span><br><span class="line">                <span class="keyword">val</span> permissions = mPermissionList.toArray(arrayOfNulls&lt;String&gt;(mPermissionList.size))</span><br><span class="line">                ActivityCompat.requestPermissions(<span class="keyword">this</span>, permissions, MY_PERMISSIONS_REQUEST)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onRequestPermissionsResult</span><span class="params">(requestCode: <span class="type">Int</span>, permissions: <span class="type">Array</span>&lt;<span class="type">out</span> <span class="type">String</span>&gt;, grantResults: <span class="type">IntArray</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults)</span><br><span class="line">        <span class="keyword">if</span> (requestCode == MY_PERMISSIONS_REQUEST)&#123;</span><br><span class="line">            <span class="keyword">val</span> grantResultsSize = grantResults.size</span><br><span class="line">            <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">0</span> until grantResultsSize)&#123;</span><br><span class="line">                <span class="keyword">if</span> (grantResults[i] != PackageManager.PERMISSION_GRANTED)&#123;</span><br><span class="line">                    Log.d(TAG,permissions[i] + <span class="string">&quot;权限被用户禁止！&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 运行时权限的申请不是本demo的重点，所以不再做更多的处理，请同意权限申请。</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">btnStart</span><span class="params">(view: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 获取buffer的大小并创建AudioRecord</span></span><br><span class="line">        <span class="comment">// 采样率，声道数，返回的音视频数据的格式</span></span><br><span class="line">        recordBufSize = AudioRecord.getMinBufferSize(GlobalConfig.SAMPLE_RATE_INHZ,</span><br><span class="line">            GlobalConfig.CHANNEL_CONFIG,GlobalConfig.AUDIO_FORMAT)</span><br><span class="line">        audioRecord = AudioRecord(MediaRecorder.AudioSource.MIC,GlobalConfig.SAMPLE_RATE_INHZ,</span><br><span class="line">            GlobalConfig.CHANNEL_CONFIG,GlobalConfig.AUDIO_FORMAT,recordBufSize)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 初始化一个buffer</span></span><br><span class="line">        <span class="keyword">val</span> <span class="keyword">data</span> = ByteArray(recordBufSize)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// getExternalFilesDir：SDCard/Android/data/应用的包名/files/ 目录</span></span><br><span class="line">        <span class="keyword">val</span> file = File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), <span class="string">&quot;test.pcm&quot;</span>)</span><br><span class="line">        Log.d(TAG,file.absolutePath) <span class="comment">// /storage/emulated/0/Android/data/com.example.testdemo/files/Music/test.pcm</span></span><br><span class="line">        <span class="keyword">if</span> (!file.mkdirs()) &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;Directory not created&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (file.exists()) &#123;</span><br><span class="line">            file.delete()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 开始录音</span></span><br><span class="line">        audioRecord.startRecording()</span><br><span class="line">        isRecording = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// pcm 数据无法直接播放，保存为WAV格式。</span></span><br><span class="line">        Thread(Runnable &#123;</span><br><span class="line">            <span class="comment">// 创建一个数据流，一边从AudioRecord中读取声音数据到初始化的buffer，一边将buffer中数据导入数据流</span></span><br><span class="line">            <span class="keyword">var</span> os: FileOutputStream? = <span class="literal">null</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                os = FileOutputStream(file)</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: FileNotFoundException) &#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="literal">null</span> != os) &#123;</span><br><span class="line">                <span class="keyword">while</span> (isRecording) &#123;</span><br><span class="line">                    <span class="keyword">val</span> read = audioRecord.read(<span class="keyword">data</span>, <span class="number">0</span>, recordBufSize)</span><br><span class="line">                    <span class="comment">// 如果读取音频数据没有出现错误，就将数据写入到文件</span></span><br><span class="line">                    <span class="keyword">if</span> (AudioRecord.ERROR_INVALID_OPERATION != read) &#123;</span><br><span class="line">                        <span class="keyword">try</span> &#123;</span><br><span class="line">                            os!!.write(<span class="keyword">data</span>)</span><br><span class="line">                        &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                            e.printStackTrace()</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Log.d(TAG, <span class="string">&quot;run: close file output stream !&quot;</span>)</span><br><span class="line">                    os!!.close()</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                    e.printStackTrace()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">btnStop</span><span class="params">(view: <span class="type">View</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 关闭数据流，修改标志位：isRecording 为false，上面的while循环就自动停止了，数据流也就停止流动了，Stream也就被关闭了。</span></span><br><span class="line">        isRecording = <span class="literal">false</span></span><br><span class="line">        <span class="comment">// 停止录音，释放资源。</span></span><br><span class="line">        audioRecord.stop()</span><br><span class="line">        audioRecord.release()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基本的录音流程走完了，但是现在的文件里面的内容仅仅是最原始的音频数据，术语称为raw（中文解释是“原材料”或“未经处理的东西”），这时候，播放器既不知道保存的格式是什么，又不知道如何进行解码操作。所以是无法播放的。</p>
+<p>想要在播放器中播放录制的内容需要在文件的数据开头加入WAVE HEAD数据即可，也就是文件头。只有加上文件头部的数据，播放器才能正确的知道里面的内容到底是什么，进而能够正常的解析并播放里面的内容。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> pcmToWavUtil = PcmToWavUtil(SAMPLE_RATE_INHZ, CHANNEL_CONFIG, AUDIO_FORMAT)</span><br><span class="line"><span class="keyword">val</span> pcmFile = File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), <span class="string">&quot;test.pcm&quot;</span>)</span><br><span class="line"><span class="keyword">val</span> wavFile = File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), <span class="string">&quot;test.wav&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> (!wavFile.mkdirs()) &#123;</span><br><span class="line">    Log.e(TAG, <span class="string">&quot;wavFile Directory not created&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (wavFile.exists()) &#123;</span><br><span class="line">    wavFile.delete()</span><br><span class="line">&#125;</span><br><span class="line">pcmToWavUtil.pcmToWav(pcmFile.absolutePath, wavFile.absolutePath)</span><br></pre></td></tr></table></figure>
+
+<h3 id="附言"><a href="#附言" class="headerlink" title="附言"></a>附言</h3><p>Android SDK 提供了两套音频采集的API，分别是：</p>
+<ul>
+<li><p>MediaRecorder：更加上层一点的API，它可以直接把手机麦克风录入的音频数据进行编码压缩（如AMR、MP3等）并存成文件。</p>
+</li>
+<li><p>AudioRecord：更接近底层，能够更加自由灵活地控制，可以得到原始的一帧帧PCM音频数据。</p>
+</li>
+</ul>
+<p>如果想简单地做一个录音机，录制成音频文件，则推荐使用 MediaRecorder，而如果需要对音频做进一步的算法处理、或者采用第三方的编码库进行压缩、以及网络传输等应用，则建议使用 AudioRecord，其实 MediaRecorder 底层也是调用了 AudioRecord 与 Android Framework 层的 AudioFlinger 进行交互的。直播中实时采集音频自然是要用 AudioRecord 了。</p>
+<hr>
+<h2 id="AudioTrack"><a href="#AudioTrack" class="headerlink" title="AudioTrack"></a><p class="m_more_title_style">AudioTrack</p></h2><p>使用 AudioTrack 播放PCM音频</p>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>AudioTrack 类可以完成 Android 平台上音频数据的输出任务。AudioTrack 有两种数据加载模式（MODE_STREAM和MODE_STATIC），对应的是数据加载模式和音频流类型， 对应着两种完全不同的使用场景。</p>
+<ul>
+<li>MODE_STREAM：在这种模式下，通过 write 一次次把音频数据写到 AudioTrack 中。这和平时通过 write 系统调用往文件中写数据类似，但这种工作方式每次都需要把数据从用户提供的 Buffer 中拷贝到 AudioTrack 内部的 Buffer 中，这在一定程度上会使引入延时。为解决这一问题，AudioTrack 就引入了第二种模式。</li>
+<li>MODE_STATIC：这种模式下，在 play 之前只需要把所有数据通过一次 write 调用传递到 AudioTrack 中的内部缓冲区，后续就不必再传递数据了。这种模式适用于像铃声这种内存占用量较小，延时要求较高的文件。但它也有一个缺点，就是一次 write 的数据不能太多，否则系统无法分配足够的内存来存储全部数据。</li>
+</ul>
+<p>MODE_STATIC 模式输出音频的方式如下（<strong>注意：如果采用STATIC模式，须先调用write写数据，然后再调用play。</strong>）：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">btnPayInSTATIC</span><span class="params">(view: <span class="type">View</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">// static 模式，需要将音频数据一次性 write 到 AudioTrack 的内部缓冲区</span></span><br><span class="line">        <span class="comment">// 这里应该使用协程来代替 AsyncTask。</span></span><br><span class="line">        MyAsyncTask().execute()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">inner</span> <span class="class"><span class="keyword">class</span> <span class="title">MyAsyncTask</span> : <span class="type">AsyncTask</span>&lt;<span class="type">Void, Int, Void</span>&gt;</span>() &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPreExecute</span><span class="params">()</span></span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">doInBackground</span><span class="params">(<span class="keyword">vararg</span> param: <span class="type">Void</span>?)</span></span>: <span class="built_in">Void</span>? &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> inputStream = resources.openRawResource(R.raw.ding)</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">val</span> <span class="keyword">out</span> = ByteArrayOutputStream()</span><br><span class="line">                    <span class="keyword">var</span> b: <span class="built_in">Int</span></span><br><span class="line">                    <span class="keyword">while</span> (inputStream.read().also &#123; b = it &#125; != -<span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="keyword">out</span>.write(b)</span><br><span class="line">                    &#125;</span><br><span class="line">                    d(TAG, <span class="string">&quot;Got the data&quot;</span>)</span><br><span class="line">                    audioData = <span class="keyword">out</span>.toByteArray()</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    inputStream.close()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                Log.wtf(TAG, <span class="string">&quot;Failed to read&quot;</span>, e)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onProgressUpdate</span><span class="params">(<span class="keyword">vararg</span> values: <span class="type">Int</span>?)</span></span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onPostExecute</span><span class="params">(result: <span class="type">Void</span>?)</span></span> &#123;</span><br><span class="line">            Log.d(TAG, <span class="string">&quot;Creating track...audioData.length = &quot;</span> + audioData.size)</span><br><span class="line">            <span class="comment">// R.raw.ding铃声文件的相关属性为 22050Hz, 8-bit, Mono</span></span><br><span class="line">            audioTrack = AudioTrack(</span><br><span class="line">                    AudioAttributes.Builder()</span><br><span class="line">                            .setUsage(AudioAttributes.USAGE_MEDIA)</span><br><span class="line">                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)</span><br><span class="line">                            .build(),</span><br><span class="line">                    AudioFormat.Builder().setSampleRate(<span class="number">22050</span>)</span><br><span class="line">                            .setEncoding(AudioFormat.ENCODING_PCM_8BIT)</span><br><span class="line">                            .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)</span><br><span class="line">                            .build(),</span><br><span class="line">                    audioData.size,</span><br><span class="line">                    AudioTrack.MODE_STATIC,</span><br><span class="line">                    AudioManager.AUDIO_SESSION_ID_GENERATE)</span><br><span class="line">            d(TAG, <span class="string">&quot;Writing audio data...&quot;</span>)</span><br><span class="line">            audioTrack.write(audioData, <span class="number">0</span>, audioData.size)</span><br><span class="line">            d(TAG, <span class="string">&quot;Starting playback&quot;</span>)</span><br><span class="line">            audioTrack.play()</span><br><span class="line">            d(TAG, <span class="string">&quot;Playing&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCancelled</span><span class="params">()</span></span> &#123; &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>MODE_STREAM 模式输出音频的方式如下：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">btnPayInSTREAM</span><span class="params">(view: <span class="type">View</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        * SAMPLE_RATE_INHZ 对应pcm音频的采样率</span></span><br><span class="line"><span class="comment">        * channelConfig 对应pcm音频的声道</span></span><br><span class="line"><span class="comment">        * AUDIO_FORMAT 对应pcm音频的格式</span></span><br><span class="line"><span class="comment">        * */</span></span><br><span class="line">        <span class="keyword">val</span> channelConfig = AudioFormat.CHANNEL_OUT_MONO</span><br><span class="line">        <span class="keyword">val</span> minBufferSize = AudioTrack.getMinBufferSize(SAMPLE_RATE_INHZ, channelConfig, AUDIO_FORMAT)</span><br><span class="line">        audioTrack = AudioTrack(</span><br><span class="line">                AudioAttributes.Builder()</span><br><span class="line">                        .setUsage(AudioAttributes.USAGE_MEDIA)</span><br><span class="line">                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)</span><br><span class="line">                        .build(),</span><br><span class="line">                AudioFormat.Builder().setSampleRate(SAMPLE_RATE_INHZ)</span><br><span class="line">                        .setEncoding(AUDIO_FORMAT)</span><br><span class="line">                        .setChannelMask(channelConfig)</span><br><span class="line">                        .build(),</span><br><span class="line">                minBufferSize,</span><br><span class="line">                AudioTrack.MODE_STREAM,</span><br><span class="line">                AudioManager.AUDIO_SESSION_ID_GENERATE)</span><br><span class="line">        audioTrack.play()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">val</span> file = File(getExternalFilesDir(Environment.DIRECTORY_MUSIC), <span class="string">&quot;test.pcm&quot;</span>)</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            fileInputStream = FileInputStream(file)</span><br><span class="line">            Thread(Runnable &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="keyword">val</span> tempBuffer = ByteArray(minBufferSize)</span><br><span class="line">                    <span class="keyword">while</span> (fileInputStream.available() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                        <span class="keyword">val</span> readCount = fileInputStream.read(tempBuffer)</span><br><span class="line">                        <span class="keyword">if</span> (readCount == AudioTrack.ERROR_INVALID_OPERATION || readCount == AudioTrack.ERROR_BAD_VALUE) &#123;</span><br><span class="line">                            <span class="keyword">continue</span></span><br><span class="line">                        &#125;</span><br><span class="line">                        <span class="keyword">if</span> (readCount != <span class="number">0</span> &amp;&amp; readCount != -<span class="number">1</span>) &#123;</span><br><span class="line">                            audioTrack.write(tempBuffer, <span class="number">0</span>, readCount)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">                    e.printStackTrace()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;).start()</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (e: IOException) &#123;</span><br><span class="line">            e.printStackTrace()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;  </span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="与-MediaPlayer-的对比"><a href="#与-MediaPlayer-的对比" class="headerlink" title="与 MediaPlayer 的对比"></a>与 MediaPlayer 的对比</h3><p>播放声音可以用MediaPlayer和AudioTrack，两者都提供了Java API供应用开发者使用。虽然都可以播放声音，但两者还是有很大的区别的。</p>
+<p><strong>区别</strong></p>
+<p>其中最大的区别是MediaPlayer可以播放多种格式的声音文件，例如MP3，AAC，WAV，OGG，MIDI等。MediaPlayer会在framework层创建对应的音频解码器。而AudioTrack只能播放已经解码的PCM流，如果对比支持的文件格式的话则是AudioTrack只支持wav格式的音频文件，因为wav格式的音频文件大部分都是PCM流。AudioTrack不创建解码器，所以只能播放不需要解码的wav文件。</p>
+<p><strong>联系</strong></p>
+<p>MediaPlayer在framework层还是会创建AudioTrack，把解码后的PCM数流传递给AudioTrack，AudioTrack再传递给AudioFlinger进行混音，然后才传递给硬件播放,所以是MediaPlayer包含了AudioTrack。</p>
+<p><strong>SoundPool</strong></p>
+<p>在接触Android音频播放API的时候，发现SoundPool也可以用于播放音频。下面是三者的使用场景：MediaPlayer 更加适合在后台长时间播放本地音乐文件或者在线的流式资源; SoundPool 则适合播放比较短的音频片段，比如游戏声音、按键声、铃声片段等等，它可以同时播放多个音频; 而 AudioTrack 则更接近底层，提供了非常强大的控制能力，支持低延迟播放，适合流媒体和VoIP语音电话等场景。</p>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.cnblogs.com/renhui/category/1011048.html">https://www.cnblogs.com/renhui/category/1011048.html</a></p>
+<p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/VioceApplication">GitHub</a></p>
+<details class="m_more_content_details">
+  <summary  class="m_more_content_summary">单词音标：</summary>
+  <ul>
+    <li><a href="https://www.youdao.com/w/eng/track/#keyfrom=dict2.index" rel="external nofollow noreferrer" target="_blank">track 英 [træk]  美 [træk]</a></li>
+    <li><a href="https://www.youdao.com/w/MODE/#keyfrom=dict2.top" rel="external nofollow noreferrer" target="_blank">mode 英 [məʊd]  美 [moʊd]</a></li>
+    <li><a href="https://www.youdao.com/w/STREAM/#keyfrom=dict2.top" rel="external nofollow noreferrer" target="_blank">stream 英 [striːm]  美 [striːm]</a></li>
+    <li><a href="https://www.youdao.com/w/STATIC/#keyfrom=dict2.top" rel="external nofollow noreferrer" target="_blank">static 英 [ˈstætɪk]  美 [ˈstætɪk]</a></li>
+  </ul>
+</details>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/4c81735a.html" title="Android 音频">https://jianghouren.cn/archives/4c81735a.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/9e2d0e5e.html" rel="prev" title="Android TitleLayout">
+                  <i class="fa fa-chevron-left"></i> Android TitleLayout
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/e899fad1.html" rel="next" title="开发手册">
+                  开发手册 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/4c81735a.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 绘制优化">
+<meta property="og:url" content="https://jianghouren.cn/archives/79dc4338.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/android_profile_gpu_rendering.jpeg?imageView2/2/h/600">
+<meta property="article:published_time" content="2020-08-26T21:39:57.000Z">
+<meta property="article:modified_time" content="2021-04-27T10:20:14.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="性能优化">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/79dc4338.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/79dc4338.html","path":"archives/79dc4338.html","title":"Android 绘制优化"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 绘制优化 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%98%E5%88%B6%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">绘制原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%85%E5%8A%A9%E5%B7%A5%E5%85%B7"><span class="nav-number">2.</span> <span class="nav-text">辅助工具</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Profile-GPU-Rendering"><span class="nav-number">2.1.</span> <span class="nav-text">Profile GPU Rendering</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Systrace"><span class="nav-number">2.2.</span> <span class="nav-text">Systrace</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TraceView"><span class="nav-number">2.3.</span> <span class="nav-text">TraceView</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B1%80%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">布局优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%B7%A5%E5%85%B7"><span class="nav-number">3.1.</span> <span class="nav-text">优化工具</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%B3%95"><span class="nav-number">3.2.</span> <span class="nav-text">优化方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%81%BF%E5%85%8D-GPU-%E8%BF%87%E5%BA%A6%E7%BB%98%E5%88%B6"><span class="nav-number">3.3.</span> <span class="nav-text">避免 GPU 过度绘制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/79dc4338.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 绘制优化 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 绘制优化
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-27 05:39:57" itemprop="dateCreated datePublished" datetime="2020-08-27T05:39:57+08:00">2020-08-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2021-04-27 18:20:14" itemprop="dateModified" datetime="2021-04-27T18:20:14+08:00">2021-04-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/79dc4338.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/79dc4338.html" data-xid="/archives/79dc4338.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/79dc4338.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 绘制优化" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>5.8k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>5 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/haiyangqiyuan.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="绘制原理"><a href="#绘制原理" class="headerlink" title="绘制原理"></a>绘制原理</h2><p><strong>绘制优化</strong>：指 View 的 onDraw() 要避免执行大量的操作。</p>
+<ul>
+<li>onDraw() 中不要创建新的局部对象</li>
+<li>onDraw() 中不要做耗时的任务，也不能执行成千上万次的循环操作</li>
+</ul>
+<p>View 的绘制流程有 3 个步骤：measure、layout 和 draw，它们主要运行在系统的应用框架层，而真正将数据渲染到屏幕上的则是系统 Native 层的 SurfaceFlinger 服务来完成的，</p>
+<p>绘制过程主要由 CPU 来进行 Measure、Layout、Record、Execute 的数据计算工作，GPU 负责栅格化、渲染。CPU 和 GPU 是通过图形驱动层来进行连接的，图形驱动层维护了一个队列，CPU 将 display list 添加到该队列中，这样 GPU 就可以从这个队列中取出数据进行绘制。</p>
+<p>帧数：一秒内传输的图片的量，也可以理解为图形处理器每秒钟能够刷新几次，通常用 FPS 表示。每一帧其实就是静止的图像，通过快速连续地显示帧便形成了运动的假象。因为人类的大脑会不断接收并处理眼球看到的信息，单位时间内越多的帧被处理，越能有效地被大脑识别。最简单的举例就是玩游戏时，如果画面在 60fps 则不会感觉到卡顿，当帧数太低时（10fps ~ 12fps），大脑就分不清这个图像是静止的还是变化的。</p>
+<p>要想画面保持在 60fps，需要屏幕在 1 秒内刷新 60 次，也就是每 16.6667ms 刷新一次（绘制时长在 16ms 以内，每 16ms DRAW 一次）。</p>
+<p>Android 系统每隔 16ms 发出 VSYNC 信号，触发对 UI 进行渲染，如果每次渲染都成功，这样就能够达到流畅的画面所需要的 60 fps。（VSYNC 是 Vertical Synchronization（垂直同步）的缩写，是一种定时中断，一旦收到 VSYNC 信号，CPU 就开始处理各帧数据。如果某个操作要花费 24ms，这样系统在得到 VSYNC 信号时无法进行正常的渲染，会发生丢帧。用户会在 32ms 中看到同一帧的画面（发生了丢帧，在第一个 16 ms 时没有能够正常的 DRAW，只能在第二个 16 ms 时 DRAW）。</p>
+<p>产生卡顿原因有很多，主要有以下几点：</p>
+<ul>
+<li>布局 Layout 过于复杂，无法在 16ms 内完成渲染。</li>
+<li>同一时间动画执行的次数过多，导致 CPU 或 GPU 负载过重。</li>
+<li>VIew 过渡绘制，导致某些像素在同一帧时间内被绘制多次。</li>
+<li>在 UI 线程中做了稍微耗时的操作。</li>
+<li>GC 回收时暂停时间过长或者频繁 GC 产生大量的暂停时间。</li>
+</ul>
+<hr>
+<h2 id="辅助工具"><a href="#辅助工具" class="headerlink" title="辅助工具"></a><p class="m_more_title_style">辅助工具</p></h2><h3 id="Profile-GPU-Rendering"><a href="#Profile-GPU-Rendering" class="headerlink" title="Profile GPU Rendering"></a>Profile GPU Rendering</h3><p>Android 4.1 系统提供的开发辅助功能，用来找到渲染有问题的界面，可以在手机的开发者选项中打开这个功能。（不同厂商的叫法可能会不一样，一般在开发者选项中的监控分类里面，比如 XX 呈现模式分析，然后在选项中选择在屏幕上显示为条形图，接着屏幕上会显示出彩色的柱状图。）</p>
+<p>我的设备为 IQOO：</p>
+<img data-src="https://imgsw.cn/static/images/android_profile_gpu_rendering.jpeg?imageView2/2/h/600">
+
+<p>图中横轴代表时间，纵轴表示某一帧的耗时。绿色的横线为警戒线，超过这条线则意味着时长超过了 16ms，尽量要保证垂直的彩色柱状图保持在绿线下面。</p>
+<p>这些垂直的彩色柱状图代表着一帧，不同颜色的彩色柱状图代表不同的含义。</p>
+<ul>
+<li>橙色：处理的时间，是 CPU 告诉 GPU 渲染一帧的地方，这是一个阻塞调用，因为 CPU 会一直等待 GPU 发出接到命令的回复，如果橙色柱状图很高，则表明 GPU 很繁忙。</li>
+<li>红色：执行的时间，这部分是 Android 进行 2D 渲染 Display List 的时间。如果红色柱状图很高，可能由于重新提交了视图而导致的。还有复杂的自定义 View 也会导致红色柱状图变高。</li>
+<li>蓝色：测量绘制的时间，也就是需要多长时间去创建和更新 Display List 。如果蓝色柱状图很高，可能需要重新绘制，或者 View 的 onDraw 方法处理事情太多。</li>
+</ul>
+<p>在 Android 6.0 中，有更多的颜色被加了进来：</p>
+<ul>
+<li>Swap Buffers（交换缓冲区）：表示处理的时间，和上面的橙色一样。</li>
+<li>Command Issue（发出命令）：表示执行的时间，和上面的红色一样。</li>
+<li>Sync &amp; Upload（同步和上传）：表示的是准备当前界面上有待绘制的图片所耗费的时间，为了减少该段区域的执行时间，可以减少屏幕上的图片数量或者缩小图片的大小。</li>
+<li>Draw（绘制）：表示测量和绘制视图列表所需要的时间，和上面的蓝色一样。</li>
+<li>Measure&#x2F;Layout（测量&#x2F;布局）：表示布局的 onMeasure 与 onLayout 所花费的时间，一旦时间过长，就需要仔细检查自己的布局是不是存在严重的性能问题。</li>
+<li>Animation（动画）：表示计算执行动画所需要花费的时间，包含的动画有 ObjectAnimator、ViewPropertyAnimator、Transition 等。一旦这里的执行时间过长，就需要检查是不是使用了非官方的动画工具或者检查动画执行的过程中是不是触发了读&#x2F;写操作等。</li>
+<li>Input Handling（输入处理）：表示系统处理输入事件所耗费的时间，粗略等于对事件处理方法所执行的时间。一旦执行时间过长，意味着在处理用户的输入事件的地方执行了复杂的操作。</li>
+<li>Misc Time&#x2F;VSync Delay（其他时间&#x2F;VSync 延迟）：表示在主线程中执行了太多的任务，导致 UI 渲染跟不上 VSYNC 的信号而出现掉帧的情况。</li>
+</ul>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://developer.android.com/studio/profile/inspect-gpu-rendering?hl=zh-cn">检查 GPU 渲染速度和过度绘制</a></p>
+<h3 id="Systrace"><a href="#Systrace" class="headerlink" title="Systrace"></a>Systrace</h3><p>Android 4.1 中新增的性能数据采样和分析工具，它可以帮助开发者收集 Android 关键子系统（SurfaceFlinger、WMS 等 Framework 部分关键模块、服务，View 体系系统等）的运行信息。Systrace 的功能包括跟踪系统的 I&#x2F;O 操作、内核工作队列、CPU 负载以及 Android 各个子系统的运行状况等。对于 UI 显示性能，比如动画播放不流畅、渲染卡顿等问题提供了分析数据。</p>
+<p>在 Android 4.3 以后版本中，它可以在 DDMS 上使用，可以通过命令行使用，可以在代码中进行跟踪。</p>
+<p><strong>通过 DDMS</strong>：启动 Android Device Monitor 工具，因为Android studio 3.1后认为monitor用的很少，便去掉了菜单栏启动按钮，所以只能通过命令运行该工具了。工具位于android-sdk目录中，monitor.bat即为启动脚本，双击运行即可。</p>
+<h3 id="TraceView"><a href="#TraceView" class="headerlink" title="TraceView"></a>TraceView</h3><p>Android SDK 中自带的数据采集和分析工具。一般来说，通过它可以得到以下两种数据：</p>
+<ul>
+<li>单次执行耗时的方法</li>
+<li>执行次数多的方法</li>
+</ul>
+<h2 id="布局优化"><a href="#布局优化" class="headerlink" title="布局优化"></a><p class="m_more_title_style">布局优化</p></h2><p><strong>布局优化</strong>：就是尽量减少布局文件的层级。一个界面的测量和绘制是通过递归来完成的，减少布局的层数就会减少测量和绘制的时间，从而性能就会得到提升。当然这只是布局优化的一方面，可通过一些工具来对布局进行分析和优化。</p>
+<h3 id="优化工具"><a href="#优化工具" class="headerlink" title="优化工具"></a>优化工具</h3><p><strong>Tools -&gt; Layout Inspector</strong>：</p>
+<p><strong>Hierarchy Viewer</strong>：</p>
+<p>Android SDK 自带的可视化的调试工具，用来检查布局嵌套和绘制的时间。</p>
+<p><strong>Android Lint</strong>：</p>
+<p>ADT 16 中提供的新工具，它是一个代码扫描工具，通过代码静态检查来发现代码出现的潜在问题，并给出优化建议。检查的范围主要有几点：Correctness（正确性）、Security（安全性）、Performance（性能）、Usability（可用性）、Accessibility（可达性）、Internationalization（国际化）</p>
+<p>可通过 Android Studio 的 Analyze -&gt; Inspect Code 来配置检查的范围，单击 OK 按钮来进行代码检查。</p>
+<p>可通过 File -&gt; Settings -&gt; Editor -&gt; Inspections 来自定义 Android Lint 的检查提示。</p>
+<h3 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h3><p>优化方式比如：</p>
+<ul>
+<li>删除布局中无用的控件和层级，其次有选择地使用性能较低的 ViewGroup。</li>
+<li>采用 include 标签，merge 标签和 ViewStub。</li>
+<li>include 标签：主要用于布局重用</li>
+<li>merge 标签：一般和 include 标签配合使用，它可降低减少布局的层级</li>
+<li>ViewStub：提供了按需加载的功能</li>
+</ul>
+<p><strong>使用 Include 标签来进行布局复用</strong>：</p>
+<p><code>&lt;include layout=&quot;@layout/titlebar&quot; /&gt;</code></p>
+<p><strong>使用 Merge 标签去除多余层级</strong>：</p>
+<p>一般和 Include 标签搭配使用，用来替换 Include 标签引用的布局的根布局。为了避免布局错乱，最好是替代 FrameLayout 或者布局方向一致的LinearLayout，比如当前父布局的 LinearLayout 的布局方向是垂直的，包含的子布局 LinearLayout 的布局方向也是垂直的，则可以用 merge 标签来替代子布局的 LinearLayout。如果方向不一致时执意要使用 merge 标签，可以用继承自 LinearLayout 的自定义 View。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">merge</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;40dp&quot;</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">TextView</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">merge</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>使用 ViewStub 来提高加载速度</strong>：</p>
+<p>当加载一个布局时，有时并不需要显示全部的控件，一般采用的方法是通过 View 的 GONE 和 INVISIBLE 属性，但这种方法效率不高，虽然达到了隐藏的目的，但是仍在布局当中，系统仍会解析它们。这时可以用 ViewStub 来解决，它是一个轻量级的 View，当调用 inflate 方法或者设置可见时，系统会加载 ViewStub 指定的布局，然后将这个布局添加到 ViewStub 中，此前它是不占布局空间和系统资源的，它主要的目的就是为目标视图占用一个位置。因此，使用 ViewStub 可以提高界面初始化的性能，从而提高界面的加载速度。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">LinearLayout</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;vertical&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:app</span>=<span class="string">&quot;http://schemas.android.com/apk/res-auto&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">tools:context</span>=<span class="string">&quot;.MainActivity&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">ViewStub</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/viewstub&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;40dp&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:layout</span>=<span class="string">&quot;@layout/titlebar&quot;</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">    setContentView(R.layout.activity_main)</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将 ViewStub 引用的布局加载到 ViewStub 中。</span></span><br><span class="line">    viewstub.inflate()</span><br><span class="line">    viewstub.visibility = View.VISIBLE</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 ViewStub 时需要注意的问题：</p>
+<ul>
+<li>ViewStub 只能加载一次，加载后 ViewStub 对象会被置为空，这样引用的布局被加载后，就不能用 ViewStub 来控制引用的布局了。因此，如果一个控件需要不断地显示和隐藏，还是要使用 View 的 Visibility 属性。</li>
+<li>ViewStub 不能嵌套 Merge 标签。</li>
+<li>ViewStub 操作的是布局文件，如果只是想操作具体的 View，还是要使用 View 的 Visibility 属性。</li>
+</ul>
+<h3 id="避免-GPU-过度绘制"><a href="#避免-GPU-过度绘制" class="headerlink" title="避免 GPU 过度绘制"></a>避免 GPU 过度绘制</h3><p>过度绘制是指在屏幕上某个像素在同一帧的时间内被绘制多次，从而浪费了 GPU 和 CPU 的资源。产生这一情况主要有两个原因：</p>
+<ul>
+<li>在 XML 布局中，控件有重叠且都有设置背景。</li>
+<li>View 的 onDraw 在同一区域绘制多次。</li>
+</ul>
+<p>可以使用 Android 系统中自带的工具来检测过度绘制。首先保证系统版本在 4.1 以上，然后 -&gt; 开发者选项 -&gt; 调式 GPU 过渡绘制（一般在硬件加速渲染中）。这时屏幕会出现各种颜色，含义为：</p>
+<ul>
+<li>白色：没有过渡绘制 - 每个像素点在屏幕上绘制了一次。</li>
+<li>蓝色：一次过渡绘制 - 每个像素点在屏幕上绘制了两次。</li>
+<li>绿色：二次过渡绘制 - 每个像素点在屏幕上绘制了三次。</li>
+<li>粉色：三次过渡绘制 - 每个像素点在屏幕上绘制了四次。</li>
+<li>红色：四次或四次以上过渡绘制 - 每个像素点在屏幕上绘制了五次或五次以上。</li>
+</ul>
+<p>颜色越浅越好，避免过度绘制主要有以下两种方案：</p>
+<ul>
+<li>移除不需要的 background</li>
+<li>在自定义 View 的 onDraw 方法中，用 canvas.clipRect 来指定绘制的区域，防止重叠的组件发生过度绘制。</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+<details class="m_more_content_details">
+  <summary>单词音标：</summary>
+  
+
+</details>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/79dc4338.html" title="Android 绘制优化">https://jianghouren.cn/archives/79dc4338.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" rel="tag"># 性能优化</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/e3e66d1f.html" rel="prev" title="Android MediaPlayer">
+                  <i class="fa fa-chevron-left"></i> Android MediaPlayer
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/e6610180.html" rel="next" title="Android 内存泄漏">
+                  Android 内存泄漏 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/79dc4338.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

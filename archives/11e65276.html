@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Adnroid 四大组件的工作过程">
+<meta property="og:url" content="https://jianghouren.cn/archives/11e65276.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-11-02T03:56:14.000Z">
+<meta property="article:modified_time" content="2020-07-05T01:46:33.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="四大组件">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/11e65276.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/11e65276.html","path":"archives/11e65276.html","title":"Adnroid 四大组件的工作过程"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Adnroid 四大组件的工作过程 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81"><span class="nav-number">1.</span> <span class="nav-text">四大组件的运行状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%B9-Activity-%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">根 Activity 的启动过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Launcher-%E8%AF%B7%E6%B1%82-AMS-%E8%BF%87%E7%A8%8B"><span class="nav-number">2.1.</span> <span class="nav-text">Launcher 请求 AMS 过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AMS-%E5%88%B0-ApplicationThread-%E7%9A%84%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">AMS 到 ApplicationThread 的调用过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActivityThread-%E5%90%AF%E5%8A%A8-Activity%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="nav-number">2.3.</span> <span class="nav-text">ActivityThread 启动 Activity的过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity-%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">Activity 的工作过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">Service 的工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="nav-number">4.1.</span> <span class="nav-text">Service 的启动过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Service-%E7%9A%84%E7%BB%91%E5%AE%9A%E8%BF%87%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">Service 的绑定过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BroadcastReceiver-%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">BroadcastReceiver 的工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E6%92%AD%E7%9A%84%E6%B3%A8%E5%86%8C%E8%BF%87%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">广播的注册过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%BF%E6%92%AD%E7%9A%84%E5%8F%91%E9%80%81%E5%92%8C%E6%8E%A5%E6%94%B6%E8%BF%87%E7%A8%8B"><span class="nav-number">5.2.</span> <span class="nav-text">广播的发送和接收过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ContentProvider-%E7%9A%84%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">6.</span> <span class="nav-text">ContentProvider 的工作过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">7.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/11e65276.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Adnroid 四大组件的工作过程 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Adnroid 四大组件的工作过程
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-11-02 11:56:14" itemprop="dateCreated datePublished" datetime="2019-11-02T11:56:14+08:00">2019-11-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-07-05 09:46:33" itemprop="dateModified" datetime="2020-07-05T09:46:33+08:00">2020-07-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/11e65276.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/11e65276.html" data-xid="/archives/11e65276.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/11e65276.html" class="post-meta-item leancloud_visitors" data-flag-title="Adnroid 四大组件的工作过程" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>10k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/碧蓝航线.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="四大组件的运行状态"><a href="#四大组件的运行状态" class="headerlink" title="四大组件的运行状态"></a><p class="m_more_title_style">四大组件的运行状态</p></h2><ul>
+<li>Activity 是一种展示型组件，用于向用户直接地展示一个界面，并且可以接收用户的输入信息从而进行交互。</li>
+<li>Service 是一种计算型组件，用于后台执行一系列计算任务。</li>
+<li>BroadcastReceiver 是一种消息型组件，用于在不同的组件乃至不同的应用之间传递消息。</li>
+<li>ContentProvider 是一种数据共享型组件，用于向其他组件乃至其他应用共享数据。</li>
+</ul>
+<h2 id="根-Activity-的启动过程"><a href="#根-Activity-的启动过程" class="headerlink" title="根 Activity 的启动过程"></a><p class="m_more_title_style">根 Activity 的启动过程</p></h2><p>根 Activity 的启动过程一般情况下也可以理解为应用程序的启动过程。</p>
+<h3 id="Launcher-请求-AMS-过程"><a href="#Launcher-请求-AMS-过程" class="headerlink" title="Launcher 请求 AMS 过程"></a>Launcher 请求 AMS 过程</h3><p>当点击应用程序的快捷图标时，会调用 Launcher.java 的 startActivitySafely 方法。</p>
+<ul>
+<li>startActivitySafely</li>
+<li>先将 Flag 设置为 Intent.FLAG_ACTIVITY_NEY_TASK，使根 Activity 在新的任务栈中启动。</li>
+<li>其次，调用 startActivity 方法，此方法在 Activity.java 中实现。</li>
+<li>startActivity<br>在 startActivity 方法中会调用 startActivityForResult 方法。</li>
+<li>startActivityForResult<br>其中，调用 Instrumentation（主要用来监控应用程序和系统的交互） 的 execStartActivity 方法。</li>
+<li>execStartActivity<br>调用 ActivityManager.java 的 getService 方法获取 AMS 的代理对象，接着调用它的 startActivity 方法。</li>
+<li>Android 8.0 之前，通过ActivityManagerNative 的 getDefault 来获取 AMS 的代理对象。</li>
+<li>现在，这个逻辑封装到了 ActivityManager 中。</li>
+</ul>
+<h3 id="AMS-到-ApplicationThread-的调用过程"><a href="#AMS-到-ApplicationThread-的调用过程" class="headerlink" title="AMS 到 ApplicationThread 的调用过程"></a>AMS 到 ApplicationThread 的调用过程</h3><p>Launcher 请求 AMS 后，代码逻辑已经进入 AMS 中。</p>
+<ul>
+<li>AMS 的 startActivity</li>
+<li>其中，return startActivityAsUser()。</li>
+<li>startActivityAsUser</li>
+<li>判断调用者进程是否被隔离。</li>
+<li>根据调用者的 UserId，检查其是否有权限。</li>
+<li>调用 ActivityStarter（7.0新加入的类，它是加载 Activity 的控制类，会收集所有的逻辑来决定如何将 Intent 和 Flag 转换 为 Activity，并将 Activity 和 Task 以及 Stack 相关联） 的 startActivityMayWait。</li>
+<li>startActivityMayWait</li>
+<li>其中，调用了 startActivityLocked 方法。</li>
+<li>startActivityLocked</li>
+<li>其中，调用了 startActivity 方法。</li>
+<li>startActivity</li>
+<li>判断 IApplicationThread 类型的 caller（它指的是 Launcher 所在的应用程序进程的 ApplicationThread 对象） 是否为 null。</li>
+<li>调用 AMS 的 getRecordForAppLocked 方法得到代表 Launcher 进程的 callerApp 对象（它是 ProcessRecord 类型的，ProcessRecord 用于描述一个应用程序进程）。</li>
+<li>创建即将要启动的 Activity 的描述类 ActivityRecord（它用来记录一个 Activity 的所有信息），并将它赋值给 ActivityRecord[] 类型的 outActivity，这个 outActivity 会作为接下来的 startActivity 方法的参数传递下去。</li>
+<li>startActivity 方法紧接着调用了 startActivityUnchecked 方法。</li>
+<li>startActivityUnchecked<br>主要处理与栈管理相关的逻辑。</li>
+<li>执行 setTaskFromReuseOrCreateNewTask 方法，其内部会创建一个新的 TaskRecord ，用来描述一个 Activity 任务栈。</li>
+<li>调用 ActivityStackSupervisor 的 resumeFocusedStackTopActivityLocked 方法。</li>
+<li>resumeFocusedStackTopActivityLocked</li>
+<li>调用 ActivityStack 的 topRunningActivityLocked 方法获取要启动的 Activity 所在栈的栈顶的不是处于停止状态的 ActivityRecord。</li>
+<li>调用 ActivityStack 的 resumeTopActivityUncheckedLocked 方法。</li>
+<li>resumeTopActivityUncheckedLocked</li>
+<li>调用 ActivityStack 的 resumeTopActivityInnerLocked 方法。</li>
+<li>resumeTopActivityInnerLocked</li>
+<li>调用 ActivityStackSupervisor 的 startSpecificActivityLocked 方法。</li>
+<li>startSpecificActivityLocked</li>
+<li>获取即将启动的 Activity  所在的应用程序进程。</li>
+<li>判断要启动的 Activity 所在的应用程序进程如果已经运行，则调用 realStartActivityLocked 方法。</li>
+<li>realStartActivityLocked</li>
+<li>其中的 app.thread 指的是 IApplicationThread，它的实现是 ActivityThread 的内部类 ApplicationThread（它继承了 IAppliactionThread.Stub）。</li>
+<li>app 指的是传入的要启动的 Activity 所在的应用程序进程。</li>
+<li>因此，app.thread.scheduleLaunchActivity() 指的就是要在目标应用程序进程启动 Activity。</li>
+<li>当前代码逻辑运行在 AMS 所在的进程（SystemServer 进程）中，通过 ApplicationThread 来与应用程序进程进行 Binder 通信，换句话说，ApplicationThread 是 AMS 所在进程和应用程序进程的通信桥梁。</li>
+</ul>
+<h3 id="ActivityThread-启动-Activity的过程"><a href="#ActivityThread-启动-Activity的过程" class="headerlink" title="ActivityThread 启动 Activity的过程"></a>ActivityThread 启动 Activity的过程</h3><hr>
+<h2 id="Activity-的工作过程"><a href="#Activity-的工作过程" class="headerlink" title="Activity 的工作过程"></a><p class="m_more_title_style">Activity 的工作过程</p></h2><p>Activity 的 startActivity() 有好几种重载方式，但最终都会调用 startActivityForResult()。</p>
+<ul>
+<li>startActivityForResult()<br>调用 Instrumentation 的 execStartActivity()。<br>mMainThread.getApplicationThread() 这个参数的类型是 ApplicationThread（是 ActivityThread 的一个内部类）。</li>
+<li>execStartActivity()<br>启动 Activity 真正的实现由 ActivityManagerNative.getDefault()（IActivityManager 类型的 Binder 对象，具体实现是 ActivityManagerService） 的 startActivity() 完成。<br>checkStartActivityResult() 的作用是检查启动 Activity 的结果。</li>
+<li>startActivity()<br>由于 ActivityManagerNative.getDefault() 实际上是 AMS，因此启动过程转移到了 AMS 中，来看 AMS 的 startActivity()。<br>将启动过程转移到了 ActivityStackSupervisor 的 startActivityMayWait()，又经过一些列的调用过程，又将启动过程转移到了 ActivityStack 的 resumeTopActivitiesLocked()。</li>
+<li>resumeTopActivitiesLocked()<br>调用了 resumeTopActivityInnerLocked() –&gt; ActivityStackSupervisor 的 startSpecificActivityLocked() –&gt; realStartActivityLocked()。</li>
+<li>realStartActivityLocked()<br>一段重要代码，app.thread.scheduleLaunchActivity()。其中 app.thread 的类型位 IApplicationThread。</li>
+<li>IApplicationThread<br>它继承了 IInterface 接口，是一个 Binder 类型的接口。其实现者完成了大量和 Activity 以及 Service 的启动&#x2F;停止相关功能。<br>实现者是 ActivityThread 中的内部类 AppliactionThread。</li>
+<li>AppliactionThread<br>它继承了 ApplicationThreadNative。而 ApplicationThreadNative 继承了 Binder 并实现了 IApplicationThread 接口，其内部还有一个 ApplicationThreadProxy 类。<br>ApplicationThreadNative 是 IApplcationThread 的实现者，由于 ApplicationThreadNative 被系统定义为抽象类，所以 AppliactionThread 就成了 IApplicationThread 最终的实现者。<br>到此，Activity 的启动过程最终回到了 AppliactionThread 中，AppliactionThread 通过 scheduleLaunchActivity() 来启动 Activity。</li>
+<li>scheduleLaunchActivity()<br>会发送一个启动 Activity 的消息交由 Handler（名字叫 H） 处理。</li>
+<li>H<br>从对 “LAUNCH_ACTIVITY” 这个消息的处理可知道，启动过程由 ActivityThread 的 handleLaunchActivity() 来实现，其又调用 performLaunchActivity()。</li>
+<li>performLaunchActivity()<br>最终完成了 Activity 对象的创建和启动过程，并且 ActivityThread 通过 handleResumeActivity() 来调用被启动 Activity 的 onResume 这一生命周期方法。它主要完成了如下几件事：</li>
+<li>从 ActivityClientRecord 中获取待启动的 Activity 的组件信息</li>
+<li>通过 Instrumentation 的 newActivity() 使用类加载器创建 Activity 对象</li>
+<li>通过 LoadedApk 的 makeApplication() 来尝试创建 Application 对象</li>
+<li>创建 ContextImpl 对象并通过 Activity 的 attach() 来完成一些重要数据的初始化</li>
+<li>调用 Activity 的 onCreate()</li>
+</ul>
+<hr>
+<h2 id="Service-的工作过程"><a href="#Service-的工作过程" class="headerlink" title="Service 的工作过程"></a><p class="m_more_title_style">Service 的工作过程</p></h2><p>使用一个 Service 分为两种工作状态，并且是可共存的：</p>
+<ul>
+<li>启动状态：主要用于执行后台计算</li>
+<li>绑定状态：主要用于其他组件和 Service 的交互</li>
+</ul>
+<h3 id="Service-的启动过程"><a href="#Service-的启动过程" class="headerlink" title="Service 的启动过程"></a>Service 的启动过程</h3><p>Service 的启动过程从 ContextWrapper 的 startService 开始：</p>
+<ul>
+<li>startService()<br>调用了 mBase.startService()。mBase 的类型是 ContextImpl 对象，其实现了 ContextWrapper 的大部分操作（桥接模式）。</li>
+<li>startService()<br>调用了 startServiceCommon() –&gt; ActivityManagerNative.getDefault() 这个对象来启动一个服务（实际上是通过 AMS 来启动服务，这是一个远程过程调用）。<br>AMS 会通过 mServices 这个对象(类型是 ActivityServices，用以辅助 AMS 进行 Service 管理的类)来完成 Service 后续的启动过程，mServices.startServiceLocked() –&gt; startServiceInnerLocked()。</li>
+<li>startServiceInnerLocked()<br>ServiceRecord 一直贯穿着整个 Service 的启动过程，描述的是一个 Service 记录。<br>其把启动的后续工作交给了 bringUpServiceLocked() –&gt; realStartServiceLocked()。</li>
+<li>realStartServiceLocked()<br>首先通过 app.thread 的 scheduleCreateService() 创建 Service 对象并调用其 onCreate()，接着再通过 sendServiceArgsLocked() 调用 Service 的其他方法。这两个过程均是进程间通信。<br>接着看 app.thread 对象的具体实现 ApplicationThread 对 Service 启动过程的处理，对应着 scheduleCreateService()。</li>
+<li>scheduleCreateService()<br>发功消息给 Handler H，H 处理 CREATE_SERVICE 消息，并通过 ActivityThread 的 handleCreateService() 完成 Service 的最终启动。</li>
+<li>handleCreateService()<br>其主要完成了如下几件事：</li>
+<li>通过类加载器创建 Service 的实例</li>
+<li>创建 Application 对象并调用其 onCreate，此过程只一次</li>
+<li>创建 ContextImpl 对象并通过 Service 的 attach() 建立二者之间的关系。、</li>
+<li>调用 Service 的 onCreate() 并将 Service 对象存储到 ActivityThread 中的一个列表中</li>
+</ul>
+<h3 id="Service-的绑定过程"><a href="#Service-的绑定过程" class="headerlink" title="Service 的绑定过程"></a>Service 的绑定过程</h3><p>从 ContextWrapper 的 bindService() 开始：</p>
+<ul>
+<li>bindService()<br>mBase.bindService() –&gt; 最终会调用自己的 bindServiceCommon()。</li>
+<li>bindServiceCommon()<br>主要完成两件事：</li>
+<li>首先将客户端的 ServiceConnection 对象转化为 ServiceDispatcher.InnerConnection 对象</li>
+<li>接着通过 AMS 来完成 Service 的具体绑定过程</li>
+<li>AMS 的 bindService()<br>调用 ActiveServices 的 bingServiceLocked() –&gt; … –&gt; realStartServiceLocked()。</li>
+<li>realStartServiceLocked()<br>最终通过 ApplicationThread 完成 Service 实例的创建并执行其 onCreate()。<br>与启动 Service 不同，绑定过程会调用 app.thread 的 scheduleBindService()，方法位于 ActiveServices 的 requestServiceBindingLocked() 中。</li>
+<li>scheduleBindService()<br>通过 Handler H 来中转，在 H 内部，接收到 BIND_SERVICE 这类消息时，会交给 ActivityThread 的 handleBindService() 处理。</li>
+<li>handleBindService()<br>首先根据 Service 的 token 取出 Service 对象，然后调用 Service 的 onBind()（会返回一个 Binder 对象给客户端使用）。当多次绑定同一个 Service 时，onBind() 只会执行一次，除非 Service 被终止了。<br>由于 onBing 是 Service 的方法，客户端并不知道已经成功连接 Service 了，还需调用客户端的 ServiceConnection 中的 onServiceConnected()，这个过程由 ActivityManagerNative.getDefault() 的 publishService() 来完成的。</li>
+<li>publishService()<br>将具体工作交给了 ActiveServices 类型的 mServices 对象来处理，mServices.publishServiceLocked()。</li>
+<li>publishServiceLocked()<br>核心代码，c.conn.connected(r.name, service)。其中，c 的类型是 ConnectionRecord，c.conn 的类型是 ServiceDispatcher.InnerConnection，service 就是 onBind() 返回的 Binder 对象。</li>
+<li>ServiceDispatcher.InnerConnection<br>它的 connected() 调用了 ServiceDispatcher 的 connected()。</li>
+<li>connected()<br>ServiceDispatcher 的 mActivityThread 是一个 Handler，也就是 ActivityThread 中的 H。mActivityThread.post(new RunConnection(name,service,0))。<br>RunConnection 经由 H 的 post() 运行在主线程中，因此，客户端 ServiceConnection 中的方法是在主线程被回调的。</li>
+<li>RunConnection<br>最终调用 ServiceConnection 对象的 onServiceConnected() 完成绑定过程。至于 Service 的停止和解除绑定过程，系统的执行过程是类似的。</li>
+</ul>
+<hr>
+<h2 id="BroadcastReceiver-的工作过程"><a href="#BroadcastReceiver-的工作过程" class="headerlink" title="BroadcastReceiver 的工作过程"></a><p class="m_more_title_style">BroadcastReceiver 的工作过程</p></h2><h3 id="广播的注册过程"><a href="#广播的注册过程" class="headerlink" title="广播的注册过程"></a>广播的注册过程</h3><p>广播的注册分为静态注册和动态注册，其中静态注册的广播在应用安装时由系统自动完成注册，具体来说是由 PMS（PackageManagerService）来完成整个注册过程的，除了广播以外，其它三大组件也都是在应用安装时由 PMS 解析并注册的。</p>
+<p>动态注册的过程是从 ContextWrapper 的 registerReceiver() 开始的：</p>
+<ul>
+<li>registerReceiver()<br>mBase.registerReceiver() –&gt; ContextImpl 又调用了自己的 registerReceiverInternal()</li>
+<li>registerReceiverInternal()<br>系统首先从 mPackageInfo 获取 IIntentReceiver 对象，然后再采用跨进程的方式向 AMS 发送广播注册的请求。注册过程是一个进程间通信的过程。<br>IIntentReceiver 是一个 Binder 接口，具体实现是 LoadedApk.ReceiverDispatcher.InnerReceiver。<br>ReceiverDispatcher 在构造方法中同时保存了 BroadcastReceiver 和 InnerReceiver，这样当接收到广播时，ReceiverDispatcher 可以方便地调用 BroadcastReceiver 的 onReceive()。</li>
+<li>AMS 的 registerReceiver()<br>最终会把远程的 InnerReceiver 对象以及 IntentFilter 对象存储起来，这样整个广播的注册过程就完成了。</li>
+</ul>
+<h3 id="广播的发送和接收过程"><a href="#广播的发送和接收过程" class="headerlink" title="广播的发送和接收过程"></a>广播的发送和接收过程</h3><p>当通过 send() 发送广播时，AMS 会查找出匹配的广播接收者并将广播发送给它们处理。<br>普通广播的实现，其发送和接收的本质是一个过程的两个阶段，发送开始于 ContextWrapper 的 sendBroadcast()，但它仍然交给了 ContextImpl 处理：</p>
+<ul>
+<li>ContextImpl 的 sendBroadcase()<br>直接向 AMS 发起了一个异步请求用于发送广播。</li>
+<li>AMS 的 broadcastIntent()<br>调用了 broadcastIntentLocked()。</li>
+<li>broadcastIntentLocked()<br>首先控制广播不会发送给已经停止的应用。<br>在内部，会根据 intent-filter查找出匹配的广播接收者并经过一系列的条件过滤，最终会将满足条件的广播接收者添加到 BroadcastQueue 中，接着 BroadcastQueue 就会将广播发送给相应的广播接收者。</li>
+<li>BroadcastQueue 的 scheduleBroadcastsLocked()<br>并没有立即发送广播，会发送一个 BROADCAST_INTENT_MSG 类型的消息，BroadcastQueue 收到消息后会调用 processNextBroadcast()。</li>
+<li>processNextBroadcast()<br>无序广播存储在 mParallelBroadcasts 中，系统会遍历它并通过 deliverToRegisteredReceiverLocked() 将其中的广播发送给它们所有的接收者。</li>
+<li>deliverToRegisteredReceiverLocked()<br>负责将一个广播发送给一个特定的接收者，内部调用了 performReceiveLocked() 来完成具体的发送过程。</li>
+<li>performReceiveLocked()<br>app.thread.scheduleRegisteredReceiver()。</li>
+<li>ApplicationThread 的 scheduleRegisteredReceiver()<br>通过 InnerReceiver 来实现广播的接收。InnerReceiver 的 performReceive() 会调用 LoadedApk.ReceiverDispatcher 的 performReceive()。</li>
+<li>performReceive()<br>会创建一个 Args 对象并通过 mActivityThread 的 post() 来执行 Args 中的逻辑。<br>Args 实现了 Runnable 接口。mActivityThread 就是 ActivityThread 的内部类 H。</li>
+<li>Args 的 run()<br>这时，BroadcastReceiver 的 onReceive() 被执行了，也就是说应用已经接收到广播了。<br>同时，onReceive() 是在广播接收者的主线程中被调用的。</li>
+</ul>
+<hr>
+<h2 id="ContentProvider-的工作过程"><a href="#ContentProvider-的工作过程" class="headerlink" title="ContentProvider 的工作过程"></a><p class="m_more_title_style">ContentProvider 的工作过程</p></h2><p>当 ContentProvider 所在进程启动时，ContentProvider 会同时启动并发布到 AMS 中，这时，它的 onCreate 要先于 Application 的 onCreate。</p>
+<p>当一个应用启动时，入口方法为 ActivityThread 的 main()，main() 是一个静态方法，在其中会创建 ActivityThread 的实例并创建主线程的消息队列，然后在 ActivityThread 的 attach() 中会远程调用 AMS 的 attachApplication() 并将 ApplicationThread 对象提供给 AMS。</p>
+<ul>
+<li>attachApplication()<br>会调用 ApplicationThread 的 bindApplication()，这是个跨进程的过程。</li>
+<li>bindApplication()<br>其内逻辑会通过 ActivityThread 中的 mH Handler 切换到 ActivityThread 中去执行，具体的方法是 handleBindApplication。</li>
+<li>handleBindApplication()<br>其中，ActivityThread 会创建 Application 对象并加载 ContentProvider，然后再调用 Application 的 onCreate()。这时 ContentProvider 就已经启动了。</li>
+</ul>
+<p>它的四个方法都是通过 Binder调用的，外界无法直接访问 ContentProvider，它只能通过 AMS 根据 Uri 来获取对应的 ContentProvider 的 Binder 接口 IConentProvider，通过它来访问 ContentProvider 中的数据源。</p>
+<p>可通过 android:multiprocess 属性决定 ContentProvider 是否是单实例的，但一般可以简单的认为 ContentProvider 都是单实例的，单实例的启动过程如下：<br>访问 ContentProvider 需要通过 ContentResolver（抽象类），通过 Context 的 getContentResolver() 获取的实际上是 ApplicationContentResolver 对象。<br>通过 ContentProvider 的四个方法中任意一个都可触发 ContentProvider 的启动过程，也伴随着所在进程的启动（如未启动）。<br>query() 中，首先获取 IContentProvider 对象，最终通过 acquireProvider() 获取 ContentProvider：</p>
+<ul>
+<li>ApplicationContentResolver 的 acquireProvider()<br>直接调用了 ActivityThread 的 acquireProvider()。</li>
+<li>acquireProvider()<br>会从 ActivityThread 中（通过 mRroviderMap 存储已经启动的 ContentProvider）查找是否已经存在目标 ContentProvider，存在就直接返回。<br>如果没有 ContentProvider 没有启动，那就发送一个进程间请求给 AMS 让其启动目标 ContentProvider，最后再通过 installProvider() 来修改引用计数。</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：<br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://blog.csdn.net/singwhatiwanna">Android 开发艺术探索</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="http://liuwangshu.cn/">Android 进阶解密</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/11e65276.html" title="Adnroid 四大组件的工作过程">https://jianghouren.cn/archives/11e65276.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E5%9B%9B%E5%A4%A7%E7%BB%84%E4%BB%B6/" rel="tag"># 四大组件</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/4304a474.html" rel="prev" title="JVM 基本原理(3)">
+                  <i class="fa fa-chevron-left"></i> JVM 基本原理(3)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/ab7d7f79.html" rel="next" title="Handler 运行机制">
+                  Handler 运行机制 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/11e65276.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

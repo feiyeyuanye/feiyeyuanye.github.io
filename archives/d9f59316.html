@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="音视频基础知识">
+<meta property="og:url" content="https://jianghouren.cn/archives/d9f59316.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/视频流到播放的过程.png">
+<meta property="article:published_time" content="2020-08-18T23:37:29.000Z">
+<meta property="article:modified_time" content="2022-08-21T15:34:02.042Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="音视频">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/d9f59316.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/d9f59316.html","path":"archives/d9f59316.html","title":"音视频基础知识"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>音视频基础知识 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9F%B3%E8%A7%86%E9%A2%91%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">音视频基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E7%82%B9"><span class="nav-number">1.1.</span> <span class="nav-text">相关知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E5%AD%97%E9%9F%B3%E9%A2%91"><span class="nav-number">1.2.</span> <span class="nav-text">数字音频</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9F%B3%E9%A2%91%E7%BC%96%E7%A0%81"><span class="nav-number">1.3.</span> <span class="nav-text">音频编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%BE%E5%83%8F%E7%9A%84%E6%95%B0%E5%80%BC%E8%A1%A8%E7%A4%BA"><span class="nav-number">1.4.</span> <span class="nav-text">图像的数值表示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%86%E9%A2%91%E7%BC%96%E7%A0%81"><span class="nav-number">1.5.</span> <span class="nav-text">视频编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E6%A6%82%E5%BF%B5"><span class="nav-number">1.6.</span> <span class="nav-text">编码概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%AA%92%E4%BD%93%E6%92%AD%E6%94%BE%E7%BB%84%E4%BB%B6"><span class="nav-number">1.7.</span> <span class="nav-text">多媒体播放组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%9A%84%E5%A4%9A%E5%AA%92%E4%BD%93%E6%A1%86%E6%9E%B6%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">1.8.</span> <span class="nav-text">常见的多媒体框架及解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">2.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/d9f59316.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="音视频基础知识 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          音视频基础知识
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-08-19 07:37:29" itemprop="dateCreated datePublished" datetime="2020-08-19T07:37:29+08:00">2020-08-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-21 23:34:02" itemprop="dateModified" datetime="2022-08-21T23:34:02+08:00">2022-08-21</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%9F%B3%E8%A7%86%E9%A2%91/" itemprop="url" rel="index"><span itemprop="name">音视频</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/d9f59316.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/d9f59316.html" data-xid="/archives/d9f59316.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/d9f59316.html" class="post-meta-item leancloud_visitors" data-flag-title="音视频基础知识" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.5k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/xunlonggaoshou.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>Android 音视频开发的难度相对较高，音视频开发中很多有特色的或者核心的模块使用 NDK 开发，而 NDK 开发又主要使用 C&#x2F;C++ 语言编写代码 ，这对于使用 Java 语言的 Android 开发者来说有门槛。音视频应用从业方向；算法方向，工程方向。</p>
+<hr>
+<h2 id="音视频基础知识"><a href="#音视频基础知识" class="headerlink" title="音视频基础知识"></a>音视频基础知识</h2><p>如图所示，这是一个 MP4 的视频文件的属性，可以看到在更多信息栏里编解码器有 AAC、H.264，这个就是视频的音频编码和视频编码，而 MP4 其实就是封装协议。</p>
+<img data-src="https://imgsw.cn/static/images/视频简介信息.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<p>一般情况下，视频流从加载到准备播放是需要经过<strong>解协议、解封装、解编码</strong>这样的过程，其中<strong>协议指的就是流媒体协议；封装指的是视频的封装格式，封装格式数据就是个容器，可以存多个视频流；编码又分为视频编码和音频编码</strong>。</p>
+<img data-src="https://imgsw.cn/static/images/视频流到播放的过程.png" style="width:80%;height:200px;"/>
+
+<p><strong>协议</strong>一般有 HTTP 、RTSP、RTMP 等，最常见的就是 HTTP 网络协议，而 RTSP 和 RTMP 一般用于直播流或常见于支持带有控制信令的，比如远程监控。</p>
+<h3 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h3><p><strong>帧率（Frame Rate）</strong>：每秒显示帧数（frames per second，简称 fps）或 ”赫兹“（Hz）。表示图形处理器处理场时每秒能够更新的次数。高帧率可以得到更流畅、更逼真的动画。</p>
+<p><strong>分辨率</strong>：指视频成像产品所形成的图像大小或尺寸。</p>
+<p><strong>刷新率</strong>：指屏幕每秒画面被刷新的次数，分为垂直刷新率和水平刷新率，一般提到的刷新率通常指垂直刷新率。垂直刷新率表示屏幕上图像每秒重绘多少次，也就是每次屏幕刷新的次数，以 Hz 为单位。刷新率越高，图像就越稳定，图像显示就越自然清晰，对眼睛的影响也越小。刷新率越低，图像闪烁和抖动得就越厉害，眼睛疲劳得就越快。一般来说，如果能达到 80Hz 以上的刷新率，就可以完全消除图像闪烁和抖动感，眼睛也不太容易疲劳。</p>
+<p><strong>编码的格式</strong>：编码的目的是压缩数据量，采用编码算法压缩冗余数据。常用的编码格式有如下两种：</p>
+<ul>
+<li>MPEG（MPEG-2、MPEG-4）</li>
+<li>H.26X（H.263、H.264&#x2F;AVC、H.265&#x2F;HEVC）</li>
+</ul>
+<p><strong>封装格式</strong>：把编码后的音视频数据以一定格式封装到一个容器，封装格式有  MP4、MKV、AVI、TS 等。</p>
+<p><strong>码率</strong>：也就是比特率，比特率是单位时间播放连续的媒体（如压缩后的音频或视频）的比特数量。比特率越高，带宽消耗的越多。比特（bit）就是二进制里面最小的单位，要么是 0，要么是 1。</p>
+<ul>
+<li>文件大小（b）&#x3D; 码率（b&#x2F;s）x 时长（s）</li>
+</ul>
+<p><strong>画质与码率</strong>：实际上视频质量和码率、编码算法都有关系，并不是码率越大，画质越好，视频越流畅。</p>
+<p><strong>量化精度</strong>：表示可以将模拟信号分成多少个等级，量化精度越高，音乐的声压振幅越接近原音乐。量化精度的单位是 bit（比特），CD 标准的量化精度是 16bit，DVD 标准的量化精度是 24bit。也可理解为一个采样点用多少 bit 表示（8&#x2F;16&#x2F;24&#x2F;32bit）。</p>
+<p><strong>采样率</strong>：指每秒音频采样点个数（8000&#x2F;44100Hz），采样率单位用 Hz（赫兹）表示。</p>
+<p><strong>声道</strong>：指声音在录制或播放时在不同空间位置采集或回收的相互独立的音频信号，所以声道数也就是声音录制时的音源数量或回收时相应的扬声器数量。常见的有单声道、立体声道、4 声道、5.1 声道、7.1 声道等。</p>
+<h3 id="数字音频"><a href="#数字音频" class="headerlink" title="数字音频"></a>数字音频</h3><p>模拟信号：是大自然内的声音。指用连续变化的物理量表示的信息。</p>
+<p>数字信号：是在模拟信号的基础上进行采样、量化和编码。</p>
+<ul>
+<li>采样：在时间轴上对信号进行数字化。如一般的 44.1kHz（奈奎斯特定理）就是代表 1 秒会采样 44100 次。</li>
+<li>量化：在幅度轴上对信号进行数字化，具体的每个采样的表示。</li>
+<li>编码：按照一定的格式记录采样和量化后的数字数据，比如顺序存储或压缩存储等。</li>
+</ul>
+<p>编码的目的，就是压缩数据。核心思想就是去除冗余信息。</p>
+<ul>
+<li>使用帧间编码技术可以去除时间上的冗余信息，具体包含以下几个部分：<ul>
+<li>运动补偿：通过先前的局部图像来预测、补偿当前的局部图像，它是减少帧序列冗余信息的有效方法。</li>
+<li>运动表示：不同区域的图像需要使用不同的运动矢量来描述运动信息。</li>
+<li>运动估计：从视频序列中抽取运动信息的一整套技术。</li>
+</ul>
+</li>
+<li>使用帧内编码技术可以去除空间上的冗余信息。</li>
+</ul>
+<h3 id="音频编码"><a href="#音频编码" class="headerlink" title="音频编码"></a>音频编码</h3><p>音频编码指的是音频数据的编码方式，常见的音频编码格式有：</p>
+<ul>
+<li><p>WAV &#x2F; PCM： 编码的音频质量比较好，但是体积会比较大。PCM（Pulse Code Modulation）数据：脉冲编码调制，也就是音频的裸数据格式。描述一段 PCM 数据一般需要以下几个概念：量化格式（sampleFromat）、采样率（sampleRate）、声道数（channel）。</p>
+</li>
+<li><p>AAC：一种专为声音数据设计的文件压缩格式，属于有损压缩格式，特点是使文件更加小巧。又分 LC-AAC、HE-AAC 等</p>
+</li>
+<li><p>MP3：一种音频有损压缩技术，能在音频质量还可以的情况下压缩音频的体积，被设计用来大幅度地降低音频数据量。特点是利用人耳对高频声音信号不敏感的特性，将时域波形信号转换成频域信号，并划分成多个频段，对不同频段使用不同的压缩率，对高频信号使用大压缩率（甚至忽略信号），对低频信号使用小压缩率。从而将声音用 1:10 甚至 1:12 的压缩率压缩。</p>
+<ul>
+<li>时域波形信号：信号随着时间的变化。（时域：时间与振幅的关系）</li>
+<li>频域信号：信号在频率方面的特性。（频域：频率与振幅的关系）</li>
+</ul>
+</li>
+<li><p>AC3：有损音频编码格式，被广泛应用于 5.1 声道（Dolby AC3 提供的环绕声系统由 5 个全频域声道和 1 个超低音声道组成）。</p>
+</li>
+</ul>
+<h3 id="图像的数值表示"><a href="#图像的数值表示" class="headerlink" title="图像的数值表示"></a>图像的数值表示</h3><p><strong>YUV 与 RGB</strong>：</p>
+<p>通常情况下我们理解的画面是 RGB 组合出来的，而目前视频领域可能更多使用 YUV 格式，YUV 也被称作 YCbCr，是一种对于视频帧的裸数据表示格式，主要应用于优化彩色视频信号的传输，使其向后兼容老式黑白电视。对于 YUV；Y 表示明亮度（灰阶值），即可表示黑白图像，兼容黑白电视。而 UV 表示色度，加上 UV 即可表示彩色图像，彩色电视。并且，可以与 RGB 互转。（还有个 305911 公式）</p>
+<ul>
+<li>YUV：其应用领域很广泛，JPEG、MPEG 均采用此格式。Android 摄像头，NV21 格式就是 YUV 的一种。YUV 数据排列方式不同，又分为不同的存储格式。在压缩时，由于人眼对亮度敏感，对色度不敏感，所以可以对 Y 少压缩点，对 UV 多压缩点。</li>
+<li>RGB：是一种颜色空间模型，通过对红（R）、绿（G）、蓝（B）3 个颜色通道的变化以及它们相互之间的叠加来得到各式各样的颜色，RGB 即代表红、绿、蓝 3 个通道的颜色。</li>
+</ul>
+<h3 id="视频编码"><a href="#视频编码" class="headerlink" title="视频编码"></a>视频编码</h3><p>视频编码指通过特定的压缩技术，将某个视频格式文件转换成另一种视频格式文件的方式。（画面图像的编码压缩方式）</p>
+<p>主要分为两个系列：</p>
+<ul>
+<li>MPEG 系列：有视频编码和音频编码。</li>
+<li>H.26X 系列：侧重网络传输，并且只有视频编码。（H.264 是目前比较常见的编码方式，就是 avc。H.265 存在付版权费等问题。）</li>
+</ul>
+<p>此外，在互联网上被广泛应用的还有 Real-Networks 的 RealVideo、微软公司的 WMV 以及 Apple 公司的 QuickTime 等。</p>
+<h3 id="编码概念"><a href="#编码概念" class="headerlink" title="编码概念"></a>编码概念</h3><p><strong>视频帧</strong>：视频压缩中，每帧都代表着一副静止的画像，而 IPB 帧是一种常见的帧压缩方法。</p>
+<ul>
+<li>I 帧：表示关键帧，可以理解为这一帧画面的完整保留，解码时只需要本帧数据就可以完成（因为包含完整画面）。（I 帧压缩可去掉视频的空间冗余信息。接下来的 P&#x2F;B 帧是为了去掉时间冗余信息。）</li>
+<li>P 帧：前向预测帧，表示这一帧和之前的一个关键帧（或 P 帧）的差别，解码时需要用之前缓存的画面叠加上本帧定义的差别生成最终画面。（也就是差别帧，P 帧没有完整画面数据，只有与前一帧的画面差别的数据。）</li>
+<li>B 帧：双向差别帧，也就是 B 帧记录的是本帧与前后帧的差别（具体比较复杂，有 4 种情况），换言之，要解码 B 帧，不仅要取得之前的缓存页面，还要解码之后的画面，通过前后画面数据与本帧数据的叠加取得最终的画面。B 帧压缩率高，但是解码时 CPU 会比较吃力。（提高视频质量的技巧中，还可以多使用 B 帧，B 帧的压缩率更高，能节省大量空间来更多地保存 I 帧，这样就能在相同码率下提供更好的画质。）</li>
+</ul>
+<p><strong>IDR 帧</strong>：在 H264 的概念中有一个帧称为 IDR 帧，因为 H264 采用了多帧预测，导致 I 帧不能作为独立的观察条件。也就是说 I 帧之后的 P 帧有可能会参考 I 帧之前的帧，这就使得在随机访问的时候不能以找到 I 帧作为参考条件，因为即使找到 I 帧，I 帧之后的帧还是有可能解析不出来，而 IDR 帧就是一种特殊的 I 帧，即这一帧之后的所有参考帧只会参考到这个 IDR 帧，而不会再参考前面的帧。最关键的概念就是：在解码器中， 一旦收到一个 IDR 帧，就会立即清理参考帧缓冲区，并将 IDR 帧作为被参考的帧。</p>
+<p><strong>DTS 与 PTS</strong>：前者主要用于标示读入内存中的比特流在什么时候开始送入解码器中进行解码（主要用于视频的解码）。后者主要用于度量解码后的视频帧什么时候被显示出来（主要用于在解码阶段对视频进行同步和输出）。</p>
+<p>在没有 B 帧的情况下，DTS 与 PTS 的输出顺序是一样的。因为 B 帧打乱了解码和显示的顺序，所以一旦存在 B 帧，PTS 与 DTS 势必就会不同。</p>
+<p><strong>GOP（Group Of Picture）</strong>： 意思是画面组，一个 GOP 就是一组连续的画面（两个 I 帧之间形成的一组图片），也称为两个 I 帧之间的距离（I帧间隔）。GOP 策略影响编码质量， 如果码率固定而 GOP 值（在为编解码器设置参数时，必须要设置 gop_size 的值，其代表的是两个 I 帧之间的帧数目。）越大，P&#x2F;B 帧数量会越多，画面质量就会越高，而需要解码的时间就会越长。</p>
+<p><strong>音频帧</strong>：音频帧的概念没有视频帧那么清晰，几乎所有视频编码格式都可以简单地认为 I 帧就是编码后的一幅图像。但音频帧跟编码格式相关，它是各个编码标准自己实现的。</p>
+<ul>
+<li>对 PCM（未经编码的音频数据）来说，它根本就不需要帧的概念，根据采样率和采样精度就可以播放。</li>
+<li>AMP 帧，规定每 20ms 的音频是一帧，每一帧音频都是独立的，有可能采用不同的编码算法以及不同的编码参数。</li>
+<li>MP3 帧，音频数据帧个数由文件大小和帧长决定，每一帧的长度可能不固定，也可能固定，由比特率决定，每一帧又分为帧头和数据实体两部分，帧头记录了 MP3 的比特率、采样率、版本等信息，每一帧之间相互对立。</li>
+</ul>
+<h3 id="多媒体播放组件"><a href="#多媒体播放组件" class="headerlink" title="多媒体播放组件"></a>多媒体播放组件</h3><p>Android 多媒体播放组件包含：</p>
+<ul>
+<li>MediaPlayer：播放控制。</li>
+<li>MediaCodec：音视频编解码。</li>
+<li>OMX：多媒体部分采用的编解码标准。</li>
+<li>StageFright：一个替代 OpenCore 的框架，主要做了一个 OMX 层，仅仅对 OpenCore 的 omx-component 部分做了引用。</li>
+<li>AudioTrack：音频播放</li>
+</ul>
+<p>IOS 多媒体播放组件包含：VideoToolBox、AudioToolBox、AVPlayer。</p>
+<h3 id="常见的多媒体框架及解决方案"><a href="#常见的多媒体框架及解决方案" class="headerlink" title="常见的多媒体框架及解决方案"></a>常见的多媒体框架及解决方案</h3><p>常见的多媒体框架及解决方案有：</p>
+<ul>
+<li><p>VLC：即 Video LAN Client ，是一款自由、开源的跨平台多媒体播放器及框架。</p>
+</li>
+<li><p>FFmpeg：多媒体解决方案，不是多媒体框架，广泛用于音视频开发中。</p>
+</li>
+<li><p>GStreamer：一套构建流媒体应用的开源多媒体框架。</p>
+</li>
+</ul>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><p><strong>参考资料</strong>：</p>
+<p>《Android 音视频开发》</p>
+<p>《音视频开发进阶指南》</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://mp.weixin.qq.com/s?__biz=Mzg3NTA3MDIxOA==&mid=2247483834&idx=1&sn=b5ab4c89165f3dcf11c6dcace89c6341&scene=21#wechat_redirect">移动开发者的音视频基础知识</a></p>
+<p><strong>欢迎关注微信公众号：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://blove7.cn/qrcode/">非也缘也</a></strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/d9f59316.html" title="音视频基础知识">https://jianghouren.cn/archives/d9f59316.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%9F%B3%E8%A7%86%E9%A2%91/" rel="tag"># 音视频</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/8cf2f81a.html" rel="prev" title="NextCloud">
+                  <i class="fa fa-chevron-left"></i> NextCloud
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/dee78ac1.html" rel="next" title="Android JNI 原理">
+                  Android JNI 原理 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/d9f59316.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

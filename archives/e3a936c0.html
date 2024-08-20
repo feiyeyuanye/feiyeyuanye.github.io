@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android HttpURLConnection">
+<meta property="og:url" content="https://jianghouren.cn/archives/e3a936c0.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2019-05-29T08:04:32.000Z">
+<meta property="article:modified_time" content="2020-09-17T22:45:24.000Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="数据存储">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/e3a936c0.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/e3a936c0.html","path":"archives/e3a936c0.html","title":"Android HttpURLConnection"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android HttpURLConnection | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">1.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/e3a936c0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android HttpURLConnection | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android HttpURLConnection
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2019-05-29 16:04:32" itemprop="dateCreated datePublished" datetime="2019-05-29T16:04:32+08:00">2019-05-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-09-18 06:45:24" itemprop="dateModified" datetime="2020-09-18T06:45:24+08:00">2020-09-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/e3a936c0.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/e3a936c0.html" data-xid="/archives/e3a936c0.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/e3a936c0.html" class="post-meta-item leancloud_visitors" data-flag-title="Android HttpURLConnection" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>16k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>14 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/我的英雄学院.jpeg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<p>对于 HTTP，它的工作原理特别简单，就是客户端向服务器发出一条 HTTP 请求，服务器收到请求之后会返回一些数据给客户端，然后客户端再对这些数据进行解析和处理就可以了。</p>
+<p>在过去，Android 上发送 HTTP 请求一般有两种方式：HttpURLConnection 和 HttpClient。</p>
+<p>但在 Android 6.0 后不再支持 HttpClient，因为它的 API 数量过多，很难在不破坏兼容性的情况下对它进行升级和扩展，要使用的话需要添加 Apache 的 jar 才行。所以，还是主要关注 HttpURLConnection。</p>
+<p>网络请求常用的参数：</p>
+<ul>
+<li>url地址：请求地址</li>
+<li>请求方式：常用的还是GET和POST</li>
+<li>加密规则：可有可无</li>
+<li>header：请求头</li>
+<li>参数：需要传递的参数</li>
+<li>文件：可能需要上传文件</li>
+</ul>
+<p>HttpURLConnection：</p>
+<ul>
+<li>一种多用途，轻量级的HTTP客户端。</li>
+<li>它的API提供的比较简单，更容易使用和扩展。</li>
+<li>继承自URLConnection（抽象类，无法直接实例化对象）</li>
+<li>通过调用url.openConnection()方法获得对象实例</li>
+<li>默认是带gzip压缩的</li>
+</ul>
+<p>HttpURLConnection使用步骤：</p>
+<ol>
+<li>创建一个URL对象，并传入目标的网络地址。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(<span class="string">&quot;https://www.baidu.com/&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Kotlin 写法</span></span><br><span class="line"><span class="type">val</span> <span class="variable">url</span> <span class="operator">=</span> URL(<span class="string">&quot;https://www.baidu.com/&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li>调用 URL 对象的 openConnection() 来获取 HttpURLConnection 对象实例<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HttpURLConnection</span> <span class="variable">connection</span> <span class="operator">=</span> (HttpURLConnection) url.openConnection();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Kotlin 写法</span></span><br><span class="line"><span class="type">val</span> <span class="variable">connection</span> <span class="operator">=</span> url.openConnection() as HttpURLConnection</span><br></pre></td></tr></table></figure></li>
+<li>设置 Http 请求使用的方法：GET&#x2F;POST&#x2F;其他<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connection.setRequestMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Kotlin 写法</span></span><br><span class="line">connection.requestMethod = <span class="string">&quot;GET&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li>设置连接超时，读取超时的毫秒数，以及服务器希望得到的一些消息头等。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">connection.setConnectTimeout(<span class="number">6</span>*<span class="number">1000</span>);</span><br><span class="line">connection.setReadTimeout(<span class="number">6</span>*<span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Kotlin 写法</span></span><br><span class="line">connection.connectTimeout = <span class="number">8000</span></span><br><span class="line">connection.readTimeout = <span class="number">8000</span></span><br></pre></td></tr></table></figure></li>
+<li>调用 getInputStream() 方法获得服务器返回的输入流，然后读取输入流。<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (connection.getResponseCode() != <span class="number">200</span> )&#123;</span><br><span class="line">   <span class="comment">// 读取之前先判断</span></span><br><span class="line">   <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> connection.getInputStream();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Kotlin 写法</span></span><br><span class="line"><span class="type">val</span> <span class="variable">input</span> <span class="operator">=</span> connection.inputStream  </span><br></pre></td></tr></table></figure></li>
+<li>调用 disconnect() 将 HTTP 连接关掉<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">connection.disconnect();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Kotlin 写法</span></span><br><span class="line">connection.disconnect()</span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>示例（Java）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 网络封装类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NetUtil</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">Method</span> &#123;</span><br><span class="line">        GET,</span><br><span class="line">        POST</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">END</span> <span class="operator">=</span> <span class="string">&quot;\r\n&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">connectionTimeOut</span> <span class="operator">=</span> <span class="number">30000</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="variable">readSocketTimeOut</span> <span class="operator">=</span> <span class="number">30000</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * GET 请求方式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">get</span><span class="params">(IRequest request)</span> &#123;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">HttpURLConnection</span> <span class="variable">httpURLConnection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 1. 创建一个URL对象</span></span><br><span class="line">            <span class="comment">// buildGetUrl ，根据参数拼接 url 。</span></span><br><span class="line">            <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">URL</span>(buildGetUrl(request.getBaseUrl(), request.getParam(), request.getEncrypt()));</span><br><span class="line">            <span class="comment">// 打开链接</span></span><br><span class="line">            <span class="comment">//  2. 调用URL对象的openConnection()来获取HttpURLConnection对象实例</span></span><br><span class="line">            openUrlConnection(url,httpURLConnection);</span><br><span class="line">            <span class="comment">// 通用配置</span></span><br><span class="line">            <span class="comment">// 3. 设置Http请求使用的方法：GET/POST/其他</span></span><br><span class="line">            <span class="comment">// 4. 设置连接超时，读取超时的毫秒数，以及服务器希望得到的一些消息头。</span></span><br><span class="line">            normalSetting(httpURLConnection, Method.GET, request.getHeaders());</span><br><span class="line">            <span class="keyword">if</span> (httpURLConnection == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 响应码</span></span><br><span class="line">            <span class="type">int</span> <span class="variable">responseCode</span> <span class="operator">=</span> httpURLConnection.getResponseCode();</span><br><span class="line">            <span class="comment">// 为200时是标志请求成功了</span></span><br><span class="line">            <span class="comment">// 如果返回301，或者是302，是由于链接重定向的问题造成的，</span></span><br><span class="line">            <span class="comment">// 可通过String location =httpURLConnection.getHeaderField(&quot;Location&quot;);获取重定向的网址进行重新请求。</span></span><br><span class="line">            <span class="keyword">if</span> (responseCode == HttpURLConnection.HTTP_OK) &#123;</span><br><span class="line">                <span class="comment">// 5. 调用getInputStream()方法获得服务器返回的输入流，然后读取输入流。</span></span><br><span class="line">                inputStream = httpURLConnection.getInputStream();</span><br><span class="line">                <span class="type">String</span> <span class="variable">contentEncoding</span> <span class="operator">=</span> httpURLConnection.getContentEncoding();</span><br><span class="line">                <span class="type">InputStream</span> <span class="variable">stream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    stream = wrapStream(contentEncoding, inputStream);</span><br><span class="line">                    <span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> convertStreamToString(stream);</span><br><span class="line">                    <span class="keyword">return</span> data;</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">                &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                    closeQuietly(stream);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * POST 请求方式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">post</span><span class="params">(IRequest request)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">boundary</span> <span class="operator">=</span> UUID.randomUUID().toString();</span><br><span class="line">        <span class="type">HttpURLConnection</span> <span class="variable">httpURLConnection</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">OutputStream</span> <span class="variable">outputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">InputStream</span> <span class="variable">inputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            url = <span class="keyword">new</span> <span class="title class_">URL</span>(request.getBaseUrl());</span><br><span class="line">            openUrlConnection(url,httpURLConnection);</span><br><span class="line">            normalSetting(httpURLConnection, Method.POST,request.getHeaders());</span><br><span class="line"><span class="comment">//            if (req.mMimeType != null) &#123;// stats cache log request</span></span><br><span class="line"><span class="comment">//                String data = (String) bodyPair.get(&quot;data&quot;);</span></span><br><span class="line"><span class="comment">//                httpURLConnection.setRequestProperty(&quot;Content-Type&quot;, req.mMimeType.toString());</span></span><br><span class="line"><span class="comment">//                outputStream = httpURLConnection.getOutputStream();</span></span><br><span class="line"><span class="comment">//                outputStream.write(data.getBytes());</span></span><br><span class="line"><span class="comment">//            &#125; else</span></span><br><span class="line">            <span class="keyword">if</span> (request.getParam() != <span class="literal">null</span> &amp;&amp; request.getParam().size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line"><span class="comment">//                multipart/form-data，使用表单上传文件时，必须让 form 的 enctyped 等于这个值</span></span><br><span class="line">                httpURLConnection.setRequestProperty(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;multipart/form-data; boundary=&quot;</span> + boundary);</span><br><span class="line">                outputStream = httpURLConnection.getOutputStream();</span><br><span class="line">                addBodyParams(request.getParam(),request.getFilePair(), outputStream, boundary);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"><span class="comment">////              Content-Type 被指定为 application/x-www-form-urlencoded</span></span><br><span class="line"><span class="comment">//                httpURLConnection.setRequestProperty(&quot;Content-Type&quot;, &quot;application/x-www-form-urlencoded&quot;);</span></span><br><span class="line"><span class="comment">//                Uri.Builder builder = new Uri.Builder();</span></span><br><span class="line"><span class="comment">////              提交的数据按照 key1=val1&amp;key2=val2 的方式进行编码，并且key 和 val 都进行了 URL 转码。</span></span><br><span class="line"><span class="comment">//                builder.appendQueryParameter(&quot;content&quot;, message);</span></span><br><span class="line"><span class="comment">//                String query = builder.build().getEncodedQuery();</span></span><br><span class="line"><span class="comment">//                outputStream = new DataOutputStream(httpURLConnection.getOutputStream());</span></span><br><span class="line"><span class="comment">//                outputStream.write(query.getBytes());</span></span><br><span class="line">            &#125;</span><br><span class="line">            outputStream.flush();</span><br><span class="line">            <span class="type">int</span> <span class="variable">responseCode</span> <span class="operator">=</span> httpURLConnection.getResponseCode();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (responseCode == HttpURLConnection.HTTP_OK) &#123;</span><br><span class="line">                inputStream = httpURLConnection.getInputStream();</span><br><span class="line">                <span class="type">String</span> <span class="variable">contentEncoding</span> <span class="operator">=</span> httpURLConnection.getContentEncoding();</span><br><span class="line">                <span class="type">InputStream</span> <span class="variable">stream</span> <span class="operator">=</span> wrapStream(contentEncoding, inputStream);</span><br><span class="line">                <span class="type">String</span> <span class="variable">data</span> <span class="operator">=</span> convertStreamToString(stream);</span><br><span class="line">                <span class="keyword">return</span> data;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (MalformedURLException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">openUrlConnection</span><span class="params">(URL url, HttpURLConnection httpURLConnection)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">scheme</span> <span class="operator">=</span> url.getProtocol();</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">isHttpsRequest</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;https&quot;</span>.equals(scheme)) &#123;</span><br><span class="line">            isHttpsRequest = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (isHttpsRequest) &#123;</span><br><span class="line">            httpURLConnection = (HttpsURLConnection) (url).openConnection();</span><br><span class="line">            <span class="comment">// TODO 处理https证书 1,需要测试https请求;2如需设置证书，需验证是否会对其它https请求有影响</span></span><br><span class="line">            <span class="comment">//trustHosts((HttpsURLConnection) urlConnection);</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            httpURLConnection = (HttpURLConnection) (url).openConnection();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     *  通用配置设置</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">normalSetting</span><span class="params">(HttpURLConnection urlConnection, Method method, Map&lt;String, String&gt; mHeaders)</span> <span class="keyword">throws</span> ProtocolException &#123;</span><br><span class="line">        <span class="comment">// 设置连接主机超时（单位：毫秒）</span></span><br><span class="line">        urlConnection.setConnectTimeout(connectionTimeOut);</span><br><span class="line">        <span class="comment">// 设置从主机读取数据超时（单位：毫秒）</span></span><br><span class="line">        urlConnection.setReadTimeout(readSocketTimeOut);</span><br><span class="line">        urlConnection.setRequestMethod(method.toString());</span><br><span class="line">        <span class="keyword">if</span> (method == Method.GET) &#123;</span><br><span class="line">            <span class="comment">// Accept-Encoding是浏览器发给服务器,声明浏览器支持的编码类型</span></span><br><span class="line">            urlConnection.setRequestProperty(<span class="string">&quot;Accept-Encoding&quot;</span>, <span class="string">&quot;gzip&quot;</span>);</span><br><span class="line">            <span class="keyword">if</span> (mHeaders != <span class="literal">null</span> &amp;&amp; mHeaders.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                Set&lt;String&gt; stringKeys = mHeaders.keySet();</span><br><span class="line">                <span class="keyword">for</span> (String key : stringKeys) &#123;</span><br><span class="line">                    urlConnection.setRequestProperty(key, mHeaders.get(key));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (method == Method.POST) &#123;</span><br><span class="line">            <span class="comment">// URL 连接可用于输入和/或输出。</span></span><br><span class="line">            <span class="comment">// 如果打算使用 URL 连接进行输出，则将 DoOutput 标志设置为 true；</span></span><br><span class="line">            <span class="comment">// 如果不打算使用，则设置为 false。默认值为 false。</span></span><br><span class="line">            <span class="comment">// setDoOutput(true);以后就可以使用 httpURLConnection.getOutputStream().write()</span></span><br><span class="line">            urlConnection.setDoOutput(<span class="literal">true</span>);</span><br><span class="line">            <span class="comment">// URL 连接可用于输入和/或输出。</span></span><br><span class="line">            <span class="comment">// 如果打算使用 URL 连接进行输入，则将 DoInput 标志设置为 true；</span></span><br><span class="line">            <span class="comment">// 如果不打算使用，则设置为 false。默认值为 true。</span></span><br><span class="line">            <span class="comment">// setDoInput(true);以后就可以使用 httpURLConnection.getInputStream().read();</span></span><br><span class="line">            urlConnection.setDoInput(<span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写入数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">addBodyParams</span><span class="params">(HashMap&lt;String, Object&gt; map, Map&lt;String, FilePair&gt; filePair, OutputStream outputStream, String boundary)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">didWriteData</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">stringBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        Map&lt;String, Object&gt; bodyPair =map;</span><br><span class="line">        Set&lt;String&gt; keys = bodyPair.keySet();</span><br><span class="line">        <span class="keyword">for</span> (String key : keys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (bodyPair.get(key) != <span class="literal">null</span>) &#123;</span><br><span class="line">                addFormField(stringBuilder, key, bodyPair.get(key).toString(), boundary);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (stringBuilder.length() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            didWriteData = <span class="literal">true</span>;</span><br><span class="line">            outputStream = <span class="keyword">new</span> <span class="title class_">DataOutputStream</span>(outputStream);</span><br><span class="line">            outputStream.write(stringBuilder.toString().getBytes());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// upload files like POST files to server</span></span><br><span class="line">        <span class="keyword">if</span> (filePair != <span class="literal">null</span> &amp;&amp; filePair.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            Set&lt;String&gt; fileKeys = filePair.keySet();</span><br><span class="line">            <span class="keyword">for</span> (String key : fileKeys) &#123;</span><br><span class="line">                <span class="type">FilePair</span> <span class="variable">pair</span> <span class="operator">=</span> filePair.get(key);</span><br><span class="line">                <span class="type">byte</span>[] data = pair.mBinaryData;</span><br><span class="line">                <span class="keyword">if</span> (data == <span class="literal">null</span> || data.length &lt; <span class="number">1</span>) &#123;</span><br><span class="line">                    <span class="keyword">continue</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    didWriteData = <span class="literal">true</span>;</span><br><span class="line">                    addFilePart(pair.mFileName, data, boundary, outputStream);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (didWriteData) &#123;</span><br><span class="line">            finishWrite(outputStream, boundary);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">addFormField</span><span class="params">(StringBuilder writer, <span class="keyword">final</span> String name, <span class="keyword">final</span> String value, String boundary)</span> &#123;</span><br><span class="line">        writer.append(<span class="string">&quot;--&quot;</span>).append(boundary).append(END)</span><br><span class="line">                .append(<span class="string">&quot;Content-Disposition: form-data; name=\&quot;&quot;</span>).append(name)</span><br><span class="line">                .append(<span class="string">&quot;\&quot;&quot;</span>).append(END)</span><br><span class="line">                .append(<span class="string">&quot;Content-Type: text/plain; charset=&quot;</span>).append(<span class="string">&quot;UTF-8&quot;</span>)</span><br><span class="line">                .append(END).append(END).append(value).append(END);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">addFilePart</span><span class="params">(<span class="keyword">final</span> String fieldName, <span class="type">byte</span>[] data, String boundary, OutputStream outputStream)</span></span><br><span class="line">            <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">stringBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        stringBuilder.append(<span class="string">&quot;--&quot;</span>).append(boundary).append(END)</span><br><span class="line">                .append(<span class="string">&quot;Content-Disposition: form-data; name=\&quot;&quot;</span>)</span><br><span class="line">                .append(<span class="string">&quot;pic&quot;</span>).append(<span class="string">&quot;\&quot;; filename=\&quot;&quot;</span>).append(fieldName)</span><br><span class="line">                .append(<span class="string">&quot;\&quot;&quot;</span>).append(END).append(<span class="string">&quot;Content-Type: &quot;</span>)</span><br><span class="line">                .append(<span class="string">&quot;application/octet-stream&quot;</span>).append(END)</span><br><span class="line">                .append(<span class="string">&quot;Content-Transfer-Encoding: binary&quot;</span>).append(END)</span><br><span class="line">                .append(END);</span><br><span class="line">        outputStream.write(stringBuilder.toString().getBytes());</span><br><span class="line">        outputStream.write(data);</span><br><span class="line">        outputStream.write(END.getBytes());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">finishWrite</span><span class="params">(OutputStream outputStream, String boundary)</span> <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        outputStream.write(END.getBytes());</span><br><span class="line">        outputStream.write((<span class="string">&quot;--&quot;</span> + boundary + <span class="string">&quot;--&quot;</span>).getBytes());</span><br><span class="line">        outputStream.write(END.getBytes());</span><br><span class="line">        outputStream.flush();</span><br><span class="line">        outputStream.close();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> InputStream <span class="title function_">wrapStream</span><span class="params">(String contentEncoding, InputStream inputStream)</span></span><br><span class="line">            <span class="keyword">throws</span> IOException &#123;</span><br><span class="line">        <span class="keyword">if</span> (contentEncoding == <span class="literal">null</span> || <span class="string">&quot;identity&quot;</span>.equalsIgnoreCase(contentEncoding)) &#123;</span><br><span class="line">            <span class="keyword">return</span> inputStream;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;gzip&quot;</span>.equalsIgnoreCase(contentEncoding)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">GZIPInputStream</span>(inputStream);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (<span class="string">&quot;deflate&quot;</span>.equalsIgnoreCase(contentEncoding)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">InflaterInputStream</span>(inputStream, <span class="keyword">new</span> <span class="title class_">Inflater</span>(<span class="literal">false</span>), <span class="number">512</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(<span class="string">&quot;unsupported content-encoding: &quot;</span> + contentEncoding);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据参数拼接URL</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">buildGetUrl</span><span class="params">(String urlPath, Map&lt;String, Object&gt; params, IEncrypt encrypt)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (TextUtils.isEmpty(urlPath) || params == <span class="literal">null</span> || params.size() == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> urlPath;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!urlPath.endsWith(<span class="string">&quot;?&quot;</span>)) &#123;</span><br><span class="line">            urlPath += <span class="string">&quot;?&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">paramsStr</span> <span class="operator">=</span> buildGetParams(params);</span><br><span class="line">        <span class="keyword">if</span> (encrypt != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="comment">// 加密</span></span><br><span class="line">            <span class="comment">// 如果不需要加密，可将这个参数设置为空，或者直接实现，返回原字符串即可。</span></span><br><span class="line">            paramsStr = encrypt.encrypt(urlPath, params);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sbUrl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(urlPath);</span><br><span class="line">        sbUrl.append(paramsStr);</span><br><span class="line">        <span class="keyword">return</span> sbUrl.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">buildGetParams</span><span class="params">(Map&lt;String, Object&gt; params)</span> &#123;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        Set&lt;String&gt; keys = params.keySet();</span><br><span class="line">        <span class="keyword">for</span> (String key : keys) &#123;</span><br><span class="line">            <span class="keyword">if</span> (params.get(key) == <span class="literal">null</span>) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            sb = sb.append(key + <span class="string">&quot;=&quot;</span> + URLEncoder.encode(params.get(key).toString()) + <span class="string">&quot;&amp;&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">paramsStr</span> <span class="operator">=</span> sb.substring(<span class="number">0</span>, sb.length() - <span class="number">1</span>).toString();</span><br><span class="line">        <span class="keyword">return</span> paramsStr;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String <span class="title function_">convertStreamToString</span><span class="params">(InputStream is)</span> &#123;</span><br><span class="line">        <span class="type">InputStreamReader</span> <span class="variable">inputStreamReader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InputStreamReader</span>(is);</span><br><span class="line">        <span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(inputStreamReader, <span class="number">512</span>);</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">stringBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            String line;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                stringBuilder.append(line + <span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            closeQuietly(inputStreamReader);</span><br><span class="line">            closeQuietly(reader);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> stringBuilder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">closeQuietly</span><span class="params">(Closeable io)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (io != <span class="literal">null</span>) &#123;</span><br><span class="line">                io.close();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例（Kotlin）：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetworkActivity</span> : <span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_network)</span><br><span class="line"></span><br><span class="line">        initView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">sendRequestWithHttpUrlConnection</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="comment">// 开启线程发起网络请求</span></span><br><span class="line">        thread &#123;</span><br><span class="line">            <span class="keyword">var</span> connection:HttpURLConnection?=<span class="literal">null</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> response = StringBuilder()</span><br><span class="line">                <span class="keyword">val</span> url = URL(<span class="string">&quot;https://www.baidu.com&quot;</span>)</span><br><span class="line">                connection = url.openConnection() <span class="keyword">as</span> HttpURLConnection</span><br><span class="line">                <span class="comment">// 如果想要提交数据给服务器，主需要将 HTTP 的请求方法改成 POST，并在获取输入流之前把要提交的数据写出即可。</span></span><br><span class="line">                <span class="comment">// 注意，每条数据都要以键值对的形式存在，数据与数据之间用&quot;&amp;&quot;符号隔开。</span></span><br><span class="line"><span class="comment">//                connection.requestMethod = &quot;POST&quot;</span></span><br><span class="line"><span class="comment">//                val output = DataOutputStream(connection.outputStream)</span></span><br><span class="line"><span class="comment">//                output.writeBytes(&quot;username=admin&amp;password=123456&quot;)</span></span><br><span class="line">                connection.connectTimeout = <span class="number">8000</span></span><br><span class="line">                connection.readTimeout = <span class="number">8000</span></span><br><span class="line">                <span class="keyword">val</span> input = connection.inputStream</span><br><span class="line">                <span class="comment">// 下面对获取到的输入流进行读取</span></span><br><span class="line">                <span class="keyword">val</span> reader = BufferedReader(InputStreamReader(input))</span><br><span class="line">                reader.use &#123;</span><br><span class="line">                    reader.forEachLine &#123;</span><br><span class="line">                        response.append(it)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                showResponse(response.toString())</span><br><span class="line">            &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                connection?.disconnect()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">showResponse</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// runOnUiThread() 其实就是对异步消息处理机制进行了一层封装，内部通过 Handler 实现。</span></span><br><span class="line">        runOnUiThread&#123;</span><br><span class="line">            <span class="comment">// 在这里进行 UI 操作，将结果显示到界面上。</span></span><br><span class="line">            tvRequest.text = response</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        btnRequest.setOnClickListener&#123;</span><br><span class="line">            sendRequestWithHttpUrlConnection()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>示例（Kotlin）：网络请求工具类</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> HttpUtil&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * 网络操作属于耗时任务，这就有可能导致调用此方法时主线程被阻塞，</span></span><br><span class="line"><span class="comment">    * 但在此方法内部并没有开启一个线程，</span></span><br><span class="line"><span class="comment">    * 因为，如果开启一个线程来发起 HTTP 请求，服务器响应的数据是无法进行返回的。</span></span><br><span class="line"><span class="comment">    * 这是由于所有的耗时操作逻辑都是在子线程里进行的，</span></span><br><span class="line"><span class="comment">    * 此方法会在服务器还没来得及响应时就执行结束了，当然也就无法返回响应的数据了。</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">sendHttpRequest</span><span class="params">(address: <span class="type">String</span>)</span></span>: String&#123;</span><br><span class="line">        <span class="keyword">var</span> connection: HttpURLConnection? = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">val</span> response = StringBuilder()</span><br><span class="line">            <span class="keyword">val</span> url = URL(address)</span><br><span class="line">            connection = url.openConnection() <span class="keyword">as</span> HttpURLConnection</span><br><span class="line">            connection.connectTimeout = <span class="number">8000</span></span><br><span class="line">            connection.readTimeout = <span class="number">8000</span></span><br><span class="line">            <span class="keyword">val</span> input = connection.inputStream</span><br><span class="line">            <span class="keyword">val</span> reader = BufferedReader(InputStreamReader(input))</span><br><span class="line">            reader.use &#123;</span><br><span class="line">                reader.forEachLine &#123;</span><br><span class="line">                    response.append(it)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> response.toString()</span><br><span class="line">        &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">            e.printStackTrace()</span><br><span class="line">            <span class="keyword">return</span> e.message.toString()</span><br><span class="line">        &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">            connection?.disconnect()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解决的办法就是：使用编程语言的回调机制。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">HttpCallbackListener</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 服务器成功响应请求时的回调</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> response 服务器返回的数据</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response:<span class="type">String</span>)</span></span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 网络操作出现错误时调用</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> e 错误的详细信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e:<span class="type">Exception</span>)</span></span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> HttpUtil&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">sendHttpRequest</span><span class="params">(address: <span class="type">String</span>,listener:<span class="type">HttpCallbackListener</span>)</span></span>&#123;</span><br><span class="line">        <span class="comment">// 子线程中是无法通过 return 语句返回数据的</span></span><br><span class="line">        thread &#123;</span><br><span class="line">            <span class="keyword">var</span> connection: HttpURLConnection? = <span class="literal">null</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="keyword">val</span> response = StringBuilder()</span><br><span class="line">                <span class="keyword">val</span> url = URL(address)</span><br><span class="line">                connection = url.openConnection() <span class="keyword">as</span> HttpURLConnection</span><br><span class="line">                connection.connectTimeout = <span class="number">8000</span></span><br><span class="line">                connection.readTimeout = <span class="number">8000</span></span><br><span class="line">                <span class="keyword">val</span> input = connection.inputStream</span><br><span class="line">                <span class="keyword">val</span> reader = BufferedReader(InputStreamReader(input))</span><br><span class="line">                reader.use &#123;</span><br><span class="line">                    reader.forEachLine &#123;</span><br><span class="line">                        response.append(it)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 回调 onFinish() 方法</span></span><br><span class="line">                listener.onFinish(response.toString())</span><br><span class="line">            &#125;<span class="keyword">catch</span> (e:Exception)&#123;</span><br><span class="line">                e.printStackTrace()</span><br><span class="line">                <span class="comment">// 回调 onError() 方法</span></span><br><span class="line">                listener.onError(e)</span><br><span class="line">            &#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">                connection?.disconnect()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">btnRequest.setOnClickListener&#123;</span><br><span class="line">    <span class="keyword">val</span> address = <span class="string">&quot;https://jianghouren.com/&quot;</span></span><br><span class="line">   <span class="comment">// 回调接口在子线程中运行，不可以执行 UI 操作，除非借助 runOnUiThread()。 </span></span><br><span class="line">    HttpUtil.sendHttpRequest(address, <span class="keyword">object</span> : HttpCallbackListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFinish</span><span class="params">(response: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 得到服务器返回的具体内容</span></span><br><span class="line">            showResponse(response)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onError</span><span class="params">(e: <span class="type">Exception</span>)</span></span> &#123;</span><br><span class="line">            <span class="comment">// 在这里对异常情况进行处理</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料；</strong><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.jianshu.com/p/aa3f066263ed">HttpURLConnection详解</a></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+<p><strong>传送门：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/HttpURLConnectionDemo" title="demo">GitHub</a></strong></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/e3a936c0.html" title="Android HttpURLConnection">https://jianghouren.cn/archives/e3a936c0.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8/" rel="tag"># 数据存储</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/9b6664a3.html" rel="prev" title="Android 手势检测">
+                  <i class="fa fa-chevron-left"></i> Android 手势检测
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/ed6e57da.html" rel="next" title="Android-Socket">
+                  Android-Socket <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/e3a936c0.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

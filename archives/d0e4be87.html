@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Android 8(O)">
+<meta property="og:url" content="https://jianghouren.cn/archives/d0e4be87.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="og:image" content="https://imgsw.cn/static/images/as_image_asset.png">
+<meta property="article:published_time" content="2020-07-16T12:30:29.000Z">
+<meta property="article:modified_time" content="2022-08-31T11:47:48.278Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="适配系列">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/d0e4be87.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/d0e4be87.html","path":"archives/d0e4be87.html","title":"Android 8(O)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Android 8(O) | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%9F%A5%E6%B8%A0%E9%81%93"><span class="nav-number">1.</span> <span class="nav-text">通知渠道</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%EF%BC%88Kotlin%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">示例（Kotlin）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#App-%E5%9B%BE%E6%A0%87"><span class="nav-number">2.</span> <span class="nav-text">App 图标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">3.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/d0e4be87.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Android 8(O) | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Android 8(O)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-07-16 20:30:29" itemprop="dateCreated datePublished" datetime="2020-07-16T20:30:29+08:00">2020-07-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-08-31 19:47:48" itemprop="dateModified" datetime="2022-08-31T19:47:48+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url" rel="index"><span itemprop="name">Android 知识点</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Android-%E7%9F%A5%E8%AF%86%E7%82%B9/%E9%80%82%E9%85%8D%E7%B3%BB%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">适配系列</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/d0e4be87.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/d0e4be87.html" data-xid="/archives/d0e4be87.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/d0e4be87.html" class="post-meta-item leancloud_visitors" data-flag-title="Android 8(O)" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>9.9k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>9 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <img data-src="https://imgsw.cn/static/images/wangzhedaxiaojie.jpg" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img" />
+
+<span id="more"></span>
+
+<h2 id="通知渠道"><a href="#通知渠道" class="headerlink" title="通知渠道"></a><p class="m_more_title_style">通知渠道</p></h2><p>在过去，用户是没办法对信息做区分的，要么同意接受所有信息，要么屏蔽所有信息，这也是 Android 通知功能的痛点。于是，Android 8.0 系统引入了通知渠道这个概念。</p>
+<p>通知渠道，就是每条通知都要属于一个对应的渠道。每个应用程序都可以自由地创建当前应用拥有哪些通知渠道，但是这些通知渠道的控制权是掌握在用户手上的。用户可以自由地选择这些通知渠道的重要程度，是否响铃、是否振动或者是否要关闭这个渠道的通知。</p>
+<p>通知渠道一旦创建之后就不能再修改了，因此开发者需要仔细分析自己的应用程序一共有哪些类型的通知，然后再去创建相应的通知渠道。</p>
+<p><strong>创建通知渠道</strong></p>
+<p>需要一个 NotificationManager 对通知进行管理，可以通过调用 Context 的 getSystemService() 获取。getSystemService() 接收一个字符串参数用于确定获取系统的哪个服务，这里传入 Context.NOTIFICATION_SERVICE 即可。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取 NotificationManager 的实例</span></span><br><span class="line"><span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 NotificationChannel 类构建一个通知渠道，</span></span><br><span class="line"><span class="comment">// 并调用 NotificationManager 的 createNotificationChannel() 完成创建。</span></span><br><span class="line"><span class="comment">// NotificationChannel 类和 createNotificationChannel() 都是 Android 8.0 系统中新增的 API</span></span><br><span class="line"><span class="comment">// 所以在使用时需要先进行版本判断</span></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES<span class="number">.0</span>)&#123;</span><br><span class="line">    <span class="comment">// 创建一个通知渠道至少需要渠道 ID、渠道名称以及重要等级这 3 个参数：</span></span><br><span class="line">    <span class="comment">// 渠道 ID 可以随便定义，只需要保证全局唯一性。</span></span><br><span class="line">    <span class="comment">// 渠道名称是给用户看的，需要可以清楚地表达这个渠道的用途。</span></span><br><span class="line">    <span class="comment">// 通知的重要等级主要有 IMPORTANCE_HIGH、IMPORTANCE_DEFAULT、IMPORTANCE_LOW、IMPORTANCE_MIN </span></span><br><span class="line">    <span class="comment">// 对应的重要程度依次从高到低。不同等级会决定通知的不同行为。</span></span><br><span class="line">    <span class="comment">//（这里只是初始状态下的等级，用户可随时手动更改某个通知的重要等级，开发者是无法干预的）</span></span><br><span class="line">    <span class="keyword">val</span> channel = NotificationChannel(channelId,channelName,importance)</span><br><span class="line">    manager.createNotificationChannel(channel)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>通知的基本用法</strong></p>
+<p>相比于 BroadcastReceiver 和 Service，在 Activity 里创建通知的场景还是比较少的，因为一般只有当程序进入后台时才需要使用通知。</p>
+<p>AndroidX 库中提供了一个 NotificationCompat 类，使用这个类的构造器创建 Notification 对象，可以保证程序在所有 Android 系统版本上都能正常工作。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用 Builder 构造器创建 Notification 对象。</span></span><br><span class="line"><span class="comment">// 第二个参数是渠道 ID，需要和我们创建通知渠道时指定的渠道 ID 相匹配。</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(context,channelId).build()</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本设置</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(context,channelId)</span><br><span class="line">    .setContentTitle(<span class="string">&quot;This is content title&quot;</span>)</span><br><span class="line">    .setContentText(<span class="string">&quot;This is content text&quot;</span>)</span><br><span class="line">    <span class="comment">// 只能使用纯 alpha 图层的图片进行设置，小图标会显示在系统状态栏上。   </span></span><br><span class="line">    .setSmallIcon(R.drawable.small_icon)  </span><br><span class="line">    <span class="comment">// 大图标，当下拉系统状态栏时，可以看到。   </span></span><br><span class="line">    .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))    </span><br><span class="line">    .build()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 显示通知</span></span><br><span class="line"><span class="comment">// 第一个参数：id，要保证为每个通知指定的 id 都是不同的。</span></span><br><span class="line"><span class="comment">// 第二个参数：Notification 对象。</span></span><br><span class="line">manager.notify(<span class="number">1</span>,notification)</span><br></pre></td></tr></table></figure>
+
+<p><strong>示例</strong></p>
+<p>首先获取了 NotificationManager 的实例，并创建了一个 ID 为 normal 通知渠道。</p>
+<p>在按钮的点击事件里完成了通知的创建工作，通过 PendingIntent 添加点击效果，取消通知的方式有两种。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里是英文字母 O，不是数字 0，尴尬。</span></span><br><span class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O)&#123;</span><br><span class="line">    <span class="comment">// 创建了一个 ID 为 normal 通知渠道。</span></span><br><span class="line">    <span class="comment">// 创建通知渠道的代码只在第一次执行时才会创建，当下次再执行创建代码时，</span></span><br><span class="line">    <span class="comment">// 系统会检测到该通知渠道已存在，因此不会重复创建，也并不会影响运行效率。</span></span><br><span class="line">    <span class="keyword">val</span> channel = NotificationChannel(<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;Normal&quot;</span>,</span><br><span class="line">        NotificationManager.IMPORTANCE_DEFAULT)</span><br><span class="line">    manager.createNotificationChannel(channel)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 注意在手机设置里,开启消息通知.</span></span><br><span class="line">btnSendNotice.setOnClickListener&#123;</span><br><span class="line">    <span class="comment">// 表达想要启动 CameraAlbumActivity 的意图。</span></span><br><span class="line">    <span class="comment">// 可在 CameraAlbumActivity 中显示地调用 NotificationManager 的 cancel() 取消通知。</span></span><br><span class="line">    <span class="comment">// val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager</span></span><br><span class="line">    <span class="comment">// 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">    <span class="comment">// 这个 1 是指在创建通知时给每条通知指定的 id，想取消哪条通知，就传入该通知的 id 即可。</span></span><br><span class="line">    <span class="comment">// manager.cancel(1)</span></span><br><span class="line">    <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>,CameraAlbumActivity::<span class="keyword">class</span>.java)</span><br><span class="line">    <span class="comment">// PendingIntent 和 Intent 有些类似，它们都可以指明某一个&quot;意图&quot;，都可以用于启动 Activity、启动 Service 以及发送广播等。</span></span><br><span class="line">    <span class="comment">// 不同的是，Intent 倾向于立即执行某个动作。而 PendingIntent 倾向于在某个合适的时机执行某个动作，也可以简单地理解为延迟执行的 Intent。</span></span><br><span class="line">    <span class="comment">// 第二个参数一般用不到，传入 0 即可。</span></span><br><span class="line">    <span class="comment">// 第三个参数是一个 Intent 对象，可以通过这个对象构建出 PendingIntent 的&quot;意图&quot;。</span></span><br><span class="line">    <span class="comment">// 第四个参数用于确定 PendingIntent 的行为，一把传入 0 即可。（其它可选值：FLAG_ONE_SHOT,FLAG_CANCEL_CURRENT,FLAG_NO_CREATE,FLAG_UPDATE_CURRENT）</span></span><br><span class="line">    <span class="keyword">val</span> pi = PendingIntent.getActivity(<span class="keyword">this</span>,<span class="number">0</span>,intent,<span class="number">0</span>)</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">&quot;normal&quot;</span>)</span><br><span class="line">        .setContentTitle(<span class="string">&quot;This is content title&quot;</span>)</span><br><span class="line">        .setContentText(<span class="string">&quot;This is content text&quot;</span>)</span><br><span class="line">        .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">        .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">        .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line"><span class="comment">//          .setAutoCancel(true)   // 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">        .build()</span><br><span class="line">  </span><br><span class="line">    manager.notify(<span class="number">1</span>,notification)</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p><strong>通知的进阶技巧</strong></p>
+<p> NotificationCompat.Builder 中提供了非常丰富的 API，以便我们创建出更加多样的通知效果。</p>
+<p>setStyle()：这个方法允许我们构建出富文本的通知内容。也就是说，通知中不光可以有文字和图标，还可以包含更多的东西。接收一个 NotificationCompat.Style 参数，用来构建具体的富文本信息，如长文字、图片等。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 我的手机品牌是 iQOO 第一代，系统为 Android 10。</span></span><br><span class="line"><span class="comment">* 程序安装后，需要手动到设置内通知管理将通知打开，否则点击按钮是没反应的。</span></span><br><span class="line"><span class="comment">* 长文字信息和大图，默认是折叠状态，需要手动下拉一下才能看到效果。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">&quot;normal&quot;</span>)</span><br><span class="line"><span class="comment">//   使用 setStyle() 替代，展示长文字信息，或者是显示一张大图</span></span><br><span class="line"><span class="comment">//    .setContentText(&quot;This is content text&quot;)  </span></span><br><span class="line"><span class="comment">//  展示长文字</span></span><br><span class="line">    .setStyle(NotificationCompat.BigTextStyle()</span><br><span class="line">        .bigText(<span class="string">&quot;Learn how to build notifications, send and sync data, and use voice actions, Get the official Android IDE and developer tools to build apps for Android.&quot;</span>))</span><br><span class="line"><span class="comment">//  展示大图</span></span><br><span class="line"><span class="comment">//    .setStyle(NotificationCompat.BigPictureStyle()</span></span><br><span class="line"><span class="comment">//        .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.big_image)))</span></span><br><span class="line">    .build()</span><br></pre></td></tr></table></figure>
+
+<p><strong>重要等级</strong></p>
+<p>通知渠道的重要等级越高，发出的通知就越容易获得用户的注意。比如高重要等级的通知渠道发出的通知可以弹出横幅、发出声音，而低重要等级的通知渠道发出的通知不仅可能会在某些情况下被隐藏、而且可能会被改变显示的顺序。</p>
+<p>并且，开发者只能在创建通知渠道时为它指定初始的重要等级，如果用户不认可这个重要等级的话，可以随时进行修改，开发者对此无权再进行调整和变更，因为通知渠道一旦创建就不能再通过代码修改了。</p>
+<h3 id="示例（Kotlin）"><a href="#示例（Kotlin）" class="headerlink" title="示例（Kotlin）"></a>示例（Kotlin）</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NotificationActivity</span>:<span class="type">BaseActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_notification)</span><br><span class="line"></span><br><span class="line">        initData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">initData</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 使用 Builder 构造器创建 Notification 对象。</span></span><br><span class="line">        <span class="comment">// 第二个参数是渠道 ID，需要和我们创建通知渠道时指定的渠道 ID 相匹配。</span></span><br><span class="line">        <span class="keyword">val</span> manager = getSystemService(Context.NOTIFICATION_SERVICE) <span class="keyword">as</span> NotificationManager</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 这里是英文字母 O，不是数字 0，尴尬。</span></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O)&#123;</span><br><span class="line">            <span class="comment">// 创建了一个 ID 为 normal 通知渠道。</span></span><br><span class="line">            <span class="comment">// 创建通知渠道的代码只在第一次执行时才会创建，当下次再执行创建代码时，</span></span><br><span class="line">            <span class="comment">// 系统会检测到该通知渠道已存在，因此不会重复创建，也并不会影响运行效率。</span></span><br><span class="line">            <span class="keyword">val</span> channel = NotificationChannel(<span class="string">&quot;normal&quot;</span>,<span class="string">&quot;Normal&quot;</span>,</span><br><span class="line">                NotificationManager.IMPORTANCE_DEFAULT)</span><br><span class="line">            <span class="comment">// 创建一个重要等级的通知渠道。</span></span><br><span class="line">            <span class="keyword">val</span> channel2 = NotificationChannel(<span class="string">&quot;important&quot;</span>,<span class="string">&quot;Important&quot;</span>,</span><br><span class="line">                NotificationManager.IMPORTANCE_HIGH)</span><br><span class="line">            manager.createNotificationChannel(channel)</span><br><span class="line">            manager.createNotificationChannel(channel2)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 注意在手机设置里,开启消息通知.</span></span><br><span class="line">        btnSendNotice.setOnClickListener&#123;</span><br><span class="line">            <span class="comment">// 表达想要启动 CameraAlbumActivity 的意图。</span></span><br><span class="line">            <span class="comment">// 可在 CameraAlbumActivity 中显示地调用 NotificationManager 的 cancel() 取消通知。</span></span><br><span class="line">            <span class="keyword">val</span> intent = Intent(<span class="keyword">this</span>, CameraAlbumActivity::<span class="keyword">class</span>.java)</span><br><span class="line">            <span class="comment">// PendingIntent 和 Intent 有些类似，它们都可以指明某一个&quot;意图&quot;，都可以用于启动 Activity、启动 Service 以及发送广播等。</span></span><br><span class="line">            <span class="comment">// 不同的是，Intent 倾向于立即执行某个动作。而 PendingIntent 倾向于在某个合适的时机执行某个动作，也可以简单地理解为延迟执行的 Intent。</span></span><br><span class="line">            <span class="comment">// 第二个参数一般用不到，传入 0 即可。</span></span><br><span class="line">            <span class="comment">// 第三个参数是一个 Intent 对象，可以通过这个对象构建出 PendingIntent 的&quot;意图&quot;。</span></span><br><span class="line">            <span class="comment">// 第四个参数用于确定 PendingIntent 的行为，一把传入 0 即可。（其它可选值：FLAG_ONE_SHOT,FLAG_CANCEL_CURRENT,FLAG_NO_CREATE,FLAG_UPDATE_CURRENT）</span></span><br><span class="line">            <span class="keyword">val</span> pi = PendingIntent.getActivity(<span class="keyword">this</span>,<span class="number">0</span>,intent,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">val</span> notification = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">&quot;normal&quot;</span>)</span><br><span class="line">                .setContentTitle(<span class="string">&quot;This is content title&quot;</span>)</span><br><span class="line"><span class="comment">//                .setContentText(&quot;This is content text&quot;)  // 使用 setStyle() 替代，展示长文字信息，或者是显示一张大图</span></span><br><span class="line">                .setStyle(NotificationCompat.BigTextStyle()  <span class="comment">// 展示长文字，在 iQOO Android 10 的手机上，默认折叠。</span></span><br><span class="line">                    .bigText(<span class="string">&quot;Learn how to build notifications, send and sync data, and use voice actions, Get the official Android IDE and developer tools to build apps for Android.&quot;</span>))</span><br><span class="line">                .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">                .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line"><span class="comment">//                .setAutoCancel(true)   // 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。这里使用了另一种方式。</span></span><br><span class="line">                .build()</span><br><span class="line">            manager.notify(<span class="number">1</span>,notification)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将通知渠道的重要等级设置成了 &quot;高&quot;。关于弹出横幅，实际上在我的手机默认是关闭横幅通知的。</span></span><br><span class="line">            <span class="keyword">val</span> notification2 = NotificationCompat.Builder(<span class="keyword">this</span>,<span class="string">&quot;important&quot;</span>)</span><br><span class="line">                .setContentTitle(<span class="string">&quot;This is content title&quot;</span>)</span><br><span class="line">                .setStyle(NotificationCompat.BigPictureStyle()  <span class="comment">// 展示大图，在 iQOO Android 10 的手机上，默认折叠。</span></span><br><span class="line">                    .bigPicture(BitmapFactory.decodeResource(resources,R.drawable.big_image)))</span><br><span class="line">                .setSmallIcon(R.drawable.small_icon)</span><br><span class="line">                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.drawable.large_icon))</span><br><span class="line">                .setContentIntent(pi)  <span class="comment">// 添加点击效果</span></span><br><span class="line">                .setAutoCancel(<span class="literal">true</span>)   <span class="comment">// 点击这个通知时，通知会自动取消。否则通知消息会一直留存在系统状态栏上。</span></span><br><span class="line">                .build()</span><br><span class="line">            manager.notify(<span class="number">2</span>,notification2)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">actionStart</span><span class="params">(context: <span class="type">Context</span>)</span></span>&#123;</span><br><span class="line">            <span class="keyword">val</span> intent = Intent(context, NotificationActivity::<span class="keyword">class</span>.java)</span><br><span class="line">            context.startActivity(intent)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<hr>
+<h2 id="App-图标"><a href="#App-图标" class="headerlink" title="App 图标"></a><p class="m_more_title_style">App 图标</p></h2><p>在过去，Android 应用程序的图标都应该放到相应分辨率的 mipmap 目录下，不过从 Android 8.0 系统开始，Google 已经不再建议使用单一的一张图片来作为应用程序的图标，而是应该使用前景和背景分离的图标设计方式。</p>
+<p>具体来讲，应用程序的图标应该被分为两层：前景层和背景层。前景层用来展示应用图标的 Logo，背景层用来衬托应用图标的 Logo。</p>
+<p>并且要注意，背景层在设计时只允许定义颜色和纹理，不能定义形状。图标的形状由手机厂商来定义，手机厂商会在图标的前景层和背景层之上再盖上一层 mask，这个 mask 可以是圆角矩形、圆形或是方形等，视具体手机厂商而定，这样就可以将手机上所有程序的图标都<strong>裁剪</strong>成相同的形状，从而统一图标的设计规范。</p>
+<p>然后借助 Android Studio 提供的 Asset Studio 工具来制作能够兼容各个 Android 系统版本的应用程序图标。单击导航栏中 File -&gt; New -&gt; Image Asset 打开工具。（左边是操作区域，右边是预览区域）</p>
+<img data-src="https://imgsw.cn/static/images/as_image_asset.png">
+
+<p>操作区域：</p>
+<ul>
+<li>Icon Type：保持默认即可，表示同时创建兼容 8.0 系统以及老版本系统的应用图标。</li>
+<li>Name：应用图标的名称，保持 ic_launcher 的命名即可，这样可以覆盖掉之前自动生成的应用程序图标。</li>
+<li>Foreground Layer 页签：用于编辑前景层<ul>
+<li>Path：图片路径</li>
+<li>Resize：拖动条对图片进行缩放，以保证前景层的所有内容都是在安全区域中。</li>
+</ul>
+</li>
+<li>Background Layer 页签：用于编辑背景层<ul>
+<li>Asset Type：选取 Color 模式，并设置颜色值作为背景层的颜色。</li>
+</ul>
+</li>
+<li>Legacy 页签：用于编辑老版本系统的图标</li>
+</ul>
+<p>预览区域：</p>
+<p>它的主要作用就是预览应用图标在应对不同类型的 mask 的最终效果。在预览区域中给出了可能生成的图标形状。并且每个预览图标中都有一个圆圈，它叫做安全区域，必须保证图标的前景层完全处于安全区域中才行，否则可能会出现应用图标的 Logo 被手机厂商的 mask 裁减掉的情况。</p>
+<ul>
+<li><p>Circle：圆形</p>
+</li>
+<li><p>Squircle：方圆形</p>
+</li>
+<li><p>Rounded Square：圆角正方形</p>
+</li>
+<li><p>Square：正方形</p>
+</li>
+</ul>
+<p>接下来点击 “Next” 会进入一个确认图标生成路径的界面，然后直接点击界面上的 “Finish” 按钮完成图标的制作。所有图标相关的文件都会被生成到相应分辨率的 mipmap 目录下，其中有个 mipmap-anydpi-v26 目录中放的并不是图片，而是 xml 文件，这是因为 Android 8.0 及以上系统的手机，都会使用这个目录下的文件作为图标。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line">// 适配 Android 8.0 及以上系统应用图标的标准写法</span><br><span class="line"><span class="tag">&lt;<span class="name">adaptive-icon</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span></span><br><span class="line">  // 指定图标的背景层，引用的是之前设置的颜色值。</span><br><span class="line">    <span class="tag">&lt;<span class="name">background</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@color/ic_launcher_background&quot;</span>/&gt;</span></span><br><span class="line">  // 指定图标的前景层，引用的是之前准备的 Logo 图片。</span><br><span class="line">    <span class="tag">&lt;<span class="name">foreground</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@mipmap/ic_launcher_foreground&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">adaptive-icon</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">package</span>=<span class="string">&quot;com.sunnyweather.android&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">application</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:allowBackup</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        // 这个属性就是专门用于指定应用程序图标的</span></span><br><span class="line"><span class="tag">        // <span class="attr">8.0</span> 及以上系统中，会使用 <span class="attr">mipmap-anydpi-v26</span> 目录下的 <span class="attr">ic_launcher.xml</span> 文件。</span></span><br><span class="line"><span class="tag">        // <span class="attr">7.0</span> 及以下系统会使用 <span class="attr">mipmap</span> 相应分辨率目录下的 <span class="attr">ic_launcher.png</span> 图片。        </span></span><br><span class="line"><span class="tag">        <span class="attr">android:icon</span>=<span class="string">&quot;@mipmap/ic_launcher&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">&quot;@string/app_name&quot;</span></span></span><br><span class="line"><span class="tag">        // 此属性是一个只适用于 <span class="attr">Android</span> <span class="attr">7.1</span> 系统的过渡版本，很快就被 <span class="attr">8.0</span> 系统的新图标适配方案所替代了，不必关心它。         </span></span><br><span class="line"><span class="tag">        <span class="attr">android:roundIcon</span>=<span class="string">&quot;@mipmap/ic_launcher_round&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:supportsRtl</span>=<span class="string">&quot;true&quot;</span></span></span><br><span class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">&quot;@style/AppTheme&quot;</span>&gt;</span></span><br><span class="line">        ...</span><br><span class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料：</strong></p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/d0e4be87.html" title="Android 8(O)">https://jianghouren.cn/archives/d0e4be87.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/%E9%80%82%E9%85%8D%E7%B3%BB%E5%88%97/" rel="tag"># 适配系列</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/d584e492.html" rel="prev" title="Android 6(M)">
+                  <i class="fa fa-chevron-left"></i> Android 6(M)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/40c555f2.html" rel="next" title="Android Service">
+                  Android Service <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/d0e4be87.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>

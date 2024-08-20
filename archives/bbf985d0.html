@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 5.4.2">
+
+<link rel="preconnect" href="//fonts.loli.net" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic%7CJetBrains+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"jianghouren.cn","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#0593D3","save":"manual"},"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 扩展课堂">
+<meta property="og:url" content="https://jianghouren.cn/archives/bbf985d0.html">
+<meta property="og:site_name" content="非也缘也 Blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+<meta property="article:published_time" content="2020-06-12T10:03:35.000Z">
+<meta property="article:modified_time" content="2022-04-28T06:50:14.285Z">
+<meta property="article:author" content="非也缘也">
+<meta property="article:tag" content="Kotlin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jianghouren.cn/images/article_err_default.jpg">
+
+
+<link rel="canonical" href="https://jianghouren.cn/archives/bbf985d0.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://jianghouren.cn/archives/bbf985d0.html","path":"archives/bbf985d0.html","title":"Kotlin 扩展课堂"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Kotlin 扩展课堂 | 非也缘也 Blog</title>
+  
+
+
+
+
+<link rel="dns-prefetch" href="https://waline-git-main-feiyeyuanyes-projects.vercel.app/">
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">非也缘也 Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Hello World</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kotlin-%E4%B8%AD%E7%9A%84%E5%B0%8F%E9%AD%94%E6%9C%AF"><span class="nav-number">1.</span> <span class="nav-text">Kotlin 中的小魔术</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%87%BD%E6%95%B0%E5%92%8C%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">标准函数和静态方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E5%88%9D%E5%A7%8B%E5%8C%96%E5%92%8C%E5%AF%86%E5%B0%81%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">延迟初始化和密封类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%87%E6%B3%A8"><span class="nav-number">4.</span> <span class="nav-text">备注</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="非也缘也"
+      src="https://imgsw.cn/static/images/blog_portrait.jpeg">
+  <p class="site-author-name" itemprop="name">非也缘也</p>
+  <div class="site-description" itemprop="description">不可描述</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">202</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">49</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/feiyeyuanye" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/10814718/feiyeyuanye" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;10814718&#x2F;feiyeyuanye" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://leetcode-cn.com/u/wu-wang-chu-xin-28/" title="LeetCode → https:&#x2F;&#x2F;leetcode-cn.com&#x2F;u&#x2F;wu-wang-chu-xin-28&#x2F;" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-audible fa-fw"></i>LeetCode</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.android.google.cn/" title="https:&#x2F;&#x2F;developer.android.google.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· Developers</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://wanandroid.com/" title="https:&#x2F;&#x2F;wanandroid.com&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· WanAndroid</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://liuwangshu.cn/" title="https:&#x2F;&#x2F;liuwangshu.cn&#x2F;" rel="noopener external nofollow noreferrer" target="_blank">· 刘望舒</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jianghouren.cn/archives/bbf985d0.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://imgsw.cn/static/images/blog_portrait.jpeg">
+      <meta itemprop="name" content="非也缘也">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="非也缘也 Blog">
+      <meta itemprop="description" content="不可描述">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Kotlin 扩展课堂 | 非也缘也 Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Kotlin 扩展课堂
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-06-12 18:03:35" itemprop="dateCreated datePublished" datetime="2020-06-12T18:03:35+08:00">2020-06-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-28 14:50:14" itemprop="dateModified" datetime="2022-04-28T14:50:14+08:00">2022-04-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Kotlin/" itemprop="url" rel="index"><span itemprop="name">Kotlin</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Waline：</span>
+  
+    <a title="waline" href="/archives/bbf985d0.html#waline-comments" itemprop="discussionUrl">
+      <span class="post-comments-count waline-comment-count" id="/archives/bbf985d0.html" data-xid="/archives/bbf985d0.html" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span id="/archives/bbf985d0.html" class="post-meta-item leancloud_visitors" data-flag-title="Kotlin 扩展课堂" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+
+
+
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>8.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p><img data-src="https://imgsw.cn/static/images/tongxuerumole.webp" onerror="javascript:this.src='/images/article_err_default.jpg';" class="m_more_content_bg_img"></img></p>
+<span id="more"></span>
+
+<h2 id="Kotlin-中的小魔术"><a href="#Kotlin-中的小魔术" class="headerlink" title="Kotlin 中的小魔术"></a><p class="m_more_title_style">Kotlin 中的小魔术</p></h2><p><strong>字符串内嵌表达式</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   <span class="comment">// Kotlin 中字符串内嵌表达式的语法规则：</span></span><br><span class="line">   <span class="comment">// &quot;hello, $&#123;obj.name&#125;, nice to meet you! &quot;</span></span><br><span class="line">   <span class="comment">// 当表达式仅有一个变量时，可将大括号省略。</span></span><br><span class="line">   <span class="comment">// &quot;hello, $name, nice to meet you! &quot;</span></span><br><span class="line"></span><br><span class="line">   <span class="keyword">val</span> brand = <span class="string">&quot;Samsung&quot;</span></span><br><span class="line">   <span class="keyword">val</span> price = <span class="string">&quot;1299.99&quot;</span></span><br><span class="line">   println(<span class="string">&quot;Cellphone(brand=<span class="variable">$brand</span>,price=<span class="variable">$price</span>)&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数的参数默认值</strong><br>可在定义函数时给任意参数设定一个默认值，这样当调用此函数时就不会强制要求调用方为此参数传值，在没有传值的情况下会自动使用参数的默认值。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">   printParams(<span class="number">123</span>)</span><br><span class="line">   <span class="comment">// 可通过键值对的方式来传参，就不必在意参数定义的顺序了。</span></span><br><span class="line">   printParams2(str = <span class="string">&quot;world&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printParams</span><span class="params">(num:<span class="type">Int</span>,str:<span class="type">String</span>=<span class="string">&quot;hello&quot;</span>)</span></span>&#123;</span><br><span class="line">   println(<span class="string">&quot;num is <span class="variable">$num</span>,str is <span class="variable">$str</span>&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printParams2</span><span class="params">(num:<span class="type">Int</span> = <span class="number">100</span>,str:<span class="type">String</span> = <span class="string">&quot;hello&quot;</span>)</span></span>&#123;</span><br><span class="line">   println(<span class="string">&quot;num is <span class="variable">$num</span>,str is <span class="variable">$str</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可以给参数设定默认值。</span></span><br><span class="line"><span class="comment"> * 正因为此功能，它可在很大程度上替代次构造函数的作用。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span></span>(<span class="keyword">val</span> sno:String=<span class="string">&quot;&quot;</span>,<span class="keyword">val</span> grade:<span class="built_in">Int</span>=<span class="number">0</span>,name:String=<span class="string">&quot;&quot;</span>,age:<span class="built_in">Int</span>=<span class="number">0</span>) : Person(name,age) &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="标准函数和静态方法"><a href="#标准函数和静态方法" class="headerlink" title="标准函数和静态方法"></a><p class="m_more_title_style">标准函数和静态方法</p></h2><p><strong>标准函数 let、with、run 和 apply</strong></p>
+<p>Kotlin 的标准函数指的是 Standard.kt 文件中定义的函数，任何 Kotlin 代码都可以自由地调用所有的标准函数。</p>
+<p>let 这个标准函数在上面已经学过了，它的主要作用是配合 ?. 操作符来进行辅助判空处理的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> list = listOf(<span class="string">&quot;Apple&quot;</span>,<span class="string">&quot;Banana&quot;</span>,<span class="string">&quot;Pear&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> builder = StringBuilder()</span><br><span class="line">    builder.append(<span class="string">&quot;Start eating fruits.\n&quot;</span>)</span><br><span class="line">    <span class="keyword">for</span> (fruit <span class="keyword">in</span> list)&#123;</span><br><span class="line">        builder.append(fruit).append(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    builder.append(<span class="string">&quot;Ate all fruits.&quot;</span>)</span><br><span class="line">    <span class="keyword">val</span> result = builder.toString()</span><br><span class="line">    println(result)</span><br><span class="line"></span><br><span class="line">    withFun(list)</span><br><span class="line">    runFun(list)</span><br><span class="line">    applyFun(list)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * with 函数接收两个参数：</span></span><br><span class="line"><span class="comment"> * 第一个参数可以是一个任意类型的对象，</span></span><br><span class="line"><span class="comment"> * 第二个参数是一个 Lambda 表达式。</span></span><br><span class="line"><span class="comment"> * with 函数会在表达式中提供第一个参数对象的上下文，并使用表达式中的最后一行代码作为返回值。</span></span><br><span class="line"><span class="comment"> * 示例代码：</span></span><br><span class="line"><span class="comment"> * val result = with(obg)&#123;</span></span><br><span class="line"><span class="comment"> *     // 这里是 obj 的上下文</span></span><br><span class="line"><span class="comment"> *     &quot;value&quot; // with 函数的返回值</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">withFun</span><span class="params">(list: <span class="type">List</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// with 函数可以在连续调用同一个对象的多个方法时让代码变得更加精简。</span></span><br><span class="line">    <span class="comment">// 传入 StringBuilder() 对象，接下来表达式的上下文就是这个对象，所以就不用再调用 builder.。</span></span><br><span class="line">    <span class="keyword">val</span> result = with(StringBuilder())&#123;</span><br><span class="line">        append(<span class="string">&quot;Start eating fruits.\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (fruit <span class="keyword">in</span> list)&#123;</span><br><span class="line">            append(fruit).append(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;Ate all fruits.&quot;</span>)</span><br><span class="line">        <span class="comment">// 表达式的最后一行会作为返回值</span></span><br><span class="line">        toString()</span><br><span class="line">    &#125;</span><br><span class="line">    println(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * run 函数与 with 函数类似</span></span><br><span class="line"><span class="comment"> * 首先 run 函数不能直接调用，而是一定要调用某个对象的 run 函数才行，</span></span><br><span class="line"><span class="comment"> * 其次 run 函数只接收一个 Lambda 参数，并且会在表达式中提供调用对象的上下文。</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> （关于 run 函数不能直接调用的修正：在官方kotlin文档中，有这样的阐述：“除了在接收者对象上调用 run 之外，还可以将其用作非扩展函数。 非扩展 run 可以使你在需要表达式的地方执行一个由多个语句组成的块。”。标准函数中还有一个定义在顶层的 run 函数，是可以直接调用的，）</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> 勘误： 首先 run 函数通常不会直接调用的，而是要在某个对象的基础上调用。</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment"> * 示例代码：</span></span><br><span class="line"><span class="comment"> * val result = obj.run&#123;</span></span><br><span class="line"><span class="comment"> *    // 这里是 obj 的上下文</span></span><br><span class="line"><span class="comment"> *    &quot;value&quot;  // run 函数的返回值</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">runFun</span><span class="params">(list: <span class="type">List</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="comment">// 与 with 函数相比，变化非常小</span></span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder().run &#123;</span><br><span class="line">        append(<span class="string">&quot;Start eating fruits.\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (fruit <span class="keyword">in</span> list)&#123;</span><br><span class="line">            append(fruit).append(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;Ate all fruits.&quot;</span>)</span><br><span class="line">        <span class="comment">// 表达式的最后一行会作为返回值</span></span><br><span class="line">        toString()</span><br><span class="line">    &#125;</span><br><span class="line">    println(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * apply 函数 与 run 函数类似，</span></span><br><span class="line"><span class="comment"> * 都要在某个对象上调用，并且只接收一个 Lambda 参数，也会在表达式中提供调用对象的上下文，</span></span><br><span class="line"><span class="comment"> * 区别在于，apply 函数无法指定返回值，而是会自动返回调用对象本身。</span></span><br><span class="line"><span class="comment"> * 示例代码：</span></span><br><span class="line"><span class="comment"> * val result = obj.apply()&#123;</span></span><br><span class="line"><span class="comment"> *   // 这里是 obj 的上下文</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> * // result == obj</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">applyFun</span><span class="params">(list: <span class="type">List</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> result = StringBuilder().apply &#123;</span><br><span class="line">        append(<span class="string">&quot;Start eating fruits.\n&quot;</span>)</span><br><span class="line">        <span class="keyword">for</span> (fruit <span class="keyword">in</span> list)&#123;</span><br><span class="line">            append(fruit).append(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        append(<span class="string">&quot;Ate all fruits.&quot;</span>)</span><br><span class="line">        <span class="comment">// 表达式的最后一行会作为返回值</span></span><br><span class="line">        toString()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 这里的 result 实际上是一个 StringBuilder 对象</span></span><br><span class="line">    println(result.toString())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>定义静态方法</strong></p>
+<p>静态方法在某些语言中又叫作类方法，指的是不需要创建实例就能调用的方法，比如 Java 中是在方法上声明 static 关键字。静态方法非常适合用于编写一些工具类的功能，因为工具类通常没有创建实例的必要。</p>
+<p>Kotlin 中极度弱化了静态方法的概念，因为它提供了更好用的语法特性，那就是单例类，像工具类这种功能就非常推荐使用单例类的方法。单例类使用 object 关键字，但这会使内部所有方法都变成类似静态方法的调用方式，如果只是想限定某一个方法，可用 companion object 关键字。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doAction1</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里 Kotlin 没有直接定义静态方法的关键字，但是提供了一些语法特性来支持类似静态方法调用的写法。</span></span><br><span class="line"><span class="comment">     * 由于它不是真正的静态方法，Java 代码中也无法调用它。</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * companion object 关键字实际上会在 TestClass 类的内部创建一个伴生类，</span></span><br><span class="line"><span class="comment">     * 而 doAction2() 就是定义在这个伴生类中的实例方法。</span></span><br><span class="line"><span class="comment">     * 并且 Kotlin 会保证 TestClass 类始终只会存在一个伴生类对象。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">doAction2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果确实需要定义真正的静态方法，有两种实现方式：注解和顶层方法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestClass</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">doAction1</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@JvmStatic</span> 注解，会使 Kotlin 编译器将这些方法编译成真正的静态方法。</span></span><br><span class="line"><span class="comment">     * 这个注解只能加在单例类或者 companion object 中的方法上</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">companion</span> <span class="keyword">object</span> &#123;</span><br><span class="line">        <span class="meta">@JvmStatic</span></span><br><span class="line">        <span class="function"><span class="keyword">fun</span> <span class="title">doAction2</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>顶层方法指的是没有定义在任何类中的方法，比如 main 方法。编译器会将所有的顶层方法全部编译成静态方法。可以创建一个 File 文件 Helper.kt，在这个文件中定义的方法如 doSomething() 都会是顶层方法。顶层方法的调用：</p>
+<ul>
+<li>如果是 Kotlin 中：所有的顶层方法都可在任何位置被直接调用，不用管包名路径，也不用创建实例，直接键入方法名即可。</li>
+<li>如果是 Java 中：Kotlin 编译器会自动创建一个对应 File 文件的 Java 类，方法是以静态方法的形式定义在这个类里面的，因此使用 HelperKt.doSomething() 即可。</li>
+</ul>
+<hr>
+<h2 id="延迟初始化和密封类"><a href="#延迟初始化和密封类" class="headerlink" title="延迟初始化和密封类"></a><p class="m_more_title_style">延迟初始化和密封类</p></h2><p><strong>对变量延迟初始化</strong></p>
+<p>有时，像即使明确知道一些全局变量不会为空，但出于 Kotlin 编译器的要求，还是需要额外做许多的判空处理代码。</p>
+<p>可以使用 lateinit 关键字，进行延迟初始化，这样就不用在一开始时将它赋值为 null 了。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 可以使用 lateinit 关键字，进行延迟初始化，</span></span><br><span class="line"><span class="comment">     * 这样就不用在一开始时将它赋值为 null 了，类型声明可以改成 MsgAdapter。</span></span><br><span class="line"><span class="comment">     * 但使用要注意，要确保变量在使用前，已做了初始化。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line"><span class="comment">//    private var adapter:MsgAdapter?=null</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">lateinit</span> <span class="keyword">var</span> adapter:MsgAdapter</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">      </span><br><span class="line">        <span class="comment">// 使用 ::adapter.isInitialized 可用于判断 adapter 变量是否已经初始化，避免重复进行初始化操作。</span></span><br><span class="line">        <span class="keyword">if</span> (!:: adapter.isInitialized)&#123;</span><br><span class="line">            adapter = MsgAdapter(msgList)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onClick</span><span class="params">(v: <span class="type">View</span>?)</span></span> &#123;     </span><br><span class="line">      </span><br><span class="line">       <span class="comment">// 有时，像即使明确知道一些全局变量不会为空，onClick() 会在 onCreate() 之后调用，在 onCreate()中对 adapter 做了初始化。</span></span><br><span class="line">       <span class="comment">// 但出于 Kotlin 编译器的要求，还是需要额外做许多的判空处理代码。但做了延迟初始化之后，就不必了。</span></span><br><span class="line">       <span class="comment">// adapter?.notifyItemInserted(msgList.size-1)</span></span><br><span class="line">       adapter.notifyItemInserted(msgList.size-<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>使用密封类优化代码</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用于表示某个操作的执行结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">//interface Result</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//class Success(val msg:String) : Result</span></span><br><span class="line"><span class="comment">//class Failure(val error:Exception) :Result</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//fun  getResultMsg(result: Result) = when(result) &#123;</span></span><br><span class="line"><span class="comment">//    is Success -&gt; result.msg</span></span><br><span class="line"><span class="comment">//    is Failure -&gt; result.error</span></span><br><span class="line"><span class="comment">//    // 这个 else 分支实际上是必须的，但又是没有意义的，它只是为了满足编译器的语法检查</span></span><br><span class="line"><span class="comment">//    // 因为结果只有成功了失败，走不到这里.</span></span><br><span class="line"><span class="comment">//    // 但还是有个潜在风险，比如新增了一个 Unknown 类并实现了 Result 接口，用于表示未知的执行结果，</span></span><br><span class="line"><span class="comment">//    // 但是却忘记在上面添加条件分支，这就会走到 else 分支里。</span></span><br><span class="line"><span class="comment">//    else -&gt; IllegalArgumentException()</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * sealed class 表示密封类</span></span><br><span class="line"><span class="comment"> * 密封类及其所有子类只能定义在同一个文件的顶层位置，不能嵌套在其他类中，这是被密封类底层的实现机制所限制的。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">sealed</span> <span class="class"><span class="keyword">class</span> <span class="title">Result</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 密封类是一个可继承的类，因此在继承它的时候需要在后面添加括号</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Success</span></span>(<span class="keyword">val</span> msg:String) : Result()</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Failure</span></span>(<span class="keyword">val</span> error:Exception) :Result()</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 为什么没有 else 分支也能编译通过？</span></span><br><span class="line"><span class="comment"> * 因为当 when 语句传入一个密封类变量作为条件时，</span></span><br><span class="line"><span class="comment"> * Kotlin 编译器会自动检查该密封类有哪些子类，并强制要求将每一个子类所对应的条件全部处理。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span>  <span class="title">getResultMsg</span><span class="params">(result: <span class="type">Result</span>)</span></span> = <span class="keyword">when</span>(result) &#123;</span><br><span class="line">    <span class="keyword">is</span> Success -&gt; result.msg</span><br><span class="line">    <span class="keyword">is</span> Failure -&gt; result.error</span><br><span class="line">    <span class="comment">// 改成密封类之后，就不需要 else 分支了。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p>##<p class="m_more_title_style">扩展函数和运算符重载</p></p>
+<p><strong>大有用途的扩展函数</strong></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 统计字符串中字母的数量</span></span><br><span class="line">    <span class="keyword">val</span>  str = <span class="string">&quot;ABC123xyz!@#&quot;</span></span><br><span class="line">    <span class="keyword">val</span> count = lettersCount(str)</span><br><span class="line">    println(count)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用扩展函数的方式实现，统计字符串中字母的数量。</span></span><br><span class="line">    <span class="comment">// 看起来就像 String 类中自带了这个函数一样 </span></span><br><span class="line">    <span class="keyword">val</span> count2 = str.lettersCount2()</span><br><span class="line">    println(count2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 统计字符串中字母的数量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">lettersCount</span><span class="params">(str:<span class="type">String</span>)</span></span>:<span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (char <span class="keyword">in</span> str)&#123;</span><br><span class="line">        <span class="keyword">if</span> (char.isLetter())&#123;</span><br><span class="line">            count++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 扩展函数表示即使在不修改某个类的源码的情况下，仍然可以打开这个类，向该类添加新的函数。</span></span><br><span class="line"><span class="comment"> * 定义扩展函数的语法结构：</span></span><br><span class="line"><span class="comment"> * fun ClassName.methodName(param1:Int,param2:Int):Int&#123;</span></span><br><span class="line"><span class="comment"> *     return 0</span></span><br><span class="line"><span class="comment"> *  &#125;</span></span><br><span class="line"><span class="comment"> *  相比于定义普通函数，定义扩展函数只需在函数名前加 ClassName. 的语法结构，就表示将该函数添加到指定类当中了。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  这里为了省事，一般来讲，比如要添加到 String 类中，可以新创建一个 String.kt 同名文件（虽然文件名没有固定要求，但这样便于后期查找），</span></span><br><span class="line"><span class="comment"> *  而且扩展函数也可定义在任何一个现有类中，但最好将它定义成顶层方法，这样可以让扩展函数拥有全局的访问域。</span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> *  在 Java 中的 String 类是一个 final 类，但在 Kotlin 中可以向其中扩展任何函数，</span></span><br><span class="line"><span class="comment"> *  比如内部有 reverse() 用于反转字符串，capitalize() 用于对首字母进行大写等。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">lettersCount2</span><span class="params">()</span></span>:<span class="built_in">Int</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> count = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 将此函数定义成了 String 类的扩展函数，则此函数中自动拥有了 String 实例的上下文。</span></span><br><span class="line">    <span class="comment">// 因此此函数就不再需要接收一个字符串参数了，而是直接遍历 this 即可，现在现在 this 就代表着字符串本身。</span></span><br><span class="line">    <span class="keyword">for</span> (char <span class="keyword">in</span> <span class="keyword">this</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (char.isLetter())&#123;</span><br><span class="line">            count++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> count</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>有趣的运算符重载</strong></p>
+<p>Kotlin 允许将所有的运算符甚至其他的关键字进行重载，从而拓展这些运算符和关键字的用法。</p>
+<p>Kotlin 的运算符重载允许让任意两个对象进行相加，或者是进行更多其他的运算操作，但在实际编程时也要考虑逻辑的合理性，比如让两个 Student 对象相加没什么意义，但是让两个 Money 对象相加就变得有意义了，因为钱是可以相加的。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">val</span> money1 = Money(<span class="number">5</span>)</span><br><span class="line">    <span class="keyword">val</span> money2 = Money(<span class="number">10</span>)</span><br><span class="line">    <span class="comment">// 对象和对象相加</span></span><br><span class="line">    <span class="keyword">val</span> money3 = money1 + money2</span><br><span class="line">    println(money3.value)</span><br><span class="line">    <span class="comment">// 对象直接和数字相加</span></span><br><span class="line">    <span class="keyword">val</span> money4 = money3 + <span class="number">20</span></span><br><span class="line">    println(money4.value)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// String 类中提供的包含关系</span></span><br><span class="line">    println(<span class="string">&quot;hello&quot;</span>.contains(<span class="string">&quot;he&quot;</span>))</span><br><span class="line">    <span class="comment">// 借助重载的语法糖表达式。效果相同，但更简洁。</span></span><br><span class="line">    println(<span class="string">&quot;he&quot;</span> <span class="keyword">in</span> <span class="string">&quot;hello&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Money</span></span>(<span class="keyword">val</span> value:<span class="built_in">Int</span>)&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 运算符重载使用 operator 关键字在指定函数的前面加上就可以了。</span></span><br><span class="line"><span class="comment">     * 指定函数指的是不同运算符对应的重载函数也不同，</span></span><br><span class="line"><span class="comment">     * 比如加号运算符对应的是 plus()，减号运算符对应 minus()，它们都是固定不变的。</span></span><br><span class="line"><span class="comment">     * 但接收的参数和函数返回值可以自行设定，这里就代表一个 Obj 对象可以与另一个 Obj 对象相加，最终返回一个新的 Obj 对象。</span></span><br><span class="line"><span class="comment">     * operator fun plus(obj:Obj)&#123;</span></span><br><span class="line"><span class="comment">     *    // 处理相关逻辑</span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 对应的调用方式如下：</span></span><br><span class="line"><span class="comment">     * val obj1 = Obj()</span></span><br><span class="line"><span class="comment">     * val obj2 = Obj()</span></span><br><span class="line"><span class="comment">     * val obj3 = obj1 + obj2  // 它会在编译时被转换成 obj1.plus(obj2) 的调用方式</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(money:<span class="type">Money</span>)</span></span>:Money&#123;</span><br><span class="line">        <span class="comment">// 将当前 Money 对象的 value 和参数传入的 Money 对象的 value 相加，</span></span><br><span class="line">        <span class="comment">// 然后将得到的和传给一个新的 Money 对象并将该对象返回。</span></span><br><span class="line">        <span class="keyword">val</span> sum = value + money.value * <span class="number">6</span></span><br><span class="line">        <span class="keyword">return</span> Money(sum)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Kotlin 允许对同一个运算符进行多重重载</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(newValue:<span class="type">Int</span>)</span></span>:Money&#123;</span><br><span class="line">        <span class="keyword">val</span> sum = value + newValue</span><br><span class="line">        <span class="keyword">return</span> Money(sum)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一些常用的可重载运算符和关键字对应的语法糖表达式，以及它们会被转换成的实际调用函数</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>语法糖表达式</th>
+<th>实际调用函数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a + b</td>
+<td>a.plus(b)</td>
+</tr>
+<tr>
+<td>a - b</td>
+<td>a.minus(b)</td>
+</tr>
+<tr>
+<td>a * b</td>
+<td>a.times(b)</td>
+</tr>
+<tr>
+<td>a &#x2F; b</td>
+<td>a.div(b)</td>
+</tr>
+<tr>
+<td>a % b</td>
+<td>a.rem(b)</td>
+</tr>
+<tr>
+<td>a++</td>
+<td>a.inc()</td>
+</tr>
+<tr>
+<td>a–</td>
+<td>a.dec()</td>
+</tr>
+<tr>
+<td>+a</td>
+<td>a.unaryPlus()</td>
+</tr>
+<tr>
+<td>-a</td>
+<td>a.unaryMinus()</td>
+</tr>
+<tr>
+<td>!a</td>
+<td>a.not()</td>
+</tr>
+<tr>
+<td>a &#x3D;&#x3D; b</td>
+<td>a.equals(b)</td>
+</tr>
+<tr>
+<td>a &gt; b</td>
+<td></td>
+</tr>
+<tr>
+<td>a &lt; b</td>
+<td></td>
+</tr>
+<tr>
+<td>a &gt;&#x3D; b</td>
+<td>a.compareTo(b)</td>
+</tr>
+<tr>
+<td>a &lt;&#x3D; b</td>
+<td></td>
+</tr>
+<tr>
+<td>a..b</td>
+<td>a.rangeTo(b)</td>
+</tr>
+<tr>
+<td>a[b]</td>
+<td>a.get(b)</td>
+</tr>
+<tr>
+<td>a[b] &#x3D; c</td>
+<td>a.set(b,c)</td>
+</tr>
+<tr>
+<td>a in b（判断 a 是否在 b 中）</td>
+<td>b.contains(a)（判断 b 是否包含 a）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a><p class="m_more_title_style">备注</p></h2><p><strong>参考资料</strong>：</p>
+<p><a target="_blank" rel="noopener external nofollow noreferrer" href="https://guolin.blog.csdn.net/article/details/105233078">第一行代码(第3版)</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/JetBrains/kotlin">官方文档</a><br><a target="_blank" rel="noopener external nofollow noreferrer" href="https://www.kotlincn.net/docs/reference/">官方中文翻译站</a></p>
+<p><strong>传送门</strong>：<a target="_blank" rel="noopener external nofollow noreferrer" href="https://github.com/feiyeyuanye/Preliminary-use-of-Kotlin">GitHub</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+<div class="post-block">
+	
+    <div style="text-align:center;color:#696969;font-size:14px;">------------- 本 文 结 束 ❤️ 感 谢 阅 读 -------------</div>
+    
+</div>
+
+
+
+          <div class="reward-container">
+  <div></div>
+  <button>
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpeg" alt="非也缘也 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpeg" alt="非也缘也 支付宝">
+        <span>支付宝</span>
+      </div>
+
+  </div>
+</div>
+
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>非也缘也
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://jianghouren.cn/archives/bbf985d0.html" title="Kotlin 扩展课堂">https://jianghouren.cn/archives/bbf985d0.html</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener external nofollow noreferrer" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/Kotlin/" rel="tag"># Kotlin</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/archives/75852874.html" rel="prev" title="Android 存储优化">
+                  <i class="fa fa-chevron-left"></i> Android 存储优化
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/archives/9376910a.html" rel="next" title="Android 线上问题记录">
+                  Android 线上问题记录 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="waline-comments"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">非也缘也</span>
+</div><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div>
+<span class="post-meta-item">
+
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-user"></i>
+  	</span>
+   <span>总访客&nbsp<span id="busuanzi_value_site_uv"></span>&nbsp人</span>
+</span>
+
+<span class="post-meta-item">
+  	<span class="post-meta-item-icon">
+	      <i class="fa fa-eye"></i>
+  	</span>
+   <span>总访问&nbsp<span id="busuanzi_value_site_pv"></span>&nbsp次</span>
+</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js" integrity="sha256-mOFREFhqmHeQbXpK2lp4nA3qooVgACfh88fpJftLBbc=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js" integrity="sha256-j+yj56cdEY2CwkVtGyz18fNybFGpMGJ8JxG3GSyO2+I=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+  
+
+
+
+
+<script class="next-config" data-name="waline" type="application/json">{"lang":"zh-cn","enable":true,"serverURL":"https://waline-git-main-feiyeyuanyes-projects.vercel.app/","placeholder":"请文明评论呀（填写邮箱可在被回复时收到邮件提醒）","avatar":"mm","pageSize":10,"visitor":true,"comment_count":true,"requiredFields":[],"meta":["nick","mail","link"],"libUrl":"https://cdn.jsdelivr.net/npm/@waline/client/dist/Waline.min.js","el":"#waline-comments","path":"/archives/bbf985d0.html"}</script>
+<script>
+document.addEventListener('page:loaded', () => {
+  NexT.utils.loadComments(CONFIG.waline.el).then(() => 
+    NexT.utils.getScript(CONFIG.waline.libUrl, { condition: window.Waline })
+  ).then(() => {
+    new Waline(CONFIG.waline);
+  });
+});
+</script>
+
+  <script async src="https://imgsw.cn/js/cursorfireworks.js"></script>
+
+
+
+
+
+<div class="read_cut diyclass" id="read_cut"></div>
+<div class="skin_peeler diyclass" id="skin_peeler"></div>
+<div class="read_aloud diyclass" id="read_aloud"></div>
+<div class="audioImg diyclass" id="audioImg"></div>
+<audio id="audioMp3" controls="true" loop="loop"></audio>
+<script src="/js/my-diy.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"jsonPath":"/live2dw/assets/haruto.model.json"},"display":{"position":"right","width":150,"height":300,"hOffset":66,"vOffset":-60},"mobile":{"show":false,"scale":0.5},"react":{"opacity":0.5},"log":false});</script></body>
+</html>
